@@ -12,7 +12,7 @@
     <meta name="keywords"
         content="admin template, Tinker Admin Template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="LEFT4CODE">
-    <title>Login - Teacher-AI</title>
+    <title>Login - Maestro AI</title>
     <!-- BEGIN: CSS Assets-->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}" />
@@ -28,7 +28,7 @@
             <div class="hidden xl:flex flex-col min-h-screen">
                 <a href="" class="-intro-x flex items-center pt-5">
                     <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="dist/images/logo.svg">
-                    <span class="text-white text-lg ml-3"> Teacher AI </span>
+                    <span class="text-white text-lg ml-3"> Maestro AI </span>
                 </a>
                 <div class="my-auto">
                     <img alt="Tinker Tailwind HTML Admin Template" class="-intro-x w-1/2 -mt-16"
