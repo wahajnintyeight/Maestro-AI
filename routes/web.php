@@ -15,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('partials.login');
-});
+
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin'], 'as' => 'admin.'], function () {
     Route::get('/dashboard', [PageController::class, 'adminDashboard'])->name('dashboard');
@@ -29,6 +27,10 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
     //     return "hi";
     // })->name('dashboard');
     Route::get('/', [PageController::class, 'teacherDashboard'])->name('dashboard');
+});
+
+Route::get('/', function () {
+    return view('welcome');
 });
 
 Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('google.login');
