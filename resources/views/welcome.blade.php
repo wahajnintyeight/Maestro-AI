@@ -110,7 +110,7 @@
                                 <div class="header__action d-none d-xl-block">
                                     <ul>
                                         <li>
-                                            <a href="sign-in.html">
+                                            <a href="{{route('login')}}">
                                                 <svg width="15" height="20" viewBox="0 0 15 20" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path

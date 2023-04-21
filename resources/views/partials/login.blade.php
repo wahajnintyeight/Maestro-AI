@@ -50,13 +50,13 @@
                         Sign In
                     </h2>
                     <div class="intro-x mt-2 text-slate-400 xl:hidden text-center">A few more clicks to sign in to your
-                        account. Manage all your e-commerce accounts in one place</div>
+                        account. </div>
                     <form action="{{ route('login') }}" method="post">
                         @csrf
                         @method('POST')
                         <div class="intro-x mt-8">
-                            <input type="text" name="email"
-                                class="intro-x login__input form-control py-3 px-4 block" placeholder="Email">
+                            <input type="text" name="email" class="intro-x login__input form-control py-3 px-4 block"
+                                placeholder="Email">
                             <input type="password" name="password"
                                 class="intro-x login__input form-control py-3 px-4 block mt-4" placeholder="Password">
                         </div>
@@ -68,15 +68,17 @@
                             <a href="">Forgot Password?</a>
                         </div>
                         <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
-                            <input type="submit" class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top"
+                            <input type="submit"
+                                class="btn btn-primary text-black py-3 px-4 w-full xl:w-32 xl:mr-3 align-top"
                                 value="Login">
                             <a href="{{ route('register') }}"
                                 class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Register</a>
                         </div>
                     </form>
                     <br>
+                    <hr>
                     <a href="{{ route('google.login') }}"
-                        class="flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-8 py-3 text-center text-sm font-semibold text-gray-800 outline-none ring-gray-300 transition duration-100 hover:bg-gray-100 focus-visible:ring active:bg-gray-200 md:text-base">
+                        class="flex items-center justify-center mt-10 gap-2 rounded-lg border border-gray-300 bg-white px-8 py-3 text-center text-sm font-semibold text-gray-800 outline-none ring-gray-300 transition duration-100 hover:bg-gray-100 focus-visible:ring active:bg-gray-200 md:text-base">
                         <svg class="h-5 w-5 shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -95,10 +97,7 @@
 
                         Continue with Google
                     </a>
-                    <div class="intro-x mt-10 xl:mt-24 text-slate-600 dark:text-slate-500 text-center xl:text-left"> By
-                        signin up, you agree to our <a class="text-primary dark:text-slate-200" href="">Terms and
-                            Conditions</a> & <a class="text-primary dark:text-slate-200" href="">Privacy
-                            Policy</a> </div>
+
                 </div>
             </div>
             <!-- END: Login Form -->
