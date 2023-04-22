@@ -1,83 +1,87 @@
 @extends('dashboard.teacher.layout')
 @section('content')
-    <div class="content">
-        <!-- BEGIN: Top Bar -->
-        <div class="top-bar -mx-4 px-4 md:mx-0 md:px-0">
-            <!-- BEGIN: Breadcrumb -->
-            <nav aria-label="breadcrumb" class="-intro-x mr-auto hidden sm:flex">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Application</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-                </ol>
-            </nav>
-            <!-- END: Breadcrumb -->
+<!-- BEGIN: Top Bar -->
 
-            <!-- BEGIN: Account Menu -->
-            <div class="intro-x dropdown w-8 h-8">
-                <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in" role="button"
-                    aria-expanded="false" data-tw-toggle="dropdown">
-                    <img alt="Tinker Tailwind HTML Admin Template" src="dist/images/profile-14.jpg">
-                </div>
-                <div class="dropdown-menu w-56">
-                    <ul class="dropdown-content bg-primary text-white">
-                        <li class="p-2">
-                            <div class="font-medium">Keanu Reeves</div>
-                            <div class="text-xs text-white/70 mt-0.5 dark:text-slate-500">Software Engineer</div>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider border-white/[0.08]">
-                        </li>
-                        <li>
-                            <a href="" class="dropdown-item hover:bg-white/5"> <i data-feather="user"
-                                    class="w-4 h-4 mr-2"></i> Profile </a>
-                        </li>
-                        <li>
-                            <a href="" class="dropdown-item hover:bg-white/5"> <i data-feather="edit"
-                                    class="w-4 h-4 mr-2"></i> Add Account </a>
-                        </li>
-                        <li>
-                            <a href="" class="dropdown-item hover:bg-white/5"> <i data-feather="lock"
-                                    class="w-4 h-4 mr-2"></i> Reset Password </a>
-                        </li>
-                        <li>
-                            <a href="" class="dropdown-item hover:bg-white/5"> <i data-feather="help-circle"
-                                    class="w-4 h-4 mr-2"></i> Help </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider border-white/[0.08]">
-                        </li>
-                        <li>
-                            <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <input type="submit" class="dropdown-item hover:bg-white/5" value="Logout"> <i
-                                    data-feather="toggle-right" class="w-4 h-4 mr-2"></i>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- END: Account Menu -->
-        </div>
-        <!-- END: Top Bar -->
+<!-- END: Top Bar -->
+<div class="grid grid-cols-12 gap-6">
+    <div class="col-span-12 2xl:col-span-12">
         <div class="grid grid-cols-12 gap-6">
-            <div class="col-span-12 2xl:col-span-12">
-                <div class="grid grid-cols-12 gap-6">
-                    <!-- BEGIN: Notification -->
-                    <div class="col-span-12 mt-6 -mb-6 intro-y">
-                        <div class="alert alert-dismissible show box bg-primary text-white flex items-center mb-6"
-                            role="alert">
-                            <span>Introducing new dashboard! Download now at <a
-                                    href="https://themeforest.net/item/midone-jquery-tailwindcss-html-admin-template/26366820"
-                                    class="underline ml-1" target="blank">themeforest.net</a>.</span>
-                            <button type="button" class="btn-close text-white" data-bs-dismiss="alert" aria-label="Close">
-                                <i data-feather="x" class="w-4 h-4"></i> </button>
+
+            <div class="col-span-12 mt-8">
+                <div class="intro-y flex items-center h-10">
+                    <h2 class="text-lg font-medium truncate mr-5">
+                        General Report
+                    </h2>
+
+                </div>
+                <div class="grid grid-cols-12 gap-6 mt-5">
+                    <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                        <div class="report-box zoom-in">
+                            <div class="box p-5">
+                                <div class="flex">
+                                    <i data-feather="shopping-cart" class="report-box__icon text-primary"></i>
+                                    <div class="ml-auto">
+                                        <div class="report-box__indicator bg-success tooltip cursor-pointer"
+                                            title="33% Higher than last month"> 33% <i data-feather="chevron-up"
+                                                class="w-4 h-4 ml-0.5"></i> </div>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-medium leading-8 mt-6">4.710</div>
+                                <div class="text-base text-slate-500 mt-1">Item Sales</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-span-12">
-                        <h2>Hello, {{ Auth()->user()->name }}</h2>
+                    <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                        <div class="report-box zoom-in">
+                            <div class="box p-5">
+                                <div class="flex">
+                                    <i data-feather="credit-card" class="report-box__icon text-pending"></i>
+                                    <div class="ml-auto">
+                                        <div class="report-box__indicator bg-danger tooltip cursor-pointer"
+                                            title="2% Lower than last month"> 2% <i data-feather="chevron-down"
+                                                class="w-4 h-4 ml-0.5"></i> </div>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-medium leading-8 mt-6">3.721</div>
+                                <div class="text-base text-slate-500 mt-1">New Orders</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                        <div class="report-box zoom-in">
+                            <div class="box p-5">
+                                <div class="flex">
+                                    <i data-feather="monitor" class="report-box__icon text-warning"></i>
+                                    <div class="ml-auto">
+                                        <div class="report-box__indicator bg-success tooltip cursor-pointer"
+                                            title="12% Higher than last month"> 12% <i data-feather="chevron-up"
+                                                class="w-4 h-4 ml-0.5"></i> </div>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-medium leading-8 mt-6">2.149</div>
+                                <div class="text-base text-slate-500 mt-1">Total Products</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                        <div class="report-box zoom-in">
+                            <div class="box p-5">
+                                <div class="flex">
+                                    <i data-feather="user" class="report-box__icon text-success"></i>
+                                    <div class="ml-auto">
+                                        <div class="report-box__indicator bg-success tooltip cursor-pointer"
+                                            title="22% Higher than last month"> 22% <i data-feather="chevron-up"
+                                                class="w-4 h-4 ml-0.5"></i> </div>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-medium leading-8 mt-6">152.040</div>
+                                <div class="text-base text-slate-500 mt-1">Unique Visitor</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection

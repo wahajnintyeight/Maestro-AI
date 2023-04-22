@@ -69,9 +69,9 @@
                             <input type="submit"
                                 class="btn btn-primary text-black py-3 px-4 w-full xl:w-32 xl:mr-3 align-top"
                                 value="Register">
-                            <button
+                            <a href="{{route('login')}}"
                                 class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Sign
-                                in</button>
+                                in</a>
                         </div>
                     </form>
                 </div>

@@ -26,9 +26,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 });
 
 Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => ['auth', 'teacher'], 'as' => 'teacher.'], function () {
-    // Route::get('/dashboard', function () {
-    //     return "hi";
-    // })->name('dashboard');
+
     Route::get('/', [PageController::class, 'teacherDashboard'])->name('dashboard');
 });
 
