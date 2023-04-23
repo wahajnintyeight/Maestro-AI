@@ -37,16 +37,18 @@ class ToolController extends Controller
         $lesson = [];
 
         try {
-            $prompt = "Create a lesson plan for grade $grade with the title \"$title\" and description \"$description\". Please provide content for the following headings in this format: Heading[number]:Heading|Content. Each heading should be on a new line.\n\nHeading[0]:Goals and Objectives\nHeading[1]:Materials and Resources\nHeading[2]:Warm-up Activity\nHeading[3]:Vocabulary and Grammar\nHeading[4]:Activities and Exercises\nHeading[5]:Assessment\nHeading[6]:Extension Activities\nHeading[7]:Closure Activity";
+            $prompt = "In Spanish. Create a lesson plan for grade $grade with the title \"$title\" and description \"$description\". Please provide content for the following headings in this format: Heading[number]:Heading|Content. Each heading should be on a new line.\n\nHeading[0]:Goals and Objectives\nHeading[1]:Materials and Resources\nHeading[2]:Warm-up Activity\nHeading[3]:Vocabulary and Grammar\nHeading[4]:Activities and Exercises\nHeading[5]:Assessment\nHeading[6]:Extension Activities\nHeading[7]:Closure Activity";
 
             $complete = $open_ai->completion([
                 'model' => 'text-davinci-003',
                 'prompt' => $prompt,
                 'temperature' => 0.9,
-                'max_tokens' => 100,
+                'max_tokens' => 1500,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
             ]);
+
+            // dd($complete);
 
             $completeDecoded = json_decode($complete);
 

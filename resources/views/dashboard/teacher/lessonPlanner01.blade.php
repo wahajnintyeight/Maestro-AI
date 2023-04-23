@@ -61,7 +61,7 @@
                 </div>
                 <div class="p-5 border-t border-slate-200/60 dark:border-darkmode-400">
                     <div>
-                        <label for="grade-level" class="form-label">Grade Level</label>
+                        <label for="grade-level" class="form-label">Nivel de grado</label>
                         <select id="grade-level" name="grade" class="form-select">
                             <option value="Kindergarten" <?php if($grade=="Kindergarten" ) { echo "selected" ; } ?>
                                 >Kindergarten</option>
@@ -92,18 +92,19 @@
                         </select>
                     </div>
                     <div class="mt-5">
-                        <label for="lesson-title" class="form-label">Lesson Title</label>
+                        <label for="lesson-title" class="form-label">Título de la lección</label>
                         <!-- Input for Lesson Title -->
                         <input id="lesson-title" name="title" type="text" class="form-control"
-                            placeholder="Add a Lesson Title or Topic" value="<?php echo htmlspecialchars($title); ?>">
+                            placeholder="Agregar un título o tema de la lección"
+                            value="<?php echo htmlspecialchars($title); ?>">
 
 
                     </div>
                     <div class="mt-5">
-                        <label for="lesson-description" class="form-label">Lesson Description</label>
+                        <label for="lesson-description" class="form-label">Descripción de la lección</label>
                         <!-- Textarea for Lesson Description -->
                         <textarea id="lesson-description"
-                            placeholder="Try something like this: Write a lesson plan about how music is used in native american tribes"
+                            placeholder="Intente algo como esto: escriba un plan de lección sobre cómo se usa la música en las tribus nativas americanas"
                             name="description"
                             class="form-control h-40"><?php echo htmlspecialchars($description); ?></textarea>
                     </div>
@@ -111,7 +112,7 @@
                 <div class="p-5 border-t justify-center mx-auto border-slate-200/60 dark:border-darkmode-400 flex">
 
                     <button type="submit" id="generate-btn" class="btn btn-primary px-2 py-2">
-                        ✨Generate Lesson Plan
+                        ✨Generar plan de lección
                         <span id="spinner" class="hidden">
                             <svg width="25" viewBox="-2 -2 42 42" xmlns="http://www.w3.org/2000/svg" stroke="white"
                                 class="w-4 h-4 ml-2">
@@ -137,21 +138,23 @@
         <div class="intro-y box lg:mt-5">
             <div class="flex items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                 <h2 class="font-medium text-base mr-auto">
-                    Generated Results
+                    Resultados generados
                 </h2>
             </div>
             <div class="p-5">
-                <h1 class="text-xl font-medium leading-none py-2">Directions</h1>
+                <h1 class="text-xl font-medium leading-none py-2">Direcciones</h1>
                 <ul class="list-disc list-inside border-b pb-5 border-slate-200/60 dark:border-darkmode-400"
                     style="list-style-type: disc;">
-                    <li class="ml-4">Happy with the results? Click "Download .DOCX" to download the Word document.
+                    <li class="ml-4">¿Feliz con los resultados? Haga clic en "Descargar .DOCX" para descargar el
+                        documento de Word.
                     </li>
-                    <li class="ml-4">Not satisfied? Tweak the Lesson Description to further tweak the results.</li>
+                    <li class="ml-4">¿No satisfecho? Modifique la descripción de la lección para modificar aún más los
+                        resultados.</li>
                 </ul>
                 <div class="my-10">
                     <?php 
                     if (empty($lesson)) {
-                        echo "Results will be displayed here. Click '✨Generate Lesson Plan' to begin the process!";
+                        echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generar plan de lección' para comenzar el proceso!";
                     } else {
                         foreach ($lesson as $item) {
                             echo '<h4 class="text-xl font-medium leading-none mt-3">' . $item->Heading . '</h4><br>';
@@ -166,8 +169,7 @@
                 <div class="my-2 flex">
                     <a target="_blank"
                         href="{{ route('teacher.download.docx', ['lesson' => urlencode(json_encode($lesson))]) }}"
-                        class="btn btn-primary">Download
-                        .DOCX</a>
+                        class="btn btn-primary">Descargar.DOCX</a>
                 </div>
                 <?php
                 }

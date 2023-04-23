@@ -18,7 +18,7 @@
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
                         <a href="{{route('teacher.showLessonPlanner')}}">
                             <div class="report-box zoom-in">
-                                <div class="box p-5">
+                                <div class="box p-5 py-10">
                                     <div class="flex">
                                         <i data-feather="cloud-lightning" class="report-box__icon text-primary"></i>
                                         <div class="ml-auto">
@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
                         <div class="report-box zoom-in">
-                            <div class="box p-5">
+                            <div class="box p-5 py-10">
                                 <div class="flex">
                                     <i data-feather="book-open" class="report-box__icon text-primary"></i>
                                     <div class="ml-auto">
@@ -49,7 +49,7 @@
                     </div>
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
                         <div class="report-box zoom-in">
-                            <div class="box p-5">
+                            <div class="box p-5 py-10">
                                 <div class="flex">
                                     <i data-feather="menu" class="report-box__icon text-primary"></i>
                                     <div class="ml-auto">
@@ -64,7 +64,7 @@
                     </div>
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
                         <div class="report-box zoom-in">
-                            <div class="box p-5">
+                            <div class="box p-5 py-10">
                                 <div class="flex">
                                     <i data-feather="book" class="report-box__icon text-primary"></i>
                                     <div class="ml-auto">
@@ -79,7 +79,7 @@
                     </div>
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
                         <div class="report-box zoom-in">
-                            <div class="box p-5">
+                            <div class="box p-5 py-10">
                                 <div class="flex">
                                     <i data-feather="wind" class="report-box__icon text-primary"></i>
                                     <div class="ml-auto">
@@ -94,7 +94,7 @@
                     </div>
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
                         <div class="report-box zoom-in">
-                            <div class="box p-5">
+                            <div class="box p-5 py-10">
                                 <div class="flex">
                                     <i data-feather="zap" class="report-box__icon text-primary"></i>
                                     <div class="ml-auto">
