@@ -9,7 +9,7 @@
     <!-- BEGIN: Profile Menu -->
     <div class="col-span-12 lg:col-span-4 2xl:col-span-4 flex lg:block flex-col-reverse">
         <div class="intro-y box mt-5">
-            <form method="POST" action="">
+            <form method="POST" action="{{route('teacher.generateLessonPlanner')}}">
                 @csrf
                 <div class="relative flex items-center p-5">
                     <div class="w-12 h-12 image-fit">
