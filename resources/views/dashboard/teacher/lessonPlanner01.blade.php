@@ -63,37 +63,70 @@
                     <div>
                         <label for="grade-level" class="form-label">Grade Level</label>
                         <select id="grade-level" name="grade" class="form-select">
-                            <option value="Kindergarten">Kindergarten</option>
-                            <option value="1st Grade">1st Grade</option>
-                            <option value="2nd Grade">2nd Grade</option>
-                            <option value="3rd Grade">3rd Grade</option>
-                            <option value="4th Grade">4th Grade</option>
-                            <option value="5th Grade">5th Grade</option>
-                            <option value="6th Grade">6th Grade</option>
-                            <option value="7th Grade">7th Grade</option>
-                            <option value="8th Grade">8th Grade</option>
-                            <option value="9th Grade">9th Grade</option>
-                            <option value="10th Grade">10th Grade</option>
-                            <option value="11th Grade">11th Grade</option>
-                            <option value="12th Grade">12th Grade</option>
+                            <option value="Kindergarten" <?php if($grade=="Kindergarten" ) { echo "selected" ; } ?>
+                                >Kindergarten</option>
+                            <option value="1st Grade" <?php if($grade=="1st Grade" ) { echo "selected" ; } ?> >1st Grade
+                            </option>
+                            <option value="2nd Grade" <?php if($grade=="2nd Grade" ) { echo "selected" ; } ?> >2nd Grade
+                            </option>
+                            <option value="3rd Grade" <?php if($grade=="3rd Grade" ) { echo "selected" ; } ?> >3rd Grade
+                            </option>
+                            <option value="4th Grade" <?php if($grade=="4th Grade" ) { echo "selected" ; } ?> >4th Grade
+                            </option>
+                            <option value="5th Grade" <?php if($grade=="5th Grade" ) { echo "selected" ; } ?> >5th Grade
+                            </option>
+                            <option value="6th Grade" <?php if($grade=="6th Grade" ) { echo "selected" ; } ?> >6th Grade
+                            </option>
+                            <option value="7th Grade" <?php if($grade=="7th Grade" ) { echo "selected" ; } ?> >7th Grade
+                            </option>
+                            <option value="8th Grade" <?php if($grade=="8th Grade" ) { echo "selected" ; } ?> >8th Grade
+                            </option>
+                            <option value="9th Grade" <?php if($grade=="9th Grade" ) { echo "selected" ; } ?> >9th Grade
+                            </option>
+                            <option value="10th Grade" <?php if($grade=="10th Grade" ) { echo "selected" ; } ?> >10th
+                                Grade</option>
+                            <option value="11th Grade" <?php if($grade=="11th Grade" ) { echo "selected" ; } ?> >11th
+                                Grade</option>
+                            <option value="12th Grade" <?php if($grade=="12th Grade" ) { echo "selected" ; } ?> >12th
+                                Grade</option>
                         </select>
                     </div>
                     <div class="mt-5">
                         <label for="lesson-title" class="form-label">Lesson Title</label>
+                        <!-- Input for Lesson Title -->
                         <input id="lesson-title" name="title" type="text" class="form-control"
-                            placeholder="Add a Lesson Title or Topic">
+                            placeholder="Add a Lesson Title or Topic" value="<?php echo htmlspecialchars($title); ?>">
+
+
                     </div>
                     <div class="mt-5">
                         <label for="lesson-description" class="form-label">Lesson Description</label>
+                        <!-- Textarea for Lesson Description -->
                         <textarea id="lesson-description"
                             placeholder="Try something like this: Write a lesson plan about how music is used in native american tribes"
-                            name="description" class="form-control h-40"></textarea>
+                            name="description"
+                            class="form-control h-40"><?php echo htmlspecialchars($description); ?></textarea>
                     </div>
                 </div>
                 <div class="p-5 border-t justify-center mx-auto border-slate-200/60 dark:border-darkmode-400 flex">
 
-                    <button type="button" class="btn btn-primary px-2 py-2">✨Generate Lesson
-                        Plan</button>
+                    <button type="submit" id="generate-btn" class="btn btn-primary px-2 py-2">
+                        ✨Generate Lesson Plan
+                        <span id="spinner" class="hidden">
+                            <svg width="25" viewBox="-2 -2 42 42" xmlns="http://www.w3.org/2000/svg" stroke="white"
+                                class="w-4 h-4 ml-2">
+                                <g fill="none" fill-rule="evenodd">
+                                    <g transform="translate(1 1)" stroke-width="4">
+                                        <circle stroke-opacity=".5" cx="18" cy="18" r="18"></circle>
+                                        <path d="M36 18c0-9.94-8.06-18-18-18">
+                                            <animateTransform attributeName="transform" type="rotate" from="0 18 18"
+                                                to="360 18 18" dur="1s" repeatCount="indefinite"></animateTransform>
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -111,17 +144,44 @@
                 <h1 class="text-xl font-medium leading-none py-2">Directions</h1>
                 <ul class="list-disc list-inside border-b pb-5 border-slate-200/60 dark:border-darkmode-400"
                     style="list-style-type: disc;">
-                    <li class="ml-4">Enter your display name</li>
-                    <li class="ml-4">Select your nearest MRT station</li>
-                    <li class="ml-4">Click the "Save" button to save your changes</li>
+                    <li class="ml-4">Happy with the results? Click "Download .DOCX" to download the Word document.
+                    </li>
+                    <li class="ml-4">Not satisfied? Tweak the Lesson Description to further tweak the results.</li>
                 </ul>
-                <div>
-                    Results Here
+                <div class="my-10">
+                    <?php 
+                    if (empty($lesson)) {
+                        echo "Results will be displayed here. Click '✨Generate Lesson Plan' to begin the process!";
+                    } else {
+                        foreach ($lesson as $item) {
+                            echo '<h4 class="text-xl font-medium leading-none mt-3">' . $item->Heading . '</h4><br><br>';
+                            echo '<div class="font-normal">' . $item->Content . '</div>';
+                        }
+                    }  
+                ?>
                 </div>
+                <?php 
+                if (!empty($lesson)) {
+                    ?>
+                <div class="my-2 flex">
+                    <a target="_blank"
+                        href="{{ route('teacher.download.docx', ['lesson' => urlencode(json_encode($lesson))]) }}"
+                        class="btn btn-primary">Download
+                        .DOCX</a>
+                </div>
+                <?php
+                }
+                ?>
             </div>
         </div>
 
 
     </div>
 </div>
+
+<script>
+    document.getElementById('generate-btn').addEventListener('click', function() {
+        document.getElementById('spinner').classList.remove('hidden');
+    });
+</script>
 @endsection

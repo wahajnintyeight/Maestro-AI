@@ -33,6 +33,7 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
 
     Route::get('/lesson-planner', [ToolController::class, 'showLessonPlanner'])->name('showLessonPlanner');
     Route::post('/lesson-planner', [ToolController::class, 'generateLessonPlanner'])->name('generateLessonPlanner');
+    Route::get('/download-docx', [ToolController::class, 'downloadDocx'])->name('download.docx');
 });
 
 
