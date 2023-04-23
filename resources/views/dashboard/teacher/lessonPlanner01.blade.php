@@ -154,7 +154,7 @@
                         echo "Results will be displayed here. Click '✨Generate Lesson Plan' to begin the process!";
                     } else {
                         foreach ($lesson as $item) {
-                            echo '<h4 class="text-xl font-medium leading-none mt-3">' . $item->Heading . '</h4><br><br>';
+                            echo '<h4 class="text-xl font-medium leading-none mt-3">' . $item->Heading . '</h4><br>';
                             echo '<div class="font-normal">' . $item->Content . '</div>';
                         }
                     }  

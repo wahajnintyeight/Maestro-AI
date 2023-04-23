@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\History;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -79,6 +80,19 @@ class ToolController extends Controller
         $request->session()->put('grade', $grade);
         $request->session()->put('title', $title);
         $request->session()->put('description', $description);
+
+        // Store the generated content in the histories table
+        $user_id = auth()->id(); // Get the authenticated user's ID
+        $tool_name = 'Lesson Planner';
+        $content = json_encode($lesson); // Convert the lesson array to a JSON string
+
+        $history = new History([
+            'user_id' => $user_id,
+            'tool_name' => $tool_name,
+            'content' => $content,
+        ]);
+
+        $history->save();
 
         return redirect()->action([ToolController::class, 'showLessonPlanner']);
     }

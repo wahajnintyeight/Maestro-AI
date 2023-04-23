@@ -29,4 +29,10 @@ class PageController extends Controller
         $user = Auth::user();
         return view('dashboard.teacher.accountInfo', compact('user'));
     }
+
+    public function showHistory()
+    {
+        $user = Auth::user();
+        return view('dashboard.teacher.viewHistory', compact('user'));
+    }
 }

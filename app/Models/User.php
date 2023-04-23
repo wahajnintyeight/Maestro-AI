@@ -24,6 +24,13 @@ class User extends Authenticatable
         'is_paid'
     ];
 
+    // Add this method to the User class
+    public function histories()
+    {
+        return $this->hasMany(History::class);
+    }
+
+
     /**
      * The attributes that should be hidden for arrays.
      *
