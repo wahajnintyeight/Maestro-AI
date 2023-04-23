@@ -40,7 +40,6 @@
                             </div>
 
                         </div>
-                        <button type="button" class="btn btn-primary w-20 mt-5">Save</button>
                     </div>
 
                 </div>
@@ -55,61 +54,42 @@
                 </h2>
             </div>
             <div class="p-5">
-                <div class="grid grid-cols-12 gap-x-5">
-                    <div class="col-span-12 xl:col-span-6">
-                        <div>
-                            <label for="update-profile-form-6" class="form-label">Email</label>
-                            <input id="update-profile-form-6" type="text" class="form-control" placeholder="Input text"
-                                value="bradpitt@left4code.com" disabled>
+                <div class="intro-y box flex flex-col lg:flex-row mt-5">
+                    <div class="intro-y flex-1 px-5 py-16">
+                        <i data-feather="credit-card" class="block w-12 h-12 text-primary mx-auto"></i>
+                        <div class="text-xl font-medium text-center mt-10">Free Plan</div>
+                        <div class="text-slate-600 dark:text-slate-500 text-center mt-5"> Few Tools <span
+                                class="mx-1">•</span> Limited Access
+
                         </div>
-                        <div class="mt-3">
-                            <label for="update-profile-form-7" class="form-label">Name</label>
-                            <input id="update-profile-form-7" type="text" class="form-control" placeholder="Input text"
-                                value="Brad Pitt" disabled>
+
+                        <div class="flex justify-center">
+                            <div class="relative text-5xl font-semibold mt-8 mx-auto"> <span
+                                    class="absolute text-2xl top-0 left-0 -ml-4">$</span> 0 </div>
                         </div>
-                        <div class="mt-3">
-                            <label for="update-profile-form-8" class="form-label">ID Type</label>
-                            <select id="update-profile-form-8" class="form-select">
-                                <option>IC</option>
-                                <option>FIN</option>
-                                <option>Passport</option>
-                            </select>
-                        </div>
-                        <div class="mt-3">
-                            <label for="update-profile-form-9" class="form-label">ID Number</label>
-                            <input id="update-profile-form-9" type="text" class="form-control" placeholder="Input text"
-                                value="357821204950001">
-                        </div>
+                        @if ($user->is_paid == 0)
+                        <button type="button" class="btn btn-rounded-primary py-3 px-4 block mx-auto mt-8" disabled>
+                            CURRENT
+                        </button>
+                        @endif
                     </div>
-                    <div class="col-span-12 xl:col-span-6">
-                        <div class="mt-3 xl:mt-0">
-                            <label for="update-profile-form-10" class="form-label">Phone Number</label>
-                            <input id="update-profile-form-10" type="text" class="form-control" placeholder="Input text"
-                                value="65570828">
+
+                    <div class="intro-y flex-1 px-5 py-16">
+                        <i data-feather="shopping-bag" class="block w-12 h-12 text-primary mx-auto"></i>
+                        <div class="text-xl font-medium text-center mt-10">Premium Tier</div>
+                        <div class="text-slate-600 dark:text-slate-500 text-center mt-5"> Multiple Tools <span
+                                class="mx-1">•</span> Complete Access
+                            <span class="mx-1">•</span> Customer Support
                         </div>
-                        <div class="mt-3">
-                            <label for="update-profile-form-11" class="form-label">Address</label>
-                            <input id="update-profile-form-11" type="text" class="form-control" placeholder="Input text"
-                                value="10 Anson Road, International Plaza, #10-11, 079903 Singapore, Singapore">
+
+                        <div class="flex justify-center">
+                            <div class="relative text-5xl font-semibold mt-8 mx-auto"> <span
+                                    class="absolute text-2xl top-0 left-0 -ml-4">$</span> 120 </div>
                         </div>
-                        <div class="mt-3">
-                            <label for="update-profile-form-12" class="form-label">Bank Name</label>
-                            <select id="update-profile-form-12" data-search="true" class="tom-select w-full">
-                                <option value="1">SBI - STATE BANK OF INDIA</option>
-                                <option value="1">CITI BANK - CITI BANK</option>
-                            </select>
-                        </div>
-                        <div class="mt-3">
-                            <label for="update-profile-form-13" class="form-label">Bank Account</label>
-                            <input id="update-profile-form-13" type="text" class="form-control" placeholder="Input text"
-                                value="DBS Current 011-903573-0">
-                        </div>
+                        <button type="button" class="btn btn-rounded-primary py-3 px-4 block mx-auto mt-8">
+                            PURCHASE
+                        </button>
                     </div>
-                </div>
-                <div class="flex justify-end mt-4">
-                    <button type="button" class="btn btn-primary w-20 mr-auto">Save</button>
-                    <a href="" class="text-danger flex items-center"> <i data-feather="trash-2"
-                            class="w-4 h-4 mr-1"></i> Delete Account </a>
                 </div>
             </div>
         </div>
