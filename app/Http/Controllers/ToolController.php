@@ -43,7 +43,7 @@ class ToolController extends Controller
                 'model' => 'text-davinci-003',
                 'prompt' => $prompt,
                 'temperature' => 0.9,
-                'max_tokens' => 1500,
+                'max_tokens' => 1000,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
             ]);
