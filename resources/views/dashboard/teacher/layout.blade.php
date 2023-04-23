@@ -54,15 +54,22 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN: Side Menu -->
         <nav class="side-nav">
             <a href="" class="intro-x flex items-center pl-5 pt-4 mt-3">
-                <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="dist/images/logo.svg">
+                <img class="w-6" src="dist/images/logo.svg">
                 <span class="hidden xl:block text-white text-lg ml-3"> Maestro AI </span>
             </a>
             <div class="side-nav__devider my-6"></div>
             <ul>
                 <li>
-                    <a href="side-menu-light-file-manager.html" class="side-menu">
+                    <a href="{{route('teacher.dashboard')}}" class="side-menu">
                         <div class="side-menu__icon"> <i data-feather="home"></i> </div>
                         <div class="side-menu__title"> Dashboard </div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('teacher.teacherAccountInfo')}}" class="side-menu">
+                        <div class="side-menu__icon"> <i data-feather="user"></i> </div>
+                        <div class="side-menu__title"> Account Information </div>
                     </a>
                 </li>
             </ul>
