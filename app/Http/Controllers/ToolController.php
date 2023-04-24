@@ -24,6 +24,21 @@ class ToolController extends Controller
         return view('dashboard.teacher.lessonPlanner01', compact('lesson', 'title', 'grade', 'description'));
     }
 
+    public function showSlidesGenerator(Request $request)
+    {
+        $slides = $request->session()->get('slides', []);
+        $curriculum = $request->session()->get('curriculum', '');
+        $grade = $request->session()->get('grade', '');
+        $description = $request->session()->get('description', '');
+        $num_of_slides = $request->session()->get('num_of_slides', '');
+
+        // Clear session data
+        $request->session()->forget(['slides', 'curriculum', 'grade', 'description', 'num_of_slides']);
+
+        return view('dashboard.teacher.slideGenerator01', compact('slides', 'curriculum', 'grade', 'description', 'num_of_slides'));
+    }
+
+
     public function generateLessonPlanner(Request $request)
     {
         $open_ai_key = getenv('OPENAI_API_KEY');
@@ -43,7 +58,7 @@ class ToolController extends Controller
                 'model' => 'text-davinci-003',
                 'prompt' => $prompt,
                 'temperature' => 0.9,
-                'max_tokens' => 1000,
+                'max_tokens' => 1500,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
             ]);
