@@ -2,14 +2,14 @@
 @section('content')
     <div class="intro-y flex items-center mt-8">
         <h2 class="text-lg font-medium mr-auto">
-            Lesson Planner Generator
+            Comprehension Questions Generator
         </h2>
     </div>
     <div class="grid grid-cols-12 gap-6">
         <!-- BEGIN: Profile Menu -->
         <div class="col-span-12 lg:col-span-4 2xl:col-span-4 flex lg:block flex-col-reverse">
             <div class="intro-y box mt-5">
-                <form method="POST" action="{{ route('teacher.generateLessonPlanner') }}">
+                <form method="POST" action="{{ route('teacher.comprehension.generate') }}">
                     @csrf
                     <div class="relative flex items-center p-5">
                         <div class="w-12 h-12 image-fit">
@@ -64,13 +64,13 @@
                             </svg>
                         </div>
                         <div class="ml-4 mr-auto">
-                            <div class="font-medium text-base">Lesson Planner</div>
+                            <div class="font-medium text-base">Comprehension Questions Generator</div>
                         </div>
                     </div>
                     <div class="p-5 border-t border-slate-200/60 dark:border-darkmode-400">
                         <div>
                             <label for="grade-level" class="form-label">Nivel de grado</label>
-                            <select id="grade-level" name="grade" class="form-select">
+                            <select id="grade-level" required name="grade" class="form-select">
                                 <option value="Kindergarten" <?php if ($grade == 'Kindergarten') {
                                     echo 'selected';
                                 } ?>>Kindergarten</option>
@@ -127,23 +127,25 @@
                         <div class="mt-5">
                             <label for="lesson-title" class="form-label">Título de la lección</label>
                             <!-- Input for Lesson Title -->
-                            <input id="lesson-title" name="title" type="text" class="form-control"
-                                placeholder="Agregar un título o tema de la lección" value="<?php echo htmlspecialchars($title); ?>">
-
-
+                            <label for="default-range"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Question Numbers
+                                (0-5):</label>
+                            <input id="default-range" name="questionNo" type="range" min="0" max="5"
+                                value="2"
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
                         </div>
                         <div class="mt-5">
-                            <label for="lesson-description" class="form-label">Descripción de la lección</label>
+                            <label for="lesson-description" class="form-label">Description of Comprehension</label>
                             <!-- Textarea for Lesson Description -->
                             <textarea id="lesson-description"
                                 placeholder="Intente algo como esto: escriba un plan de lección sobre cómo se usa la música en las tribus nativas americanas"
-                                name="description" class="form-control h-40"><?php echo htmlspecialchars($description); ?></textarea>
+                                name="description" required minlength="25" class="form-control h-40"><?php echo htmlspecialchars($description); ?></textarea>
                         </div>
                     </div>
                     <div class="p-5 border-t justify-center mx-auto border-slate-200/60 dark:border-darkmode-400 flex">
 
                         <button type="submit" id="generate-btn" class="btn btn-primary px-2 py-2">
-                            ✨Generar plan de lección
+                            ✨Generar Questions
                             <span id="spinner" class="hidden">
                                 <svg width="25" viewBox="-2 -2 42 42" xmlns="http://www.w3.org/2000/svg"
                                     stroke="white" class="w-4 h-4 ml-2">
@@ -165,6 +167,11 @@
                 </form>
             </div>
         </div>
+
+
+
+
+
         <!-- END: Profile Menu -->
         <div class="col-span-12 lg:col-span-8 2xl:col-span-8">
             <!-- BEGIN: Display Information -->
@@ -186,28 +193,22 @@
                             resultados.</li>
                     </ul>
                     <div class="my-10">
-                        <?php
-                        if (empty($lesson)) {
-                            echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generar plan de lección' para comenzar el proceso!";
-                        } else {
-                            foreach ($lesson as $item) {
-                                echo '<h4 class="text-xl font-medium leading-none mt-3">' . $item->Heading . '</h4><br>';
-                                echo '<div class="font-normal">' . $item->Content . '</div>';
+                        @php
+                        // dd($questions);
+                            if (empty($questions)) {
+                                echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generar plan de lección' para comenzar el proceso!";
+                            } else {
+                                foreach ($questions as $question) {
+                                    echo '<ol><h4 class="text-xl font-medium leading-none mt-3">' . $question->Title . '</h4></ol><br>';
+                                    echo '<div class="font-normal"><li>' . $question->Option1 . '</li></div>';
+                                    echo '<div class="font-normal"><li>' . $question->Option2 . '</li></div>';
+                                    echo '<div class="font-normal"><li>' . $question->Option3 . '</li></div><br>';
+                                    echo '<div class="font-normal text-success">Correct Answer: <b>' . $question->Correct. '</b></div>';
+                                }
                             }
-                        }
-                        ?>
+                        @endphp
                     </div>
-                    <?php 
-                if (!empty($lesson)) {
-                    ?>
-                    <div class="my-2 flex">
-                        <a target="_blank"
-                            href="{{ route('teacher.download.docx', ['lesson' => urlencode(json_encode($lesson))]) }}"
-                            class="btn btn-primary">Descargar.DOCX</a>
-                    </div>
-                    <?php
-                }
-                ?>
+
                 </div>
             </div>
 

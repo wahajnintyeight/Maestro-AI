@@ -37,6 +37,10 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
 
     Route::post('/lesson-planner', [ToolController::class, 'generateLessonPlanner'])->name('generateLessonPlanner');
     Route::get('/download-docx', [ToolController::class, 'downloadDocx'])->name('download.docx');
+
+    //Comprehension Generator
+    Route::get('/comprehension', [ToolController::class, 'viewForm'])->name('comprehension.form');
+    Route::post('/comprehension', [ToolController::class, 'generateComprehensionQuestions'])->name('comprehension.generate');
 });
 
 
