@@ -47,12 +47,13 @@ class ToolController extends Controller
         $grade = $request->input('grade');
         $title = $request->input('title');
         $description = $request->input('description');
+        $curriculum = $request->input('curriculum');
 
         // dd($grade, $title, $description);
         $lesson = [];
 
         try {
-            $prompt = "In Spanish. Create a lesson plan for grade $grade with the title \"$title\" and description \"$description\". Please provide content for the following headings in this format: Heading[number]:Heading|Content. Each heading should be on a new line.\n\nHeading[0]:Goals and Objectives\nHeading[1]:Materials and Resources\nHeading[2]:Warm-up Activity\nHeading[3]:Vocabulary and Grammar\nHeading[4]:Activities and Exercises\nHeading[5]:Assessment\nHeading[6]:Extension Activities\nHeading[7]:Closure Activity";
+            $prompt = "In Traditional Spanish from Spain. Create a lesson plan for grade $grade with the title \"$title\" and description \"$description\". Try to follow the \" $curriculum \" curriculum.  Please provide content for the following headings in this format: Heading[number]:Heading|Content. Each heading should be on a new line.\n\nHeading[0]:Goals and Objectives\nHeading[1]:Materials and Resources\nHeading[2]:Warm-up Activity\nHeading[3]:Vocabulary and Grammar\nHeading[4]:Activities and Exercises\nHeading[5]:Assessment\nHeading[6]:Extension Activities\nHeading[7]:Closure Activity";
 
             $complete = $open_ai->completion([
                 'model' => 'text-davinci-003',
@@ -96,6 +97,7 @@ class ToolController extends Controller
         $request->session()->put('lesson', $lesson);
         $request->session()->put('grade', $grade);
         $request->session()->put('title', $title);
+        $request->session()->put('title', $curriculum);
         $request->session()->put('description', $description);
 
         // Store the generated content in the histories table
@@ -207,31 +209,6 @@ class ToolController extends Controller
             error_log("Error: " . $e->getMessage());
         }
 
-        // $rawHeadings = array(
-        //     0 => "Question[0]:What did Rosie feel like when she was on Papa's shoulder?|{Princess,Giant,King,Princess}. ",
-        //     1 => "Question[1]:What did Papa tell Rosie the orange bumpy star was?|{Starfish,Lighthouse,Jellyfish,Starfish}."
-        // );
-
-
-        // $questions = array();
-
-        // foreach ($rawHeadings as $headingContent) {
-        //     if (strpos($headingContent, "|") !== false) {
-        //         list($headingNumberAndHeading, $content) = explode("|", $headingContent);
-        //         list(, $heading) = explode(":", $headingNumberAndHeading);
-
-        //         $options = array_map('trim', explode(',', str_replace(array('{', '}'), '', $content)));
-
-        //         $questions[] = (object) [
-        //             'Title' => trim(substr($heading, strpos($heading, ":") + 0)),
-        //             'Option1' => $options[0],
-        //             'Option2' => $options[1],
-        //             'Option3' => $options[2],
-        //             'Correct' => $options[3]
-        //         ];
-        //     }
-        // }
-
         if ($this->saveHistory("Comprehension Question Generator", $questions, auth()->id())) {
             // dd($questions);
             // Store the lesson data in the session and redirect to the showLessonPlanner method
@@ -241,7 +218,6 @@ class ToolController extends Controller
             $request->session()->put('description', $description);
             return redirect()->action([ToolController::class, 'viewForm']);
         }
-
     }
 
     public function downloadDocx(Request $request)
@@ -254,7 +230,16 @@ class ToolController extends Controller
 
         foreach ($lesson as $item) {
             $section->addTitle($item['Heading'], 1);
-            $section->addText($item['Content']);
+
+            if ($item['Heading'] === "Materials and Resources" || $item['Heading'] === "Vocabulary and Grammar") {
+                $sentences = preg_split('/(?<=[.?!])\s+(?=[a-z])/i', $item['Content']);
+                foreach ($sentences as $sentence) {
+                    $section->addListItem(trim($sentence));
+                }
+            } else {
+                $section->addText($item['Content']);
+            }
+
             $section->addTextBreak();
         }
 

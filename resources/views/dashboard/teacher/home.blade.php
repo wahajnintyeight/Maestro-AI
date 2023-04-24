@@ -95,25 +95,26 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
-                    <a href="{{route('teacher.showSlidesGenerator')}}">
-                        <div class="report-box zoom-in">
-                            <div class="box p-5 py-10">
-                                <div class="flex">
-                                    <i data-feather="zap" class="report-box__icon text-primary"></i>
-                                    <div class="ml-auto">
+                    <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+                        <a href="{{route('teacher.showSlidesGenerator')}}">
+                            <div class="report-box zoom-in">
+                                <div class="box p-5 py-10">
+                                    <div class="flex">
+                                        <i data-feather="zap" class="report-box__icon text-primary"></i>
+                                        <div class="ml-auto">
 
+                                        </div>
                                     </div>
+                                    <div class="text-3xl font-medium leading-8 mt-6">Slides Generator</div>
+                                    <div class="text-base text-slate-500 mt-1">Crea hojas de trabajo personalizadas con
+                                        la
+                                        ayuda de la IA.</div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6">Slides Generator</div>
-                                <div class="text-base text-slate-500 mt-1">Crea hojas de trabajo personalizadas con
-                                    la
-                                    ayuda de la IA.</div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
