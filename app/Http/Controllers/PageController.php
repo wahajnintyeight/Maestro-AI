@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Plan;
 
 class PageController extends Controller
 {
@@ -27,7 +28,8 @@ class PageController extends Controller
     public function teacherAccountInfo()
     {
         $user = Auth::user();
-        return view('dashboard.teacher.accountInfo', compact('user'));
+        $plans = Plan::all();
+        return view('dashboard.teacher.accountInfo', compact('user','plans'));
     }
 
     public function showHistory()
