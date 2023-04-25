@@ -37,6 +37,10 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
 
     Route::get('/view-history', [PageController::class, 'showHistory'])->name('showHistory');
 
+    Route::get('/teacher-tools', [PageController::class, 'showTeacherTools'])->name('showTeacherTools');
+    Route::get('/classroom-tools', [PageController::class, 'showClassroomTools'])->name('showClassroomTools');
+    Route::get('/free-tools', [PageController::class, 'showFreeTools'])->name('showFreeTools');
+
 
     Route::post('/lesson-planner', [ToolController::class, 'generateLessonPlanner'])->name('generateLessonPlanner');
     Route::get('/download-docx', [ToolController::class, 'downloadDocx'])->name('download.docx');
@@ -56,6 +60,5 @@ Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('google.
 Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
 
 require __DIR__ . '/auth.php';
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

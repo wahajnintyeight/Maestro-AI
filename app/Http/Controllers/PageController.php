@@ -22,19 +22,39 @@ class PageController extends Controller
     }
     public function teacherDashboard()
     {
-        return view('dashboard.teacher.home');
+        $user = Auth::user();
+
+        return view('dashboard.teacher.home', compact('user'));
     }
 
     public function teacherAccountInfo()
     {
         $user = Auth::user();
         $plans = Plan::all();
-        return view('dashboard.teacher.accountInfo', compact('user','plans'));
+        return view('dashboard.teacher.accountInfo', compact('user', 'plans'));
     }
 
     public function showHistory()
     {
         $user = Auth::user();
         return view('dashboard.teacher.viewHistory', compact('user'));
+    }
+
+    public function showTeacherTools()
+    {
+        $user = Auth::user();
+        return view('dashboard.teacher.teacher-tools', compact('user'));
+    }
+
+    public function showClassroomTools()
+    {
+        $user = Auth::user();
+        return view('dashboard.teacher.classroom-tools', compact('user'));
+    }
+
+    public function showFreeTools()
+    {
+        $user = Auth::user();
+        return view('dashboard.teacher.free-tools', compact('user'));
     }
 }
