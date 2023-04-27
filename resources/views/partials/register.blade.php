@@ -12,7 +12,7 @@
     <meta name="keywords"
         content="admin template, Tinker Admin Template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="LEFT4CODE">
-    <title>Register - Maestro AI</title>
+    <title>Register - Maestro IA</title>
     <!-- BEGIN: CSS Assets-->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}" />
@@ -46,7 +46,7 @@
                 <div
                     class="my-auto mx-auto xl:ml-20 bg-white dark:bg-darkmode-600 xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto">
                     <h2 class="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
-                        Sign Up
+                        Iniciar sesión
                     </h2>
                     <div class="intro-x mt-2 text-slate-400 dark:text-slate-400 xl:hidden text-center">A few more clicks
                         to sign in to your account.</div>
@@ -55,23 +55,24 @@
                         @method('POST')
                         <div class="intro-x mt-8">
                             <input type="text" name="name" class="intro-x login__input form-control py-3 px-4 block"
-                                placeholder="Full Name">
+                                placeholder="Nombre Completo">
 
                             <input type="text" name="email"
-                                class="intro-x login__input form-control py-3 px-4 block mt-4" placeholder="Email">
+                                class="intro-x login__input form-control py-3 px-4 block mt-4"
+                                placeholder="Correo Electrónico">
                             <input type="password" name="password"
-                                class="intro-x login__input form-control py-3 px-4 block mt-4" placeholder="Password">
+                                class="intro-x login__input form-control py-3 px-4 block mt-4" placeholder="Contraseña">
                             <input type="password" name="password2"
                                 class="intro-x login__input form-control py-3 px-4 block mt-4"
-                                placeholder="Password Confirmation">
+                                placeholder="Confirmar Contraseña">
                         </div>
                         <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
                             <input type="submit"
                                 class="btn btn-primary text-black py-3 px-4 w-full xl:w-32 xl:mr-3 align-top"
-                                value="Register">
+                                value="Regístrate">
                             <a href="{{route('login')}}"
-                                class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Sign
-                                in</a>
+                                class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Iniciar
+                                sesión</a>
                         </div>
                     </form>
                     <br>

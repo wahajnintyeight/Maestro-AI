@@ -258,7 +258,7 @@
                             <span>Potencie su enseñanza con soluciones inteligentes</span>
                             <h3 class="slider__title-2">Herramientas de IA pioneras para educadores en España</h3>
                             <p>Libere su potencial con la combinación perfecta de tutoría y tecnología de punta.</p>
-                            <a href="{{route('login')}}" class="tp-btn-green">Get Started</a>
+                            <a href="{{route('login')}}" class="tp-btn-green">Comenzar</a>
                         </div>
                     </div>
                     <div class="col-xxl-6 col-lg-6">

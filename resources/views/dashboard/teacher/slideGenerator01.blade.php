@@ -249,6 +249,8 @@ $something = [
                     <a target="_blank"
                         href="{{ route('teacher.download.docx', ['lesson' => urlencode(json_encode($lesson))]) }}"
                         class="btn btn-primary">Descargar.PPTX</a>
+
+
                 </div>
                 <?php
                 }

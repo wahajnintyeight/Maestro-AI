@@ -34,6 +34,7 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
 
     Route::get('/lesson-planner', [ToolController::class, 'showLessonPlanner'])->name('showLessonPlanner');
     Route::get('/slides-generator', [ToolController::class, 'showSlidesGenerator'])->name('showSlidesGenerator');
+    Route::get('/concept-explainer', [ToolController::class, 'showConceptExplainer'])->name('showConceptExplainer');
 
     Route::get('/view-history', [PageController::class, 'showHistory'])->name('showHistory');
 
@@ -48,6 +49,11 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
     //Comprehension Generator
     Route::get('/comprehension', [ToolController::class, 'viewForm'])->name('comprehension.form');
     Route::post('/comprehension', [ToolController::class, 'generateComprehensionQuestions'])->name('comprehension.generate');
+
+    Route::post('/concept-explainer', [ToolController::class, 'generateConceptExplainer'])->name('generateConceptExplainer');
+    Route::get('/download-concept-docx', [ToolController::class, 'downloadConceptDocx'])->name('downloadConceptDocx');
+    Route::get('/download-concept-pdf', [ToolController::class, 'downloadConceptPDF'])->name('downloadConceptPDF');
+
 
     // Stripe Payment
     Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");

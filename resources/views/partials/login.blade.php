@@ -12,7 +12,7 @@
     <meta name="keywords"
         content="admin template, Tinker Admin Template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="LEFT4CODE">
-    <title>Login - Maestro AI</title>
+    <title>Login - Maestro IA</title>
     <!-- BEGIN: CSS Assets-->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}" />
@@ -56,23 +56,17 @@
                         @method('POST')
                         <div class="intro-x mt-8">
                             <input type="text" name="email" class="intro-x login__input form-control py-3 px-4 block"
-                                placeholder="Email">
+                                placeholder="Correo Electrónico">
                             <input type="password" name="password"
-                                class="intro-x login__input form-control py-3 px-4 block mt-4" placeholder="Password">
+                                class="intro-x login__input form-control py-3 px-4 block mt-4" placeholder="Contraseña">
                         </div>
-                        <div class="intro-x flex text-slate-600 dark:text-slate-500 text-xs sm:text-sm mt-4">
-                            <div class="flex items-center mr-auto">
-                                <input id="remember-me" type="checkbox" class="form-check-input border mr-2">
-                                <label class="cursor-pointer select-none" for="remember-me">Remember me</label>
-                            </div>
-                            <a href="">Forgot Password?</a>
-                        </div>
+
                         <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
                             <input type="submit"
                                 class="btn btn-primary text-black py-3 px-4 w-full xl:w-32 xl:mr-3 align-top"
-                                value="Login">
+                                value="Iniciar sesión">
                             <a href="{{ route('register') }}"
-                                class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Register</a>
+                                class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Regístrate</a>
                         </div>
                     </form>
                     <br>
