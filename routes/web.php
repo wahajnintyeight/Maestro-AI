@@ -35,6 +35,7 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
     Route::get('/lesson-planner', [ToolController::class, 'showLessonPlanner'])->name('showLessonPlanner');
     Route::get('/slides-generator', [ToolController::class, 'showSlidesGenerator'])->name('showSlidesGenerator');
     Route::get('/concept-explainer', [ToolController::class, 'showConceptExplainer'])->name('showConceptExplainer');
+    Route::get('/worksheet-generator', [ToolController::class, 'showWorksheetGenerator'])->name('showWorksheetGenerator');
 
     Route::get('/view-history', [PageController::class, 'showHistory'])->name('showHistory');
 
@@ -53,6 +54,8 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
     Route::post('/concept-explainer', [ToolController::class, 'generateConceptExplainer'])->name('generateConceptExplainer');
     Route::get('/download-concept-docx', [ToolController::class, 'downloadConceptDocx'])->name('downloadConceptDocx');
     Route::get('/download-concept-pdf', [ToolController::class, 'downloadConceptPDF'])->name('downloadConceptPDF');
+
+    Route::post('/worksheet-generator', [ToolController::class, 'generateWorksheet'])->name('generateWorksheet');
 
 
     // Stripe Payment

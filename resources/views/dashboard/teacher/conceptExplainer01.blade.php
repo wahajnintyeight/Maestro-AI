@@ -2,7 +2,7 @@
 @section('content')
 <div class="intro-y flex items-center mt-8">
     <h2 class="text-lg font-medium mr-auto">
-        Concept Explainer Tool
+        Explica un Concepto
     </h2>
 </div>
 <div class="grid grid-cols-12 gap-6">
@@ -157,7 +157,7 @@
                         </svg>
                     </div>
                     <div class="ml-6 mr-auto">
-                        <div class="font-medium text-base">Concept Explainer</div>
+                        <div class="font-medium text-base">Explica un Concepto</div>
                     </div>
                 </div>
                 <div class="p-5 border-t border-slate-200/60 dark:border-darkmode-400">
@@ -243,20 +243,21 @@
                         echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Explicar concepto' para comenzar el proceso!";
                     } else {
                         foreach ($concept as $item) {
-                            echo '<h4 class="text-xl font-medium leading-none mt-3">' . $item->Title . '</h4><br>';
-                            echo '<div class="font-normal">' . $item->Content . '</div>';
+                            echo '<h4 class="text-xl font-medium leading-none mt-3">' . $topic . '</h4><br>';
+                            echo '<div class="font-normal">' . $item->Content . '</div><br>';
                 
                             // Display summary points as bullet lists
-                            echo '<h4 class="text-lg font-sm leading-none mt-3">Summary:</h4><br>';
-                            echo '<ul class="list-disc pl-5" style="list-style-type: disc;">';
-                            foreach ($item->Summary as $point) {
-                                echo '<li class="ml-4">' . trim($point) . '</li>';
-                            }
-                            echo '</ul>';
+                            echo '<h4 class="text-xl font-medium leading-none mt-3">Ejemplo:</h4><br>';
+                            echo '<div class="font-normal">' . $item->Example . '</div><br>';
+
+                            // Display summary points as bullet lists
+                            echo '<h4 class="text-xl font-medium leading-none mt-3">Resumen:</h4><br>';
+                            echo '<div class="font-normal">' . $item->Summary . '</div>';
                         }
                     }
                     ?>
                 </div>
+
                 <?php 
                 if (!empty($concept)) {
                     ?>
@@ -268,6 +269,16 @@
                     <a target="_blank"
                         href="{{ route('teacher.downloadConceptPDF', ['concept' => urlencode(json_encode($concept))]) }}"
                         class="btn btn-primary">Descargar.PDF</a>
+                </div>
+
+                <hr>
+                <div>
+                    MaestroIA ofrece herramientas y recursos de alta calidad para educadores. Nuestro contenido generado
+                    por inteligencia
+                    artificial debe ser revisado cuidadosamente para garantizar su precisión y adecuación antes de su
+                    uso. No asumimos
+                    responsabilidad alguna por cualquier contenido incorrecto o inapropiado generado por nuestra
+                    plataforma.
                 </div>
                 <?php
                 }

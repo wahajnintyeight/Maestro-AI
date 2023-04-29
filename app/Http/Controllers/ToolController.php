@@ -53,6 +53,19 @@ class ToolController extends Controller
         return view('dashboard.teacher.slideGenerator01', compact('slides', 'curriculum', 'grade', 'description', 'num_of_slides'));
     }
 
+    public function showWorksheetGenerator(Request $request)
+    {
+        $worksheet = $request->session()->get('worksheet', []);
+        $curriculum = $request->session()->get('curriculum', '');
+        $grade = $request->session()->get('grade', '');
+        $description = $request->session()->get('description', '');
+
+        // Clear session data
+        $request->session()->forget(['worksheet', 'curriculum', 'grade', 'description']);
+
+        return view('dashboard.teacher.worksheetGenerator01', compact('worksheet', 'curriculum', 'grade', 'description'));
+    }
+
 
     public function generateLessonPlanner(Request $request)
     {
@@ -131,6 +144,168 @@ class ToolController extends Controller
         return redirect()->action([ToolController::class, 'showLessonPlanner']);
     }
 
+    public function generateWorksheet(Request $request)
+    {
+        $open_ai_key = getenv('OPENAI_API_KEY');
+        $open_ai = new OpenAi($open_ai_key);
+
+        $grade = $request->input('grade');
+        $description = $request->input('description');
+        $curriculum = $request->input('curriculum');
+
+        // dd($grade, $title, $description);
+        $worksheet = [];
+        // In Traditional Spanish from Spain.
+        try {
+            $prompt = "In English. Create a worksheet on the topic of $description for a student of grade $grade, following the $curriculum curriculum. The worksheet should provide comprehensive and challenging questions. Structure the worksheet using the following format: TitleOfComprehension|ObjectiveOfComprehension|[MCQQuestion1|Choice1|Choice2|Choice3]|[MCQQuestion2|Choice1|Choice2|Choice3]|[MCQQuestion3|Choice1|Choice2|Choice3]|[MCQQuestion4|Choice1|Choice2|Choice3]|[MCQQuestion5|Choice1|Choice2|Choice3]|[MCQQuestion6|Choice1|Choice2|Choice3]|[MCQQuestion7|Choice1|Choice2|Choice3]|[MCQQuestion8|Choice1|Choice2|Choice3]|{GeneralQuestion1|GeneralQuestion2|GeneralQuestion3}|(Ask a Question that summarizes the assessment).";
+
+
+            // $complete = $open_ai->completion([
+            //     'model' => 'text-davinci-003',
+            //     'prompt' => $prompt,
+            //     'temperature' => 0.9,
+            //     'max_tokens' => 1500,
+            //     'frequency_penalty' => 0,
+            //     'presence_penalty' => 0.6,
+            // ]);
+
+
+            $complete = '{"id":"cmpl-7AVhoKmjDtwDO4MhIdX06uDdtMdXF","object":"text_completion","created":1682739512,"model":"text-davinci-003","choices":[{"text":"\n\nDigestive System|The student will be able to comprehend the basics of the digestive system.|[Where does digestion begin?|Mouth|Stomach|Esophagus]|[Which organ stores bile?|Gallbladder|Liver|Pancreas]|[Which organ secretes digestive juices?|Small Intestine|Large Intestine|Stomach]|[Where does digestion end?|Stomach|Small Intestine|Rectum]|[What are the two main organs involved in digestion?|Liver and Pancreas|Mouth and Stomach|Esophagus and Rectum]|[Which organ kills germs entering through the mouth?|Salivary Glands|Stomach|Liver]|[Which organ breaks down carbohydrates?|Small Intestine|Stomach|Pancreas]|[Which organ produces bile?|Liver|Salivary Glands|Gallbladder]|{What is the function of the small intestine?|What is the function of the large intestine?|What are enzymes?}|(The student is able to comprehend the basics of the digestive system and answer multiple questions related to the topic).","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":216,"completion_tokens":250,"total_tokens":466}}';
+            // dd($complete);
+
+
+            $complete_array = json_decode($complete, true);
+            $text = trim($complete_array['choices'][0]['text']);
+
+            // Split the text using '|' as the delimiter
+            $parts = explode('|', $text);
+
+            // Extract the Title and Objective
+            $title = trim($parts[0]);
+            $objective = trim($parts[1]);
+
+            // Extract the MCQs and store them in an array
+            $mcqs = [];
+            $i = 2;
+            while ($i < count($parts) && $parts[$i] !== '{') {
+                $question = trim(str_replace('[', '', $parts[$i]));
+                $i++;
+                $choice1 = trim(str_replace(']', '', $parts[$i]));
+                $i++;
+                $choice2 = trim(str_replace(']', '', $parts[$i]));
+                $i++;
+                $choice3 = trim(str_replace(']', '', $parts[$i]));
+                $i++;
+
+                // If the next element starts with '[', it is still part of the MCQs
+                if (
+                    $i < count($parts) && $parts[$i][0] === '['
+                ) {
+                    $mcqs[] = [
+                        'Question' => $question,
+                        'Choice1' => $choice1,
+                        'Choice2' => $choice2,
+                        'Choice3' => $choice3,
+                    ];
+                } else {
+                    // Otherwise, we have reached the end of the MCQs, add the last MCQ and break the loop
+                    $mcqs[] = [
+                        'Question' => $question,
+                        'Choice1' => $choice1,
+                        'Choice2' => $choice2,
+                        'Choice3' => $choice3,
+                    ];
+                    break;
+                }
+            }
+
+
+            $general_questions = [];
+            $assessment_summary = '';
+
+            if ($i < count($parts)) {
+                $current = trim($parts[$i]);
+                if ($current[0] === '{') {
+                    $i++;
+                    while ($i < count($parts)) {
+                        $current = trim($parts[$i], '{}.');
+                        if ($current[0] === '(') {
+                            break;
+                        }
+                        if ($current[0] === '}') {
+                            $general_questions[] = trim(trim($current, '|'), '}');
+                            $i++; // Increment $i to move to the next part
+                            break;
+                        } else {
+                            $general_questions[] = trim(trim($current, '|'), '}');
+                            $i++;
+                        }
+                    }
+                }
+
+                // dd($current[0]);
+            }
+
+            // dd($i, count($parts));
+
+            if (
+                $i < count($parts)
+            ) {
+                $current = trim($parts[$i]);
+
+                // dd($current);
+                if ($current[0] === '(') {
+                    while ($i < count($parts)) {
+                        $current = trim($parts[$i], '().');
+                        if ($current[strlen($current) - 1] === ')') {
+                            $assessment_summary .= $current;
+                            break;
+                        } else {
+                            $assessment_summary .= $current . '';
+                            $i++;
+                        }
+                    }
+                }
+            }
+
+            // Build the final worksheet array
+            $worksheet = [
+                'Title' => $title,
+                'Objective' => $objective,
+                'MCQs' => $mcqs,
+                'GeneralQuestions' => $general_questions,
+                'AssessmentSummary' => $assessment_summary,
+            ];
+
+            // dd($worksheet);
+        } catch (Exception $e) {
+            // Handle exceptions thrown by the OpenAI PHP SDK or custom exceptions
+            // Log the error message or display an appropriate error message to the user
+            error_log("Error: " . $e->getMessage());
+        }
+
+        // Store the lesson data in the session and redirect to the showLessonPlanner method
+        $request->session()->put('worksheet', $worksheet);
+        $request->session()->put('grade', $grade);
+        $request->session()->put('title', $curriculum);
+        $request->session()->put('description', $description);
+
+        // Store the generated content in the histories table
+        $user_id = auth()->id(); // Get the authenticated user's ID
+        $tool_name = 'Worksheet Generator';
+        $content = json_encode($worksheet); // Convert the lesson array to a JSON string
+
+        $history = new History([
+            'user_id' => $user_id,
+            'tool_name' => $tool_name,
+            'content' => $content,
+        ]);
+
+        $history->save();
+
+        return redirect()->action([ToolController::class, 'showWorksheetGenerator']);
+    }
+
 
     public function generateConceptExplainer(Request $request)
     {
@@ -146,7 +321,7 @@ class ToolController extends Controller
         $concept = [];
         // In Traditional Spanish from Spain. 
         try {
-            $prompt = "In Traditional Spanish from Spain. Create a detailed concept explanation for a student aged $age studying the subject '$subject' and topic '$topic'. Try to follow the '$curriculum' curriculum. Explain each concept in depth, using simple language and examples to make it easy for the student to understand. Ensure that the explanation is comprehensive and covers all essential aspects of the topic. Please provide content in this format: TitleOfConcept|BodyOfConceptExplanation|{ListItem1|ListItem2|ListItem3}. The explanation should be age-appropriate and easy to understand.\n\nHere's hwo to structure it: Photosynthesis|Long Paragraph (perhaps 500 words) explaining Photosynthesis|{1. Conversion of sunlight into energy| 2. Intake of carbon dioxide| 3. Release of oxygen}";
+            $prompt = "In Traditional Spanish from Spain. Create a detailed concept explanation for a student aged $age studying the subject '$subject' and topic '$topic'. Try to follow the '$curriculum' curriculum. Explain each concept in depth, using simple language and examples to make it easy for the student to understand. Ensure that the explanation is comprehensive and covers all essential aspects of the topic. Please provide content in this format: TitleOfConcept|BodyOfConceptExplanation|ExampleOfConceptParagraph|ConciseSummaryOfExplanation. The explanation should be age-appropriate and easy to understand.\n\nFor exaompe - Here's how to structure it for a Noun & Pronoun Topic: Nouns & Pronouns|Long Paragraph explaining Nouns & Pronouns|Noun & Pronoun Example|Summary of the Concept";
             $complete = $open_ai->completion([
                 'model' => 'text-davinci-003',
                 'prompt' => $prompt,
@@ -158,7 +333,7 @@ class ToolController extends Controller
 
             // dd($complete);
 
-            // $complete = '{"id":"cmpl-79UtOUBwkvRTOv8eXdMsqRT0cidB6","object":"text_completion","created":1682498058,"model":"text-davinci-003","choices":[{"text":"\n\nNouns & Pronouns| Nouns and pronouns are words that take the place of a person, place, or thing. A noun is a way to refer to an object, person, place, or idea. For example, a teacher, school, house, and freedom are all nouns. A pronoun is a word that takes the place of a noun. For example, it, she, he, they, and them are all pronouns. Knowing when to use nouns and pronouns correctly is an important part of learning English!|{1. Noun - person, place, or thing|2. Pronoun - it, she, he, they, them|3. Use nouns & pronouns correctly in English}","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":136,"completion_tokens":154,"total_tokens":290}}';
+            // $complete = '{"id":"cmpl-79q7EEGfr2PNitvwpSNw5zzRcGlTz","object":"text_completion","created":1682579640,"model":"text-davinci-003","choices":[{"text":" (50-100 words).\n\nNouns|Nouns are words that name people, places, things, or ideas. They are a part of every sentence, and they usually come before verbs. Nouns can be singular or plural depending on how many items are being talked about. For example, dog is a singular noun and dogs is a plural noun. Understanding how to use nouns correctly is necessary for effectively communicating in English.|The dog barked loudly.|Nouns are words that name items and people, and are used to effectively communicate in English. They can be singular or plural, and come before verbs.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":162,"completion_tokens":135,"total_tokens":297}}';
 
             $completeDecoded = json_decode($complete);
 
@@ -170,34 +345,24 @@ class ToolController extends Controller
                 $responseText = trim($responseText);
                 $rawConceptData = explode("|", $responseText);
 
-                // dd($rawConceptData);
-
                 if (count($rawConceptData) >= 3) {
                     $title = trim($rawConceptData[0]);
                     $content = trim($rawConceptData[1]);
-
-                    $summaryPoints = array_slice($rawConceptData, 2);
-                    $summaryString = implode("|", $summaryPoints);
-                    $summaryString = trim($summaryString, "{}");
-
-                    $summaryList = explode("|", $summaryString);
-                    $summary = [];
-                    foreach ($summaryList as $index => $point) {
-                        // Remove initial numerics and period
-                        $cleanedPoint = preg_replace('/^\d+\.\s*/', '', trim($point));
-                        $summary["Point" . ($index + 1)] = $cleanedPoint;
-                    }
+                    $example = trim($rawConceptData[2]);
+                    $summary = trim(implode("|", array_slice($rawConceptData, 3)));
 
                     $concept[] = (object) [
                         'Title' => $title,
                         'Content' => $content,
-                        'Summary' => (object) $summary,
+                        'Example' => $example,
+                        'Summary' => $summary,
                     ];
                 }
             } else {
                 // Handle the case when the response is not as expected (e.g., missing the expected properties)
                 throw new Exception('Unexpected response from OpenAI API.');
             }
+
 
             // dd($concept);
         } catch (Exception $e) {
@@ -386,19 +551,21 @@ class ToolController extends Controller
         foreach ($concept as $item) {
             $cleanTitle = $this->removeInvalidXmlChars($item['Title']);
             $cleanContent = $this->removeInvalidXmlChars($item['Content']);
+            $cleanExample = $this->removeInvalidXmlChars($item['Example']);
+            $cleanSummary = $this->removeInvalidXmlChars($item['Summary']);
 
             $section->addTitle($cleanTitle, 1);
             $section->addText($cleanContent);
 
-            if (!empty($item['Summary'])) {
-                $section->addText('Summary:', ['bold' => true]);
-                foreach ($item['Summary'] as $point) {
-                    $cleanPoint = $this->removeInvalidXmlChars($point);
-                    $section->addListItem($cleanPoint);
-                }
-            }
+            $section->addTextBreak();
+
+            $section->addTitle("Example", 1);
+            $section->addText($cleanExample);
 
             $section->addTextBreak();
+
+            $section->addTitle("Summary", 1);
+            $section->addText($cleanSummary);
         }
 
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
@@ -441,15 +608,18 @@ class ToolController extends Controller
             $section->addText($item['Title'], $headingStyle);
             $section->addTextBreak();
             $section->addText($item['Content'], $contentStyle);
+            $section->addTextBreak();
 
-            if (!empty($item['Summary'])) {
-                $section->addTextBreak();
-                $section->addText('Summary:', $summaryHeadingStyle);
+            $section->addText("Example", $headingStyle);
+            $section->addTextBreak();
+            $section->addText($item['Example'], $contentStyle);
+            $section->addTextBreak();
 
-                foreach ($item['Summary'] as $point) {
-                    $section->addListItem(trim($point), 0, $contentStyle);
-                }
-            }
+            $section->addText("Summary", $headingStyle);
+            $section->addTextBreak();
+            $section->addText($item['Summary'], $contentStyle);
+
+
 
             $section->addTextBreak();
         }
