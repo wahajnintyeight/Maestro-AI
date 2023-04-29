@@ -46,6 +46,11 @@ class PageController extends Controller
         return view('dashboard.teacher.teacher-tools', compact('user'));
     }
 
+    public function showRubricGenerator()
+    {
+        $user = Auth::user();
+        return view('dashboard.teacher.rubric-generator', compact('user'));
+    }
     public function showClassroomTools()
     {
         $user = Auth::user();
