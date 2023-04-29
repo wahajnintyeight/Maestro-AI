@@ -157,7 +157,7 @@ class ToolController extends Controller
         $worksheet = [];
         // In Traditional Spanish from Spain.
         try {
-            $prompt = "In English. Create a worksheet on the topic of $description for a student of grade $grade, following the $curriculum curriculum. The worksheet should provide comprehensive and challenging questions. Structure the worksheet using the following format: TitleOfComprehension|ObjectiveOfComprehension|[MCQQuestion1|Choice1|Choice2|Choice3]|[MCQQuestion2|Choice1|Choice2|Choice3]|[MCQQuestion3|Choice1|Choice2|Choice3]|[MCQQuestion4|Choice1|Choice2|Choice3]|[MCQQuestion5|Choice1|Choice2|Choice3]|[MCQQuestion6|Choice1|Choice2|Choice3]|[MCQQuestion7|Choice1|Choice2|Choice3]|[MCQQuestion8|Choice1|Choice2|Choice3]|{GeneralQuestion1|GeneralQuestion2|GeneralQuestion3}|(Ask a Question that summarizes the assessment).";
+            $prompt = "In English. Create a worksheet on the topic of $description for a student of grade $grade, following the $curriculum curriculum. The worksheet should provide comprehensive and challenging questions. Structure the worksheet using the following format: TitleOfComprehension|ObjectiveOfComprehension|[MCQQuestion1|Choice1|Choice2|Choice3]|[MCQQuestion2|Choice1|Choice2|Choice3]|[MCQQuestion3|Choice1|Choice2|Choice3]|[MCQQuestion4|Choice1|Choice2|Choice3]|[MCQQuestion5|Choice1|Choice2|Choice3]|[MCQQuestion6|Choice1|Choice2|Choice3]|[MCQQuestion7|Choice1|Choice2|Choice3]|[MCQQuestion8|Choice1|Choice2|Choice3]|{GeneralQuestion1|GeneralQuestion2|GeneralQuestion3}|(Ask a Question that summarizes the assessment - wrap it in () parenthesis)|<Fill in Blank Statement 1 | Fill In Blank Answer>|<Fill in Blank Statement 2 | Fill In Blank Answer>|<Fill in Blank Statement 3 | Fill In Blank Answer>.";
 
 
             // $complete = $open_ai->completion([
@@ -170,7 +170,7 @@ class ToolController extends Controller
             // ]);
 
 
-            $complete = '{"id":"cmpl-7AVhoKmjDtwDO4MhIdX06uDdtMdXF","object":"text_completion","created":1682739512,"model":"text-davinci-003","choices":[{"text":"\n\nDigestive System|The student will be able to comprehend the basics of the digestive system.|[Where does digestion begin?|Mouth|Stomach|Esophagus]|[Which organ stores bile?|Gallbladder|Liver|Pancreas]|[Which organ secretes digestive juices?|Small Intestine|Large Intestine|Stomach]|[Where does digestion end?|Stomach|Small Intestine|Rectum]|[What are the two main organs involved in digestion?|Liver and Pancreas|Mouth and Stomach|Esophagus and Rectum]|[Which organ kills germs entering through the mouth?|Salivary Glands|Stomach|Liver]|[Which organ breaks down carbohydrates?|Small Intestine|Stomach|Pancreas]|[Which organ produces bile?|Liver|Salivary Glands|Gallbladder]|{What is the function of the small intestine?|What is the function of the large intestine?|What are enzymes?}|(The student is able to comprehend the basics of the digestive system and answer multiple questions related to the topic).","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":216,"completion_tokens":250,"total_tokens":466}}';
+            $complete = '{"id":"cmpl-7AZxD0KbAeZgItzEHy462Ma7dVTrL","object":"text_completion","created":1682755843,"model":"text-davinci-003","choices":[{"text":"\n\nDigestive System|To understand the functions and parts of the human digestive system|[What is the structure where food is broken down into molecules?|A. Cells|B. Mouth|C. Stomach]|[What is the organ which stores undigested food?|A. Small intestine|B. Large intestine|C. Esophagus]|[What organ produces bile?|A. Liver|B. Gallbladder|C. Pancreas]|[Which organ produces enzymes?|A. Liver|B. Pancreas|C. Kidney]|[The small intestine absorbs vitamins, proteins and ___________?|A. Minerals|B. Fiber|C. Carbohydrates]|[What is the organ that pumps blood throughout the body?|A. Lungs|B. Liver|C. Heart]|[What organ stores minerals and vitamins?|A. Kidneys|B. Liver|C. Gallbladder]|{What are the different organs involved in the digestive system?|What is the purpose of digestive system?|Explain what happens in the mouth during digestion?}|(How does the digestive system help us get energy from food?)|<Which part of the human body produces saliva | Mouth>|<The first step of digestion occurs in the _________ | Stomach>|<The food enters the small intestines through the ________ | Ileum>.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":265,"completion_tokens":302,"total_tokens":567}}';
             // dd($complete);
 
 
@@ -179,6 +179,8 @@ class ToolController extends Controller
 
             // Split the text using '|' as the delimiter
             $parts = explode('|', $text);
+
+            // dd($parts);
 
             // Extract the Title and Objective
             $title = trim($parts[0]);
@@ -257,6 +259,11 @@ class ToolController extends Controller
                 if ($current[0] === '(') {
                     while ($i < count($parts)) {
                         $current = trim($parts[$i], '().');
+                        // Break the loop when encountering '<'
+                        if ($current[0] === '<') {
+                            break;
+                        }
+
                         if ($current[strlen($current) - 1] === ')') {
                             $assessment_summary .= $current;
                             break;
@@ -267,6 +274,36 @@ class ToolController extends Controller
                     }
                 }
             }
+            // dd($parts);
+            $parts = explode('|', $text);
+
+            dd($parts, $i, $parts[$i]);
+
+            $multiple_choice_index = array_search('(', array_values($parts));
+            $fill_in_the_blanks_index = array_search('<', array_values($parts));
+
+
+            $multiple_choice_raw = implode(' ', array_slice($parts, $multiple_choice_index, $fill_in_the_blanks_index - $multiple_choice_index));
+            $fill_in_the_blanks_raw = implode(' ', array_slice($parts, $fill_in_the_blanks_index));
+
+            preg_match_all('/<([^>]*)>\\s*([^<]*)>/', $fill_in_the_blanks_raw, $matches, PREG_SET_ORDER);
+
+            $fill_in_the_blanks = [];
+
+            // dd($matches);
+
+            foreach ($matches as $match) {
+                $statement = trim($match[1]);
+                $answer = trim($match[2]);
+
+                $fill_in_the_blanks[] = [
+                    'Statement' => $statement,
+                    'Answer' => $answer,
+                ];
+            }
+
+
+            // dd($i);
 
             // Build the final worksheet array
             $worksheet = [
@@ -275,9 +312,10 @@ class ToolController extends Controller
                 'MCQs' => $mcqs,
                 'GeneralQuestions' => $general_questions,
                 'AssessmentSummary' => $assessment_summary,
+                'FillInTheBlanks' => $fill_in_the_blanks, // Add the FillInTheBlanks array to the final worksheet
             ];
 
-            // dd($worksheet);
+            dd($worksheet);
         } catch (Exception $e) {
             // Handle exceptions thrown by the OpenAI PHP SDK or custom exceptions
             // Log the error message or display an appropriate error message to the user

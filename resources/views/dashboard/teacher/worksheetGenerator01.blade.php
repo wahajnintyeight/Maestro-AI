@@ -145,14 +145,14 @@
                             echo '</ul>';
                         }
                 
-                            echo '<h4 class="text-md font-medium leading-none mt-3">Answer the following questions in complete sentences</h4><br>';                        echo '<ul class="list-disc pl-5" style="list-style-type: disc;">';
-                        foreach($worksheet['GeneralQuestions'] as $question) {
-                            echo '<li class="ml-4">' . $question . '</li>';
-                        }
-                        echo '</ul>';
+                            echo '<h4 class="text-md font-medium leading-none mt-3">Answer the following questions in complete sentences.</h4><br>';                        
+                            echo '<ul class="list-disc pl-5" style="list-style-type: disc;">';                            foreach($worksheet['GeneralQuestions'] as $question) {
+                                echo '<li>' . $question . '</li>';
+                            }
+                            echo '</ul><br>';
                 
-                        echo '<h4 class="text-lg font-medium leading-none mt-3">Assessment Summary:</h4><br>';
-                        echo '<div class="font-normal">' . $worksheet['AssessmentSummary'] . '</div>';
+                            echo '<h4 class="text-md font-medium leading-none mt-3">Assessment:</h4><br>';                        
+                            echo '<div class="font-normal">' . $worksheet['AssessmentSummary'] . '</div>';
                     }
                     ?>
                 </div>
