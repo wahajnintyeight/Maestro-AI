@@ -127,7 +127,7 @@
                         la asignatura
                         para generar una explicación del concepto más adecuada.</li>
                 </ul>
-                <div class="my-10 bg-white shadow-lg p-8">
+                <div class="mb-10 mt-3 bg-white shadow-lg p-8">
                     <?php
                     if (empty($worksheet)) {
                         echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Explicar concepto' para comenzar el proceso!";

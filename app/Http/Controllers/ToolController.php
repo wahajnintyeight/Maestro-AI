@@ -157,20 +157,20 @@ class ToolController extends Controller
         $worksheet = [];
         // In Traditional Spanish from Spain.
         try {
-            $prompt = "In English. Create a worksheet on the topic of $description for a student of grade $grade, following the $curriculum curriculum. The worksheet should provide comprehensive and challenging questions. Structure the worksheet using the following format: TitleOfComprehension|ObjectiveOfComprehension|[MCQQuestion1|Choice1|Choice2|Choice3]|[MCQQuestion2|Choice1|Choice2|Choice3]|[MCQQuestion3|Choice1|Choice2|Choice3]|[MCQQuestion4|Choice1|Choice2|Choice3]|[MCQQuestion5|Choice1|Choice2|Choice3]|[MCQQuestion6|Choice1|Choice2|Choice3]|[MCQQuestion7|Choice1|Choice2|Choice3]|[MCQQuestion8|Choice1|Choice2|Choice3]|{GeneralQuestion1|GeneralQuestion2|GeneralQuestion3}|(Ask a Question that summarizes the assessment - wrap it in () parenthesis)|<Fill in Blank Statement 1 | Fill In Blank Answer>|<Fill in Blank Statement 2 | Fill In Blank Answer>|<Fill in Blank Statement 3 | Fill In Blank Answer>.";
+            $prompt = "In Traditional Spanish from Spain. Create a worksheet on the topic of $description for a student of grade $grade, following the $curriculum curriculum. The worksheet should provide comprehensive and challenging questions. Structure the worksheet using the following format: TitleOfComprehension|ObjectiveOfComprehension|[MCQQuestion1|Choice1|Choice2|Choice3]|[MCQQuestion2|Choice1|Choice2|Choice3]|[MCQQuestion3|Choice1|Choice2|Choice3]|[MCQQuestion4|Choice1|Choice2|Choice3]|[MCQQuestion5|Choice1|Choice2|Choice3]|[MCQQuestion6|Choice1|Choice2|Choice3]|[MCQQuestion7|Choice1|Choice2|Choice3]|[MCQQuestion8|Choice1|Choice2|Choice3]|{GeneralQuestion1|GeneralQuestion2|GeneralQuestion3}|(Ask a Question that summarizes the assessment - wrap it in () parenthesis)|<Fill in Blank Statement 1 | Fill In Blank Answer>|<Fill in Blank Statement 2 | Fill In Blank Answer>|<Fill in Blank Statement 3 | Fill In Blank Answer>.";
 
 
-            // $complete = $open_ai->completion([
-            //     'model' => 'text-davinci-003',
-            //     'prompt' => $prompt,
-            //     'temperature' => 0.9,
-            //     'max_tokens' => 1500,
-            //     'frequency_penalty' => 0,
-            //     'presence_penalty' => 0.6,
-            // ]);
+            $complete = $open_ai->completion([
+                'model' => 'text-davinci-003',
+                'prompt' => $prompt,
+                'temperature' => 0.9,
+                'max_tokens' => 1500,
+                'frequency_penalty' => 0,
+                'presence_penalty' => 0.6,
+            ]);
 
 
-            $complete = '{"id":"cmpl-7AZxD0KbAeZgItzEHy462Ma7dVTrL","object":"text_completion","created":1682755843,"model":"text-davinci-003","choices":[{"text":"\n\nDigestive System|To understand the functions and parts of the human digestive system|[What is the structure where food is broken down into molecules?|A. Cells|B. Mouth|C. Stomach]|[What is the organ which stores undigested food?|A. Small intestine|B. Large intestine|C. Esophagus]|[What organ produces bile?|A. Liver|B. Gallbladder|C. Pancreas]|[Which organ produces enzymes?|A. Liver|B. Pancreas|C. Kidney]|[The small intestine absorbs vitamins, proteins and ___________?|A. Minerals|B. Fiber|C. Carbohydrates]|[What is the organ that pumps blood throughout the body?|A. Lungs|B. Liver|C. Heart]|[What organ stores minerals and vitamins?|A. Kidneys|B. Liver|C. Gallbladder]|{What are the different organs involved in the digestive system?|What is the purpose of digestive system?|Explain what happens in the mouth during digestion?}|(How does the digestive system help us get energy from food?)|<Which part of the human body produces saliva | Mouth>|<The first step of digestion occurs in the _________ | Stomach>|<The food enters the small intestines through the ________ | Ileum>.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":265,"completion_tokens":302,"total_tokens":567}}';
+            // $complete = '{"id":"cmpl-7AZxD0KbAeZgItzEHy462Ma7dVTrL","object":"text_completion","created":1682755843,"model":"text-davinci-003","choices":[{"text":"\n\nDigestive System|To understand the functions and parts of the human digestive system|[What is the structure where food is broken down into molecules?|A. Cells|B. Mouth|C. Stomach]|[What is the organ which stores undigested food?|A. Small intestine|B. Large intestine|C. Esophagus]|[What organ produces bile?|A. Liver|B. Gallbladder|C. Pancreas]|[Which organ produces enzymes?|A. Liver|B. Pancreas|C. Kidney]|[The small intestine absorbs vitamins, proteins and ___________?|A. Minerals|B. Fiber|C. Carbohydrates]|[What is the organ that pumps blood throughout the body?|A. Lungs|B. Liver|C. Heart]|[What organ stores minerals and vitamins?|A. Kidneys|B. Liver|C. Gallbladder]|{What are the different organs involved in the digestive system?|What is the purpose of digestive system?|Explain what happens in the mouth during digestion?}|(How does the digestive system help us get energy from food?)|<Which part of the human body produces saliva | Mouth>|<The first step of digestion occurs in the _________ | Stomach>|<The food enters the small intestines through the ________ | Ileum>.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":265,"completion_tokens":302,"total_tokens":567}}';
             // dd($complete);
 
 
