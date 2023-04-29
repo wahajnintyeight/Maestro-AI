@@ -274,32 +274,29 @@ class ToolController extends Controller
                     }
                 }
             }
-            // dd($parts);
-            $parts = explode('|', $text);
-
-            dd($parts, $i, $parts[$i]);
-
-            $multiple_choice_index = array_search('(', array_values($parts));
-            $fill_in_the_blanks_index = array_search('<', array_values($parts));
-
-
-            $multiple_choice_raw = implode(' ', array_slice($parts, $multiple_choice_index, $fill_in_the_blanks_index - $multiple_choice_index));
-            $fill_in_the_blanks_raw = implode(' ', array_slice($parts, $fill_in_the_blanks_index));
-
-            preg_match_all('/<([^>]*)>\\s*([^<]*)>/', $fill_in_the_blanks_raw, $matches, PREG_SET_ORDER);
 
             $fill_in_the_blanks = [];
 
-            // dd($matches);
+            while ($i !== false && $i < count($parts)) {
+                $current = trim($parts[$i]);
+                if ($current[0] === '<') {
+                    $statement = trim(substr($current, 1));
+                    $answer = trim(trim($parts[$i + 1]), '>');
 
-            foreach ($matches as $match) {
-                $statement = trim($match[1]);
-                $answer = trim($match[2]);
+                    // Check if '>' is in the next element
+                    if (strpos($answer, '>') !== false) {
+                        $answer = trim(substr($answer, 0, strpos($answer, '>')));
+                        $i++;
+                    }
 
-                $fill_in_the_blanks[] = [
-                    'Statement' => $statement,
-                    'Answer' => $answer,
-                ];
+                    $fill_in_the_blanks[] = [
+                        'Statement' => $statement,
+                        'Answer' => $answer,
+                    ];
+                    $i += 2;
+                } else {
+                    $i++;
+                }
             }
 
 
@@ -315,7 +312,7 @@ class ToolController extends Controller
                 'FillInTheBlanks' => $fill_in_the_blanks, // Add the FillInTheBlanks array to the final worksheet
             ];
 
-            dd($worksheet);
+            // dd($worksheet);
         } catch (Exception $e) {
             // Handle exceptions thrown by the OpenAI PHP SDK or custom exceptions
             // Log the error message or display an appropriate error message to the user
@@ -671,6 +668,156 @@ class ToolController extends Controller
         header('Content-Type: application/pdf');
 
         // Save the file to output buffer and send it to the browser
+        $objWriter->save('php://output');
+        exit;
+    }
+
+
+    public function downloadWorksheetDocx(Request $request)
+    {
+        Settings::setOutputEscapingEnabled(true);
+        $worksheet = json_decode(urldecode($request->input('worksheet')), true);
+        $phpWord = new PhpWord();
+
+        $headingStyle = ['size' => 16, 'bold' => true];
+        $taskStyle = ['size' => 14, 'bold' => true];
+        $objectiveStyle = ['size' => 14];
+
+        $contentStyle = ['size' => 12];
+
+        $section = $phpWord->addSection();
+
+        // Add title
+        $cleanTitle = $this->removeInvalidXmlChars($worksheet['Title']);
+        $section->addText($cleanTitle, $headingStyle);
+
+        // Add objective
+        $cleanObjective = $this->removeInvalidXmlChars($worksheet['Objective']);
+        $section->addText('Objective', $objectiveStyle);
+        $section->addText($cleanObjective, $contentStyle);
+
+        // Add Task 1: MCQs
+        $section->addText('Task 1: Multiple Choice Questions', $taskStyle);
+        foreach ($worksheet['MCQs'] as $index => $mcq) {
+            $section->addText(($index + 1) . '. ' . $mcq['Question']);
+            $section->addListItem($mcq['Choice1'], 0);
+            $section->addListItem($mcq['Choice2'], 0);
+            $section->addListItem($mcq['Choice3'], 0);
+            $section->addTextBreak();
+        }
+
+        // Add Task 2: Fill in the Blanks
+        $section->addText('Task 2: Fill in the Blanks', $taskStyle);
+        $section->addText('Word Bank:');
+        foreach ($worksheet['FillInTheBlanks'] as $index => $fib) {
+            $section->addListItem($fib['Answer'], 0);
+        }
+        $section->addTextBreak();
+
+        foreach ($worksheet['FillInTheBlanks'] as $index => $fib) {
+            $section->addText(($index + 1) . '. ' . $fib['Statement']);
+        }
+
+        $section->addTextBreak();
+
+        // Add Task 3: Critical Thinking
+        $section->addText('Task 3: Critical Thinking', $taskStyle);
+        $section->addText('Answer the following questions in complete sentences:');
+        foreach ($worksheet['GeneralQuestions'] as $index => $question) {
+            $section->addListItem($question, 0);
+        }
+        $section->addTextBreak();
+
+        // Add Task 4: Assessment
+        $section->addText('Task 4: Assessment', $taskStyle);
+        $cleanAssessmentSummary = $this->removeInvalidXmlChars($worksheet['AssessmentSummary']);
+        $section->addText($cleanAssessmentSummary);
+
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+
+        $fileName = "worksheet.docx";
+
+        // Set headers for downloading the file
+        header("Content-Disposition: attachment; filename=$fileName");
+        header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+
+        // Save the file to output buffer and send it to the browser
+        $objWriter->save('php://output');
+        exit;
+    }
+
+    public function downloadWorksheetPDF(Request $request)
+    {
+        $worksheet = json_decode(urldecode($request->input('worksheet')), true);
+        $phpWord = new PhpWord();
+        $phpWord->getDocInfo()->setTitle("MaestroIA - Worksheet PDF");
+        // Set PDF renderer
+        $domPdfPath = base_path('vendor/dompdf/dompdf');
+        Settings::setPdfRendererPath($domPdfPath);
+        Settings::setPdfRendererName('DomPDF');
+
+
+
+        // Define font styles
+        $headingStyle = ['size' => 16, 'bold' => true];
+        $taskStyle = ['size' => 14, 'bold' => true];
+        $objectiveStyle = ['size' => 14];
+        $contentStyle = ['size' => 12];
+
+        $section = $phpWord->addSection();
+
+        // Add title
+        $section->addText($worksheet['Title'], $headingStyle);
+
+
+        // Add objective
+        $section->addText('Objective', $objectiveStyle);
+        $section->addText($worksheet['Objective'], $contentStyle);
+
+        // Add Task 1: MCQs
+        $section->addText('Task 1: Multiple Choice Questions', $taskStyle);
+        foreach ($worksheet['MCQs'] as $index => $mcq) {
+            $section->addText(($index + 1) . '. ' . $mcq['Question']);
+            $section->addListItem($mcq['Choice1'], 0);
+            $section->addListItem($mcq['Choice2'], 0);
+            $section->addListItem($mcq['Choice3'], 0);
+            $section->addTextBreak();
+        }
+
+        // Add Task 2: Fill in the Blanks
+        $section->addText('Task 2: Fill in the Blanks', $taskStyle);
+        $section->addText('Word Bank:');
+        foreach ($worksheet['FillInTheBlanks'] as $index => $fib) {
+            $section->addListItem($fib['Answer'], 0);
+        }
+        $section->addTextBreak();
+
+        foreach ($worksheet['FillInTheBlanks'] as $index => $fib) {
+            $section->addText(($index + 1) . '. ' . $fib['Statement']);
+        }
+
+        $section->addTextBreak();
+
+        // Add Task 3: Critical Thinking
+        $section->addText('Task 3: Critical Thinking', $taskStyle);
+        $section->addText('Answer the following questions in complete sentences:');
+        foreach ($worksheet['GeneralQuestions'] as $index => $question) {
+            $section->addListItem($question, 0);
+        }
+        $section->addTextBreak();
+
+        // Add Task 4: Assessment
+        $section->addText('Task 4: Assessment', $taskStyle);
+        $section->addText($worksheet['AssessmentSummary']);
+
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'PDF');
+
+        $fileName = "worksheet.pdf";
+
+        // Set headers for downloading the file
+        header("Content-Disposition: attachment; filename=$fileName");
+        header('Content-Type: application/pdf');
+
         $objWriter->save('php://output');
         exit;
     }

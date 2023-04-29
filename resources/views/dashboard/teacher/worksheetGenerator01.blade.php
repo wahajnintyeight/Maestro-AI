@@ -35,9 +35,10 @@
                         <select id="curriculum" name="curriculum" class="form-select">
                             <option value="Spanish National Curriculum/LOMLOE">Spanish National Curriculum/LOMLOE
                             </option>
-                            <option value="Chile">Chile</option>
-                            <option value="Argentina">Argentina</option>
-                            <option value="Peru">Peru</option>
+                            <option value="Chile">Chile: Curriculum Nacional Base</option>
+                            <option value="Argentina">Argentina: Diseño Curricular Nacional</option>
+                            <option value="Peru">Peru: Curriculum Nacional</option>
+                            <option value="Mexico">Mexico: Sistema Educativo Nacional</option>
                         </select>
                     </div>
                     <div class="mt-5">
@@ -126,14 +127,16 @@
                         la asignatura
                         para generar una explicación del concepto más adecuada.</li>
                 </ul>
-                <div class="my-10">
+                <div class="my-10 bg-white shadow-lg p-8">
                     <?php
                     if (empty($worksheet)) {
                         echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Explicar concepto' para comenzar el proceso!";
                     } else {
                         echo '<h4 class="text-md leading-none mt-3"><span class="font-medium">Title:</span> ' . $worksheet['Title'] . '</h4>';
                         echo '<h4 class="text-md leading-none mt-3"><span class="font-medium">Objective:</span> ' . $worksheet['Objective'] . '</h4><br>';
-                        echo '<h4 class="text-md leading-none mt-3"><span class="font-medium">Instructions:</span> Read the following statements and select the appropriate options.</h4><br>';
+                        echo '
+                        <hr>';
+                        echo '<h4 class="text-md leading-none mt-3"><span class="font-medium">Task 1:</span> Read the following statements and select the appropriate options.</h4><br>';
                         
                         for ($i = 0; $i < count($worksheet['MCQs']); $i++) {
                             $mcq = $worksheet['MCQs'][$i];
@@ -144,33 +147,54 @@
                             echo '<li class="ml-4">' . $mcq['Choice3'] . '</li><br>';
                             echo '</ul>';
                         }
-                
-                            echo '<h4 class="text-md font-medium leading-none mt-3">Answer the following questions in complete sentences.</h4><br>';                        
-                            echo '<ul class="list-disc pl-5" style="list-style-type: disc;">';                            foreach($worksheet['GeneralQuestions'] as $question) {
+                            echo '<hr>';
+                            echo '<h4 class="text-md font-medium leading-none mt-3">Task 2: Fill in the Blanks</h4><br>';
+                            echo '<div class="flex flex-wrap items-center">';
+                            echo '<h4 class="text-md font-medium leading-none">Word Bank:</h4>';
+                            for ($i = 0; $i < count($worksheet['FillInTheBlanks']); $i++) { 
+                                $fib=$worksheet['FillInTheBlanks'][$i];
+                                echo '<div class="mx-2">' . $fib['Answer'] . '</div>' ; 
+                            } 
+                                echo '</div><br>' ;
+
+                            for ($i = 0; $i < count($worksheet['FillInTheBlanks']); $i++) { 
+                                $fib=$worksheet['FillInTheBlanks'][$i];
+                                echo '<div class="font-normal">' . ($i + 1) . '. ' . $fib['Statement'] . '</div><br>' ;
+                            }
+                echo '
+                <hr>';
+                            echo '<h4 class="text-md font-medium leading-none mt-3">Task 3: Critical Thinking</h4><br>';    
+                            echo '<h4 class="text-md font-medium leading-none mt-3">Answer the following questions in complete sentences</h4><br>';                    
+                            echo '<ul class="list-disc pl-5" style="list-style-type: disc;">';                            
+                                foreach($worksheet['GeneralQuestions'] as $question) {
                                 echo '<li>' . $question . '</li>';
                             }
                             echo '</ul><br>';
-                
-                            echo '<h4 class="text-md font-medium leading-none mt-3">Assessment:</h4><br>';                        
+                            echo '
+                            <hr>';
+                            echo '<h4 class="text-md font-medium leading-none mt-3">Task 4: Assessment</h4><br>';                        
                             echo '<div class="font-normal">' . $worksheet['AssessmentSummary'] . '</div>';
+
+                            
+
+                            
                     }
                     ?>
                 </div>
                 <?php 
-                if (!empty($concept)) {
+                if (!empty($worksheet)) {
                     ?>
                 <div class="my-2 flex gap-2">
                     <a target="_blank"
-                        href="{{ route('teacher.downloadConceptDocx', ['concept' => urlencode(json_encode($concept))]) }}"
-                        class="btn btn-primary">Descargar.DOCX</a>
+                        href="{{ route('teacher.downloadWorksheetDocx', ['worksheet' => urlencode(json_encode($worksheet))]) }}"
+                        class="btn btn-primary">Descargar .DOCX</a>
 
                     <a target="_blank"
-                        href="{{ route('teacher.downloadConceptPDF', ['concept' => urlencode(json_encode($concept))]) }}"
-                        class="btn btn-primary">Descargar.PDF</a>
+                        href="{{ route('teacher.downloadWorksheetPDF', ['worksheet' => urlencode(json_encode($worksheet))]) }}"
+                        class="btn btn-primary">Descargar .PDF</a>
                 </div>
 
-                <hr>
-                <div>
+                <div class="font-medium italic mt-5">
                     MaestroIA ofrece herramientas y recursos de alta calidad para educadores. Nuestro contenido generado
                     por inteligencia
                     artificial debe ser revisado cuidadosamente para garantizar su precisión y adecuación antes de su
