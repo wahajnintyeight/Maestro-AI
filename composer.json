@@ -21,6 +21,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "*",
         "orhanerday/open-ai": "^4.7",
+        "phpoffice/phppresentation": "^1.0",
         "phpoffice/phpword": "^1.0"
     },
     "require-dev": {

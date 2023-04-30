@@ -59,6 +59,9 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
     Route::get('/download-worksheet-docx', [ToolController::class, 'downloadWorksheetDocx'])->name('downloadWorksheetDocx');
     Route::get('/download-worksheet-pdf', [ToolController::class, 'downloadWorksheetPDF'])->name('downloadWorksheetPDF');
 
+    Route::post('/slides-generator', [ToolController::class, 'generateSlides'])->name('generateSlides');
+
+
     // Stripe Payment
     Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");
     Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");

@@ -125,7 +125,7 @@ class ToolController extends Controller
         $request->session()->put('lesson', $lesson);
         $request->session()->put('grade', $grade);
         $request->session()->put('title', $title);
-        $request->session()->put('title', $curriculum);
+        $request->session()->put('curriculum', $curriculum);
         $request->session()->put('description', $description);
 
         // Store the generated content in the histories table
@@ -144,6 +144,105 @@ class ToolController extends Controller
         return redirect()->action([ToolController::class, 'showLessonPlanner']);
     }
 
+    public function generateSlides(Request $request)
+    {
+        $open_ai_key = getenv('OPENAI_API_KEY');
+        $open_ai = new OpenAi($open_ai_key);
+
+        $grade = $request->input('grade');
+        $num_of_slides = $request->input('num_of_slides');
+        $description = $request->input('description');
+        $curriculum = $request->input('curriculum');
+
+        // dd($grade, $num_of_slides, $description);
+        $slides = [];
+
+        try {
+            $prompt = "In English. Create a presentation for grade $grade with the objective \"$description\". The presentation should follow the \"$curriculum\" curriculum and consist of $num_of_slides slides. Provide content for each slide in this format: TitleOfPresentation|ObjectiveOfPresentation|[SlideHeading1|SlideContent1|Question1RegardingSlide1|Question2RegardingSlide1|Question3RegardingSlide1]|[SlideHeading2|SlideContent2|Question1RegardingSlide2|Question2RegardingSlide2|Question3RegardingSlide2]|. Generate this for " . $num_of_slides . " slides";
+
+            // $complete = $open_ai->completion([
+            //     'model' => 'text-davinci-003',
+            //     'prompt' => $prompt,
+            //     'temperature' => 0.9,
+            //     'max_tokens' => 1500,
+            //     'frequency_penalty' => 0,
+            //     'presence_penalty' => 0.6,
+            // ]);
+
+            $complete = '{"id":"cmpl-7Afqt6Yp1Ax56Yq2BY0qVmtG9XiIK","object":"text_completion","created":1682778515,"model":"text-davinci-003","choices":[{"text":",\n\nThe Digestive System|Objective: To understand the anatomy and physiology of the digestive system as outlined in the Spanish National Curriculum/LOMLOE|[Anatomy of the Digestive System|The digestive system is composed of the gastrointestinal (GI) tract, which consists of the mouth, esophagus, stomach, small intestine, large intestine and rectum, as well as several accessory organs such as the liver, gallbladder and pancreas. The GI tract turns food into the nutrients and energy needed for human life.|What is the first part of the digestive system?|What structures make up the gastrointestinal tract?|What do the accessory organs do?]|[Digestion Processes|Digestion begins in the mouth with chewing and saliva then moves through the esophagus to the stomach where acid helps breakdown food. It continues to the small intestine where enzymes and bile help break down proteins, carbs and fats. Vitamins and minerals are absorbed during this process. Lastly, undigested food moves to the large intestine and wastes are expelled through the rectum. |What processes occur in the mouth?|What is the role of the acid in the stomach?|Where do vitamins and minerals get absorbed? ]|[Nutrition and Digestion|In order for the body to utilize nutrients, they must be broken down into smaller molecules by the digestive system. This process is known as digestion which helps break down foods into their components so they can be used by the body. Good nutrition requires a balance of healthy foods and a variety of nutrients needed for growth, development, and energy. |What is the process of digestion?|What is the role of digestion in nutrition?|What is the goal of good nutrition? ]|[The Role of Digestion in Homeostasis|Homeostasis is the ability to maintain a consistent internal environment for optimal health. The digestive system plays an essential role in homeostasis by extracting essential nutrients from food and eliminating toxins from the body, thereby providing the energy and materials necessary for the body to function properly. |What is homeostasis?|What is the role of the digestive system in homeostasis?|What materials are necessary for the body to function optimally? ]|","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":139,"completion_tokens":462,"total_tokens":601}}';
+
+            // dd($complete);
+
+            $complete_array = json_decode($complete, true);
+            $text = trim($complete_array['choices'][0]['text']);
+            $parts = explode('|', $text);
+
+            $slides = [
+                'Title' => trim($parts[0]),
+                'Objective' => $parts[1],
+                'Slides' => [],
+            ];
+
+            for (
+                $i = 2;
+                $i < count($parts);
+                $i++
+            ) {
+                if (preg_match('/^\[(.+)$/', $parts[$i], $matches)) {
+                    $slideHeading = $matches[1];
+                    $slideContent = $parts[++$i];
+                    $questions = [];
+                    for ($j = 0; $j < 3; $j++) {
+                        $questions[] = $parts[++$i];
+                    }
+                    // Decrement the index by one to correctly process the next slide or end the loop
+                    $i--;
+                    $slides['Slides'][] = [
+                        'Heading' => $slideHeading,
+                        'Content' => $slideContent,
+                        'Questions' => $questions,
+                    ];
+                }
+            }
+
+            // Clean the title
+            $slides['Title'] = preg_replace('/[\r\n]+/', '', $slides['Title']);
+
+            // Clean the questions
+            foreach ($slides['Slides'] as $slideKey => $slide) {
+                foreach ($slide['Questions'] as $questionKey => $question) {
+                    $slides['Slides'][$slideKey]['Questions'][$questionKey] = rtrim($question, ']');
+                }
+            }
+        } catch (Exception $e) {
+            // Handle exceptions thrown by the OpenAI PHP SDK or custom exceptions
+            // Log the error message or display an appropriate error message to the user
+            error_log("Error: " . $e->getMessage());
+        }
+
+        // Store the lesson data in the session and redirect to the showLessonPlanner method
+        $request->session()->put('slides', $slides);
+        $request->session()->put('grade', $grade);
+        $request->session()->put('num_of_slides', $num_of_slides);
+        $request->session()->put('curriculum', $curriculum);
+        $request->session()->put('description', $description);
+
+        // Store the generated content in the histories table
+        $user_id = auth()->id(); // Get the authenticated user's ID
+        $tool_name = 'Slides Generator';
+        $content = json_encode($slides); // Convert the lesson array to a JSON string
+
+        $history = new History([
+            'user_id' => $user_id,
+            'tool_name' => $tool_name,
+            'content' => $content,
+        ]);
+
+        $history->save();
+
+        return redirect()->action([ToolController::class, 'showSlidesGenerator']);
+    }
+
     public function generateWorksheet(Request $request)
     {
         $open_ai_key = getenv('OPENAI_API_KEY');
@@ -157,8 +256,7 @@ class ToolController extends Controller
         $worksheet = [];
         // In Traditional Spanish from Spain.
         try {
-            $prompt = "In Traditional Spanish from Spain. Create a worksheet on the topic of $description for a student of grade $grade, following the $curriculum curriculum. The worksheet should provide comprehensive and challenging questions. Structure the worksheet using the following format: TitleOfComprehension|ObjectiveOfComprehension|[MCQQuestion1|Choice1|Choice2|Choice3]|[MCQQuestion2|Choice1|Choice2|Choice3]|[MCQQuestion3|Choice1|Choice2|Choice3]|[MCQQuestion4|Choice1|Choice2|Choice3]|[MCQQuestion5|Choice1|Choice2|Choice3]|[MCQQuestion6|Choice1|Choice2|Choice3]|[MCQQuestion7|Choice1|Choice2|Choice3]|[MCQQuestion8|Choice1|Choice2|Choice3]|{GeneralQuestion1|GeneralQuestion2|GeneralQuestion3}|(Ask a Question that summarizes the assessment - wrap it in () parenthesis)|<Fill in Blank Statement 1 | Fill In Blank Answer>|<Fill in Blank Statement 2 | Fill In Blank Answer>|<Fill in Blank Statement 3 | Fill In Blank Answer>.";
-
+            $prompt = "In Traditional Spanish from Spain. Create a worksheet on the topic of $description for a student of grade $grade, following the $curriculum curriculum. The worksheet should provide comprehensive and challenging questions. Structure the worksheet using the following format: TitleOfComprehension|ObjectiveOfComprehension|[MCQQuestion1|Choice1|Choice2|Choice3]|[MCQQuestion2|Choice1|Choice2|Choice3]|[MCQQuestion3|Choice1|Choice2|Choice3]|[MCQQuestion4|Choice1|Choice2|Choice3]|[MCQQuestion5|Choice1|Choice2|Choice3]|[MCQQuestion6|Choice1|Choice2|Choice3]|[MCQQuestion7|Choice1|Choice2|Choice3]|[MCQQuestion8|Choice1|Choice2|Choice3]|{GeneralQuestion1|GeneralQuestion2|GeneralQuestion3}|(Ask a Question that summarizes the assessment - wrap it in () parenthesis)|<Fill in Blank Statement 1 - add appropriate blanks i.e _____ | Fill In Blank Answer>|<Fill in Blank Statement 2 | Fill In Blank Answer>|<Fill in Blank Statement 3 | Fill In Blank Answer>|[Statement1|TrueOrFalse]|[Statement2|TrueOrFalse]|[Statement3|TrueOrFalse].";
 
             $complete = $open_ai->completion([
                 'model' => 'text-davinci-003',
@@ -171,7 +269,7 @@ class ToolController extends Controller
 
 
             // $complete = '{"id":"cmpl-7AZxD0KbAeZgItzEHy462Ma7dVTrL","object":"text_completion","created":1682755843,"model":"text-davinci-003","choices":[{"text":"\n\nDigestive System|To understand the functions and parts of the human digestive system|[What is the structure where food is broken down into molecules?|A. Cells|B. Mouth|C. Stomach]|[What is the organ which stores undigested food?|A. Small intestine|B. Large intestine|C. Esophagus]|[What organ produces bile?|A. Liver|B. Gallbladder|C. Pancreas]|[Which organ produces enzymes?|A. Liver|B. Pancreas|C. Kidney]|[The small intestine absorbs vitamins, proteins and ___________?|A. Minerals|B. Fiber|C. Carbohydrates]|[What is the organ that pumps blood throughout the body?|A. Lungs|B. Liver|C. Heart]|[What organ stores minerals and vitamins?|A. Kidneys|B. Liver|C. Gallbladder]|{What are the different organs involved in the digestive system?|What is the purpose of digestive system?|Explain what happens in the mouth during digestion?}|(How does the digestive system help us get energy from food?)|<Which part of the human body produces saliva | Mouth>|<The first step of digestion occurs in the _________ | Stomach>|<The food enters the small intestines through the ________ | Ileum>.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":265,"completion_tokens":302,"total_tokens":567}}';
-            // dd($complete);
+            dd($complete);
 
 
             $complete_array = json_decode($complete, true);

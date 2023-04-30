@@ -60,28 +60,7 @@
 </style>
 
 <?php 
-$something = [
-    (object) [
-        'Heading' => 'Slide 1 Title',
-        'Content' => 'This is the content of slide 1.',
-    ],
-    (object) [
-        'Heading' => 'Slide 2 Title',
-        'Content' => 'This is the content of slide 2.',
-    ],
-    (object) [
-        'Heading' => 'Slide 3 Title',
-        'Content' => 'This is the content of slide 3.',
-    ],
-    (object) [
-        'Heading' => 'Slide 4 Title',
-        'Content' => 'This is the content of slide 4.',
-    ],
-    (object) [
-        'Heading' => 'Slide 5 Title',
-        'Content' => 'This is the content of slide 5.',
-    ],
-];
+
 ?>
 <div class="intro-y flex items-center mt-8">
     <h2 class="text-lg font-medium mr-auto">
@@ -92,7 +71,7 @@ $something = [
     <!-- BEGIN: Profile Menu -->
     <div class="col-span-12 lg:col-span-4 2xl:col-span-4 flex lg:block flex-col-reverse">
         <div class="intro-y box mt-5">
-            <form method="POST" action="{{route('teacher.generateLessonPlanner')}}">
+            <form method="POST" action="{{route('teacher.generateSlides')}}">
                 @csrf
                 <div class="relative flex items-center p-5">
                     <div class="w-12 h-12 image-fit">
@@ -178,8 +157,8 @@ $something = [
                     <div class="mt-3">
                         <label for="lesson-title" class="form-label">Número de páginas</label>
                         <!-- Input for Lesson Title -->
-                        <input id="lesson-title" name="title" type="text" class="form-control" placeholder="i.e 8"
-                            value="<?php echo htmlspecialchars($num_of_slides); ?>">
+                        <input id="lesson-title" name="num_of_slides" type="text" class="form-control"
+                            placeholder="i.e 8" value="<?php echo htmlspecialchars($num_of_slides); ?>">
 
 
                     </div>
@@ -229,17 +208,31 @@ $something = [
                 <div class="my-10">
                     <div class="editable-slides-default">
                         <?php 
-                        if (empty($something)) {
-                            echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generate Slides' para comenzar el proceso!";
-                        } else {
-                            foreach ($something as $item) {
-                                echo '<div class="slide">';
-                                echo '<h3 class="text-xl font-medium leading-none mt-3">' . $item->Heading . '</h3>';
-                                echo '<p class="font-normal">' . $item->Heading . '</p>';
-                                echo '</div>';
+                    if (empty($slides)) {
+                        echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generate Slides' para comenzar el proceso!";
+                    } else {
+                        echo '<div class="slide flex flex-col justify-center items-center h-full">';
+                        echo '<h2 class="text-xl font-medium leading-none mt-3 text-center">' . $slides['Title'] . '</h2>';
+                        echo '<p class="font-normal text-center">' . $slides['Objective'] . '</p>';
+                        echo '</div>';
+            
+                        // Content slides
+                        foreach ($slides['Slides'] as $item) {
+                            echo '<div class="slide">';
+                            echo '<h3 class="text-xl font-medium leading-none mt-3">' . $item['Heading'] . '</h3>';
+                            echo '<p class="font-normal">' . $item['Content'] . '</p>';
+            
+                            // Display questions as bullets
+                            echo '<ul class="list-disc pl-5 mt-10" style="list-style-type: disc;">';
+                            foreach ($item['Questions'] as $question) {
+                                echo '<li class="font-normal leading-none text-md py-1"><span class="font-normal leading-none text-xl ">' . $question . '</span></li>';
                             }
+                            echo '</ul>';
+            
+                            echo '</div>';
                         }
-                        ?>
+                    }
+                    ?>
                     </div>
                 </div>
                 <?php 
