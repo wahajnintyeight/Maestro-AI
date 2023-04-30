@@ -61,7 +61,9 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
 
     Route::post('/slides-generator', [ToolController::class, 'generateSlides'])->name('generateSlides');
 
-
+    Route::get('/rubric-generator', [ToolController::class, 'showRubricGenerator'])->name('showRubricGenerator');
+    Route::post('/rubric-generator', [ToolController::class, 'generateRubric'])->name('generateRubric');
+    Route::get('/download-rubric', [ToolController::class, 'downloadRubricDocx'])->name('downloadRubric');
     // Stripe Payment
     Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");
     Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");

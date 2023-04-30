@@ -66,6 +66,20 @@ class ToolController extends Controller
         return view('dashboard.teacher.worksheetGenerator01', compact('worksheet', 'curriculum', 'grade', 'description'));
     }
 
+    // change this function to rubric generator show page
+    public function showRubricGenerator(Request $request)
+    {
+        $rubric = $request->session()->get('rubric', []);
+        $curriculum = $request->session()->get('curriculum', '');
+        $grade = $request->session()->get('grade', '');
+        $area_assessed = $request->session()->get('area_assessed', '');
+        $title = $request->session()->get('title', '');
+
+        // Clear session data
+        $request->session()->forget(['rubric', 'curriculum', 'grade', 'title', 'area_assessed']);
+
+        return view('dashboard.teacher.rubric-generator', compact('rubric', 'curriculum', 'grade', 'title', 'area_assessed'));
+    }
 
     public function generateLessonPlanner(Request $request)
     {
@@ -439,6 +453,76 @@ class ToolController extends Controller
         return redirect()->action([ToolController::class, 'showWorksheetGenerator']);
     }
 
+    public function generateRubric(Request $request)
+    {
+        $open_ai_key = getenv('OPENAI_API_KEY');
+        $open_ai = new OpenAi($open_ai_key);
+
+        $topic = $request->input('title');
+        $grade = $request->input('grade');
+        $area_assessed = $request->input('area_assessed');
+        $curriculum = $request->input('curriculum');
+        $lang = "English";
+        $rubric = [];
+        // In Traditional Spanish from Spain. 
+        try {
+            $prompt = "In $lang. Create a rubric assessment on the topic of $topic for a student of grade $grade, following the $curriculum curriculum. Structure the rubric using the following format: TitleOfRubric|[Category1|Excellent1|Good1|NeedImprovement1|Poor1]|[Category2|Excellent2|Good2|NeedImprovement2|Poor2]|[Category3|Excellent3|Good3|NeedImprovement3|Poor3]|[Category4|Excellent1|Good4|NeedImprovement4|Poor4]. Instead of writing Category 1, 2. I want you to fill the category with the actual names";
+            // dd($prompt);
+            // $complete = $open_ai->completion([
+            //     'model' => 'text-davinci-003',
+            //     'prompt' => $prompt,
+            //     'temperature' => 0.9,
+            //     'max_tokens' => 1000,
+            //     'frequency_penalty' => 0,
+            //     'presence_penalty' => 0.6,
+            // ]);
+            $complete = '{"id":"cmpl-7Ad9I8MjI90uEE9v45j60FmvWoYlT","object":"text_completion","created":1682768124,"model":"text-davinci-003","choices":[{"text":". \n\nDebate Rubric|[Preparation|Excellent-Well prepared in advance with accurate evidence, point of view clearly expressed|Good-Reasonably well prepared with good evidence|Need Improvement-Little or no preparation, lack of evidence. Little or no preparation, lack of evidence. Little or no preparation, lack of evidence. Little or no preparation, lack of evidence|Poor-Not prepared on the debate topic]|[Explanation|Excellent-Makes a clear argument in response to questions and challenges|Good-The argument is clearly expressed|Need Improvement-The argument contains some inaccuracies|Poor-The argument is vague or incomplete]|[Advocacy|Excellent-Stays focused on the argument, considers other’s points of view objectively|Good-The point of view is presented respectfully|Need Improvement-Stays focused on own point of view, does not consider other’s point of view|Poor-Loses focus on the debate topic]|[Conclusion|Excellent-Sums up the main arguments effectively, clearly states conclusion|Good-States conclusion but lacks complete understanding of whole argument|Need Improvement-Incomplete summary of the argument, lacking clarity of conclusion|Poor-No summation of the argument, no understanding of the outcome]","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":142,"completion_tokens":236,"total_tokens":378}}';
+
+            $completeDecoded = json_decode($complete, true);
+            // dd($complete);
+            $text = trim($completeDecoded['choices'][0]['text']);
+            // dd($text);
+            $parts = explode('|', $text);
+            // dd($parts);
+            $title = trim($parts[0]);
+            $rubric = [];
+
+            $currentCategory = null;
+            foreach ($parts as $value) {
+                if (preg_match('/^\[(.*)$/', $value, $matches)) {
+                    $currentCategory = $matches[1];
+                    $rubric[$currentCategory] = [];
+                } elseif (preg_match('/^(.*)-(.*)$/', $value, $matches)) {
+                    $key = rtrim($matches[1], ']');
+                    $value = rtrim($matches[2], ']');
+                    $rubric[$currentCategory][$key] = $value;
+                }
+            }
+        } catch (Exception $e) {
+            // Handle exceptions thrown by the OpenAI PHP SDK or custom exceptions
+            // Log the error message or display an appropriate error message to the user
+            error_log("Error: " . $e->getMessage());
+        }
+        $request->session()->put('rubric', $rubric);
+        $request->session()->put('curriculum', $curriculum);
+        $request->session()->put('title', $request->input('title'));
+        $request->session()->put('grade', $grade);
+        $request->session()->put('area_assessed', $area_assessed);
+
+        $user_id = auth()->id(); // Get the authenticated user's ID
+        $tool_name = 'Rubric Generator';
+        $content = json_encode($rubric); // Convert the lesson array to a JSON string
+
+        $history = new History([
+            'user_id' => $user_id,
+            'tool_name' => $tool_name,
+            'content' => $content,
+        ]);
+
+        $history->save();
+
+        return redirect()->action([ToolController::class, 'showRubricGenerator'], compact('rubric'));
+    }
 
     public function generateConceptExplainer(Request $request)
     {
@@ -667,6 +751,56 @@ class ToolController extends Controller
         exit;
     }
 
+    public function downloadRubricDocx(Request $request)
+    {
+        $rubric = json_decode(urldecode($request->input('rubric')), true);
+
+        $phpWord = new PhpWord();
+
+        $section = $phpWord->addSection();
+
+        // Create the table
+        $table = $section->addTable();
+
+        // Define cell style with border color
+        $cellStyle = array('borderSize' => 6, 'borderColor' => '000000');
+
+        // Create the header row
+        $headerRow = $table->addRow();
+
+        // Adding "Category Name" as the first header cell
+        $headerRow->addCell(2000, $cellStyle)->addText("Category Name");
+
+        // Retrieve the first element of the $rubric array
+        $firstCategory = reset($rubric);
+
+        // Add header cells for the assessed names
+        foreach ($firstCategory as $assessed_name => $desc) {
+            $headerRow->addCell(2000, $cellStyle)->addText($assessed_name);
+        }
+
+        // Add table rows
+        foreach ($rubric as $category => $ratings) {
+            $row = $table->addRow();
+            $row->addCell(2000, $cellStyle)->addText($category);
+            foreach ($ratings as $rating => $description) {
+                $row->addCell(2000, $cellStyle)->addText($description);
+            }
+        }
+
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+
+        $fileName = "rubric_generator.docx";
+
+        // Set headers for downloading the file
+        header("Content-Disposition: attachment; filename=$fileName");
+        header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+
+        // Save the file to output buffer and send it to the browser
+        $objWriter->save('php://output');
+        exit;
+    }
+
     public function removeInvalidXmlChars($text)
     {
         return preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F]/', '', $text);
@@ -769,7 +903,6 @@ class ToolController extends Controller
         $objWriter->save('php://output');
         exit;
     }
-
 
     public function downloadWorksheetDocx(Request $request)
     {
