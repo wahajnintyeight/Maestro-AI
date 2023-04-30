@@ -16,13 +16,22 @@ class PlanSeeder extends Seeder
     {
         $plans = [
             [
-                'name' => 'Premium',
-                'slug' => 'premium',
-                'stripe_plan' => env('STRIPE_PREMIUM_PLAN'),
-                'price' => 25,
-                'description' => 'Premium'
+                'name' => 'Monthly',
+                'slug' => 'monthly',
+                'stripe_plan' => env('STRIPE_PREMIUM_MONTHLY_PLAN'),
+                'price' => 6.99,
+                'description' => 'Monthly'
+            ],
+            [
+                'name' => 'Annual',
+                'slug' => 'annual',
+                'stripe_plan' => env('STRIPE_PREMIUM_ANNUAL_PLAN'),
+                'price' => 6.00,
+                'description' => 'Annual'
             ]
         ];
+
+        \DB::table('plans')->truncate();
 
         foreach ($plans as $plan) {
             Plan::create($plan);

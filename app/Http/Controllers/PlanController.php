@@ -34,9 +34,17 @@ class PlanController extends Controller
     public function subscription(Request $request)
     {
         $plan = Plan::find($request->plan);
+        // dd($plan);
+        if ($plan->stripe_plan == env('STRIPE_PREMIUM_ANNUAL_PLAN')) {
 
-        $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)
-            ->create($request->token);
+            $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)
+                ->create($request->token);
+        } else {
+            $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)
+                ->create($request->token);
+            $nextSubscriptionDate = now()->addDays(30);
+            $subscription->update(['ends_at' => $nextSubscriptionDate]);
+        }
 
         $request->user()->update([
             'is_paid' => 1,
