@@ -18,14 +18,14 @@ class PlanSeeder extends Seeder
             [
                 'name' => 'Monthly',
                 'slug' => 'monthly',
-                'stripe_plan' => env('STRIPE_PREMIUM_MONTHLY_PLAN'),
+                'stripe_plan' => env('STRIPE_BASIC_PLAN'),
                 'price' => 6.99,
                 'description' => 'Monthly'
             ],
             [
                 'name' => 'Annual',
                 'slug' => 'annual',
-                'stripe_plan' => env('STRIPE_PREMIUM_ANNUAL_PLAN'),
+                'stripe_plan' => env('STRIPE_PREMIUM_PLAN'),
                 'price' => 6.00,
                 'description' => 'Annual'
             ]
