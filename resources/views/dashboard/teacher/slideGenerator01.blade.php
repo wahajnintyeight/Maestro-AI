@@ -18,7 +18,7 @@
         padding: 13px;
         border-radius: 4px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        background-color: black;
+        background-color: rgb(184, 184, 184);
     }
 
     .editable-slides-default .slide {

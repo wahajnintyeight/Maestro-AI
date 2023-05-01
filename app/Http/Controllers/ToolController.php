@@ -270,7 +270,7 @@ class ToolController extends Controller
         $worksheet = [];
         // In Traditional Spanish from Spain.
         try {
-            $prompt = "In Traditional Spanish from Spain. Create a worksheet on the topic of $description for a student of grade $grade, following the $curriculum curriculum. The worksheet should provide comprehensive and challenging questions. Structure the worksheet using the following format: TitleOfComprehension|ObjectiveOfComprehension|[MCQQuestion1|Choice1|Choice2|Choice3]|[MCQQuestion2|Choice1|Choice2|Choice3]|[MCQQuestion3|Choice1|Choice2|Choice3]|[MCQQuestion4|Choice1|Choice2|Choice3]|[MCQQuestion5|Choice1|Choice2|Choice3]|[MCQQuestion6|Choice1|Choice2|Choice3]|[MCQQuestion7|Choice1|Choice2|Choice3]|[MCQQuestion8|Choice1|Choice2|Choice3]|{GeneralQuestion1|GeneralQuestion2|GeneralQuestion3}|(Ask a Question that summarizes the assessment - wrap it in () parenthesis)|<Fill in Blank Statement 1 - add appropriate blanks i.e _____ | Fill In Blank Answer>|<Fill in Blank Statement 2 | Fill In Blank Answer>|<Fill in Blank Statement 3 | Fill In Blank Answer>|[Statement1|TrueOrFalse]|[Statement2|TrueOrFalse]|[Statement3|TrueOrFalse].";
+            $prompt = "In Traditional Spanish from Spain. Create a worksheet on the topic of $description for a student of grade $grade, following the $curriculum curriculum. The worksheet should provide comprehensive and challenging questions. Structure the worksheet using the following format: TitleOfComprehension|ObjectiveOfComprehension|[MCQQuestion1|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion2|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion3|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion4|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion5|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion6|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion7|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion8|Choice1|Choice2|Choice3|CorrectChoice]|{GeneralQuestion1|GeneralQuestion2|GeneralQuestion3}|(Ask a Question that summarizes the assessment - wrap it in () parenthesis)|<Fill in Blank Statement 1 - add appropriate blanks i.e _____ | Fill In Blank Answer>|<Fill in Blank Statement 2 | Fill In Blank Answer>|<Fill in Blank Statement 3 | Fill In Blank Answer>|[Statement1|TrueOrFalse]|[Statement2|TrueOrFalse]|[Statement3|TrueOrFalse].";
 
             $complete = $open_ai->completion([
                 'model' => 'text-davinci-003',
@@ -282,8 +282,8 @@ class ToolController extends Controller
             ]);
 
 
-            // $complete = '{"id":"cmpl-7AZxD0KbAeZgItzEHy462Ma7dVTrL","object":"text_completion","created":1682755843,"model":"text-davinci-003","choices":[{"text":"\n\nDigestive System|To understand the functions and parts of the human digestive system|[What is the structure where food is broken down into molecules?|A. Cells|B. Mouth|C. Stomach]|[What is the organ which stores undigested food?|A. Small intestine|B. Large intestine|C. Esophagus]|[What organ produces bile?|A. Liver|B. Gallbladder|C. Pancreas]|[Which organ produces enzymes?|A. Liver|B. Pancreas|C. Kidney]|[The small intestine absorbs vitamins, proteins and ___________?|A. Minerals|B. Fiber|C. Carbohydrates]|[What is the organ that pumps blood throughout the body?|A. Lungs|B. Liver|C. Heart]|[What organ stores minerals and vitamins?|A. Kidneys|B. Liver|C. Gallbladder]|{What are the different organs involved in the digestive system?|What is the purpose of digestive system?|Explain what happens in the mouth during digestion?}|(How does the digestive system help us get energy from food?)|<Which part of the human body produces saliva | Mouth>|<The first step of digestion occurs in the _________ | Stomach>|<The food enters the small intestines through the ________ | Ileum>.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":265,"completion_tokens":302,"total_tokens":567}}';
-            dd($complete);
+            // $complete = '{"id":"cmpl-7AzLVBVb7FBDgsxQpQmJfA79TE2U0","object":"text_completion","created":1682853449,"model":"text-davinci-003","choices":[{"text":" \n\nComprehension on Pakistani Politics |The objective of this worksheet is to explore the basics of politics in Pakistan|[Which is the capital of Pakistan?|Beijing|Islamabad|Karachi|Islamabad]|[What is the official language spoken in Pakistan?|English|Hindi|Urdu|Urdu]|[Who is Pakistan’s current Prime Minister?|Imran Khan|Raja Pervez Ashraf|Nawaz Sharif|Imran Khan]|[Which article of the 1973 Constitution of Pakistan talks about civil liberties?|Article 2|Article 11|Article 19|Article 19]|[The president of Pakistan is also a ____ ?|Politician|Military Officer|Judge|Politician]|[How many provinces are there in Pakistan?|Four|Six|Eight|Eight]|[Who was the first governor-general of Pakistan?|Khawaja Nazimuddin|M.A. Jinnah|Sir Zafarullah Khan|M.A. Jinnah]|{Describe the three branches of government in Pakistan|What are the electoral rules for selecting the president of Pakistan?|How does the Prime Minister of Pakistan exercise their powers?}|(How does the government in Pakistan function?)|<Pakistan is made up of ______ provinces. | Eight>|<The Constitution of Pakistan was written in _____ . |1973>|<The President of Pakistan is elected by _____ . |electoral college>|[Pakistan is a federal republic|True]|[The President of Pakistan has control over the military|False]|[The Prime Minister of Pakistan is elected by the National Assembly|True].","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":322,"completion_tokens":348,"total_tokens":670}}';
+            // dd($complete);
 
 
             $complete_array = json_decode($complete, true);
@@ -310,7 +310,8 @@ class ToolController extends Controller
                 $i++;
                 $choice3 = trim(str_replace(']', '', $parts[$i]));
                 $i++;
-
+                $correctChoice = trim(str_replace(']', '', $parts[$i]));
+                $i++;
                 // If the next element starts with '[', it is still part of the MCQs
                 if (
                     $i < count($parts) && $parts[$i][0] === '['
@@ -320,6 +321,7 @@ class ToolController extends Controller
                         'Choice1' => $choice1,
                         'Choice2' => $choice2,
                         'Choice3' => $choice3,
+                        'Correct' => $correctChoice,
                     ];
                 } else {
                     // Otherwise, we have reached the end of the MCQs, add the last MCQ and break the loop
@@ -328,10 +330,13 @@ class ToolController extends Controller
                         'Choice1' => $choice1,
                         'Choice2' => $choice2,
                         'Choice3' => $choice3,
+                        'Correct' => $correctChoice,
                     ];
                     break;
                 }
             }
+
+            // dd($i, $parts);
 
 
             $general_questions = [];
@@ -362,19 +367,19 @@ class ToolController extends Controller
 
             // dd($i, count($parts));
 
-            if (
-                $i < count($parts)
-            ) {
+            if ($i < count($parts)) {
                 $current = trim($parts[$i]);
 
-                // dd($current);
                 if ($current[0] === '(') {
                     while ($i < count($parts)) {
-                        $current = trim($parts[$i], '().');
+                        $current = trim($parts[$i]);
+
                         // Break the loop when encountering '<'
                         if ($current[0] === '<') {
                             break;
                         }
+
+                        $current = trim($current, '().');
 
                         if ($current[strlen($current) - 1] === ')') {
                             $assessment_summary .= $current;
@@ -387,7 +392,22 @@ class ToolController extends Controller
                 }
             }
 
+
+
+            // dd($parts);
+
             $fill_in_the_blanks = [];
+
+            // Create a function to check if a character exists in any element of an array
+            function characterExistsInArray($char, $array, $startIndex)
+            {
+                for ($i = $startIndex; $i < count($array); $i++) {
+                    if (strpos($array[$i], $char) !== false) {
+                        return true;
+                    }
+                }
+                return false;
+            }
 
             while ($i !== false && $i < count($parts)) {
                 $current = trim($parts[$i]);
@@ -409,12 +429,45 @@ class ToolController extends Controller
                 } else {
                     $i++;
                 }
+
+                // Check if there are no more '>' characters
+                if (!characterExistsInArray('>', $parts, $i)) {
+                    break;
+                }
             }
 
 
             // dd($i);
 
-            // Build the final worksheet array
+            $true_or_false = [];
+
+            while (
+                $i < count($parts)
+            ) {
+                $current = trim($parts[$i]);
+                if ($current[0] === '[') {
+                    $statement = trim(substr($current, 1));
+                    $answer = trim(trim($parts[$i + 1]), ']');
+
+                    // Check if ']' is in the next element
+                    if (strpos($answer, ']') !== false) {
+                        $answer = trim(substr($answer, 0, strpos($answer, ']')));
+                        $i++;
+                    }
+
+                    $true_or_false[] = [
+                        'Statement' => $statement,
+                        'Answer' => $answer,
+                    ];
+                    $i += 2;
+                } else {
+                    $i++;
+                }
+            }
+
+
+            $decide = rand(0, 1);
+
             $worksheet = [
                 'Title' => $title,
                 'Objective' => $objective,
@@ -422,7 +475,11 @@ class ToolController extends Controller
                 'GeneralQuestions' => $general_questions,
                 'AssessmentSummary' => $assessment_summary,
                 'FillInTheBlanks' => $fill_in_the_blanks, // Add the FillInTheBlanks array to the final worksheet
+                'TrueOrFalse' => $true_or_false,
+                'decide' => $decide
             ];
+
+            // dd($parts, $i, $worksheet);
 
             // dd($worksheet);
         } catch (Exception $e) {
@@ -953,9 +1010,16 @@ class ToolController extends Controller
 
         // Add Task 3: Critical Thinking
         $section->addText('Task 3: Critical Thinking', $taskStyle);
-        $section->addText('Answer the following questions in complete sentences:');
-        foreach ($worksheet['GeneralQuestions'] as $index => $question) {
-            $section->addListItem($question, 0);
+        if ($worksheet['decide'] == 0) {
+            $section->addText('Answer the following questions in complete sentences:');
+            foreach ($worksheet['GeneralQuestions'] as $index => $question) {
+                $section->addListItem($question, 0);
+            }
+        } else {
+            $section->addText('Label the following statements as: True or False');
+            foreach ($worksheet['TrueOrFalse'] as $index => $question) {
+                $section->addListItem($question['Statement'] . ' __________', 0);
+            }
         }
         $section->addTextBreak();
 
@@ -963,6 +1027,31 @@ class ToolController extends Controller
         $section->addText('Task 4: Assessment', $taskStyle);
         $cleanAssessmentSummary = $this->removeInvalidXmlChars($worksheet['AssessmentSummary']);
         $section->addText($cleanAssessmentSummary);
+
+        // Add Answer Key
+        $section->addPageBreak();
+        $section->addText('Answer Key (For Teacher Use Only)', $headingStyle);
+
+        // MCQs
+        $section->addText('MCQs:', $taskStyle);
+        foreach ($worksheet['MCQs'] as $index => $mcq) {
+            $section->addText(($index + 1) . '. ' . $mcq['Correct']);
+        }
+
+        // Fill in the Blanks
+        $section->addText('Fill in the Blanks:', $taskStyle);
+        foreach ($worksheet['FillInTheBlanks'] as $index => $fib) {
+            $section->addText(($index + 1) . '. ' . $fib['Answer']);
+        }
+
+        // True or False
+        if ($worksheet['decide'] == 1) {
+            $section->addText('True or False:', $taskStyle);
+            foreach ($worksheet['TrueOrFalse'] as $index => $tof) {
+                $section->addText(($index + 1) . '. ' . $tof['Answer']);
+            }
+        }
+
 
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
 
@@ -982,15 +1071,14 @@ class ToolController extends Controller
         $worksheet = json_decode(urldecode($request->input('worksheet')), true);
         $phpWord = new PhpWord();
         $phpWord->getDocInfo()->setTitle("MaestroIA - Worksheet PDF");
+
         // Set PDF renderer
         $domPdfPath = base_path('vendor/dompdf/dompdf');
         Settings::setPdfRendererPath($domPdfPath);
         Settings::setPdfRendererName('DomPDF');
 
-
-
         // Define font styles
-        $headingStyle = ['size' => 16, 'bold' => true];
+        $headingStyle = ['size' => 14, 'bold' => true];
         $taskStyle = ['size' => 14, 'bold' => true];
         $objectiveStyle = ['size' => 14];
         $contentStyle = ['size' => 12];
@@ -999,24 +1087,28 @@ class ToolController extends Controller
 
         // Add title
         $section->addText($worksheet['Title'], $headingStyle);
-
+        $section->addTextBreak();
 
         // Add objective
-        $section->addText('Objective', $objectiveStyle);
-        $section->addText($worksheet['Objective'], $contentStyle);
+        $section->addText('Objective: ' . $worksheet['Objective'], $contentStyle);
 
         // Add Task 1: MCQs
+        $section->addTextBreak();
         $section->addText('Task 1: Multiple Choice Questions', $taskStyle);
+        $section->addTextBreak();
+
         foreach ($worksheet['MCQs'] as $index => $mcq) {
             $section->addText(($index + 1) . '. ' . $mcq['Question']);
-            $section->addListItem($mcq['Choice1'], 0);
-            $section->addListItem($mcq['Choice2'], 0);
-            $section->addListItem($mcq['Choice3'], 0);
+            $section->addListItem('a. ' . $mcq['Choice1'], 0);
+            $section->addListItem('b. ' . $mcq['Choice2'], 0);
+            $section->addListItem('c. ' . $mcq['Choice3'], 0);
             $section->addTextBreak();
         }
 
         // Add Task 2: Fill in the Blanks
         $section->addText('Task 2: Fill in the Blanks', $taskStyle);
+        $section->addTextBreak();
+
         $section->addText('Word Bank:');
         foreach ($worksheet['FillInTheBlanks'] as $index => $fib) {
             $section->addListItem($fib['Answer'], 0);
@@ -1031,15 +1123,60 @@ class ToolController extends Controller
 
         // Add Task 3: Critical Thinking
         $section->addText('Task 3: Critical Thinking', $taskStyle);
-        $section->addText('Answer the following questions in complete sentences:');
-        foreach ($worksheet['GeneralQuestions'] as $index => $question) {
-            $section->addListItem($question, 0);
+        $section->addTextBreak();
+
+        if ($worksheet['decide'] == 0) {
+            $section->addText('Answer the following questions in complete sentences:');
+            foreach ($worksheet['GeneralQuestions'] as $index => $question) {
+                $section->addListItem($question, 0);
+            }
+        } else {
+            $section->addText('Label the following statements as: True or False');
+            foreach ($worksheet['TrueOrFalse'] as $index => $question) {
+                $section->addListItem($question['Statement'] . ' __________', 0);
+            }
         }
         $section->addTextBreak();
 
         // Add Task 4: Assessment
         $section->addText('Task 4: Assessment', $taskStyle);
+        $section->addTextBreak();
+
         $section->addText($worksheet['AssessmentSummary']);
+        $section->addTextBreak();
+
+        $section2 = $phpWord->addSection(['breakType' => 'nextPage']);
+
+        // Add Answer Key
+        $section2->addText('Answer Key (For Teacher Use Only)', $headingStyle);
+        $section2->addTextBreak();
+
+        $section2->addText('MCQs:', $taskStyle);
+        $section2->addTextBreak();
+
+        foreach ($worksheet['MCQs'] as $index => $mcq) {
+            $section2->addText(($index + 1) . '. ' . $mcq['Correct']);
+        }
+        $section2->addTextBreak();
+
+        // Fill in the Blanks
+        $section2->addText('Fill in the Blanks:', $taskStyle);
+        $section2->addTextBreak();
+
+        foreach ($worksheet['FillInTheBlanks'] as $index => $fib) {
+            $section2->addText(($index + 1) . '. ' . $fib['Answer']);
+        }
+        $section2->addTextBreak();
+
+        // True or False
+        if ($worksheet['decide'] == 1) {
+            $section2->addText('True or False:', $taskStyle);
+            $section2->addTextBreak();
+
+            foreach ($worksheet['TrueOrFalse'] as $index => $tof) {
+                $section2->addText(($index + 1) . '. ' . $tof['Answer']);
+            }
+        }
 
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'PDF');
 

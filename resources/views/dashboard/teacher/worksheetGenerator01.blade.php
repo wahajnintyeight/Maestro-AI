@@ -161,22 +161,49 @@
                                 $fib=$worksheet['FillInTheBlanks'][$i];
                                 echo '<div class="font-normal">' . ($i + 1) . '. ' . $fib['Statement'] . '</div><br>' ;
                             }
-                echo '
-                <hr>';
-                            echo '<h4 class="text-md font-medium leading-none mt-3">Task 3: Critical Thinking</h4><br>';    
-                            echo '<h4 class="text-md font-medium leading-none mt-3">Answer the following questions in complete sentences</h4><br>';                    
-                            echo '<ul class="list-disc pl-5" style="list-style-type: disc;">';                            
-                                foreach($worksheet['GeneralQuestions'] as $question) {
-                                echo '<li>' . $question . '</li>';
+                            echo '<hr>';
+                            echo '<h4 class="text-md font-medium leading-none mt-3">Task 3: Critical Thinking</h4><br>';
+                            if($worksheet['decide'] == 0) {    
+                                echo '<h4 class="text-md font-medium leading-none mt-3">Answer the following questions in complete sentences</h4><br>';                    
+                                echo '<ul class="list-disc pl-5" style="list-style-type: disc;">';                            
+                                    foreach($worksheet['GeneralQuestions'] as $question) {
+                                    echo '<li>' . $question . '</li>';
+                                }
+                                echo '</ul><br>';
+                            } else {
+                                echo '<h4 class="text-md font-medium leading-none mt-3">Label the following statements as: True or False</h4><br>';
+                                echo '<ul class="list-disc pl-5" style="list-style-type: disc;">';
+                                    foreach($worksheet['TrueOrFalse'] as $question) {
+                                    echo '<li>' . $question['Statement'] . ' __________ </li>';
+                                    }
+                                    echo '</ul><br>';
                             }
-                            echo '</ul><br>';
                             echo '
                             <hr>';
                             echo '<h4 class="text-md font-medium leading-none mt-3">Task 4: Assessment</h4><br>';                        
                             echo '<div class="font-normal">' . $worksheet['AssessmentSummary'] . '</div>';
 
+                            // Add the Answer Key section at the end
+                            if (!empty($worksheet)) {
+                            echo '
+                            <h3 class="mt-5">-----------------------------------------------------------------------------------------------------</h3>';
+                            echo '<h3 class="text-md font-medium leading-none mt-3">Answer Key (For Teacher Use Only)</h3><br>';
                             
-
+                            // MCQs section
+                            echo '<h4 class="text-md font-medium leading-none mt-3 mb-3">MCQs:</h4>';
+                            for ($i = 0; $i < count($worksheet['MCQs']); $i++) { 
+                                $mcq=$worksheet['MCQs'][$i]; echo '<div>' . ($i + 1) . '. ' .
+                                $mcq['Correct'] . '</div>' ; 
+                            } // Fill in the Blanks section
+                                echo '<h4 class="text-md font-medium leading-none mt-3 mb-3">Fill in the Blanks:</h4>' ; 
+                                for ($i=0; $i < count($worksheet['FillInTheBlanks']); $i++) {
+                                     $fib=$worksheet['FillInTheBlanks'][$i]; echo '<div>' . ($i + 1) . '. ' . $fib['Answer'] . '</div>' ; 
+                                    } // True or False section 
+                                    if ($worksheet['decide']==1) {
+                                echo '<h4 class="text-md font-medium leading-none mt-3 mb-3">True or False:</h4>' ; for ($i=0; $i <
+                                count($worksheet['TrueOrFalse']); $i++) { $tof=$worksheet['TrueOrFalse'][$i]; echo '<div>' . ($i + 1) . '. ' .
+                                $tof['Answer'] . '</div>' ; } } 
+                                }
                             
                     }
                     ?>
