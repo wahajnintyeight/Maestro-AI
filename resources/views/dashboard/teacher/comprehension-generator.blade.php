@@ -135,6 +135,12 @@
                                 class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
                         </div>
                         <div class="mt-5">
+                            <label for="comprehension-focus" class="form-label">Focus</label>
+                            <!-- Textarea for Lesson Description -->
+                            <input id="comprehension-focus" type="text" placeholder="Enter the focus" name="focus"
+                                required class="form-control" value="<?php echo htmlspecialchars($focus); ?>">
+                        </div>
+                        <div class="mt-5">
                             <label for="lesson-description" class="form-label">Description of Comprehension</label>
                             <!-- Textarea for Lesson Description -->
                             <textarea id="lesson-description"
@@ -194,7 +200,7 @@
                     </ul>
                     <div class="my-10">
                         @php
-                        // dd($questions);
+                            // dd($questions);
                             if (empty($questions)) {
                                 echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generar plan de lección' para comenzar el proceso!";
                             } else {
@@ -203,7 +209,7 @@
                                     echo '<div class="font-normal"><li>' . $question->Option1 . '</li></div>';
                                     echo '<div class="font-normal"><li>' . $question->Option2 . '</li></div>';
                                     echo '<div class="font-normal"><li>' . $question->Option3 . '</li></div><br>';
-                                    echo '<div class="font-normal text-success">Correct Answer: <b>' . $question->Correct. '</b></div>';
+                                    echo '<div class="font-normal text-success">Correct Answer: <b>' . $question->Correct . '</b></div>';
                                 }
                             }
                         @endphp
