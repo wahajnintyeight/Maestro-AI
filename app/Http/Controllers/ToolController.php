@@ -727,7 +727,7 @@ class ToolController extends Controller
         $focus = $request->input('focus');
         $lang = "Traditional Spanish from Spain";
         try {
-            $prompt = "In language $lang. Create " . $questionNo . " questions for this given comprehension: " . $description . " . \nPlease well-written provide questions in this format: Question[number]:Question|{Option1,Option2,Option3,Correct}. Each question should be on a new line. \nThe questions should be relevant, with the focus on goal which is $focus, and should be in $lang, and the grade level for the questions should be " . $grade . ". For example - Question[0]:What is the color of the car?|{Red,Yellow,Green,Red}.";
+            $prompt = "In language $lang. Create " . $questionNo . " questions for this given comprehension: " . $description . ". The reading focus of the questions should be '" . $focus . "' \nPlease well-written provide questions in this format: Question[number]:Question|{Option1,Option2,Option3,Correct}. Each question should be on a new line. \nThe questions should be relevant and should be in $lang, and the grade level for the questions should be " . $grade . ". For example - Question[0]:What is the color of the car?|{Red,Yellow,Green,Red}. Keep the questions strictly related to the focus: '" . $focus . "'.";
             // dd($prompt);
             $complete = $open_ai->completion([
                 'model' => 'text-davinci-003',
