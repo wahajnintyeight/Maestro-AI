@@ -28,7 +28,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 });
 
 Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => ['auth', 'teacher'], 'as' => 'teacher.'], function () {
-
+    Route::get('/', [PageController::class, 'teacherDashboard'])->name('dashboard');
     Route::get('/dashboard', [PageController::class, 'teacherDashboard'])->name('dashboard');
     Route::get('/accountInfo', [PageController::class, 'teacherAccountInfo'])->name('teacherAccountInfo');
 

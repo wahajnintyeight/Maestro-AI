@@ -2,7 +2,7 @@
 @section('content')
     <div class="intro-y flex items-center mt-8">
         <h2 class="text-lg font-medium mr-auto">
-            Explica un Concepto
+            Generador de rúbricas
         </h2>
     </div>
     <div class="grid grid-cols-12 gap-6">
@@ -168,7 +168,7 @@
                             </svg>
                         </div>
                         <div class="ml-6 mr-auto">
-                            <div class="font-medium text-base">Explica un Concepto</div>
+                            <div class="font-medium text-base">Generador de rúbricas</div>
                         </div>
                     </div>
                     <div class="p-5 border-t border-slate-200/60 dark:border-darkmode-400">
@@ -193,6 +193,30 @@
                             <!-- Input for Lesson Title -->
                             <input required id="lesson-title" name="title" type="text" class="form-control"
                                 placeholder="ej. Sustantivos y pronombres" value="<?php echo htmlspecialchars($title); ?>">
+                        </div>
+                        <div class="mt-5">
+                            <label for="lesson-title" class="form-label">Category #1</label>
+                            <!-- Input for Lesson Title -->
+                            <input required id="lesson-title" name="category_1" type="text" class="form-control"
+                                placeholder="ej. Sustantivos y pronombres" value="<?php echo htmlspecialchars($category_1); ?>">
+                        </div>
+                        <div class="mt-5">
+                            <label for="lesson-title" class="form-label">Category #2</label>
+                            <!-- Input for Lesson Title -->
+                            <input required id="lesson-title" name="category_2" type="text" class="form-control"
+                                placeholder="ej. Sustantivos y pronombres" value="<?php echo htmlspecialchars($category_2); ?>">
+                        </div>
+                        <div class="mt-5">
+                            <label for="lesson-title" class="form-label">Category #3</label>
+                            <!-- Input for Lesson Title -->
+                            <input required id="lesson-title" name="category_3" type="text" class="form-control"
+                                placeholder="ej. Sustantivos y pronombres" value="<?php echo htmlspecialchars($category_3); ?>">
+                        </div>
+                        <div class="mt-5">
+                            <label for="lesson-title" class="form-label">Category #4</label>
+                            <!-- Input for Lesson Title -->
+                            <input required id="lesson-title" name="category_4" type="text" class="form-control"
+                                placeholder="ej. Sustantivos y pronombres" value="<?php echo htmlspecialchars($category_4); ?>">
                         </div>
                         <div class="mt-5 d-0" style="display: none">
                             <label for="lesson-description" class="form-label">Area Assessed</label>
@@ -239,58 +263,72 @@
                     <h1 class="text-xl font-medium leading-none py-2">Instrucciones</h1>
                     <ul class="list-disc list-inside border-b pb-5 border-slate-200/60 dark:border-darkmode-400"
                         style="list-style-type: disc;">
-                        <li class="ml-4">¿Satisfecho con los resultados? Haga clic en "Descargar .DOCX" o "Descargar
-                            .PDF"
-                            para descargar el
-                            documento con la explicación del concepto.
+                        <li class="ml-4">
+                            ¿Satisfecho con los resultados? Haga clic en "Descargar .DOCX" o "Descargar .PDF" para descargar
+                            la rúbrica generada.
                         </li>
                         <li class="ml-4">¿No satisfecho? Modifique la edad del estudiante, el nombre del tema y el nombre
-                            de
-                            la asignatura
-                            para generar una explicación del concepto más adecuada.</li>
+                            de la asignatura para generar una rúbrica más adecuada.</li>
                     </ul>
                     <hr>
                     <div class="overflow-x-auto">
-                        <table class="table-auto table-responsive w-full text-left whitespace-normal">
-                            <thead>
-                                <tr>
-                                    <th class="text-left px-4 py-3 border border-gray-300 text-gray-600 font-bold w-24">
-                                        Category</th>
-                                    <th class="text-left px-4 py-3 border border-gray-300 text-gray-600 font-bold w-24">
-                                        Excelente </th>
-                                    <th class="text-left px-4 py-3 border border-gray-300 text-gray-600 font-bold w-24">
-                                        Satisfactorio
-                                    </th>
-                                    <th class="text-left px-4 py-3 border border-gray-300 text-gray-600 font-bold w-24">
-                                        Mejorable </th>
-                                    <th class="text-left px-4 py-3 border border-gray-300 text-gray-600 font-bold w-24">
-                                        Insuficiente
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($rubric as $category => $ratings)
+                        @if (empty($rubric))
+                            <div class="text-center">
+                                <h5 class="font-medium mt-2 text-left py-2">Los resultados se mostrarán aquí.
+                                    ¡Haz
+                                    clic en '✨Generar de rúbricas para comenzar el proceso!
+                                </h5>
+                            </div>
+                        @else
+                            <table class="table-auto table-responsive w-full text-left whitespace-normal">
+                                <thead>
                                     <tr>
-                                        <td class="text-left px-3 py-2 border border-gray-300 font-semibold">
-                                            {{ $category }}</td>
-                                        @foreach ($ratings as $rating => $description)
-                                            <td class="text-left px-3 py-1 border border-gray-300">{{ $description }}</td>
-                                        @endforeach
+                                        <th
+                                            class="text-left px-4 py-3 border border-gray-300 text-gray-600 font-bold w-24">
+                                            Category</th>
+                                        <th
+                                            class="text-left px-4 py-3 border border-gray-300 text-gray-600 font-bold w-24">
+                                            Excelente </th>
+                                        <th
+                                            class="text-left px-4 py-3 border border-gray-300 text-gray-600 font-bold w-24">
+                                            Satisfactorio
+                                        </th>
+                                        <th
+                                            class="text-left px-4 py-3 border border-gray-300 text-gray-600 font-bold w-24">
+                                            Mejorable </th>
+                                        <th
+                                            class="text-left px-4 py-3 border border-gray-300 text-gray-600 font-bold w-24">
+                                            Insuficiente
+                                        </th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($rubric as $category => $ratings)
+                                        <tr>
+                                            <td class="text-left px-3 py-2 border border-gray-300 font-semibold">
+                                                {{ $category }}</td>
+                                            @foreach ($ratings as $rating => $description)
+                                                <td class="text-left px-3 py-1 border border-gray-300">{{ $description }}
+                                                </td>
+                                            @endforeach
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @endif
                     </div>
                     {{-- paste the code here --}}
                     <?php 
                 if (!empty($rubric)) {
                     ?>
-                    <div class="my-2 flex">
+                    <div class="my-2 mt-4 flex">
                         <a target="_blank"
                             href="{{ route('teacher.downloadRubric', ['rubric' => urlencode(json_encode($rubric))]) }}"
                             class="btn btn-primary">Descargar.DOCX</a>
                     </div>
                     <?php
+                } else {
+                    // echo  "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generar plan de lección' para comenzar el proceso!";
                 }
                 ?>
                 </div>

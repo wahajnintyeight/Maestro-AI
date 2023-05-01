@@ -72,13 +72,17 @@ class ToolController extends Controller
         $rubric = $request->session()->get('rubric', []);
         $curriculum = $request->session()->get('curriculum', '');
         $grade = $request->session()->get('grade', '');
+        $category_1 = $request->session()->get('category_1', '');
+        $category_2 = $request->session()->get('category_2', '');
+        $category_3 = $request->session()->get('category_3', '');
+        $category_4 = $request->session()->get('category_4', '');
         $area_assessed = $request->session()->get('area_assessed', '');
         $title = $request->session()->get('title', '');
 
         // Clear session data
-        $request->session()->forget(['rubric', 'curriculum', 'grade', 'title', 'area_assessed']);
+        $request->session()->forget(['rubric', 'curriculum', 'grade', 'title', 'area_assessed', 'category_1', 'category_2', 'category_3', 'category_4']);
 
-        return view('dashboard.teacher.rubric-generator', compact('rubric', 'curriculum', 'grade', 'title', 'area_assessed'));
+        return view('dashboard.teacher.rubric-generator', compact('rubric', 'curriculum', 'grade', 'title', 'area_assessed', 'category_1', 'category_2', 'category_3', 'category_4'));
     }
 
     public function generateLessonPlanner(Request $request)
@@ -519,42 +523,49 @@ class ToolController extends Controller
         $grade = $request->input('grade');
         $area_assessed = $request->input('area_assessed');
         $curriculum = $request->input('curriculum');
-        $lang = "English";
+        $lang = "Traditional Spanish from Spain";
+        $category_1 = $request->input('category_1');
+        $category_2 = $request->input('category_2');
+        $category_3 = $request->input('category_3');
+        $category_4 = $request->input('category_4');
         $rubric = [];
         // In Traditional Spanish from Spain. 
         try {
-            $prompt = "In $lang. Create a rubric assessment on the topic of $topic for a student of grade $grade, following the $curriculum curriculum. Structure the rubric using the following format: TitleOfRubric|[Category1|Excellent1|Good1|NeedImprovement1|Poor1]|[Category2|Excellent2|Good2|NeedImprovement2|Poor2]|[Category3|Excellent3|Good3|NeedImprovement3|Poor3]|[Category4|Excellent1|Good4|NeedImprovement4|Poor4]. Instead of writing Category 1, 2. I want you to fill the category with the actual names";
+            $prompt = "In $lang. Create a rubric assessment on the topic of $topic for a student of grade $grade, following the $curriculum curriculum. The content should be well-detailed. Structure the rubric using the following format: TitleOfRubric|[Category1|Excellent1|Good1|NeedImprovement1|Poor1]|[Category2|Excellent2|Good2|NeedImprovement2|Poor2]|[Category3|Excellent3|Good3|NeedImprovement3|Poor3]|[Category4|Excellent1|Good4|NeedImprovement4|Poor4]. The name of Category1 is $category_1, Category2 is $category_2, Category3 is $category_3 and Category4 is $category_4. For example: Podcast Assessment|[Content|Thorough and engaging content with clear focus|Content is mostly clear and engaging with minor inconsistencies|Content is somewhat unclear and lacks focus|Content is unclear and unfocused]|[Organization|Well-structured, logical flow and smooth transitions|Mostly well-structured with minor issues in flow and transitions|Some organization, but flow and transitions need improvement|Disorganized, lacking logical flow and transitions]|[Audio Quality|Crisp, clear audio with no background noise or distortion|Mostly clear audio with minor issues in sound quality|Audio quality is inconsistent and has distracting background noise|Poor audio quality with persistent noise and distortion]|[Presentation|Engaging, articulate, and enthusiastic presentation|Generally engaging and clear, with minor issues in delivery|Presentation lacks clarity or enthusiasm, needs improvement|Unengaging, monotonous, or unclear presentation]";
             // dd($prompt);
-            // $complete = $open_ai->completion([
-            //     'model' => 'text-davinci-003',
-            //     'prompt' => $prompt,
-            //     'temperature' => 0.9,
-            //     'max_tokens' => 1000,
-            //     'frequency_penalty' => 0,
-            //     'presence_penalty' => 0.6,
-            // ]);
-            $complete = '{"id":"cmpl-7Ad9I8MjI90uEE9v45j60FmvWoYlT","object":"text_completion","created":1682768124,"model":"text-davinci-003","choices":[{"text":". \n\nDebate Rubric|[Preparation|Excellent-Well prepared in advance with accurate evidence, point of view clearly expressed|Good-Reasonably well prepared with good evidence|Need Improvement-Little or no preparation, lack of evidence. Little or no preparation, lack of evidence. Little or no preparation, lack of evidence. Little or no preparation, lack of evidence|Poor-Not prepared on the debate topic]|[Explanation|Excellent-Makes a clear argument in response to questions and challenges|Good-The argument is clearly expressed|Need Improvement-The argument contains some inaccuracies|Poor-The argument is vague or incomplete]|[Advocacy|Excellent-Stays focused on the argument, considers other’s points of view objectively|Good-The point of view is presented respectfully|Need Improvement-Stays focused on own point of view, does not consider other’s point of view|Poor-Loses focus on the debate topic]|[Conclusion|Excellent-Sums up the main arguments effectively, clearly states conclusion|Good-States conclusion but lacks complete understanding of whole argument|Need Improvement-Incomplete summary of the argument, lacking clarity of conclusion|Poor-No summation of the argument, no understanding of the outcome]","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":142,"completion_tokens":236,"total_tokens":378}}';
+            $complete = $open_ai->completion([
+                'model' => 'text-davinci-003',
+                'prompt' => $prompt,
+                'temperature' => 0.9,
+                'max_tokens' => 1000,
+                'frequency_penalty' => 0,
+                'presence_penalty' => 0.6,
+            ]);
+            // dd($complete);
+            // $complete = '{"id":"cmpl-7BHMRHdoqtuahEghL9li6bunttL3p","object":"text_completion","created":1682922699,"model":"text-davinci-003","choices":[{"text":"\n\nEvaluación de Podcasts|[Contenido|Contenido profundo e interesante con un foco claro|El contenido es claro y atractivo mayormente, con algunas inconsistencias|El contenido es algo confuso y carece de foco|El contenido es confuso e inenfocado]|[Organización|La estructura es clara y fluida con lógico flujo y transiciones|Mayormente bien estructurado con algunos problemas en el flujo y transiciones|Alguna organización, pero el flujo y transiciones necesitan mejorar|Desorganizado y carente de flujo y transiciones lógicos]|[Calidad del audio|Sonido cristalino y nítido sin ruidos ni distorsión en el fondo|Mayormente se oye bien con algunos problemas en la calidad del sonido|La calidad del audio es inconsistente y tiene ruido de fondo distractivo|Mal audio con persistentes ruidos y distorsiones]|[Presentación|Presentación atractiva, articulada y entusiasta|En general es interesante y clara, con algunos problemas en el discurso|La presentación carece de claridad o entusiasmo, y necesita mejoras|Presentación poco atractiva, monótona o confusa]","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":312,"completion_tokens":357,"total_tokens":669}}';
 
             $completeDecoded = json_decode($complete, true);
-            // dd($complete);
             $text = trim($completeDecoded['choices'][0]['text']);
             // dd($text);
             $parts = explode('|', $text);
             // dd($parts);
             $title = trim($parts[0]);
             $rubric = [];
+            // dd($prompt, $complete, $parts);
 
-            $currentCategory = null;
-            foreach ($parts as $value) {
-                if (preg_match('/^\[(.*)$/', $value, $matches)) {
+            $currentCategory = '';
+            for ($i = 1; $i < count($parts); $i++) {
+                if (preg_match('/^\[(.*)$/', $parts[$i], $matches)) {
                     $currentCategory = $matches[1];
                     $rubric[$currentCategory] = [];
-                } elseif (preg_match('/^(.*)-(.*)$/', $value, $matches)) {
-                    $key = rtrim($matches[1], ']');
-                    $value = rtrim($matches[2], ']');
-                    $rubric[$currentCategory][$key] = $value;
+                } else {
+                    $rating = rtrim($parts[$i], ']');
+                    array_push($rubric[$currentCategory], $rating);
                 }
             }
+
+
+            // dd($parts, $rubric, $complete);
         } catch (Exception $e) {
             // Handle exceptions thrown by the OpenAI PHP SDK or custom exceptions
             // Log the error message or display an appropriate error message to the user
@@ -564,6 +575,10 @@ class ToolController extends Controller
         $request->session()->put('curriculum', $curriculum);
         $request->session()->put('title', $request->input('title'));
         $request->session()->put('grade', $grade);
+        $request->session()->put('category_1', $category_1);
+        $request->session()->put('category_2', $category_2);
+        $request->session()->put('category_3', $category_3);
+        $request->session()->put('category_4', $category_4);
         $request->session()->put('area_assessed', $area_assessed);
 
         $user_id = auth()->id(); // Get the authenticated user's ID
@@ -691,12 +706,13 @@ class ToolController extends Controller
         $questionNo = $request->session()->get('questionNo', '');
         $grade = $request->session()->get('grade', '');
         $questions = $request->session()->get('questions', []);
+        $focus = $request->session()->get('focus', '');
         $description = $request->session()->get('description', '');
 
         // Clear session data
-        $request->session()->forget(['questions', 'grade', 'questionNo', 'description']);
+        $request->session()->forget(['questions', 'grade', 'questionNo', 'description', 'focus']);
 
-        return view('dashboard.teacher.comprehension-generator', compact('grade', 'questionNo', 'questions', 'description'));
+        return view('dashboard.teacher.comprehension-generator', compact('grade', 'questionNo', 'questions', 'description', 'focus'));
     }
     public function generateComprehensionQuestions(Request $request)
     {
@@ -708,10 +724,11 @@ class ToolController extends Controller
         $grade = $request->input('grade');
         $questionNo = $request->input('questionNo');
         $description = $request->input('description');
-
+        $focus = $request->input('focus');
+        $lang = "Traditional Spanish from Spain";
         try {
-            $prompt = "In English. Create " . $questionNo . " questions for this given comprehension: " . $description . " . \nPlease provide questions in this format: Question[number]:Question|{Option1,Option2,Option3,Correct}. Each question should be on a new line. \nThe questions should be relevant, and the grade level for the questions should be " . $grade . ". For example - Question[0]:What is the color of the car?|{Red,Yellow,Green,Red}.";
-
+            $prompt = "In language $lang. Create " . $questionNo . " questions for this given comprehension: " . $description . " . \nPlease well-written provide questions in this format: Question[number]:Question|{Option1,Option2,Option3,Correct}. Each question should be on a new line. \nThe questions should be relevant, with the focus on goal which is $focus, and should be in $lang, and the grade level for the questions should be " . $grade . ". For example - Question[0]:What is the color of the car?|{Red,Yellow,Green,Red}.";
+            // dd($prompt);
             $complete = $open_ai->completion([
                 'model' => 'text-davinci-003',
                 'prompt' => $prompt,
@@ -767,6 +784,7 @@ class ToolController extends Controller
             $request->session()->put('questions', $questions);
             $request->session()->put('grade', $grade);
             $request->session()->put('ques', $grade);
+            $request->session()->put('focus', $focus);
             $request->session()->put('description', $description);
             return redirect()->action([ToolController::class, 'viewForm']);
         }
@@ -831,10 +849,17 @@ class ToolController extends Controller
         // Retrieve the first element of the $rubric array
         $firstCategory = reset($rubric);
 
+        $area_assessed_ar = [
+            0 => "Excelente",
+            1 => "Satisfactorio",
+            2 => "Mejorable",
+            3 => "Insuficiente"
+        ];
         // Add header cells for the assessed names
         foreach ($firstCategory as $assessed_name => $desc) {
-            $headerRow->addCell(2000, $cellStyle)->addText($assessed_name);
+            $headerRow->addCell(2000, $cellStyle)->addText($area_assessed_ar[$assessed_name]);
         }
+
 
         // Add table rows
         foreach ($rubric as $category => $ratings) {
