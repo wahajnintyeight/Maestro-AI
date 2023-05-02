@@ -478,7 +478,8 @@ class ToolController extends Controller
                 'MCQs' => $mcqs,
                 'GeneralQuestions' => $general_questions,
                 'AssessmentSummary' => $assessment_summary,
-                'FillInTheBlanks' => $fill_in_the_blanks, // Add the FillInTheBlanks array to the final worksheet
+                'FillInTheBlanks' => $fill_in_the_blanks,
+                // Add the FillInTheBlanks array to the final worksheet
                 'TrueOrFalse' => $true_or_false,
                 'decide' => $decide
             ];
@@ -726,58 +727,57 @@ class ToolController extends Controller
         $description = $request->input('description');
         $focus = $request->input('focus');
         $lang = "Traditional Spanish from Spain";
+        $questions = array();
+        $prompt = "";
         try {
-            $prompt = "In language $lang. Create " . $questionNo . " questions for this given comprehension: " . $description . ". The reading focus of the questions should be '" . $focus . "' \nPlease well-written provide questions in this format: Question[number]:Question|{Option1,Option2,Option3,Correct}. Each question should be on a new line. \nThe questions should be relevant and should be in $lang, and the grade level for the questions should be " . $grade . ". For example - Question[0]:What is the color of the car?|{Red,Yellow,Green,Red}. Keep the questions strictly related to the focus: '" . $focus . "'.";
+            if ($focus != "Mixture of All") {
+                $prompt = "In Traditional Spanish from Spain. Create " . $questionNo . " questions for this given comprehension: " . $description . ". The reading focus of the questions should be '" . $focus . "' \nPlease provide well-written questions in this format: [QuestionStatement1|AnswerStatement1]|[QuestionStatement2|AnswerStatement2]|[QuestionStatement3|AnswerStatement3]|[QuestionStatement4|AnswerStatement4]|[QuestionStatement5|AnswerStatement5]. Each question should be on a new line. \nThe questions should be in great depth, detailed, long, and the grade level for the questions should be " . $grade . ". Double-check the answers as well and clarify them. Keep the questions strictly related to the focus of questions: '" . $focus . "'.";
+            } else {
+                // $questionNo = 10;
+                $prompt = "In $lang. Create 10 questions for this given comprehension: " . $description . ". Two questions should be Vocabulary based, two questions should be Inference based, two should be from Evaluation, two should be from Author Choice, two should be from 'Compare, Contrast and Comment', two should be from 'Literal Retrieval', two should be from 'Summary and Prediction', two should be from 'Analysis of Language and Structure'. \nPlease provide well-written questions in this format: [VocabularyQuestionHere|AnswerStatement1]|[VocabularyQuestionHere|AnswerStatement2]|
+                [InferenceQuestionHere|Statement1]|InferenceQuestionHere|AnswerStatement2]|[EvaluationQuestionHere|AnswerStatement1]|EvaluationQuestionHere|AnswerStatement2]|[AuthorChoiceQuestionHere|AnswerStatement1]|AuthorChoiceQuestionHere|AnswerStatement2]|[ContrastQuestionHere|AnswerStatement1]|ContrastQuestionHere|AnswerStatement2]. Each question should be on a new line. \nThe questions should be great depth,relevant, long, detailed, and the grade level for the questions should be " . $grade . ".";
+            }
             // dd($prompt);
             $complete = $open_ai->completion([
                 'model' => 'text-davinci-003',
                 'prompt' => $prompt,
                 'temperature' => 0.9,
-                'max_tokens' => 500,
+                'max_tokens' => 1000,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
             ]);
+            // dd($prompt);
+            // $complete = '{"id":"cmpl-7BdsUXFA6sm1bwTJoAtvijpnZJ2LW","object":"text_completion","created":1683009254,"model":"text-davinci-003","choices":[{"text":"\n\n[What does the term spur of the moment mean in this passage?|an impulsive action taken without due consideration]|[What might the phrase no more than that refer to?|Dr. Rieuxs initial reaction to the presence of the dead rat]|[How did M. Michel react when Dr. Rieux told him about the dead rat?|He was genuinely outraged]|[What does M. Michel’s insistence that there werent no rats in the building suggest?|That someone had brought it from outside]|[Evaluate how Dr. Rieux initially reacted to finding the dead rat.|He did not give it much thought and continued on his way downstairs]|[Evaluate how M. Michel reacts to the news of the dead rat.|He is shocked and determined to find out who brought the rat into the building]|[What is the authors choice in describing the reaction of Dr. Rieux and M. Michel to the news of the dead rat?|The author emphasizes the contrast between their reactions]|[Compare and contrast the initial reactions of Dr. Rieux and M. Michel to the news of the dead rat.|Dr. Rieux did not give the dead rat much thought while M. Michel was genuinely outraged]|[What is the literal meaning of the phrase There werent no rats here?|There were no rats in the building]|[Summarize what M. Michel believes about the dead rat.|M. Michel believes that someone must have brought it from outside]|[What evidence in the passage suggests that someone may have been playing a joke?|M. Michels implication that someone had brought the dead rat from outside]|[Analyze how the use of repetition in the passage affects the readers understanding of M. Michels reaction.|The repetition emphasizes M. Michels conviction that the rat must have been brought from outside, suggesting he found it suspicious].","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":492,"completion_tokens":417,"total_tokens":909}}';
+            // dd($complete);
+            $complete_array = json_decode($complete, true);
+            $text = trim($complete_array['choices'][0]['text']);
+            // dd($complete_array);
+            // Split the text using '|' as the delimiter
+            $parts = explode('|', $text);
+            // dd($parts);
 
+            for ($i = 0; $i < count($parts); $i += 2) {
+                // Remove the brackets from the question and answer parts
+                $question = trim(str_replace(array('[', ']'), '', $parts[$i]));
+                $answer = trim(str_replace(array('[', ']'), '', $parts[$i + 1]));
 
-            $completeDecoded = json_decode($complete);
-
-
-            if (is_object($completeDecoded) && isset($completeDecoded->choices[0]->text)) {
-                $responseText = $completeDecoded->choices[0]->text;
-                $rawHeadings = explode("\n", trim($responseText));
-
-                $questions = array();
-
-                // $rawHeadings = array(
-                //     0 => "Question[0]:What did Rosie feel like when she was on Papa's shoulder?|{Princess,Giant,King,Princess}. ",
-                //     1 => "Question[1]:What did Papa tell Rosie the orange bumpy star was?|{Starfish,Lighthouse,Jellyfish,Starfish}."
-                // );
-                foreach ($rawHeadings as $headingContent) {
-                    if (strpos($headingContent, "|") !== false) {
-                        list($headingNumberAndHeading, $content) = explode("|", $headingContent);
-                        list(, $heading) = explode(":", $headingNumberAndHeading);
-
-                        $options = array_map('trim', explode(',', str_replace(array('{', '}'), '', $content)));
-
-                        $questions[] = (object) [
-                            'Title' => trim(substr($heading, strpos($heading, ":") + 0)),
-                            'Option1' => $options[0],
-                            'Option2' => $options[1],
-                            'Option3' => $options[2],
-                            'Correct' => $options[3]
-                        ];
-                    }
-                }
-            } else {
-                // Handle the case when the response is not as expected (e.g., missing the expected properties)
-                throw new Exception('Unexpected response from OpenAI API.');
+                // Add the question and answer to the questions array
+                $questions[] = (object) [
+                    'Question' => $question,
+                    'Answer' => $answer
+                ];
             }
+            // dd($questions);
+            // } else {
+            // Handle the case when the response is not as expected (e.g., missing the expected properties)
+            // throw new Exception('Unexpected response from OpenAI API.');
+            // }
         } catch (Exception $e) {
             // Handle exceptions thrown by the OpenAI PHP SDK or custom exceptions
             // Log the error message or display an appropriate error message to the user
             error_log("Error: " . $e->getMessage());
         }
-
+        // dd($questions, $completeDecoded, $complete);
         if ($this->saveHistory("Comprehension Question Generator", $questions, auth()->id())) {
             // dd($questions);
             // Store the lesson data in the session and redirect to the showLessonPlanner method
