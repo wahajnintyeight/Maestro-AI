@@ -60,6 +60,7 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
     Route::get('/download-worksheet-pdf', [ToolController::class, 'downloadWorksheetPDF'])->name('downloadWorksheetPDF');
 
     Route::post('/slides-generator', [ToolController::class, 'generateSlides'])->name('generateSlides');
+    Route::get('/download-slides', [ToolController::class, 'downloadSlidesPPTX'])->name('downloadSlidesPPTX');
 
     Route::get('/rubric-generator', [ToolController::class, 'showRubricGenerator'])->name('showRubricGenerator');
     Route::post('/rubric-generator', [ToolController::class, 'generateRubric'])->name('generateRubric');

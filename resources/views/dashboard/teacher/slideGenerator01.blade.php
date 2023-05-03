@@ -8,6 +8,7 @@
         margin-bottom: 20px;
         padding: 20px;
         width: 60%;
+        height: 45%;
     }
 
     .editable-slides-default {
@@ -23,9 +24,9 @@
 
     .editable-slides-default .slide {
         position: relative;
-        padding: 0.95in;
+        padding: 1.25in 0.95in 0.95in 0.95in;
         width: 10in;
-        height: 5.625in;
+        height: 720px;
         background-color: white;
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -49,6 +50,7 @@
         font-size: 18px;
         color: #606f7b;
         line-height: 1.5;
+        margin-top: 29px;
     }
 
     .editable-slides-default .slide h3:focus,
@@ -212,7 +214,7 @@
                         echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generate Slides' para comenzar el proceso!";
                     } else {
                         echo '<div class="slide flex flex-col justify-center items-center h-full">';
-                        echo '<h2 class="text-xl font-medium leading-none mt-3 text-center">' . $slides['Title'] . '</h2>';
+                        echo '<h2 class="text-xl font-medium leading-none mt-3 text-center" style="font-size: 41px;">' . $slides['Title'] . '</h2>';
                         echo '<p class="font-normal text-center">' . $slides['Objective'] . '</p>';
                         echo '</div>';
             
@@ -236,11 +238,11 @@
                     </div>
                 </div>
                 <?php 
-                if (!empty($lesson)) {
+                if (!empty($slides)) {
                     ?>
                 <div class="my-2 flex">
                     <a target="_blank"
-                        href="{{ route('teacher.download.docx', ['lesson' => urlencode(json_encode($lesson))]) }}"
+                        href="{{ route('teacher.downloadSlidesPPTX', ['slides' => urlencode(json_encode($slides))]) }}"
                         class="btn btn-primary">Descargar.PPTX</a>
 
 

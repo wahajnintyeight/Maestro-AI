@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Auth;
 use Orhanerday\OpenAi\OpenAi;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\Settings;
+use PhpOffice\PhpPresentation\IOFactory;
+use PhpOffice\PhpPresentation\PhpPresentation;
+use PhpOffice\PhpPresentation\Slide;
+use PhpOffice\PhpPresentation\Style\Alignment;
+use PhpOffice\PhpPresentation\Style\Bullet;
+use PhpOffice\PhpPresentation\Style\Color;
 
 class ToolController extends Controller
 {
@@ -176,7 +182,7 @@ class ToolController extends Controller
         $slides = [];
 
         try {
-            $prompt = "In English. Create a presentation for grade $grade with the objective \"$description\". The presentation should follow the \"$curriculum\" curriculum and consist of $num_of_slides slides. Provide content for each slide in this format: TitleOfPresentation|ObjectiveOfPresentation|[SlideHeading1|SlideContent1|Question1RegardingSlide1|Question2RegardingSlide1|Question3RegardingSlide1]|[SlideHeading2|SlideContent2|Question1RegardingSlide2|Question2RegardingSlide2|Question3RegardingSlide2]|. Generate this for " . $num_of_slides . " slides";
+            $prompt = "In English. Create a presentation for grade $grade with the objective \"$description\". The presentation should follow the \"$curriculum\" curriculum and consist of $num_of_slides slides. Provide content for each slide in this format: TitleOfPresentationHere|ObjectiveOfPresentationHere|[SlideHeading1Here|SlideContent1Here|Question1RegardingSlide1Here|Question2RegardingSlide1Here|Question3RegardingSlide1Here]|[SlideHeading2Here|SlideContent2Here|Question1RegardingSlide2Here|Question2RegardingSlide2Here|Question3RegardingSlide2Here]|. Generate this for " . $num_of_slides . " slides";
 
             // $complete = $open_ai->completion([
             //     'model' => 'text-davinci-003',
@@ -731,7 +737,7 @@ class ToolController extends Controller
         $prompt = "";
         try {
             if ($focus != "Mixture of All") {
-                $prompt = "In Traditional Spanish from Spain. Create " . $questionNo . " questions for this given comprehension: " . $description . ". The reading focus of the questions should be '" . $focus . "' \nPlease provide well-written questions in this format: [QuestionStatement1|AnswerStatement1]|[QuestionStatement2|AnswerStatement2]|[QuestionStatement3|AnswerStatement3]|[QuestionStatement4|AnswerStatement4]|[QuestionStatement5|AnswerStatement5]. Each question should be on a new line. \nThe questions should be in great depth, detailed, long, and the grade level for the questions should be " . $grade . ". Double-check the answers as well and clarify them. Keep the questions strictly related to the focus of questions: '" . $focus . "'.";
+                $prompt = "In Traditional Spanish from Spain. Create " . $questionNo . " questions for this given comprehension: " . $description . ". The reading focus of the questions should be '" . $focus . "'The questions should be in great depth, detailed and long. The difficulty level must be appropriate for grade level " . $grade . " students. \nPlease provide well-written questions in this format: [QuestionStatement1|AnswerStatement1]|[QuestionStatement2|AnswerStatement2]|[QuestionStatement3|AnswerStatement3]|[QuestionStatement4|AnswerStatement4]|[QuestionStatement5|AnswerStatement5]. \n Double-check the answers as well and clarify them. Keep the questions strictly related to the focus of questions: '" . $focus . "'.";
             } else {
                 // $questionNo = 10;
                 $prompt = "In $lang. Create 10 questions for this given comprehension: " . $description . ". Two questions should be Vocabulary based, two questions should be Inference based, two should be from Evaluation, two should be from Author Choice, two should be from 'Compare, Contrast and Comment', two should be from 'Literal Retrieval', two should be from 'Summary and Prediction', two should be from 'Analysis of Language and Structure'. \nPlease provide well-written questions in this format: [VocabularyQuestionHere|AnswerStatement1]|[VocabularyQuestionHere|AnswerStatement2]|
@@ -788,6 +794,115 @@ class ToolController extends Controller
             $request->session()->put('description', $description);
             return redirect()->action([ToolController::class, 'viewForm']);
         }
+    }
+
+    public function downloadSlidesPPTX(Request $request)
+    {
+        $ppt = new PhpPresentation();
+
+        // Set properties for the presentation
+        $ppt->getDocumentProperties()->setCreator('Your Name')
+            ->setLastModifiedBy('Your Name')
+            ->setTitle('Simple Example')
+            ->setSubject('PHPPresentation Library')
+            ->setDescription('A simple example to create a PowerPoint presentation using PHPPresentation library.')
+            ->setKeywords('PowerPoint, PHPPresentation, Example')
+            ->setCategory('Sample');
+
+        // Create a slide and add a text shape
+        $slide = $ppt->getActiveSlide();
+        $textShape = $slide->createRichTextShape();
+        $textShape->setWidth(850)
+            ->setHeight(200)
+            ->setOffsetX(20)
+            ->setOffsetY(200);
+        $textRun = $textShape->createTextRun('Hello, this is a simple example!');
+        $textRun->getFont()->setSize(24)->setColor(new Color('000000'));
+
+        // Set the paragraph alignment
+        $textShape->getActiveParagraph()->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+        // $writer = IOFactory::createWriter($ppt, 'PowerPoint2007');
+
+        // // Save PowerPoint file and return as a response
+        $filename = 'presentation.pptx';
+        $filepath = storage_path($filename);
+        $writer = IOFactory::createWriter($ppt, 'PowerPoint2007');
+        $writer->save($filepath);
+
+        return response()->download($filepath)->deleteFileAfterSend(true);
+
+        // $writer = IOFactory::createWriter($ppt, 'PowerPoint2007');
+        // $writer->save($filename);
+
+        // echo "PowerPoint file '$filename' has been created!";
+        // $slides = json_decode(urldecode($request->input('slides')), true);
+
+        // $ppt = new PhpPresentation();
+
+        // dd($slides);
+
+        // // Title slide
+        // $titleSlide = $ppt->getActiveSlide();
+        // $titleShape = $titleSlide->createRichTextShape();
+        // $titleShape->setWidth(850)
+        //     ->setHeight(100)
+        //     ->setOffsetX(20)
+        //     ->setOffsetY(100);
+        // $titleRun = $titleShape->createTextRun($slides['Title']);
+        // $titleRun->getFont()->setSize(41)->setColor(new Color('000000'));
+
+        // $objectiveShape = $titleSlide->createRichTextShape();
+        // $objectiveShape->setWidth(850)
+        //     ->setHeight(200)
+        //     ->setOffsetX(20)
+        //     ->setOffsetY(200);
+        // $objectiveRun = $objectiveShape->createTextRun($slides['Objective']);
+        // $objectiveRun->getFont()->setSize(18)->setColor(new Color('000000'));
+
+        // // Content slides
+        // foreach ($slides['Slides'] as $item) {
+        //     $contentSlide = $ppt->createSlide();
+        //     $headingShape = $contentSlide->createRichTextShape();
+        //     $headingShape->setWidth(850)
+        //         ->setHeight(100)
+        //         ->setOffsetX(20)
+        //         ->setOffsetY(100);
+        //     $headingRun = $headingShape->createTextRun($item['Heading']);
+        //     $headingRun->getFont()->setSize(24)->setColor(new Color('000000'));
+
+        //     $contentShape = $contentSlide->createRichTextShape();
+        //     $contentShape->setWidth(850)
+        //         ->setHeight(200)
+        //         ->setOffsetX(20)
+        //         ->setOffsetY(200);
+        //     $contentRun = $contentShape->createTextRun($item['Content']);
+        //     $contentRun->getFont()->setSize(18)->setColor(new Color('000000'));
+
+        //     // Display questions as bullets
+        //     $questionsShape = $contentSlide->createRichTextShape();
+        //     $questionsShape->setWidth(850)
+        //         ->setHeight(200)
+        //         ->setOffsetX(20)
+        //         ->setOffsetY(400);
+        //     $questionsShape->getActiveParagraph()->getBulletStyle()->setBulletType(Bullet::TYPE_BULLET);
+        //     $questionsShape->getActiveParagraph()->getBulletStyle()->setBulletChar('•');
+        //     $questionsShape->getActiveParagraph()->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
+
+        //     foreach ($item['Questions'] as $question) {
+        //         $questionRun = $questionsShape->createTextRun($question);
+        //         $questionRun->getFont()->setSize(18)->setColor(new Color('000000'));
+        //         $questionsShape->createBreak();
+        //     }
+        // }
+
+        // // Save PowerPoint file and return as a response
+        // $filename = 'presentation.pptx';
+        // $filepath = storage_path($filename);
+        // $writer = IOFactory::createWriter($ppt, 'PowerPoint2007');
+        // $writer->save($filepath);
+
+        // return response()->download($filepath)->deleteFileAfterSend(true);
     }
 
     public function downloadDocx(Request $request)
