@@ -15,6 +15,8 @@ use PhpOffice\PhpPresentation\Slide;
 use PhpOffice\PhpPresentation\Style\Alignment;
 use PhpOffice\PhpPresentation\Style\Bullet;
 use PhpOffice\PhpPresentation\Style\Color;
+use PhpOffice\PhpPresentation\Style\Shadow;
+use GuzzleHttp\Client;
 
 class ToolController extends Controller
 {
@@ -798,111 +800,24 @@ class ToolController extends Controller
 
     public function downloadSlidesPPTX(Request $request)
     {
-        $ppt = new PhpPresentation();
+        $slides = json_decode(urldecode($request->input('slides')), true);
 
-        // Set properties for the presentation
-        $ppt->getDocumentProperties()->setCreator('Your Name')
-            ->setLastModifiedBy('Your Name')
-            ->setTitle('Simple Example')
-            ->setSubject('PHPPresentation Library')
-            ->setDescription('A simple example to create a PowerPoint presentation using PHPPresentation library.')
-            ->setKeywords('PowerPoint, PHPPresentation, Example')
-            ->setCategory('Sample');
+        // Create a Guzzle HTTP client instance
+        $client = new Client();
 
-        // Create a slide and add a text shape
-        $slide = $ppt->getActiveSlide();
-        $textShape = $slide->createRichTextShape();
-        $textShape->setWidth(850)
-            ->setHeight(200)
-            ->setOffsetX(20)
-            ->setOffsetY(200);
-        $textRun = $textShape->createTextRun('Hello, this is a simple example!');
-        $textRun->getFont()->setSize(24)->setColor(new Color('000000'));
+        // Send a POST request to your Node.js server
+        $response = $client->post('http://localhost:5000/api/generateSlide', [
+            'json' => $slides
+        ]);
 
-        // Set the paragraph alignment
-        $textShape->getActiveParagraph()->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        // Get the binary content of the generated PPTX file
+        $pptxContent = $response->getBody()->getContents();
 
-        // $writer = IOFactory::createWriter($ppt, 'PowerPoint2007');
-
-        // // Save PowerPoint file and return as a response
+        // Save PowerPoint file and return as a response
         $filename = 'presentation.pptx';
-        $filepath = storage_path($filename);
-        $writer = IOFactory::createWriter($ppt, 'PowerPoint2007');
-        $writer->save($filepath);
-
-        return response()->download($filepath)->deleteFileAfterSend(true);
-
-        // $writer = IOFactory::createWriter($ppt, 'PowerPoint2007');
-        // $writer->save($filename);
-
-        // echo "PowerPoint file '$filename' has been created!";
-        // $slides = json_decode(urldecode($request->input('slides')), true);
-
-        // $ppt = new PhpPresentation();
-
-        // dd($slides);
-
-        // // Title slide
-        // $titleSlide = $ppt->getActiveSlide();
-        // $titleShape = $titleSlide->createRichTextShape();
-        // $titleShape->setWidth(850)
-        //     ->setHeight(100)
-        //     ->setOffsetX(20)
-        //     ->setOffsetY(100);
-        // $titleRun = $titleShape->createTextRun($slides['Title']);
-        // $titleRun->getFont()->setSize(41)->setColor(new Color('000000'));
-
-        // $objectiveShape = $titleSlide->createRichTextShape();
-        // $objectiveShape->setWidth(850)
-        //     ->setHeight(200)
-        //     ->setOffsetX(20)
-        //     ->setOffsetY(200);
-        // $objectiveRun = $objectiveShape->createTextRun($slides['Objective']);
-        // $objectiveRun->getFont()->setSize(18)->setColor(new Color('000000'));
-
-        // // Content slides
-        // foreach ($slides['Slides'] as $item) {
-        //     $contentSlide = $ppt->createSlide();
-        //     $headingShape = $contentSlide->createRichTextShape();
-        //     $headingShape->setWidth(850)
-        //         ->setHeight(100)
-        //         ->setOffsetX(20)
-        //         ->setOffsetY(100);
-        //     $headingRun = $headingShape->createTextRun($item['Heading']);
-        //     $headingRun->getFont()->setSize(24)->setColor(new Color('000000'));
-
-        //     $contentShape = $contentSlide->createRichTextShape();
-        //     $contentShape->setWidth(850)
-        //         ->setHeight(200)
-        //         ->setOffsetX(20)
-        //         ->setOffsetY(200);
-        //     $contentRun = $contentShape->createTextRun($item['Content']);
-        //     $contentRun->getFont()->setSize(18)->setColor(new Color('000000'));
-
-        //     // Display questions as bullets
-        //     $questionsShape = $contentSlide->createRichTextShape();
-        //     $questionsShape->setWidth(850)
-        //         ->setHeight(200)
-        //         ->setOffsetX(20)
-        //         ->setOffsetY(400);
-        //     $questionsShape->getActiveParagraph()->getBulletStyle()->setBulletType(Bullet::TYPE_BULLET);
-        //     $questionsShape->getActiveParagraph()->getBulletStyle()->setBulletChar('•');
-        //     $questionsShape->getActiveParagraph()->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
-
-        //     foreach ($item['Questions'] as $question) {
-        //         $questionRun = $questionsShape->createTextRun($question);
-        //         $questionRun->getFont()->setSize(18)->setColor(new Color('000000'));
-        //         $questionsShape->createBreak();
-        //     }
-        // }
-
-        // // Save PowerPoint file and return as a response
-        // $filename = 'presentation.pptx';
-        // $filepath = storage_path($filename);
-        // $writer = IOFactory::createWriter($ppt, 'PowerPoint2007');
-        // $writer->save($filepath);
-
-        // return response()->download($filepath)->deleteFileAfterSend(true);
+        return response($pptxContent)
+            ->header('Content-Type', 'application/vnd.openxmlformats-officedocument.presentationml.presentation')
+            ->header('Content-Disposition', 'attachment; filename=' . $filename);
     }
 
     public function downloadDocx(Request $request)

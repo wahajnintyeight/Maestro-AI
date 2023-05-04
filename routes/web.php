@@ -22,10 +22,16 @@ Route::get('/', function () {
 })->name('/');
 
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin'], 'as' => 'admin.'], function () {
-    Route::get('/dashboard', [PageController::class, 'adminDashboard'])->name('dashboard');
-    Route::get('/', [PageController::class, 'adminDashboard'])->name('dashboard');
-});
+Route::group(
+    ['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin'], 'as' => 'admin.'],
+    function () {
+        Route::get('/dashboard', [PageController::class, 'adminDashboard'])->name('dashboard');
+        Route::get('/', [PageController::class, 'adminDashboard'])->name('dashboard');
+        Route::get('/members', [PageController::class, 'adminViewMembers'])->name('viewMembers');
+        Route::post('/toggle-status/{user}', [PageController::class, 'toggleStatus'])->name('toggleStatus');
+        Route::post('/delete-user/{user}', [PageController::class, 'deleteUser'])->name('deleteUser');
+    }
+);
 
 Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => ['auth', 'teacher'], 'as' => 'teacher.'], function () {
     Route::get('/', [PageController::class, 'teacherDashboard'])->name('dashboard');

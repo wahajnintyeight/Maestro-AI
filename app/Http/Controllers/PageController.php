@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Plan;
+use App\Models\User;
 
 class PageController extends Controller
 {
@@ -20,6 +21,35 @@ class PageController extends Controller
     {
         return view('dashboard.admin.home');
     }
+
+    public function adminViewMembers()
+    {
+        $users = User::all();
+        return view('dashboard.admin.viewMembers', compact('users'));
+    }
+
+    public function deleteUser(User $user)
+    {
+        // Delete the user
+        $user->delete();
+
+        // Redirect back to the previous page
+        return redirect()->back();
+    }
+
+    public function toggleStatus(User $user)
+    {
+        // Toggle the is_paid status
+        $user->is_paid = !$user->is_paid;
+
+        // Save the updated status
+        $user->save();
+
+        // Redirect back to the previous page
+        return redirect()->back();
+    }
+
+
     public function teacherDashboard()
     {
         $user = Auth::user();
