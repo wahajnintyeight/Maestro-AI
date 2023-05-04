@@ -806,7 +806,7 @@ class ToolController extends Controller
         $client = new Client();
 
         // Send a POST request to your Node.js server
-        $response = $client->post('http://localhost:5000/api/generateSlide', [
+        $response = $client->post('https://maestro-node-js.vercel.app/generateSlides', [
             'json' => $slides
         ]);
 
