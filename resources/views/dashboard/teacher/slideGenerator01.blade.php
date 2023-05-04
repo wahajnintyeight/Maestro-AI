@@ -207,7 +207,21 @@
                     <li class="ml-4">¿No satisfecho? Modifique la descripción de la lección para modificar aún más los
                         resultados.</li>
                 </ul>
-                <div class="my-10">
+                <?php 
+                                                    if (!empty($slides)) {
+                                                        ?>
+                <div class="my-5 flex">
+                    <a target="_blank"
+                        href="{{ route('teacher.downloadSlidesPPTX', ['slides' => urlencode(json_encode($slides))]) }}"
+                        class="btn btn-primary">Descargar.PPTX</a>
+
+
+                </div>
+                <?php
+                                                    }
+                                                    ?>
+                <div class="my-5">
+
                     <div class="editable-slides-default">
                         <?php 
                     if (empty($slides)) {
@@ -237,19 +251,7 @@
                     ?>
                     </div>
                 </div>
-                <?php 
-                if (!empty($slides)) {
-                    ?>
-                <div class="my-2 flex">
-                    <a target="_blank"
-                        href="{{ route('teacher.downloadSlidesPPTX', ['slides' => urlencode(json_encode($slides))]) }}"
-                        class="btn btn-primary">Descargar.PPTX</a>
 
-
-                </div>
-                <?php
-                }
-                ?>
             </div>
         </div>
 

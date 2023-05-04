@@ -184,7 +184,7 @@ class ToolController extends Controller
         $slides = [];
 
         try {
-            $prompt = "In English. Create a presentation for grade $grade with the objective \"$description\". The presentation should follow the \"$curriculum\" curriculum and consist of $num_of_slides slides. Provide content for each slide in this format: TitleOfPresentationHere|ObjectiveOfPresentationHere|[SlideHeading1Here|SlideContent1Here|Question1RegardingSlide1Here|Question2RegardingSlide1Here|Question3RegardingSlide1Here]|[SlideHeading2Here|SlideContent2Here|Question1RegardingSlide2Here|Question2RegardingSlide2Here|Question3RegardingSlide2Here]|. Generate this for " . $num_of_slides . " slides";
+            $prompt = "In Traditional Spanish from Spain. Create a presentation for grade $grade with the objective \"$description\". The presentation should follow the \"$curriculum\" curriculum and consist of $num_of_slides slides. Provide content for each slide in this format: TitleOfPresentationHere|ObjectiveOfPresentationHere|[SlideHeading1Here|SlideContent1Here|QuestionStatement1RegardingSlide1Here|QuestionStatement2RegardingSlide1Here|QuestionStatement3RegardingSlide1Here]|[SlideHeading2Here|SlideContent2Here|QuestionStatement1RegardingSlide2Here|QuestionStatement2RegardingSlide2Here|QuestionStatement3RegardingSlide2Here]|. Generate this for " . $num_of_slides . " slides. For Questions in each slide - only give Question Statements. Do not proceed to give answer to the questions.";
 
             // $complete = $open_ai->completion([
             //     'model' => 'text-davinci-003',
