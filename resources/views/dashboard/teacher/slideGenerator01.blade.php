@@ -26,7 +26,7 @@
         position: relative;
         padding: 1.25in 0.95in 0.95in 0.95in;
         width: 10in;
-        height: 720px;
+        height: 5.625in;
         background-color: white;
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -58,6 +58,67 @@
         outline: none;
         border: 1px solid #007bff;
         border-radius: 4px;
+    }
+
+    /* Responsiveness */
+    @media (max-width: 1200px) {
+        .editable-slides-default .slide {
+            width: 8in;
+            height: 4.5in;
+        }
+
+        .editable-slides-default .slide h3 {
+            font-size: 24px;
+        }
+
+        .editable-slides-default .slide p {
+            font-size: 16px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .editable-slides-default .slide {
+            width: 6in;
+            height: 3.375in;
+        }
+
+        .editable-slides-default .slide h3 {
+            font-size: 20px;
+        }
+
+        .editable-slides-default .slide p {
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .editable-slides-default .slide {
+            width: 4in;
+            height: 2.25in;
+        }
+
+        .editable-slides-default .slide h3 {
+            font-size: 16px;
+        }
+
+        .editable-slides-default .slide p {
+            font-size: 12px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .editable-slides-default .slide {
+            width: 100%;
+            height: auto;
+        }
+
+        .editable-slides-default .slide h3 {
+            font-size: 14px;
+        }
+
+        .editable-slides-default .slide p {
+            font-size: 10px;
+        }
     }
 </style>
 
