@@ -271,8 +271,7 @@
                         class="btn btn-primary">Descargar.PDF</a>
                 </div>
 
-                <hr>
-                <div>
+                <div class="font-medium italic mt-5">
                     MaestroIA ofrece herramientas y recursos de alta calidad para educadores. Nuestro contenido generado
                     por inteligencia
                     artificial debe ser revisado cuidadosamente para garantizar su precisión y adecuación antes de su
