@@ -177,6 +177,7 @@
                     echo "Los resultados se mostrarán aquí. Haga clic en '✨Generar preguntas' para iniciar el
                     proceso!";
                     } else {
+
                     // Display questions
                     echo '<h3 class="text-lg font-medium">Questions</h3>
                     <ol style="list-style-position: inside;">';
@@ -199,9 +200,20 @@
                         echo '</ol>';
                     }
                     @endphp
-
                 </div>
-
+                <?php 
+                if (!empty($questions)) {
+                    ?>
+                <div class="my-2 mt-4 flex">
+                    <a target="_blank"
+                        href="{{ route('teacher.downloadComprehension', ['questions' => urlencode(json_encode($questions))]) }}"
+                        class="btn btn-primary">Descargar.DOCX</a>
+                </div>
+                <?php
+                } else {
+                    // echo  "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generar plan de lección' para comenzar el proceso!";
+                }
+                ?>
             </div>
         </div>
 
