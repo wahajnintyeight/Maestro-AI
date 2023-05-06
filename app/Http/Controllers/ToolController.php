@@ -107,18 +107,18 @@ class ToolController extends Controller
         $lesson = [];
 
         try {
-            $prompt = "In Traditional Spanish from Spain. Create a lesson plan for grade $grade with the title \"$title\" and description \"$description\". Try to follow the \" $curriculum \" curriculum.  Please provide content for the following headings in this format: Heading[number]:Heading|Content. Each heading should be on a new line.\n\nHeading[0]:Goals and Objectives\nHeading[1]:Materials and Resources\nHeading[2]:Warm-up Activity\nHeading[3]:Vocabulary and Grammar\nHeading[4]:Activities and Exercises\nHeading[5]:Assessment\nHeading[6]:Extension Activities\nHeading[7]:Closure Activity";
+            $prompt = "En español tradicional de España. Cree un plan de lección para el grado $grade con el título \"$title\" y la descripción \"$description\". Trate de seguir el plan de estudios de \"$curriculum\". Proporcione contenido para los siguientes encabezados en este formato: Encabezado[número]:Encabezado|Contenido. Cada título debe estar en una nueva línea.\n\nTítulo[0]:Metas y objetivos\nTítulo[1]:Materiales y recursos\nTítulo[2]:Actividad de preparación\nTítulo[3]:Vocabulario y gramática\nTítulo [ 4]:Actividades y ejercicios\nTítulo[5]:Evaluación\nTítulo[6]:Actividades de ampliación\nTítulo[7]:Actividad de cierre";
 
-            $complete = $open_ai->completion([
-                'model' => 'text-davinci-003',
-                'prompt' => $prompt,
-                'temperature' => 0.9,
-                'max_tokens' => 1500,
-                'frequency_penalty' => 0,
-                'presence_penalty' => 0.6,
-            ]);
+            // $complete = $open_ai->completion([
+            //     'model' => 'text-davinci-003',
+            //     'prompt' => $prompt,
+            //     'temperature' => 0.9,
+            //     'max_tokens' => 1500,
+            //     'frequency_penalty' => 0,
+            //     'presence_penalty' => 0.6,
+            // ]);
 
-            // dd($complete);
+            $complete = '{"id":"cmpl-7DERl9gzRVNnxATGvr6Cn2iu7BbHP","object":"text_completion","created":1683388153,"model":"text-davinci-003","choices":[{"text":"\n\nTítulo[0]:Metas y objetivos|Los estudiantes podrán desarrollar habilidades de comunicación al expresarse con fluidez en español, mediante la escritura, el discurso y los proyectos colaborativos.\n\nTítulo[1]:Materiales y recursos | Libro de texto, computadora, materiales para tareas colaborativas, una variedad de libros y textos, imágenes (imágenes, dibujos, diseños, etc.), sonidos y videos.\n\nTítulo[2]:Actividad de preparación | Seleccionar un tema de interés para los estudiantes relacionado con temas generales de la clase. Establecer expectativas y discutir el proceso para desarrollar habilidades de comunicación.\n\nTítulo [3]:Vocabulario y gramática |Los estudiantes aprenderán diversas palabras y estructuras gramaticales relacionadas con el tema seleccionado. Práctica de oratoria usando el vocabulario y gramática aprendido.\n\nTítulo [4]:Actividades y ejercicios | Los estudiantes participarán en actividades colaborativas para ayudarles a desarrollar habilidades de comunicación. Estas actividades pueden incluir escritura creativa, diálogos, debates, representaciones teatrales y otros proyectos interactivos.\n\nTítulo[5]:Evaluación | El profesor evaluará la fluidez, precisión y uso adecuado del vocabulario y la gramática tanto en los ejercicios como en las actividades colaborativas y los proyectos.\n\nTítulo[6]:Actividades de ampliación | Los estudiantes aprenderán más sobre el tema seleccionado y formularán sus propias ideas y opiniones sobre el mismo. Los estudiantes tendrán la oportunidad de profundizar su conocimiento a través de lecturas y debates.\n\nTítulo[7]:Actividad de cierre | Los estudiantes presentarán sus proyectos colaborativos al resto de la clase. Asimismo, se les dará la oportunidad de discutir sus logros individuales y colaborativos.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":287,"completion_tokens":637,"total_tokens":924}}';
 
             $completeDecoded = json_decode($complete);
 
@@ -284,16 +284,18 @@ class ToolController extends Controller
         try {
             $prompt = "In Traditional Spanish from Spain. Create a worksheet on the topic of $description for a student of grade $grade, following the $curriculum curriculum. The worksheet should provide comprehensive and challenging questions. Structure the worksheet using the following format: TitleOfComprehension|ObjectiveOfComprehension|[MCQQuestion1|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion2|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion3|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion4|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion5|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion6|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion7|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion8|Choice1|Choice2|Choice3|CorrectChoice]|{GeneralQuestion1|GeneralQuestion2|GeneralQuestion3}|(Ask a Question that summarizes the assessment - wrap it in () parenthesis)|<Fill in Blank Statement 1 - add appropriate blanks i.e _____ | Fill In Blank Answer>|<Fill in Blank Statement 2 | Fill In Blank Answer>|<Fill in Blank Statement 3 | Fill In Blank Answer>|[Statement1|TrueOrFalse]|[Statement2|TrueOrFalse]|[Statement3|TrueOrFalse].";
 
-            $complete = $open_ai->completion([
-                'model' => 'text-davinci-003',
-                'prompt' => $prompt,
-                'temperature' => 0.9,
-                'max_tokens' => 1500,
-                'frequency_penalty' => 0,
-                'presence_penalty' => 0.6,
-            ]);
+            // $complete = $open_ai->completion([
+            //     'model' => 'text-davinci-003',
+            //     'prompt' => $prompt,
+            //     'temperature' => 0.9,
+            //     'max_tokens' => 1500,
+            //     'frequency_penalty' => 0,
+            //     'presence_penalty' => 0.6,
+            // ]);
 
-
+            // dd($complete);
+            //TODO: work on this
+            $complete = '{"id":"cmpl-7DFjIiE4PYJ4lM9tmHekhP467kw8Q","object":"text_completion","created":1683393084,"model":"text-davinci-003","choices":[{"text":"\n\nComprensión sobre Habilidades de Estudio, Pensamiento Crítico y Administración del Tiempo|Evaluar el conocimiento de estudiantes de 8º grado sobre habilidades de estudio, pensamiento crítico y administración del tiempo, siguiendo el currículum LOMLOE|[¿Cuál de las siguientes afirmaciones no representa una habilidad de estudio?|A) Prestar atención durante el aprendizajeB) Pasar la mayor parte del tiempo trabajandoC) Procesar y evaluar informaciónD) Descansar entre clases|B]|[¿Cuál es la característica principal del pensamiento crítico?|A) La rapidez de procesamientoB) El análisis de informaciónC) La creatividadD) La toma de decisiones rápidas|B]|[¿Qué aspecto clave debe abordar una persona para mejorar su administración del tiempo?|A) Priorizar sus tareasB) Ser perseveranteC) Descansar regularmenteD) Memorizar información|A]|[¿Qué herramienta se puede usar para mejorar la administración del tiempo?|A) Un planificadorB) Una grabadoraC) Una bicicletaD) Una lista de tareas|A]|[¿Cuál de los siguientes no es un consejo para mejorar sus habilidades de estudio?|A) Considere todas sus opciones antes de tomar una decisiónB)Pase tiempo libre con amigosC)Descanse adecuadamenteD)Levante la mano si tiene preguntas|B]|[¿Cuál de las siguientes afirmaciones describe mejor el pensamiento crítico?|A)Es el proceso de análisis de información para tomar decisionesB)Es la capacidad de hacer muchas cosas a la vezC)Es la habilidad de cuestionar informaciónD) Es la capacidad de triunfar en situaciones difíciles|A]|[¿Cuál es una forma efectiva de mejorar la administración del tiempo?|A) Aprender a decir noB)Trabajar durante el fin de semanaC)Evitar planificar sus objetivosD)Mantener un horario estricto|A]|{¿Qué consejos puede ofrecer un maestro o tutor para ayudar a los estudiantes a mejorar sus habilidades de estudio?|¿Qué beneficios surgen de desarrollar el pensamiento crítico?|¿Cómo puede una persona equilibrar el aprendizaje, el trabajo y diversas actividades sociales, administrando su tiempo?}|(¿Cómo puede un estudiante mejorar su pensamiento crítico, habilidades de estudio y administración del tiempo?)|<Para mejorar estas habilidades, un estudiante debe ____ practicar _____, _______ planificar, _________ evaluar y __________ innovar|práctica, planificar, evaluar, innovar>|<El pensamiento crítico puede mejorar el __________ y el __________ de un estudiante|aprendizaje, rendimiento>|<La administración del tiempo consiste en ___________ y _________ sus tareas y objetivos|priorizar, planificar>|[La administración del tiempo es una habilidad que se puede aprender|Falso]|[El pensamiento crítico es un proceso intuitivo|Falso]|[Uno de los consejos para mejorar la administración del tiempo es descansar adecuadamente|Falso].","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":335,"completion_tokens":1063,"total_tokens":1398}}';
             // $complete = '{"id":"cmpl-7AzLVBVb7FBDgsxQpQmJfA79TE2U0","object":"text_completion","created":1682853449,"model":"text-davinci-003","choices":[{"text":" \n\nComprehension on Pakistani Politics |The objective of this worksheet is to explore the basics of politics in Pakistan|[Which is the capital of Pakistan?|Beijing|Islamabad|Karachi|Islamabad]|[What is the official language spoken in Pakistan?|English|Hindi|Urdu|Urdu]|[Who is Pakistan’s current Prime Minister?|Imran Khan|Raja Pervez Ashraf|Nawaz Sharif|Imran Khan]|[Which article of the 1973 Constitution of Pakistan talks about civil liberties?|Article 2|Article 11|Article 19|Article 19]|[The president of Pakistan is also a ____ ?|Politician|Military Officer|Judge|Politician]|[How many provinces are there in Pakistan?|Four|Six|Eight|Eight]|[Who was the first governor-general of Pakistan?|Khawaja Nazimuddin|M.A. Jinnah|Sir Zafarullah Khan|M.A. Jinnah]|{Describe the three branches of government in Pakistan|What are the electoral rules for selecting the president of Pakistan?|How does the Prime Minister of Pakistan exercise their powers?}|(How does the government in Pakistan function?)|<Pakistan is made up of ______ provinces. | Eight>|<The Constitution of Pakistan was written in _____ . |1973>|<The President of Pakistan is elected by _____ . |electoral college>|[Pakistan is a federal republic|True]|[The President of Pakistan has control over the military|False]|[The Prime Minister of Pakistan is elected by the National Assembly|True].","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":322,"completion_tokens":348,"total_tokens":670}}';
             // dd($complete);
 
@@ -619,18 +621,22 @@ class ToolController extends Controller
         $concept = [];
         // In Traditional Spanish from Spain. 
         try {
-            $prompt = "In Traditional Spanish from Spain. Create a detailed concept explanation for a student aged $age studying the subject '$subject' and topic '$topic'. Try to follow the '$curriculum' curriculum. Explain each concept in depth, using simple language and examples to make it easy for the student to understand. Ensure that the explanation is comprehensive and covers all essential aspects of the topic. Please provide content in this format: TitleOfConcept|BodyOfConceptExplanation|ExampleOfConceptParagraph|ConciseSummaryOfExplanation. The explanation should be age-appropriate and easy to understand.\n\nFor exaompe - Here's how to structure it for a Noun & Pronoun Topic: Nouns & Pronouns|Long Paragraph explaining Nouns & Pronouns|Noun & Pronoun Example|Summary of the Concept";
-            $complete = $open_ai->completion([
-                'model' => 'text-davinci-003',
-                'prompt' => $prompt,
-                'temperature' => 0.9,
-                'max_tokens' => 1000,
-                'frequency_penalty' => 0,
-                'presence_penalty' => 0.6,
-            ]);
+            // $prompt = "In Traditional Spanish from Spain. Create a detailed concept explanation for a student aged $age studying the subject '$subject' and topic '$topic'. Try to follow the '$curriculum' curriculum. Explain each concept in depth, using simple language and examples to make it easy for the student to understand. Ensure that the explanation is comprehensive and covers all essential aspects of the topic. Please provide content in this format: TitleOfConcept|BodyOfConceptExplanation|ExampleOfConceptParagraph|ConciseSummaryOfExplanation. The explanation should be age-appropriate and easy to understand.\n\nFor exaompe - Here's how to structure it for a Noun & Pronoun Topic: Nouns & Pronouns|Long Paragraph explaining Nouns & Pronouns|Noun & Pronoun Example|Summary of the Concept";
+
+            $prompt = "En español tradicional de España. Cree una explicación detallada del concepto para un estudiante de $age que estudie la materia '$subject' y el tema '$topic'. Trate de seguir el plan de estudios '$curriculum'. Explique cada concepto en profundidad, utilizando un lenguaje sencillo y ejemplos para que sea fácil de entender para el estudiante. Asegúrese de que la explicación sea completa y cubra todos los aspectos esenciales del tema. Proporcione contenido en este formato: TitleOfConcept|BodyOfConceptExplanation|ExampleOfConceptParagraph|ConciseSummaryOfExplanation. La explicación debe ser apropiada para la edad y fácil de entender.\n\nPor ejemplo, así es como se estructura para un tema de sustantivo y pronombre: sustantivos y pronombres|párrafo largo que explica sustantivos y pronombres|ejemplo de sustantivo y pronombre|resumen del concepto";
+
+            // $complete = $open_ai->completion([
+            //     'model' => 'text-davinci-003',
+            //     'prompt' => $prompt,
+            //     'temperature' => 0.9,
+            //     'max_tokens' => 1000,
+            //     'frequency_penalty' => 0,
+            //     'presence_penalty' => 0.6,
+            // ]);
 
             // dd($complete);
 
+            $complete = '{"id":"cmpl-7DGP06O0jTTHc9hkVr9arqZ0974SB","object":"text_completion","created":1683395670,"model":"text-davinci-003","choices":[{"text":".\n\nGramática|La gramática es la estructura o el patrón de un idioma. Esto significa que hay una serie de reglas y patrones a seguir para que una persona hable correctamente. Estas reglas incluyen oraciones con los verbos adecuados, formas de pronombre y mucho más. Por ejemplo, en inglés, cuando utilizas un verbo para describir algo, como correr, debes usar la palabra correcta. En este caso, la palabra correcta es \'correr\'. Si dijera \'ir\', estaría cometiendo un error gramatical.|Ejemplo de concepto de gramática: si quiero decir, \"¡Corre!\", entonces debo usar el verbo correcto, que es \'correr\' en lugar de \'ir\'.|En resumen, la gramática es la estructura o el patrón de un idioma. Esto significa que hay una serie de reglas y patrones a seguir para que una persona hable correctamente.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":293,"completion_tokens":275,"total_tokens":568}}';
             // $complete = '{"id":"cmpl-79q7EEGfr2PNitvwpSNw5zzRcGlTz","object":"text_completion","created":1682579640,"model":"text-davinci-003","choices":[{"text":" (50-100 words).\n\nNouns|Nouns are words that name people, places, things, or ideas. They are a part of every sentence, and they usually come before verbs. Nouns can be singular or plural depending on how many items are being talked about. For example, dog is a singular noun and dogs is a plural noun. Understanding how to use nouns correctly is necessary for effectively communicating in English.|The dog barked loudly.|Nouns are words that name items and people, and are used to effectively communicate in English. They can be singular or plural, and come before verbs.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":162,"completion_tokens":135,"total_tokens":297}}';
 
             $completeDecoded = json_decode($complete);
@@ -815,6 +821,45 @@ class ToolController extends Controller
             ->header('Content-Disposition', 'attachment; filename=' . $filename);
     }
 
+    public function downloadHistory($id)
+    {
+        $history = History::find($id);
+
+
+        switch ($history->tool_name) {
+            case "Lesson Planner":
+                break;
+            case "Comprehension Question Generator":
+                $questions = json_decode($history->content, true);
+                $questions = $history->content;
+                $urlEncodedQuestions = urlencode($questions);
+                return redirect()->route('teacher.downloadComprehension', ['questions' => $urlEncodedQuestions]);
+            case "Rubric Generator":
+                $data = json_decode($history->content, true);
+                $data = $history->content;
+                $urlEncodedData = urlencode($data);
+                // dd(json_decode(urldecode($urlEncodedData), true));
+                // dd($urlEncodedData);
+                return redirect()->route('teacher.downloadRubric', ['rubric' => $urlEncodedData]);
+            case "Concept Explainer":
+                $data = json_decode($history->content, true);
+                $data = $history->content;
+                $urlEncodedData = urlencode($data);
+                return redirect()->route('teacher.downloadConceptDocx', ['concept' => $urlEncodedData]);
+            case "Worksheet Generator":
+                $data = json_decode($history->content, true);
+                $data = $history->content;
+                $urlEncodedData = urlencode($data);
+                return redirect()->route('teacher.downloadWorksheetDocx', ['worksheet' => $urlEncodedData]);
+            case "Slides":
+                $data = json_decode($history->content, true);
+                $data = $history->content;
+                $urlEncodedData = urlencode($data);
+                return redirect()->route('teacher.downloadSlidesPPTX', ['slides' => $urlEncodedData]);
+
+        }
+
+    }
     public function downloadDocx(Request $request)
     {
         $lesson = json_decode(urldecode($request->input('lesson')), true);
@@ -891,7 +936,7 @@ class ToolController extends Controller
     public function downloadRubricDocx(Request $request)
     {
         $rubric = json_decode(urldecode($request->input('rubric')), true);
-
+        // dd($rubric);
         $phpWord = new PhpWord();
 
         $section = $phpWord->addSection();
