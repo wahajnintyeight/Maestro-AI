@@ -19,7 +19,7 @@
 </head>
 <!-- END: Head -->
 
-<body class="py-5 md:py-0 bg-black/[0.15] dark:bg-transparent">
+<body style="font-family: Inter;" class="py-5 md:py-0 bg-black/[0.15] dark:bg-transparent">
     <!-- BEGIN: Mobile Menu -->
     <div class="mobile-menu md:hidden">
         <div class="mobile-menu-bar">
