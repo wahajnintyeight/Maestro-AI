@@ -151,7 +151,7 @@ class ToolController extends Controller
                     $heading = trim(str_replace(['[', ']'], '', $heading)); // Remove square brackets from the heading
                     $content = rtrim(str_replace(['[', ']'], '', trim($content)), '}'); // Remove square brackets and the closing curly brace from the content
 
-                    $lesson[] = (object)[
+                    $lesson[] = (object) [
                         'Heading' => $heading,
                         'Content' => $content,
                     ];
@@ -208,31 +208,52 @@ class ToolController extends Controller
         $slides = [];
 
         try {
-            $prompt = "In Traditional Spanish from Spain. Create a presentation for grade $grade with the objective \"$description\". The presentation should follow the \"$curriculum\" curriculum and consist of $num_of_slides slides. Provide content for each slide in this format: TitleOfPresentationHere|ObjectiveOfPresentationHere|[SlideHeading1Here|SlideContent1Here|QuestionStatement1RegardingSlide1Here|QuestionStatement2RegardingSlide1Here|QuestionStatement3RegardingSlide1Here]|[SlideHeading2Here|SlideContent2Here|QuestionStatement1RegardingSlide2Here|QuestionStatement2RegardingSlide2Here|QuestionStatement3RegardingSlide2Here]|. Generate this for " . $num_of_slides . " slides. For Questions in each slide - only give Question Statements. Do not proceed to give answer to the questions.";
+            $prompt = "In Traditional Spanish from Spain. Create a presentation for grade $grade with the objective \"$description\". The presentation should follow the \"$curriculum\" curriculum. The content of the slides should be in-depth and at least 3 sentences long.  Generate this for " . $num_of_slides . " slides. For example: Innovations in Renewable Energy: A Sustainable Future|Exploring the latest advancements in renewable energy technologies|[Solar Energy Breakthroughs|Perovskite solar cells offer higher efficiency, lower production costs, and flexibility|What are perovskite solar cells?|How do they achieve higher efficiency?|What factors contribute to their lower production costs?]|[Wind Energy Innovations|Airborne wind energy systems harness high-altitude winds; smart wind turbines use sensors and AI for optimization|What are airborne wind energy systems?|What are the benefits of high-altitude winds?|How do smart wind turbines optimize energy production?]|";
 
-            $complete = $open_ai->completion([
-                'model' => 'text-davinci-003',
-                'prompt' => $prompt,
-                'temperature' => 0.9,
-                'max_tokens' => 1500,
-                'frequency_penalty' => 0,
-                'presence_penalty' => 0.6,
-            ]);
+            $assistant_prompt = "You are an expert at generating presentation slides for grade " . $grade . ". Provide content for each slide in this exact same format: TitleOfPresentationHere|ObjectiveOfPresentationHere|[SlideHeading1Here|SlideContent1Here|QuestionStatement1RegardingSlide1Here|QuestionStatement2RegardingSlide1Here|QuestionStatement3RegardingSlide1Here]|[SlideHeading2Here|SlideContent2Here|QuestionStatement1RegardingSlide2Here|QuestionStatement2RegardingSlide2Here|QuestionStatement3RegardingSlide2Here]|. For Questions in each slide - only give Question Statements. Do not proceed to give answer to the questions.";
+
+            // $complete = $open_ai->chat([
+            //     'model' => 'gpt-3.5-turbo',
+            //     'messages' => [
+            //         [
+            //             'role' => 'system',
+            //             'content' => $assistant_prompt
+            //         ],
+            //         [
+            //             'role' => 'user',
+            //             'content' => $prompt
+            //         ],
+            //     ],
+            //     'temperature' => 0.9,
+            //     'max_tokens' => 1000,
+            //     'frequency_penalty' => 0,
+            //     'presence_penalty' => 0.6,
+            // ]);
+            // dd($complete);
+
+
+            $complete = '{"id":"chatcmpl-7DWPntpL47Xi2GWyen0OxtuCxqlsG","object":"chat.completion","created":1683457223,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":428,"completion_tokens":345,"total_tokens":773},"choices":[{"message":{"role":"assistant","content":"Creación de contenido en Youtube|Objetivo: Crear contenido en Youtube con el fin de mejorar la competencia comunicativa del alumnado|[Introducción a Youtube|Presentación de la plataforma Youtube, explicación de sus características y otros datos de interés| ¿Qué es Youtube?| ¿Cuáles son las diferentes herramientas que ofrece Youtube?| ¿Por qué es importante utilizar Youtube para la creación de contenido?]|[Estrategias de contenido|Estrategias para la realización de contenido de calidad, planificación de guiones, grabación y edición de vídeos| ¿Cómo planificar la creación de contenido en Youtube?| ¿Cómo estructurar una historia que enganche al espectador?| ¿Qué herramientas digitales son útiles para la grabación y edición de vídeos?]|[Herramientas de análisis de vídeos|Explicación de herramientas para analizar los resultados obtenidos en Youtube, medición de estadísticas y otros datos de interés| ¿Qué son las estadísticas de Youtube?| ¿Cómo se miden las estadísticas en Youtube?| ¿En qué nos pueden ayudar las estadísticas de Youtube al crear contenido?]|[Difusión de contenido|Estrategias para la difusión del contenido generado, uso de redes sociales y otras estrategias para aumentar el número de visualizaciones| ¿Cómo se puede promocionar el contenido para llegar al mayor número de personas?| ¿Cuáles son las redes sociales más utilizadas para compartir contenido en Youtube?| ¿Qué otras estrategias se pueden utilizar para aumentar el número de visualizaciones?|"},"finish_reason":"stop","index":0}]}';
 
             // $complete = '{"id":"cmpl-7Afqt6Yp1Ax56Yq2BY0qVmtG9XiIK","object":"text_completion","created":1682778515,"model":"text-davinci-003","choices":[{"text":",\n\nThe Digestive System|Objective: To understand the anatomy and physiology of the digestive system as outlined in the Spanish National Curriculum/LOMLOE|[Anatomy of the Digestive System|The digestive system is composed of the gastrointestinal (GI) tract, which consists of the mouth, esophagus, stomach, small intestine, large intestine and rectum, as well as several accessory organs such as the liver, gallbladder and pancreas. The GI tract turns food into the nutrients and energy needed for human life.|What is the first part of the digestive system?|What structures make up the gastrointestinal tract?|What do the accessory organs do?]|[Digestion Processes|Digestion begins in the mouth with chewing and saliva then moves through the esophagus to the stomach where acid helps breakdown food. It continues to the small intestine where enzymes and bile help break down proteins, carbs and fats. Vitamins and minerals are absorbed during this process. Lastly, undigested food moves to the large intestine and wastes are expelled through the rectum. |What processes occur in the mouth?|What is the role of the acid in the stomach?|Where do vitamins and minerals get absorbed? ]|[Nutrition and Digestion|In order for the body to utilize nutrients, they must be broken down into smaller molecules by the digestive system. This process is known as digestion which helps break down foods into their components so they can be used by the body. Good nutrition requires a balance of healthy foods and a variety of nutrients needed for growth, development, and energy. |What is the process of digestion?|What is the role of digestion in nutrition?|What is the goal of good nutrition? ]|[The Role of Digestion in Homeostasis|Homeostasis is the ability to maintain a consistent internal environment for optimal health. The digestive system plays an essential role in homeostasis by extracting essential nutrients from food and eliminating toxins from the body, thereby providing the energy and materials necessary for the body to function properly. |What is homeostasis?|What is the role of the digestive system in homeostasis?|What materials are necessary for the body to function optimally? ]|","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":139,"completion_tokens":462,"total_tokens":601}}';
 
             // dd($complete);
 
             $complete_array = json_decode($complete, true);
-            $text = trim($complete_array['choices'][0]['text']);
+            $text = trim($complete_array['choices'][0]['message']['content']);
+            $text = str_replace("]\n[", "]|[", $text);
+            $text = str_replace("| \n[", "]|[", $text);
+            $text = str_replace("? ¿", "]|[", $text);
+            $text = str_replace("]\n\n[", "]|[", $text);
             $parts = explode('|', $text);
-
+            // dd($text,$parts);
+            // dd($parts);
+            // dd($text,$parts);
             $slides = [
                 'Title' => trim($parts[0]),
                 'Objective' => $parts[1],
                 'Slides' => [],
             ];
-
+            // dd($slides);
             for (
                 $i = 2;
                 $i < count($parts);
@@ -254,7 +275,7 @@ class ToolController extends Controller
                     ];
                 }
             }
-
+            // dd($slides);
             // Clean the title
             $slides['Title'] = preg_replace('/[\r\n]+/', '', $slides['Title']);
 

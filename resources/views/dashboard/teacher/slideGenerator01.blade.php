@@ -25,7 +25,7 @@
     .editable-slides-default .slide {
         position: relative;
         padding: 1.25in 0.95in 0.95in 0.95in;
-        width: 10in;
+        /* width: 10in; */
         height: 5.625in;
         background-color: white;
         border-radius: 4px;
@@ -251,10 +251,12 @@
                                 class="w-4 h-4 ml-2">
                                 <g fill="none" fill-rule="evenodd">
                                     <g transform="translate(1 1)" stroke-width="4">
-                                        <circle stroke-opacity=".5" cx="18" cy="18" r="18"></circle>
+                                        <circle stroke-opacity=".5" cx="18" cy="18" r="18">
+                                        </circle>
                                         <path d="M36 18c0-9.94-8.06-18-18-18">
                                             <animateTransform attributeName="transform" type="rotate" from="0 18 18"
-                                                to="360 18 18" dur="1s" repeatCount="indefinite"></animateTransform>
+                                                to="360 18 18" dur="1s" repeatCount="indefinite">
+                                            </animateTransform>
                                         </path>
                                     </g>
                                 </g>
@@ -281,7 +283,8 @@
                     <li class="ml-4">¿Feliz con los resultados? Haga clic en "Descargar .PPTX" para descargar el
                         documento de PowerPoint.
                     </li>
-                    <li class="ml-4">¿No satisfecho? Modifique la descripción de la lección para modificar aún más los
+                    <li class="ml-4">¿No satisfecho? Modifique la descripción de la lección para modificar aún más
+                        los
                         resultados.</li>
                 </ul>
                 <?php 
@@ -300,32 +303,32 @@
                 <div class="my-5">
 
                     <div class="editable-slides-default">
-                        <?php 
-                    if (empty($slides)) {
-                        echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generate Slides' para comenzar el proceso!";
-                    } else {
-                        echo '<div class="slide flex flex-col justify-center items-center h-full">';
-                        echo '<h2 class="text-xl font-medium leading-none mt-3 text-center" style="font-size: 41px;">' . $slides['Title'] . '</h2>';
-                        echo '<p class="font-normal text-center">' . $slides['Objective'] . '</p>';
-                        echo '</div>';
-            
-                        // Content slides
-                        foreach ($slides['Slides'] as $item) {
-                            echo '<div class="slide">';
-                            echo '<h3 class="text-xl font-medium leading-none mt-3">' . $item['Heading'] . '</h3>';
-                            echo '<p class="font-normal">' . $item['Content'] . '</p>';
-            
-                            // Display questions as bullets
-                            echo '<ul class="list-disc pl-5 mt-10" style="list-style-type: disc;">';
-                            foreach ($item['Questions'] as $question) {
-                                echo '<li class="font-normal leading-none text-md py-1"><span class="font-normal leading-none text-xl ">' . $question . '</span></li>';
+                        <?php
+                            if (empty($slides)) {
+                                echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generate Slides' para comenzar el proceso!";
+                            } else {
+                                echo '<div class="slide flex flex-col justify-center items-center h-full">';
+                                echo '<h2 class="text-xl font-medium leading-none mt-3 text-center" style="font-size: 41px;">' . $slides['Title'] . '</h2>';
+                                echo '<p class="font-normal text-center">' . $slides['Objective'] . '</p>';
+                                echo '</div>';
+                            
+                                // Content slides
+                                foreach ($slides['Slides'] as $item) {
+                                    echo '<div class="slide">';
+                                    echo '<h3 class="text-xl font-medium leading-none mt-3">' . $item['Heading'] . '</h3>';
+                                    echo '<p class="font-normal">' . $item['Content'] . '</p>';
+                            
+                                    // Display questions as bullets
+                                    echo '<ul class="list-disc pl-5 mt-10" style="list-style-type: disc;">';
+                                    foreach ($item['Questions'] as $question) {
+                                        echo '<li class="font-normal leading-none text-md py-1"><span class="font-normal leading-none text-xl ">' . $question . '</span></li>';
+                                    }
+                                    echo '</ul>';
+                            
+                                    echo '</div>';
+                                }
                             }
-                            echo '</ul>';
-            
-                            echo '</div>';
-                        }
-                    }
-                    ?>
+                            ?>
                     </div>
                 </div>
 
@@ -338,7 +341,7 @@
 
 <script>
     document.getElementById('generate-btn').addEventListener('click', function() {
-        document.getElementById('spinner').classList.remove('hidden');
-    });
+            document.getElementById('spinner').classList.remove('hidden');
+        });
 </script>
 @endsection
