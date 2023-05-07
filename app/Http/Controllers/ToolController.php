@@ -107,29 +107,44 @@ class ToolController extends Controller
         $lesson = [];
 
         try {
-            $prompt = "In Traditional Spanish from Spain. Create a lesson plan for grade $grade with the title \"$title\" and description \"$description\". Try to follow the \" $curriculum \" curriculum.  Please provide content for the following headings in this format: Heading[number]:Heading|Content. Each heading should be on a new line.\n\nHeading[0]:Goals and Objectives\nHeading[1]:Materials and Resources\nHeading[2]:Warm-up Activity\nHeading[3]:Vocabulary and Grammar\nHeading[4]:Activities and Exercises\nHeading[5]:Assessment\nHeading[6]:Extension Activities\nHeading[7]:Closure Activity";
+            $prompt = "In Traditional Spanish from Spain. Create a lesson plan for grade $grade with the title \"$title\" and description \"$description\". Try to follow the \" $curriculum \" curriculum.  Please provide content for the following headings in this format: [HeadingHere1|ContentHere1]|[HeadingHere2|ContentHere2]. i.e [Metas y Objetivos|Contenido]|[Materiales y Recursos|Contenido]|[Actividad de Calentamiento|Contenido]|[Vocabulario y Gramática|Contenido]|[Actividades y Ejercicios|Contenido]|[Evaluación|Contenido]|[Actividades de Extensión|Contenido]|[Actividad de Cierre|Contenido]. Do not add new lines or use new line escape characters.";
 
-            $complete = $open_ai->completion([
-                'model' => 'text-davinci-003',
-                'prompt' => $prompt,
+            $complete = $open_ai->chat([
+                'model' => 'gpt-3.5-turbo',
+                'messages' => [
+                    [
+                        "role" => "system",
+                        "content" => "You are an expert at creating in-depth Lesson Planners for students of grade " . $grade . ""
+                    ],
+                    [
+                        "role" => "user",
+                        "content" => $prompt
+                    ],
+                ],
                 'temperature' => 0.9,
                 'max_tokens' => 1500,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
             ]);
 
+            // $complete = '{"id":"chatcmpl-7DPaTdJ0pxCPIzArJtRHX0CChZn21","object":"chat.completion","created":1683430977,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":192,"completion_tokens":522,"total_tokens":714},"choices":[{"message":{"role":"assistant","content":"[Biología - Sistema Digestivo]\n\n[Metas y Objetivos|Los estudiantes aprenderán sobre el sistema digestivo y cómo funciona para ayudar al cuerpo a obtener nutrientes importantes para su crecimiento y desarrollo. También desarrollarán habilidades de observación y análisis.]\n\n[Contenido|1. Cómo funciona el sistema digestivo\n2. Partes del sistema digestivo\n3. La importancia de una dieta saludable]\n\n[Materiales y Recursos|Pizarra, proyector, imágenes de partes del cuerpo humano, dibujos del sistema digestivo, alimentos de diferentes tipos (saludables y no saludables), tableros de actividades, libros sobre el sistema digestivo.]\n\n[Actividad de Calentamiento|El maestro comenzará presentando una imagen de un plato de comida y pedirá a los estudiantes que nombren algunos de los alimentos que pueden ver. Luego, se les preguntará por qué es importante comer una dieta equilibrada y saludable.]\n\n[Vocabulario y Gramática|Vocabulario: boca, esófago, estómago, intestino delgado, intestino grueso, nutrientes, dieta, alimentos saludables, alimentos no saludables. Gramática: uso del verbo \"comer\" en presente y pasado.]\n\n[Actividades y Ejercicios|\n1. Se mostrarán imágenes de diferentes partes del sistema digestivo y los estudiantes serán desafiados a identificarlas.\n2. Trabajando en grupos, los estudiantes crearán un tablero de actividades para clasificar diferentes tipos de alimentos en categorías saludables y no saludables.\n3. Los estudiantes dibujarán una imagen del sistema digestivo y etiquetarán cada parte.\n4. El maestro proporcionará una lista de alimentos y los estudiantes trabajarán en parejas para crear una dieta saludable de un día.\n]\n\n[Evaluación|El maestro evaluará a los estudiantes durante las actividades y ejercicios y luego les dará un cuestionario para completar sobre el sistema digestivo.]\n\n[Actividades de Extensión|Los estudiantes pueden investigar más sobre la importancia de comer una dieta equilibrada y mantener un estilo de vida saludable. También pueden crear un juego interactivo utilizando las partes del sistema digestivo.]\n\n[Actividad de Cierre|Se discutirán algunas de las cosas más importantes que aprendieron los estudiantes durante la clase y cómo pueden aplicar este conocimiento en su vida diaria.]"},"finish_reason":"stop","index":0}]}';
+
             // dd($complete);
 
             $completeDecoded = json_decode($complete);
 
-            if (is_object($completeDecoded) && isset($completeDecoded->choices[0]->text)) {
-                $responseText = $completeDecoded->choices[0]->text;
+            if (is_object($completeDecoded) && isset($completeDecoded->choices[0]->message->content)) {
+                $responseText = $completeDecoded->choices[0]->message->content;
+                $responseText = str_replace(['“', '”'], '"', $responseText); // Replace curly quotes with straight quotes if needed
                 $rawHeadings = explode("\n", trim($responseText));
 
                 foreach ($rawHeadings as $headingContent) {
                     if (strpos($headingContent, "|") !== false) {
-                        list($headingNumberAndHeading, $content) = explode("|", $headingContent);
-                        list(, $heading) = explode(":", $headingNumberAndHeading);
+                        list($headingNumberAndHeading, $content) = explode("|", $headingContent, 2); // Add a limit of 2 to the explode function
+                        $headingNumberAndHeading = rtrim($headingNumberAndHeading, "]"); // Remove the closing square bracket
+                        list(, $heading) = explode("[", $headingNumberAndHeading, 2); // Add a limit of 2 to the explode function
+
+                        $content = rtrim($content, "]"); // Add this line to remove the ending square bracket from the content
 
                         $lesson[] = (object) [
                             'Heading' => trim($heading),
@@ -141,6 +156,9 @@ class ToolController extends Controller
                 // Handle the case when the response is not as expected (e.g., missing the expected properties)
                 throw new Exception('Unexpected response from OpenAI API.');
             }
+
+
+            // dd($rawHeadings, $lesson);
         } catch (Exception $e) {
             // Handle exceptions thrown by the OpenAI PHP SDK or custom exceptions
             // Log the error message or display an appropriate error message to the user
