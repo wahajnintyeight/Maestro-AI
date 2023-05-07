@@ -42,34 +42,50 @@
                         </select>
                     </div>
                     <div class="mt-5">
-                        <label for="grade-level" class="form-label">Nivel de grado</label>
-                        <select id="grade-level" name="grade" class="form-select">
-                            <option value="Kindergarten" <?php if ($grade=='Kindergarten' ) { echo 'selected' ; } ?>
-                                >Kindergarten</option>
-                            <option value="1st Grade" <?php if ($grade=='1st Grade' ) { echo 'selected' ; } ?>>1st Grade
+                        <label for="grade-level" class="form-label">Curso</label>
+                        <label for="grade-level" class="form-label">Curso</label>
+                        <select id="grade-level" required name="grade" class="form-select">
+                            <option value="Infantil" <?php if ($grade=='Infantil' ) { echo 'selected' ; } ?>>Infantil
                             </option>
-                            <option value="2nd Grade" <?php if ($grade=='2nd Grade' ) { echo 'selected' ; } ?>>2nd Grade
+                            <option value="Primero de primaria" <?php if ($grade=='Primero de primaria' ) {
+                                echo 'selected' ; } ?>
+                                >Primero de primaria</option>
+                            <option value="Segundo de primaria" <?php if ($grade=='Segundo de primaria' ) {
+                                echo 'selected' ; } ?>
+                                >Segundo de primaria</option>
+                            <option value="Tercero de primaria" <?php if ($grade=='Tercero de primaria' ) {
+                                echo 'selected' ; } ?>
+                                >Tercero de primaria</option>
+                            <option value="Cuarto de primaria" <?php if ($grade=='Cuarto de primaria' ) {
+                                echo 'selected' ; } ?>>Cuarto
+                                de primaria</option>
+                            <option value="Quinto de primaria" <?php if ($grade=='Quinto de primaria' ) {
+                                echo 'selected' ; } ?>>Quinto
+                                de primaria</option>
+                            <option value="Sexto de primaria" <?php if ($grade=='Sexto de primaria' ) { echo 'selected'
+                                ; } ?>>Sexto de
+                                primaria</option>
+                            <option value="1º de la ESO" <?php if ($grade=='1º de la ESO' ) { echo 'selected' ; } ?>>1º
+                                de la ESO
                             </option>
-                            <option value="3rd Grade" <?php if ($grade=='3rd Grade' ) { echo 'selected' ; } ?>>3rd Grade
+                            <option value="2º de la ESO" <?php if ($grade=='2º de la ESO' ) { echo 'selected' ; } ?>>2º
+                                de la ESO
                             </option>
-                            <option value="4th Grade" <?php if ($grade=='4th Grade' ) { echo 'selected' ; } ?>>4th Grade
+                            <option value="3º de la ESO" <?php if ($grade=='3º de la ESO' ) { echo 'selected' ; } ?>>3º
+                                de la ESO
                             </option>
-                            <option value="5th Grade" <?php if ($grade=='5th Grade' ) { echo 'selected' ; } ?>>5th Grade
+                            <option value="4º de la ESO" <?php if ($grade=='4º de la ESO' ) { echo 'selected' ; } ?>>4º
+                                de la ESO
                             </option>
-                            <option value="6th Grade" <?php if ($grade=='6th Grade' ) { echo 'selected' ; } ?>>6th Grade
-                            </option>
-                            <option value="7th Grade" <?php if ($grade=='7th Grade' ) { echo 'selected' ; } ?>>7th Grade
-                            </option>
-                            <option value="8th Grade" <?php if ($grade=='8th Grade' ) { echo 'selected' ; } ?>>8th Grade
-                            </option>
-                            <option value="9th Grade" <?php if ($grade=='9th Grade' ) { echo 'selected' ; } ?>>9th Grade
-                            </option>
-                            <option value="10th Grade" <?php if ($grade=='10th Grade' ) { echo 'selected' ; } ?>>10th
-                                Grade</option>
-                            <option value="11th Grade" <?php if ($grade=='11th Grade' ) { echo 'selected' ; } ?>>11th
-                                Grade</option>
-                            <option value="12th Grade" <?php if ($grade=='12th Grade' ) { echo 'selected' ; } ?>>12th
-                                Grade</option>
+                            <option value="1º de Bachillerato" <?php if ($grade=='1º de Bachillerato' ) {
+                                echo 'selected' ; } ?>>1º de
+                                Bachillerato</option>
+                            <option value="2º de Bachillerato" <?php if ($grade=='2º de Bachillerato' ) {
+                                echo 'selected' ; } ?>>2º de
+                                Bachillerato</option>
+                            <option value="Nivel Universitario" <?php if ($grade=='Nivel Universitario' ) {
+                                echo 'selected' ; } ?>>Nivel
+                                Universitario</option>
                         </select>
                     </div>
                     <div class="mt-5">

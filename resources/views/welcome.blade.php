@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -45,10 +48,9 @@
                     <div class="row align-items-center">
                         <div class="col-xxl-8 col-xl-9 col-lg-10 col-md-6 col-6">
                             <div class="header__bottom-left my-10 d-flex align-items-center">
-                                <div class="logo">
-                                    <a href="index.html">
-                                        <img src="{{ asset('assets/img/logo/logo-2.png') }}" alt="logo">
-                                    </a>
+                                <div style="font-family: 'Inter', sans-serif;font-weight: bold;font-size: 24px;color: #258e46;"
+                                    class="logo">
+                                    MaestroIA
                                 </div>
 
                             </div>
@@ -208,8 +210,9 @@
                     <div class="col-xxl-6 col-lg-6">
                         <div class="slider__content-2 mt-30">
                             <span>Potencie su enseñanza con soluciones inteligentes</span>
-                            <h3 class="slider__title-2">Herramientas de IA pioneras para educadores en España</h3>
-                            <p>Libere su potencial con la combinación perfecta de tutoría y tecnología de punta.</p>
+                            <h3 class="slider__title-2">Herramientas de Inteligencia Artificial pioneras para educadores
+                                en Español</h3>
+                            <p>Aprovecha al máximo la Inteligencia Artificial.</p>
                             <a href="{{route('login')}}" class="tp-btn-green">Comenzar</a>
                         </div>
                     </div>
@@ -262,9 +265,9 @@
                             </div>
                             <div class="research__content">
                                 <h3 class="research__title">Herramientas Innovadoras de IA</h3>
-                                <p>Aprovecha nuestra plataforma para crear trayectorias de aprendizaje personalizadas
-                                    para cada estudiante, fomentando su
-                                    crecimiento y maximizando los resultados académicos.</p>
+                                <p>Olvídate de las tareas tediosas y deja que nuestra herramienta haga el trabajo por ti
+                                    de manera instantánea. ¡Sé más
+                                    eficiente y dedica tu tiempo a lo que realmente importa!</p>
                             </div>
                         </div>
                     </div>
@@ -275,10 +278,12 @@
                                     alt="">
                             </div>
                             <div class="research__content">
-                                <h3 class="research__title">Experiencias de Aprendizaje Personalizadas</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur dolorili adipiscing elit. Felis donec massa
-                                    lorem
-                                    aliqua.</p>
+                                <h3 class="research__title">¿Qué es MaestroIA?</h3>
+                                <p>MaestroIA es una innovadora aplicación web diseñada en Español para maestros.
+                                    Aprovecha el poder de la inteligencia
+                                    artificial para automatizar tareas mundanas, brindar experiencias de aprendizaje
+                                    personalizadas y ayudar a los maestros
+                                    a ahorrar tiempo.</p>
                             </div>
                         </div>
                     </div>
@@ -289,10 +294,13 @@
                                     alt="">
                             </div>
                             <div class="research__content">
-                                <h3 class="research__title">Comunidad Colaborativa</h3>
-                                <p>Conéctate con otros educadores, comparte experiencias y aprende mutuamente mientras
-                                    aprovechas el poder de la IA para
-                                    transformar la educación en España.</p>
+                                <h3 class="research__title">Cuentas en MaestroIA</h3>
+                                <p>¡Regístrese gratis para probar algunas de nuestras herramientas! Luego, por tan solo
+                                    6 euros al mes, puede acceder a una
+                                    suscripción Pro. Y lo mejor de todo: puede cancelar en cualquier momento. ¿Por qué
+                                    no empezar hoy mismo y crear una
+                                    cuenta gratuita para ver cómo la Inteligencia Artificial puede ayudar a simplificar
+                                    su vida como profesor?</p>
                             </div>
                         </div>
                     </div>
@@ -301,71 +309,6 @@
         </section>
         <!-- research area end -->
         <!-- course area end -->
-
-
-
-        <!-- brand area start -->
-        <section class="brand__area pt-40 pb-70">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xxl-4 col-xl-4 col-lg-4">
-                        <div class="brand__wrapper">
-                            <div class="section__title-wrapper-2">
-                                <span class="section__title-pre-2">Testimonials</span>
-                                <h3 class="section__title-2 section__title-2-30">Who will you learn with?</h3>
-                            </div>
-                            <p>You can list your partners or instructors's brands here to show off your site's
-                                reputation</p>
-                            <div class="brand__btn">
-                                <a href="about.html" class="tp-btn-5 tp-btn-6">View all partners</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-8 col-xl-8 col-lg-8">
-                        <div class="brand__item-wrapper pl-100">
-                            <div class="row align-items-center">
-                                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6">
-                                    <div class="brand__item text-center m-img mb-40">
-                                        <img src="{{ asset('assets/img/brand/brand-1.png') }}" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6">
-                                    <div class="brand__item text-center m-img mb-40">
-                                        <img src="{{ asset('assets/img/brand/brand-2.png') }}" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6">
-                                    <div class="brand__item text-center m-img mb-40">
-                                        <img src="{{ asset('assets/img/brand/brand-3.png') }}" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6">
-                                    <div class="brand__item text-center m-img mb-40">
-                                        <img src="{{ asset('assets/img/brand/brand-4.png') }}" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6">
-                                    <div class="brand__item text-center m-img mb-40">
-                                        <img src="{{ asset('assets/img/brand/brand-5.png') }}" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6">
-                                    <div class="brand__item text-center m-img mb-40">
-                                        <img src="{{ asset('assets/img/brand/brand-6.png') }}" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6">
-                                    <div class="brand__item text-center m-img mb-40">
-                                        <img src="{{ asset('assets/img/brand/brand-7.png') }}" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- brand area end -->
 
     </main>
 

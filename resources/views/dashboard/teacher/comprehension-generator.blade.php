@@ -46,179 +46,195 @@
                 </div>
                 <div class="p-5 border-t border-slate-200/60 dark:border-darkmode-400">
                     <div>
-                        <label for="grade-level" class="form-label">Nivel de grado</label>
+                        <label for="grade-level" class="form-label">Curso</label>
                         <select id="grade-level" required name="grade" class="form-select">
-                            <option value="Kindergarten" <?php if ($grade=='Kindergarten' ) { echo 'selected' ; } ?>
-                                >Kindergarten</option>
-                            <option value="1st Grade" <?php if ($grade=='1st Grade' ) { echo 'selected' ; } ?>>1st Grade
+                            <option value="Infantil" <?php if ($grade=='Infantil' ) { echo 'selected' ; } ?>>Infantil
                             </option>
-                            <option value="2nd Grade" <?php if ($grade=='2nd Grade' ) { echo 'selected' ; } ?>>2nd Grade
+                            <option value="Primero de primaria" <?php if ($grade=='Primero de primaria' ) {
+                                echo 'selected' ; } ?>
+                                >Primero de primaria</option>
+                            <option value="Segundo de primaria" <?php if ($grade=='Segundo de primaria' ) {
+                                echo 'selected' ; } ?>
+                                >Segundo de primaria</option>
+                            <option value="Tercero de primaria" <?php if ($grade=='Tercero de primaria' ) {
+                                echo 'selected' ; } ?>
+                                >Tercero de primaria</option>
+                            <option value="Cuarto de primaria" <?php if ($grade=='Cuarto de primaria' ) {
+                                echo 'selected' ; } ?>>Cuarto
+                                de primaria</option>
+                            <option value="Quinto de primaria" <?php if ($grade=='Quinto de primaria' ) {
+                                echo 'selected' ; } ?>>Quinto
+                                de primaria</option>
+                            <option value="Sexto de primaria" <?php if ($grade=='Sexto de primaria' ) { echo 'selected'
+                                ; } ?>>Sexto de
+                                primaria</option>
+                            <option value="1º de la ESO" <?php if ($grade=='1º de la ESO' ) { echo 'selected' ; } ?>>1º
+                                de la ESO
                             </option>
-                            <option value="3rd Grade" <?php if ($grade=='3rd Grade' ) { echo 'selected' ; } ?>>3rd Grade
+                            <option value="2º de la ESO" <?php if ($grade=='2º de la ESO' ) { echo 'selected' ; } ?>>2º
+                                de la ESO
                             </option>
-                            <option value="4th Grade" <?php if ($grade=='4th Grade' ) { echo 'selected' ; } ?>>4th Grade
+                            <option value="3º de la ESO" <?php if ($grade=='3º de la ESO' ) { echo 'selected' ; } ?>>3º
+                                de la ESO
                             </option>
-                            <option value="5th Grade" <?php if ($grade=='5th Grade' ) { echo 'selected' ; } ?>>5th Grade
+                            <option value="4º de la ESO" <?php if ($grade=='4º de la ESO' ) { echo 'selected' ; } ?>>4º
+                                de la ESO
                             </option>
-                            <option value="6th Grade" <?php if ($grade=='6th Grade' ) { echo 'selected' ; } ?>>6th Grade
-                            </option>
-                            <option value="7th Grade" <?php if ($grade=='7th Grade' ) { echo 'selected' ; } ?>>7th Grade
-                            </option>
-                            <option value="8th Grade" <?php if ($grade=='8th Grade' ) { echo 'selected' ; } ?>>8th Grade
-                            </option>
-                            <option value="9th Grade" <?php if ($grade=='9th Grade' ) { echo 'selected' ; } ?>>9th Grade
-                            </option>
-                            <option value="10th Grade" <?php if ($grade=='10th Grade' ) { echo 'selected' ; } ?>>10th
-                                Grade</option>
-                            <option value="11th Grade" <?php if ($grade=='11th Grade' ) { echo 'selected' ; } ?>>11th
-                                Grade</option>
-                            <option value="12th Grade" <?php if ($grade=='12th Grade' ) { echo 'selected' ; } ?>>12th
-                                Grade</option>
+                            <option value="1º de Bachillerato" <?php if ($grade=='1º de Bachillerato' ) {
+                                echo 'selected' ; } ?>>1º de
+                                Bachillerato</option>
+                            <option value="2º de Bachillerato" <?php if ($grade=='2º de Bachillerato' ) {
+                                echo 'selected' ; } ?>>2º de
+                                Bachillerato</option>
+                            <option value="Nivel Universitario" <?php if ($grade=='Nivel Universitario' ) {
+                                echo 'selected' ; } ?>>Nivel
+                                Universitario</option>
                         </select>
                     </div>
-                    <div class="mt-5">
-                        <label for="lesson-title" class="form-label">Numero de preguntas</label>
-                        <!-- Input for Lesson Title -->
-
-                        <input id="default-range" name="questionNo" type="number" placeholder="i.e 8"
-                            class="form-control">
-                    </div>
-                    <div class="mt-5">
-                        <label for="comprehension-focus" class="form-label">Enfoque de las preguntas</label>
-                        <!-- Textarea for Lesson Description -->
-                        <select id="comprehension-focus" name="focus" required class="form-select">
-                            <option value="Vocabulary and Spelling" <?php if ($focus=='Vocabulary' ) { echo 'selected' ;
-                                } ?>
-                                >Vocabulary</option>
-                            <option value="Literal Retrieval" <?php if ($focus=='Literal Retrieval' ) { echo 'selected'
-                                ; } ?>>Literal Retrieval</option>
-                            <option value="Inference" <?php if ($focus=='Inference' ) { echo 'selected' ; } ?>>Inference
-                            </option>
-                            <option value="Evaluation" <?php if ($focus=='Evaluation' ) { echo 'selected' ; } ?>
-                                >Evaluation</option>
-                            <option value="Author Choice" <?php if ($focus=='Author Choice' ) { echo 'selected' ; } ?>
-                                >Author Choice</option>
-                            <option value="Compare, Contrast and Comment" <?php if
-                                ($focus=='Compare, Contrast and Comment' ) { echo 'selected' ; } ?>>Compare, Contrast
-                                and
-                                Comment</option>
-                            <option value="Summary and Prediction" <?php if ($focus=='Summary and Prediction' ) {
-                                echo 'selected' ; } ?>>Summary and Prediction</option>
-                            <option value="Analysis of Language and Structure" <?php if
-                                ($focus=='Analysis of Language and Structure' ) { echo 'selected' ; } ?>>Analysis of
-                                Language
-                                and Structure</option>
-                            <option value="Mixture of All" <?php if ($focus=='Mixture of All' ) { echo 'selected' ; } ?>
-                                >Mixture of All</option>
-                        </select>
-                    </div>
-                    <div class="mt-5">
-                        <label for="lesson-description" class="form-label">Texto de comprensión</label>
-                        <!-- Textarea for Lesson Description -->
-                        <textarea id="lesson-description"
-                            placeholder="En un pequeño y pintoresco pueblo enclavado entre exuberantes colinas verdes, los residentes disfrutaban de una vida armoniosa, ajenos al ajetreo y al bullicio del mundo.........."
-                            name="description" required minlength="25"
-                            class="form-control h-40"><?php echo htmlspecialchars($description); ?></textarea>
-                    </div>
                 </div>
-                <div class="p-5 border-t justify-center mx-auto border-slate-200/60 dark:border-darkmode-400 flex">
+                <div class="mt-5">
+                    <label for="lesson-title" class="form-label">Numero de preguntas</label>
+                    <!-- Input for Lesson Title -->
 
-                    <button type="submit" id="generate-btn" class="btn btn-primary px-2 py-2">
-                        ✨Generar preguntas
-                        <span id="spinner" class="hidden">
-                            <svg width="25" viewBox="-2 -2 42 42" xmlns="http://www.w3.org/2000/svg" stroke="white"
-                                class="w-4 h-4 ml-2">
-                                <g fill="none" fill-rule="evenodd">
-                                    <g transform="translate(1 1)" stroke-width="4">
-                                        <circle stroke-opacity=".5" cx="18" cy="18" r="18">
-                                        </circle>
-                                        <path d="M36 18c0-9.94-8.06-18-18-18">
-                                            <animateTransform attributeName="transform" type="rotate" from="0 18 18"
-                                                to="360 18 18" dur="1s" repeatCount="indefinite">
-                                            </animateTransform>
-                                        </path>
-                                    </g>
-                                </g>
-                            </svg>
-                        </span>
-                    </button>
+                    <input id="default-range" name="questionNo" type="number" placeholder="i.e 8" class="form-control">
                 </div>
-            </form>
+                <div class="mt-5">
+                    <label for="comprehension-focus" class="form-label">Enfoque de las preguntas</label>
+                    <!-- Textarea for Lesson Description -->
+                    <select id="comprehension-focus" name="focus" required class="form-select">
+                        <option value="Vocabulary and Spelling" <?php if ($focus=='Vocabulary' ) { echo 'selected' ; }
+                            ?>
+                            >Vocabulario</option>
+                        <option value="Literal Retrieval" <?php if ($focus=='Literal Retrieval' ) { echo 'selected' ; }
+                            ?>>Comprensión literal</option>
+                        <option value="Inference" <?php if ($focus=='Inference' ) { echo 'selected' ; } ?>
+                            >Comprensión inferencial
+                        </option>
+                        <option value="Evaluation" <?php if ($focus=='Evaluation' ) { echo 'selected' ; } ?>
+                            >Evaluation</option>
+                        <option value="Author Choice" <?php if ($focus=='Author Choice' ) { echo 'selected' ; } ?>
+                            >Author Choice</option>
+                        <option value="Compare, Contrast and Comment" <?php if ($focus=='Compare, Contrast and Comment'
+                            ) { echo 'selected' ; } ?>>Compare, Contrast
+                            and
+                            Comment</option>
+                        <option value="Summary and Prediction" <?php if ($focus=='Summary and Prediction' ) {
+                            echo 'selected' ; } ?>>Summary and Prediction</option>
+                        <option value="Analysis of Language and Structure" <?php if
+                            ($focus=='Analysis of Language and Structure' ) { echo 'selected' ; } ?>>Analysis of
+                            Language
+                            and Structure</option>
+                        <option value="Mixture of All" <?php if ($focus=='Mixture of All' ) { echo 'selected' ; } ?>
+                            >Mixture of All</option>
+                    </select>
+                </div>
+                <div class="mt-5">
+                    <label for="lesson-description" class="form-label">Texto de comprensión</label>
+                    <!-- Textarea for Lesson Description -->
+                    <textarea id="lesson-description"
+                        placeholder="En un pequeño y pintoresco pueblo enclavado entre exuberantes colinas verdes, los residentes disfrutaban de una vida armoniosa, ajenos al ajetreo y al bullicio del mundo.........."
+                        name="description" required minlength="25"
+                        class="form-control h-40"><?php echo htmlspecialchars($description); ?></textarea>
+                </div>
         </div>
+        <div class="p-5 border-t justify-center mx-auto border-slate-200/60 dark:border-darkmode-400 flex">
+
+            <button type="submit" id="generate-btn" class="btn btn-primary px-2 py-2">
+                ✨Generar preguntas
+                <span id="spinner" class="hidden">
+                    <svg width="25" viewBox="-2 -2 42 42" xmlns="http://www.w3.org/2000/svg" stroke="white"
+                        class="w-4 h-4 ml-2">
+                        <g fill="none" fill-rule="evenodd">
+                            <g transform="translate(1 1)" stroke-width="4">
+                                <circle stroke-opacity=".5" cx="18" cy="18" r="18">
+                                </circle>
+                                <path d="M36 18c0-9.94-8.06-18-18-18">
+                                    <animateTransform attributeName="transform" type="rotate" from="0 18 18"
+                                        to="360 18 18" dur="1s" repeatCount="indefinite">
+                                    </animateTransform>
+                                </path>
+                            </g>
+                        </g>
+                    </svg>
+                </span>
+            </button>
+        </div>
+        </form>
     </div>
+</div>
 
 
 
 
 
-    <!-- END: Profile Menu -->
-    <div class="col-span-12 lg:col-span-8 2xl:col-span-8">
-        <!-- BEGIN: Display Information -->
-        <div class="intro-y box lg:mt-5">
-            <div class="flex items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
-                <h2 class="font-medium text-base mr-auto">
-                    Resultados generados
-                </h2>
-            </div>
-            <div class="p-5">
-                <h1 class="text-xl font-medium leading-none py-2">Direcciones</h1>
-                <ul class="list-disc list-inside border-b pb-5 border-slate-200/60 dark:border-darkmode-400"
-                    style="list-style-type: disc;">
-                    <li class="ml-4">¿Feliz con los resultados? Haga clic en "Descargar .DOCX" para descargar el
-                        documento de Word.
-                    </li>
-                    <li class="ml-4">¿No satisfecho? Modificar el texto de comprensión para modificar aún más
-                        el
-                        resultados.</li>
-                </ul>
-                <div class="my-10">
-                    @php
-                    if (empty($questions)) {
-                    echo "Los resultados se mostrarán aquí. Haga clic en '✨Generar preguntas' para iniciar el
-                    proceso!";
-                    } else {
+<!-- END: Profile Menu -->
+<div class="col-span-12 lg:col-span-8 2xl:col-span-8">
+    <!-- BEGIN: Display Information -->
+    <div class="intro-y box lg:mt-5">
+        <div class="flex items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+            <h2 class="font-medium text-base mr-auto">
+                Resultados generados
+            </h2>
+        </div>
+        <div class="p-5">
+            <h1 class="text-xl font-medium leading-none py-2">Direcciones</h1>
+            <ul class="list-disc list-inside border-b pb-5 border-slate-200/60 dark:border-darkmode-400"
+                style="list-style-type: disc;">
+                <li class="ml-4">¿Feliz con los resultados? Haga clic en "Descargar .DOCX" para descargar el
+                    documento de Word.
+                </li>
+                <li class="ml-4">¿No satisfecho? Modificar el texto de comprensión para modificar aún más
+                    el
+                    resultados.</li>
+            </ul>
+            <div class="my-10">
+                @php
+                if (empty($questions)) {
+                echo "Los resultados se mostrarán aquí. Haga clic en '✨Generar preguntas' para iniciar el
+                proceso!";
+                } else {
 
-                    // Display questions
-                    echo '<h3 class="text-lg font-medium">Questions</h3>
-                    <ol style="list-style-position: inside;">';
-                        foreach ($questions as $key => $question) {
-                        echo '<li>
-                            <h5 class="text-md leading-none mt-3">' . ($key + 1) . '. ' . $question->Question . '</h5>
-                        </li>';
-                        }
-                        echo '</ol><br>';
-
-                    // Display answers
-                    echo '<h3 class="text-lg">Answers</h3>
-                    <ol style="list-style-position: inside;">';
-                        foreach ($questions as $key => $question) {
-                        echo '<li>
-                            <h5 class="text-md font-normal mt-3">' . ($key + 1) . '. ' . ucfirst($question->Answer) . '
-                            </h5>
-                        </li>';
-                        }
-                        echo '</ol>';
+                // Display questions
+                echo '<h3 class="text-lg font-medium">Questions</h3>
+                <ol style="list-style-position: inside;">';
+                    foreach ($questions as $key => $question) {
+                    echo '<li>
+                        <h5 class="text-md leading-none mt-3">' . ($key + 1) . '. ' . $question->Question . '</h5>
+                    </li>';
                     }
-                    @endphp
-                </div>
-                <?php 
+                    echo '</ol><br>';
+
+                // Display answers
+                echo '<h3 class="text-lg">Answers</h3>
+                <ol style="list-style-position: inside;">';
+                    foreach ($questions as $key => $question) {
+                    echo '<li>
+                        <h5 class="text-md font-normal mt-3">' . ($key + 1) . '. ' . ucfirst($question->Answer) . '
+                        </h5>
+                    </li>';
+                    }
+                    echo '</ol>';
+                }
+                @endphp
+            </div>
+            <?php 
                 if (!empty($questions)) {
                     ?>
-                <div class="my-2 mt-4 flex">
-                    <a target="_blank"
-                        href="{{ route('teacher.downloadComprehension', ['questions' => urlencode(json_encode($questions))]) }}"
-                        class="btn btn-primary">Descargar.DOCX</a>
-                </div>
-                <?php
+            <div class="my-2 mt-4 flex">
+                <a target="_blank"
+                    href="{{ route('teacher.downloadComprehension', ['questions' => urlencode(json_encode($questions))]) }}"
+                    class="btn btn-primary">Descargar.DOCX</a>
+            </div>
+            <?php
                 } else {
                     // echo  "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generar plan de lección' para comenzar el proceso!";
                 }
                 ?>
-            </div>
         </div>
-
-
     </div>
+
+
+</div>
 </div>
 
 <script>

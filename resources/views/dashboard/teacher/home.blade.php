@@ -10,7 +10,7 @@
             <div class="col-span-12 mt-8">
                 <div class="intro-y flex items-center h-10">
                     <h2 class="text-lg font-medium truncate mr-5">
-                        All Tools
+                        Todas Las Herramientas
                     </h2>
 
                 </div>
@@ -66,10 +66,9 @@
 
                                         </div>
                                     </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">Planificador de Lecciones</div>
-                                    <div class="text-base text-slate-500 mt-1">Organiza tus lecciones con precisión
-                                        y
-                                        facilidad, gracias a la IA.</div>
+                                    <div class="text-3xl font-medium leading-8 mt-6">Ideas para Clase</div>
+                                    <div class="text-base text-slate-500 mt-1">Con tan solo unos clics, puedes generar
+                                        ideas para una clase</div>
                                 </div>
                             </div>
                         </a>
@@ -122,7 +121,7 @@
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Planificador de Lecciones
+                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Ideas para Clase
                                 </div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
                                     <div class="text-base text-slate-500 mt-1">Want access? <span
@@ -173,7 +172,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">Generador de preguntas</div>
+                                    <div class="text-3xl font-medium leading-8 mt-6">Comprensión de lectura</div>
                                     <div class="text-base text-slate-500 mt-1">Genera preguntas con precisión y rapidez,
                                         gracias a la IA.</div>
                                 </div>
@@ -214,7 +213,7 @@
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Generador de preguntas
+                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Comprensión de lectura
                                 </div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
                                     <div class="text-base text-slate-500 mt-1">Want access? <span
@@ -261,7 +260,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">Explicador de conceptos</div>
+                                    <div class="text-3xl font-medium leading-8 mt-6">Explica un Concepto</div>
                                     <div class="text-base text-slate-500 mt-1">Aprende y explora nuevos conceptos usando
                                         IA</div>
                                 </div>
@@ -297,7 +296,7 @@
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Explicador de conceptos</div>
+                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Explica un Concepto</div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
                                     <div class="text-base text-slate-500 mt-1">Want access? <span
                                             class="font-bold">Upgrade to Premium</span>
@@ -326,11 +325,9 @@
 
                                         </div>
                                     </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">Generador de ejercicios</div>
-                                    <div class="text-base text-slate-500 mt-1">Crea hojas de trabajo personalizadas
-                                        con
-                                        la
-                                        ayuda de la IA.</div>
+                                    <div class="text-3xl font-medium leading-8 mt-6">Tareas</div>
+                                    <div class="text-base text-slate-500 mt-1">Crea tareas y ejercicios para tus clases
+                                    </div>
                                 </div>
                             </div>
                         </a>
@@ -348,7 +345,7 @@
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Generador de ejercicios</div>
+                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Tareas</div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
                                     <div class="text-base text-slate-500 mt-1">Want access? <span
                                             class="font-bold">Upgrade to Premium</span>
@@ -378,10 +375,9 @@
 
                                         </div>
                                     </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">Generador de rúbricas</div>
-                                    <div class="text-base text-slate-500 mt-1">Crea hojas de trabajo personalizadas
-                                        con la
-                                        ayuda de la IA.</div>
+                                    <div class="text-3xl font-medium leading-8 mt-6">Generador de Rúbricas</div>
+                                    <div class="text-base text-slate-500 mt-1">Crea rúbricas para todos tus proyectos de
+                                        clase</div>
                                 </div>
                             </div>
                         </a>
@@ -400,7 +396,7 @@
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Generador de rúbricas</div>
+                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Generador de Rúbricas</div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
                                     <div class="text-base text-slate-500 mt-1">Want access? <span
                                             class="font-bold">Upgrade to Premium</span>
@@ -437,10 +433,8 @@
                                     </div>
                                     <div class="text-3xl font-medium leading-8 mt-6">Generador de Presentaciones
                                     </div>
-                                    <div class="text-base text-slate-500 mt-1">Crea hojas de trabajo personalizadas
-                                        con
-                                        la
-                                        ayuda de la IA.</div>
+                                    <div class="text-base text-slate-500 mt-1">Crea el contenido para tus presentaciones
+                                    </div>
                                 </div>
                             </div>
                         </a>

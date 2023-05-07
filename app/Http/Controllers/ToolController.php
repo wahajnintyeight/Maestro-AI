@@ -306,28 +306,38 @@ class ToolController extends Controller
         $worksheet = [];
         // In Traditional Spanish from Spain.
         try {
-            $prompt = "In Traditional Spanish from Spain. Create a worksheet on the topic of $description for a student of grade $grade, following the $curriculum curriculum. The worksheet should provide comprehensive and challenging questions. Structure the worksheet using the following format: TitleOfComprehension|ObjectiveOfComprehension|[MCQQuestion1|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion2|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion3|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion4|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion5|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion6|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion7|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion8|Choice1|Choice2|Choice3|CorrectChoice]|{GeneralQuestion1|GeneralQuestion2|GeneralQuestion3}|(Ask a Question that summarizes the assessment - wrap it in () parenthesis)|<Fill in Blank Statement 1 - add appropriate blanks i.e _____ | Fill In Blank Answer>|<Fill in Blank Statement 2 | Fill In Blank Answer>|<Fill in Blank Statement 3 | Fill In Blank Answer>|[Statement1|TrueOrFalse]|[Statement2|TrueOrFalse]|[Statement3|TrueOrFalse].";
+            $prompt = "In Traditional Spanish from Spain. Create a worksheet on the topic of $description for a student of grade $grade, following the $curriculum curriculum. The worksheet should provide comprehensive and challenging questions. You MUST make sure you accurately follow the format. Don't stray away from it. Here's an example of the format: Photosynthesis|Objective: Understand the process of photosynthesis|[What is the main purpose of photosynthesis?|Produce oxygen|Produce glucose|Produce carbon dioxide|Produce glucose]|[In which organelle does photosynthesis occur?|Chloroplast|Mitochondria|Nucleus|Chloroplast]|[Which gas is required for photosynthesis?|Oxygen|Carbon dioxide|Nitrogen|Carbon dioxide]|[What is the primary pigment involved in photosynthesis?|Chlorophyll|Carotene|Xanthophyll|Chlorophyll]|{What are the two main stages of photosynthesis?|What is the role of chlorophyll in photosynthesis?|Why is photosynthesis important for life on Earth?}|(Summarize the process of photosynthesis and its importance for plants and other organisms.)|<During photosynthesis, light energy is converted into ____ energy.|chemical>|<The _______ cycle is the second stage of photosynthesis.|Calvin>|<Plants release ____ as a byproduct of photosynthesis.|oxygen>|[Photosynthesis occurs in animal cells.|False]|[Plants use sunlight as a source of energy for photosynthesis.|True]|[The Calvin cycle produces glucose.|True].";
 
-            // $complete = $open_ai->completion([
-            //     'model' => 'text-davinci-003',
-            //     'prompt' => $prompt,
-            //     'temperature' => 0.9,
-            //     'max_tokens' => 1500,
-            //     'frequency_penalty' => 0,
-            //     'presence_penalty' => 0.6,
-            // ]);
+            $assistantPrompt = 'You are an expert generating worksheets for students in grade ' . $grade . '. Write using the following format: TitleOfComprehensionHere|ObjectiveOfComprehensionHere|[MCQQuestion1Here|Choice1|Choice2|Choice3|CorrectChoiceHere]|[MCQQuestion2Here|Choice1|Choice2|Choice3|CorrectChoiceHere]|[MCQQuestion3|Choice1|Choice2|Choice3|CorrectChoiceHere]|[MCQQuestion4Here|Choice1|Choice2|Choice3|CorrectChoiceHere]|{GeneralQuestion1Here|GeneralQuestion2Here|GeneralQuestion3}|(Ask a Question that summarizes the assessment - wrap it in () parenthesis)|<Fill in Blank Statement 1 - add appropriate blanks i.e _____ | Fill In Blank Answer>|<Fill in Blank Statement 2 | Fill In Blank Answer>|<Fill in Blank Statement 3 | Fill In Blank Answer>|[Statement1Here|TrueOrFalse]|[Statement2Here|TrueOrFalse]|[Statement3Here|TrueOrFalse].';
+
+            $complete = $open_ai->chat([
+                'model' => 'gpt-3.5-turbo',
+                'messages' => [
+                    [
+                        'role' => 'system',
+                        'content' => $assistantPrompt
+                    ],
+                    [
+                        'role' => 'user',
+                        'content' => $prompt
+                    ],
+                ],
+                'temperature' => 0.9,
+                'max_tokens' => 1000,
+                'frequency_penalty' => 0,
+                'presence_penalty' => 0.6,
+            ]);
+
+            // $complete = '{"id":"chatcmpl-7DVUx1pGwAXOK6wrePjpjhfOe1FH7","object":"chat.completion","created":1683453699,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":593,"completion_tokens":555,"total_tokens":1148},"choices":[{"message":{"role":"assistant","content":"Sistema Digestivo|Objetivo: Evaluar la comprensión del estudiante sobre el sistema digestivo.|[¿Cuál es el primer órgano que recibe los alimentos después de ser ingeridos?|Estómago|Boca|Intestino delgado|B]|[¿Qué enzima descompone las proteínas en el estómago?|Lipasa|Amilasa|Pepsina|C]|[¿Dónde tiene lugar la mayor parte de la absorción de nutrientes en el sistema digestivo?|Estómago|Boca|Intestino delgado|C]|[¿Qué órgano segrega la bilis para ayudar en la digestión de las grasas?|Páncreas|Hígado|Estómago|B]|[¿Qué tipo de músculo ayuda a mover los alimentos a través del sistema digestivo?|Músculo liso|Músculo esquelético|Músculo cardíaco|A]|[¿Qué estructura conecta el esófago al estómago?|Duodeno|Colon|Cardias|C]|[¿Qué órgano elimina los desechos no digeribles del cuerpo?|Hígado|Pulmones|Intestino grueso|C]|[¿Cuántos dientes permanentes tiene un adulto promedio?|28|32|36|B]|{¿Qué ocurre durante la absorción de nutrientes?|¿Cómo se relacionan el sistema digestivo y el sistema circulatorio en la absorción de nutrientes?|¿Por qué es importante masticar bien los alimentos antes de tragarlos?}|(¿Cuál es la función principal del sistema digestivo?)|<La ______ es el tubo muscular que conecta la garganta con el estómago.|esófago>|<El intestino delgado está dividido en tres partes: Duodeno, ______ e íleon.|Yeyuno>|<La bilis se almacena en la ______.|vesícula biliar>|[La saliva contiene una enzima que comienza la digestión de los ___.|Carbohidratos|Proteínas|Grasas|A]|[Los ácidos estomacales tienen un pH de alrededor de ___ |2|5|8|A]|[El hígado produce bilis para ayudar a digerir las grasas.|Verdadero|Falso|Verdadero]| [El colon también se conoce como intestino delgado.|Verdadero|Falso|Falso]"},"finish_reason":"stop","index":0}]}';
 
             // dd($complete);
-            //TODO: work on this
-            $complete = '{"id":"cmpl-7DFjIiE4PYJ4lM9tmHekhP467kw8Q","object":"text_completion","created":1683393084,"model":"text-davinci-003","choices":[{"text":"\n\nComprensión sobre Habilidades de Estudio, Pensamiento Crítico y Administración del Tiempo|Evaluar el conocimiento de estudiantes de 8º grado sobre habilidades de estudio, pensamiento crítico y administración del tiempo, siguiendo el currículum LOMLOE|[¿Cuál de las siguientes afirmaciones no representa una habilidad de estudio?|A) Prestar atención durante el aprendizajeB) Pasar la mayor parte del tiempo trabajandoC) Procesar y evaluar informaciónD) Descansar entre clases|B]|[¿Cuál es la característica principal del pensamiento crítico?|A) La rapidez de procesamientoB) El análisis de informaciónC) La creatividadD) La toma de decisiones rápidas|B]|[¿Qué aspecto clave debe abordar una persona para mejorar su administración del tiempo?|A) Priorizar sus tareasB) Ser perseveranteC) Descansar regularmenteD) Memorizar información|A]|[¿Qué herramienta se puede usar para mejorar la administración del tiempo?|A) Un planificadorB) Una grabadoraC) Una bicicletaD) Una lista de tareas|A]|[¿Cuál de los siguientes no es un consejo para mejorar sus habilidades de estudio?|A) Considere todas sus opciones antes de tomar una decisiónB)Pase tiempo libre con amigosC)Descanse adecuadamenteD)Levante la mano si tiene preguntas|B]|[¿Cuál de las siguientes afirmaciones describe mejor el pensamiento crítico?|A)Es el proceso de análisis de información para tomar decisionesB)Es la capacidad de hacer muchas cosas a la vezC)Es la habilidad de cuestionar informaciónD) Es la capacidad de triunfar en situaciones difíciles|A]|[¿Cuál es una forma efectiva de mejorar la administración del tiempo?|A) Aprender a decir noB)Trabajar durante el fin de semanaC)Evitar planificar sus objetivosD)Mantener un horario estricto|A]|{¿Qué consejos puede ofrecer un maestro o tutor para ayudar a los estudiantes a mejorar sus habilidades de estudio?|¿Qué beneficios surgen de desarrollar el pensamiento crítico?|¿Cómo puede una persona equilibrar el aprendizaje, el trabajo y diversas actividades sociales, administrando su tiempo?}|(¿Cómo puede un estudiante mejorar su pensamiento crítico, habilidades de estudio y administración del tiempo?)|<Para mejorar estas habilidades, un estudiante debe ____ practicar _____, _______ planificar, _________ evaluar y __________ innovar|práctica, planificar, evaluar, innovar>|<El pensamiento crítico puede mejorar el __________ y el __________ de un estudiante|aprendizaje, rendimiento>|<La administración del tiempo consiste en ___________ y _________ sus tareas y objetivos|priorizar, planificar>|[La administración del tiempo es una habilidad que se puede aprender|Falso]|[El pensamiento crítico es un proceso intuitivo|Falso]|[Uno de los consejos para mejorar la administración del tiempo es descansar adecuadamente|Falso].","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":335,"completion_tokens":1063,"total_tokens":1398}}';
-            // $complete = '{"id":"cmpl-7AzLVBVb7FBDgsxQpQmJfA79TE2U0","object":"text_completion","created":1682853449,"model":"text-davinci-003","choices":[{"text":" \n\nComprehension on Pakistani Politics |The objective of this worksheet is to explore the basics of politics in Pakistan|[Which is the capital of Pakistan?|Beijing|Islamabad|Karachi|Islamabad]|[What is the official language spoken in Pakistan?|English|Hindi|Urdu|Urdu]|[Who is Pakistan’s current Prime Minister?|Imran Khan|Raja Pervez Ashraf|Nawaz Sharif|Imran Khan]|[Which article of the 1973 Constitution of Pakistan talks about civil liberties?|Article 2|Article 11|Article 19|Article 19]|[The president of Pakistan is also a ____ ?|Politician|Military Officer|Judge|Politician]|[How many provinces are there in Pakistan?|Four|Six|Eight|Eight]|[Who was the first governor-general of Pakistan?|Khawaja Nazimuddin|M.A. Jinnah|Sir Zafarullah Khan|M.A. Jinnah]|{Describe the three branches of government in Pakistan|What are the electoral rules for selecting the president of Pakistan?|How does the Prime Minister of Pakistan exercise their powers?}|(How does the government in Pakistan function?)|<Pakistan is made up of ______ provinces. | Eight>|<The Constitution of Pakistan was written in _____ . |1973>|<The President of Pakistan is elected by _____ . |electoral college>|[Pakistan is a federal republic|True]|[The President of Pakistan has control over the military|False]|[The Prime Minister of Pakistan is elected by the National Assembly|True].","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":322,"completion_tokens":348,"total_tokens":670}}';
-            // dd($complete);
-
 
             $complete_array = json_decode($complete, true);
-            $text = trim($complete_array['choices'][0]['text']);
-
-            // Split the text using '|' as the delimiter
+            // dd($complete_array);
+            $text = trim($complete_array['choices'][0]['message']['content']);
+            $text = str_replace("]\n[", "]|[", $text);
+            $text = str_replace("]\n\n[", "]|[", $text);
+            // $text = str_replace("]\n\n\n[", "]|[", $text);
             $parts = explode('|', $text);
 
             // dd($parts);
@@ -340,7 +350,8 @@ class ToolController extends Controller
             $mcqs = [];
             $i = 2;
             while ($i < count($parts) && $parts[$i] !== '{') {
-                $question = trim(str_replace('[', '', $parts[$i]));
+                $question = trim(preg_replace('/MCQQuestion\d+\|/', '', str_replace('[', '', $parts[$i])));
+                // dd($question);
                 $i++;
                 $choice1 = trim(str_replace(']', '', $parts[$i]));
                 $i++;
@@ -374,7 +385,7 @@ class ToolController extends Controller
                 }
             }
 
-            // dd($i, $parts);
+
 
 
             $general_questions = [];
@@ -403,7 +414,7 @@ class ToolController extends Controller
                 // dd($current[0]);
             }
 
-            // dd($i, count($parts));
+            // dd($i, count($parts), $parts, $parts[$i]);
 
             if ($i < count($parts)) {
                 $current = trim($parts[$i]);
@@ -429,10 +440,6 @@ class ToolController extends Controller
                     }
                 }
             }
-
-
-
-            // dd($parts);
 
             $fill_in_the_blanks = [];
 
@@ -520,7 +527,7 @@ class ToolController extends Controller
 
             // dd($parts, $i, $worksheet);
 
-            // dd($worksheet);
+            // dd($worksheet, $parts, $complete);
         } catch (Exception $e) {
             // Handle exceptions thrown by the OpenAI PHP SDK or custom exceptions
             // Log the error message or display an appropriate error message to the user
@@ -770,31 +777,35 @@ class ToolController extends Controller
         try {
             if ($focus != "Mixture of All") {
                 $prompt = "In Traditional Spanish from Spain. Create " . $questionNo . " questions for this given comprehension: " . $description . ". The reading focus of the questions should be '" . $focus . "'The questions should be in great depth, detailed and long. The difficulty level must be appropriate for grade level " . $grade . " students. \nPlease provide well-written questions in this format: [QuestionStatement1|AnswerStatement1]|[QuestionStatement2|AnswerStatement2]|[QuestionStatement3|AnswerStatement3]|[QuestionStatement4|AnswerStatement4]|[QuestionStatement5|AnswerStatement5]. \n Double-check the answers as well and clarify them. Keep the questions strictly related to the focus of questions: '" . $focus . "'.";
+
+                $assistantPrompt = "You are an expert at generating detailed comprehension questions. You are a teacher who is creating comprehension questions for a reading passage. Please provide well-written questions in this format: [QuestionStatement1|AnswerStatement1]|[QuestionStatement2|AnswerStatement2]|[QuestionStatement3|AnswerStatement3]|[QuestionStatement4|AnswerStatement4]|[QuestionStatement5|AnswerStatement5]. For example: [What is the main idea of the passage?|The main idea of the passage is that the author is trying to explain the importance of the topic.]";
             } else {
                 $questionNo = 10;
                 $prompt = "In Traditional Spanish from Spain. Create 10 questions for this given comprehension: " . $description . ". Two questions should be Vocabulary based, two questions should be Inference based, two should be from Evaluation, two should be from Author Choice, two should be from 'Compare, Contrast and Comment', two should be from 'Literal Retrieval', two should be from 'Summary and Prediction', two should be from 'Analysis of Language and Structure'. \nPlease provide well-written questions in this format: [VocabularyQuestionHere|AnswerStatement1]|[VocabularyQuestionHere|AnswerStatement2]|
                 [InferenceQuestionHere|Statement1]|InferenceQuestionHere|AnswerStatement2]|[EvaluationQuestionHere|AnswerStatement1]|EvaluationQuestionHere|AnswerStatement2]|[AuthorChoiceQuestionHere|AnswerStatement1]|AuthorChoiceQuestionHere|AnswerStatement2]|[ContrastQuestionHere|AnswerStatement1]|ContrastQuestionHere|AnswerStatement2]. Each question should be on a new line. \nThe questions should be great depth,relevant, long, detailed, and the grade level for the questions should be " . $grade . ".";
-            }
-            $complete = $open_ai->chat([
-                'model' => 'gpt-3.5-turbo',
-                'messages' => [
-                    [
-                        'role' => 'system',
-                        'content' => 'You are an expert at generating detailed comprehension questions. You are a teacher who is creating comprehension questions for a reading passage. Please provide well-written questions in this format: [QuestionStatement1|AnswerStatement1]|[QuestionStatement2|AnswerStatement2]|[QuestionStatement3|AnswerStatement3]|[QuestionStatement4|AnswerStatement4]|[QuestionStatement5|AnswerStatement5]. For example: [What is the main idea of the passage?|The main idea of the passage is that the author is trying to explain the importance of the topic.]'
-                    ],
-                    [
-                        'role' => 'user',
-                        'content' => $prompt
-                    ],
-                ],
-                'temperature' => 0.9,
-                'max_tokens' => 1000,
-                'frequency_penalty' => 0,
-                'presence_penalty' => 0.6,
-            ]);
-            dd($complete);
 
-            // $complete = '{"id":"chatcmpl-7DSEAZWgFEVIkqLYNnXyAZWgYXMve","object":"chat.completion","created":1683441126,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":569,"completion_tokens":781,"total_tokens":1350},"choices":[{"message":{"role":"assistant","content":"[Vocabulary Question 1: What does \"fritter away\" mean in the passage?|The phrase \"fritter away\" means to waste time or money on trivial matters.]\n[Vocabulary Question 2: What does \"conjugality\" mean in the passage?| The word \"conjugality\" refers to the state of being married or in a marital relationship.]\n\n[Inference Question 1: Why does the author state that Oran is a town without intimations?|The author implies that the people of Oran are so consumed by modernity and contemporary habits that they lack any knowledge or indication of something different.]\n[Inference Question 2: What does the author mean by \"people have to love one another without knowing much about it\"?| The statement implies that due to a lack of time and limited thinking, people in Oran engage in romantic or sexual relationships without fully understanding the depth of their feelings or desires.]\n\n[Evaluation Question 1: Is the author presenting a positive or negative view of the way people live and love in Oran?|The author presents a negative view on the manner of loving in Oran.]\n[Evaluation Question 2: In your opinion, is the author\'s description of Oran and its inhabitants accurate? Why or why not? Use evidence from the text to support your response.|Answer will vary, but should provide specific examples from the text to support the opinion.]\n\n[Author Choice Question 1: Why do you think the author chose to highlight the lack of intimacy and knowledge in relationships among the people of Oran?|Answer will vary, but could suggest that the author is making a commentary on the effects of modernization and contemporary society on personal relationships.]\n[Author Choice Question 2: How does the author\'s use of language contribute to the negative portrayal of life in Oran?|The author\'s use of words like \"consume,\" \"rapidly,\" and \"lack of time and thinking\" create a sense of emptiness and superficiality in the relationships described.]\n\n[Contrast Question 1: How does the way people live and love in Oran compare to other towns and countries where people have an \"inkling of something different\"?|The people in Oran are described as lacking any indication of anything different, while people in other towns and countries may have brief glimpses of alternative ways of living.]\n[Contrast Question 2: How does the author\'s tone change when discussing the habits of the people in Oran versus those in other towns and countries?|The author\'s tone is more negative and critical when describing the habits of the people in Oran, while there is a sense of hopefulness in the description of people elsewhere having an \"intimation\" of something different.]\n\n[Literal Retrieval Question 1: What is common among all contemporary people according to the passage?|According to the passage, it is common to see people working all day and then wasting their time on trivial matters like card games and small talk.]\n[Literal Retrieval Question 2: What is the range of types of loving relationships described in Oran?|The two extremes described are quickly consuming each other in \"the act of love\" or settling into a mild habit of conjugality.]\n\n[Summary and Prediction Question 1: Based on the passage, what do you think the author believes is missing from the way people live and love in Oran?|The author suggests that people in Oran lack intimacy, knowledge, and a deeper understanding of relationships.]\n[Summary and Prediction Question 2: What do you predict will happen to the people of Oran if they continue to live and love in the manner described in the passage?|Answer will vary, but could suggest that their relationships will continue to lack depth and meaning, leading to a sense of emptiness and dissatisfaction.]"},"finish_reason":"stop","index":0}]}';
+                $assistantPrompt = "You are an expert at generating detailed comprehension questions. You are a teacher who is creating comprehension questions for a reading passage. Please provide well-written questions in this format: [VocabularyQuestionHere|AnswerStatement1]|[VocabularyQuestionHere|AnswerStatement2]|[InferenceQuestionHere|Statement1]|InferenceQuestionHere|AnswerStatement2]|[EvaluationQuestionHere|AnswerStatement1]|EvaluationQuestionHere|AnswerStatement2]|[AuthorChoiceQuestionHere|AnswerStatement1]|AuthorChoiceQuestionHere|AnswerStatement2]|[ContrastQuestionHere|AnswerStatement1]|ContrastQuestionHere|AnswerStatement2]. For example: [What is the main idea of the passage?|The main idea of the passage is that the author is trying to explain the importance of the topic.]";
+            }
+            // $complete = $open_ai->chat([
+            //     'model' => 'gpt-3.5-turbo',
+            //     'messages' => [
+            //         [
+            //             'role' => 'system',
+            //             'content' => $assistantPrompt
+            //         ],
+            //         [
+            //             'role' => 'user',
+            //             'content' => $prompt
+            //         ],
+            //     ],
+            //     'temperature' => 0.9,
+            //     'max_tokens' => 1000,
+            //     'frequency_penalty' => 0,
+            //     'presence_penalty' => 0.6,
+            // ]);
+            // dd($complete);
+
+            $complete = '{"id":"chatcmpl-7DT5GvyTMELkChV3YjmGJ3RXchLTs","object":"chat.completion","created":1683444418,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":498,"completion_tokens":371,"total_tokens":869},"choices":[{"message":{"role":"assistant","content":"[What is the meaning of the word \"terrestrial\" as used in the passage?| The word \"terrestrial\" means relating to the earth or land.]\n\n[What does the word \"quagmire\" mean in the passage?| The word \"quagmire\" means a difficult or complicated situation.]\n\n[What does the phrase \"dismissed from service\" mean in the passage?| The phrase \"dismissed from service\" means to be fired from employment.]\n\n[What is the meaning of the word \"authority\" in the passage?| The word \"authority\" means the power or right to give orders, make decisions, and enforce obedience.]\n\n[What does the word \"topography\" mean as used in the passage?| The word \"topography\" means the detailed description or charting of the features of a relatively small area, district, or locality.]\n\n[What was the name given to the passage that Magellan found?| Magellan named the passage \'the Strait of All Saints\']\n\n[What is the current name of the strait that Magellan had discovered?| The Strait of All Saints is currently known as the Strait of Magellan.]\n\n[What happened to one of the ships during the expedition, and where were they exploring at that time?| One of the five ships sank while exploring the topography of South America in search of a water route across the continent.]\n\n[What did Ferdinand Magellan offer to prove to the future Emperor Charles V of Spain?| Ferdinand Magellan offered to prove that the East Indies fell under Spanish authority.]\n\n[What was the purpose of the papal decree of 1493?| The purpose of the papal decree of 1493 assigned all land in the New World west of 50 degrees W longitude to Spain and all the land east of that line to Portugal.]"},"finish_reason":"stop","index":0}]}';
 
             // $complete = '{"id":"chatcmpl-7DRuo8toCkb4C9DMacrpkUI1lUdbo","object":"chat.completion","created":1683439926,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":443,"completion_tokens":413,"total_tokens":856},"choices":[{"message":{"role":"assistant","content":"[QuestionStatement1|AnswerStatement1] \r\nWhat do the unusual events described in the chronicle refer to and where did they occur? \r\nAnswer: The unusual events referred to in the chronicle occurred in 194- at Oran.\r\n\r\n[QuestionStatement2|AnswerStatement2] \r\nWhat is the description of the town of Oran, and how does it differ from other business centers in the world?\r\nAnswer: Oran is a large French port on the Algerian coast, and it has a smug, placid air. It is different from other business centers in the world because it is entirely negative, with no pigeons, trees, or gardens, and you never hear the rustle of leaves or the beat of wings.\r\n\r\n[QuestionStatement3|AnswerStatement3] \r\nHow are seasons discriminated in the town of Oran, and what tells people about spring\'s coming?\r\nAnswer: Seasons are discriminated only in the sky. People feel the air change, and baskets of flowers brought in from the suburbs by peddlers tell them about spring\'s coming.\r\n\r\n[QuestionStatement4|AnswerStatement4]\r\nWhat is the meaning of the phrase \"a spring cried in the marketplaces,\" and how does it relate to the passage?\r\nAnswer: The phrase means that people announce the coming of spring loudly, as if it were something to be sold. It relates to the passage because it shows how plain and ordinary life is in Oran, and how even the coming of spring is not a significant event there.\r\n\r\n[QuestionStatement5|AnswerStatement5]\r\nWhat is the significance of using \'negative words\' to describe the town of Oran, and how does this affect the overall tone of the passage?\r\nAnswer: The use of negative words to describe Oran affects the overall tone of the passage by creating a sense of apathy and indifference toward the town. The town is described as thoroughly negative, and the use of words like \"ugly\" and \"smug\" contribute to the passive, unremarkable tone of the passage."},"finish_reason":"stop","index":0}]}';
 
@@ -804,6 +815,7 @@ class ToolController extends Controller
             // dd($complete_array);
             $text = trim($complete_array['choices'][0]['message']['content']);
             $text = str_replace("]\n[", "]|[", $text);
+            $text = str_replace("]\n\n[", "]|[", $text);
             $parts = explode('|', $text);
             //dd($parts);
             for ($i = 0; $i < count($parts); $i += 2) {
@@ -897,9 +909,7 @@ class ToolController extends Controller
                 $data = $history->content;
                 $urlEncodedData = urlencode($data);
                 return redirect()->route('teacher.downloadSlidesPPTX', ['slides' => $urlEncodedData]);
-
         }
-
     }
     public function downloadDocx(Request $request)
     {
