@@ -107,14 +107,14 @@ class ToolController extends Controller
         $lesson = [];
 
         try {
-            $prompt = "In Traditional Spanish from Spain. Create a lesson plan for grade $grade with the title \"$title\" and description \"$description\". Try to follow the \" $curriculum \" curriculum.  Please provide content for the following headings in this format: [HeadingHere1|ContentHere1]|[HeadingHere2|ContentHere2]. i.e [Metas y Objetivos|Contenido]|[Materiales y Recursos|Contenido]|[Actividad de Calentamiento|Contenido]|[Vocabulario y Gramática|Contenido]|[Actividades y Ejercicios|Contenido]|[Evaluación|Contenido]|[Actividades de Extensión|Contenido]|[Actividad de Cierre|Contenido]. Do not add new lines or use new line escape characters.";
+            $prompt = "In Traditional Spanish from Spain. Create a lesson plan for grade $grade with the title \"$title\" and description \"$description\". Try to follow the \" $curriculum \" curriculum.  Please provide content for the following headings in this format: [ClassTitleHere|ClassObjectiveHere]|[HeadingHere1|ContentHere1]|[HeadingHere2|ContentHere2]. i.e [Metas y Objetivos|Contenido aquí]|[Materiales y Recursos|Contenido aquí]|[Actividad de Calentamiento|Contenido aquí]|[Vocabulario y Gramática|Contenido aquí]|[Actividades y Ejercicios|Contenido aquí]|[Evaluación|Contenido aquí]|[Actividades de Extensión|Contenido aquí]|[Actividad de Cierre|Contenido aquí]. Do not add new lines or use new line escape characters. Avoid the habit of doing this: 'Content: This is the content' i.e no need to prepend the content with a label & a colon.";
 
             $complete = $open_ai->chat([
                 'model' => 'gpt-3.5-turbo',
                 'messages' => [
                     [
                         "role" => "system",
-                        "content" => "You are an expert at creating in-depth Lesson Planners for students of grade " . $grade . ""
+                        "content" => "You are an expert at creating in-depth Lesson Planners for students of grade " . $grade . ". Please provide content for the following headings in this format: [ClassTitleHere|ClassObjectiveHere]|[HeadingHere1|ContentHere1]|[HeadingHere2|ContentHere2]"
                     ],
                     [
                         "role" => "user",
@@ -127,38 +127,42 @@ class ToolController extends Controller
                 'presence_penalty' => 0.6,
             ]);
 
-            // $complete = '{"id":"chatcmpl-7DPaTdJ0pxCPIzArJtRHX0CChZn21","object":"chat.completion","created":1683430977,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":192,"completion_tokens":522,"total_tokens":714},"choices":[{"message":{"role":"assistant","content":"[Biología - Sistema Digestivo]\n\n[Metas y Objetivos|Los estudiantes aprenderán sobre el sistema digestivo y cómo funciona para ayudar al cuerpo a obtener nutrientes importantes para su crecimiento y desarrollo. También desarrollarán habilidades de observación y análisis.]\n\n[Contenido|1. Cómo funciona el sistema digestivo\n2. Partes del sistema digestivo\n3. La importancia de una dieta saludable]\n\n[Materiales y Recursos|Pizarra, proyector, imágenes de partes del cuerpo humano, dibujos del sistema digestivo, alimentos de diferentes tipos (saludables y no saludables), tableros de actividades, libros sobre el sistema digestivo.]\n\n[Actividad de Calentamiento|El maestro comenzará presentando una imagen de un plato de comida y pedirá a los estudiantes que nombren algunos de los alimentos que pueden ver. Luego, se les preguntará por qué es importante comer una dieta equilibrada y saludable.]\n\n[Vocabulario y Gramática|Vocabulario: boca, esófago, estómago, intestino delgado, intestino grueso, nutrientes, dieta, alimentos saludables, alimentos no saludables. Gramática: uso del verbo \"comer\" en presente y pasado.]\n\n[Actividades y Ejercicios|\n1. Se mostrarán imágenes de diferentes partes del sistema digestivo y los estudiantes serán desafiados a identificarlas.\n2. Trabajando en grupos, los estudiantes crearán un tablero de actividades para clasificar diferentes tipos de alimentos en categorías saludables y no saludables.\n3. Los estudiantes dibujarán una imagen del sistema digestivo y etiquetarán cada parte.\n4. El maestro proporcionará una lista de alimentos y los estudiantes trabajarán en parejas para crear una dieta saludable de un día.\n]\n\n[Evaluación|El maestro evaluará a los estudiantes durante las actividades y ejercicios y luego les dará un cuestionario para completar sobre el sistema digestivo.]\n\n[Actividades de Extensión|Los estudiantes pueden investigar más sobre la importancia de comer una dieta equilibrada y mantener un estilo de vida saludable. También pueden crear un juego interactivo utilizando las partes del sistema digestivo.]\n\n[Actividad de Cierre|Se discutirán algunas de las cosas más importantes que aprendieron los estudiantes durante la clase y cómo pueden aplicar este conocimiento en su vida diaria.]"},"finish_reason":"stop","index":0}]}';
+            // $complete = '{"id":"chatcmpl-7DS0Epv67ZcEM84POhBGx7BmLfBJu","object":"chat.completion","created":1683440262,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":239,"completion_tokens":493,"total_tokens":732},"choices":[{"message":{"role":"assistant","content":"[Matemáticas|Multiplicación] \n\n[Metas y Objetivos|Los estudiantes aprenderán a multiplicar de forma sencilla y aplicarán esta habilidad en situaciones cotidianas.] \n\n[Materiales y Recursos|Pizarrón, marcadores, manipulativos como bloques de construcción, pelotas y juguetes pequeños.] \n\n[Actividad de Calentamiento|El maestro mostrará diferentes objetos y preguntará cuántos hay en total si se suman dos grupos. Por ejemplo, si hay tres coches y tres bicicletas, ¿cuántos vehículos hay en total? El maestro también puede usar palillos chinos para que los estudiantes hagan grupos de dos o tres y cuenten cuántos palillos hay en total.] \n\n[Vocabulario y Gramática|Multiplicar, sumar, total, igual, grupos, objetos.] \n\n[Actividades y Ejercicios|El maestro comenzará con una lección sobre la multiplicación y cómo funciona. Luego, los estudiantes trabajarán en parejas para usar objetos y crear grupos iguales, por ejemplo, cuatro bloques en un grupo y cinco bloques en otro grupo. Luego, el maestro les preguntará cuántos bloques hay en total si se multiplican los grupos.\nPara continuar la actividad, los estudiantes usarán juguetes pequeños para crear grupos. El maestro les hará preguntas como \"Si tenemos dos grupos de tres pelotas, ¿cuántas pelotas tenemos en total?\"\n \n[Evaluación|El maestro evaluará a los estudiantes mediante preguntas y respuestas orales durante la actividad. También les pedirá que dibujen grupos de objetos y los multipliquen para poner en práctica lo que han aprendido.]\n \n[Actividades de Extensión|Los estudiantes pueden jugar al \"Bingo de multiplicación\" con tarjetas que contengan problemas de multiplicación. También pueden usar bloques de construcción para crear grupos más grandes y multiplicarlos.] \n\n[Actividad de Cierre|El maestro preguntará a los estudiantes qué han aprendido sobre la multiplicación y cómo pueden aplicarlo en su vida cotidiana. Los estudiantes también compartirán sus trabajos de dibujo y ejercicios con el resto de la clase.]"},"finish_reason":"stop","index":0}]}';
 
             // dd($complete);
+
+            //"[Política en Pakistán|Comprender la política contemporánea de Pakistán]|[Metas y Objetivos|Los estudiantes serán capaces de comprender la situación política actual en Pakistán, los partidos políticos en el país así como los principales problemas políticos que enfrenta el país]|[Materiales y Recursos|Pizarra, proyector, papel, bolígrafos]|[Actividad de Calentamiento|Discusión de noticias recientes en Pakistán. Preguntas abiertas para discusión en clase: ¿Qué está sucediendo en Pakistán en este momento? ¿Qué problemas enfrenta el país? ¿Cómo describe la política de Pakistán? ¿Cuántos partidos políticos hay en el país? ¿Quiénes son los líderes políticos destacados de Pakistán?]|[Vocabulario y Gramática|Vocabulario relacionado con la política en Pakistán: sistema político, partidos políticos, elecciones, líderes políticos, corrupción, derechos humanos, etc. Se revisarán tiempos verbales en presente y pasado: presente simple, presente continuo, pasado simple y pasado continuo.]|[Actividades y Ejercicios|1. Los estudiantes deben trabajar en grupos para investigar un partido político en Pakistán y presentar sus hallazgos a la clase. 2. Los estudiantes deben escribir un ensayo sobre los desafíos políticos de Pakistán y presentar posibles soluciones. 3. Discusión de las elecciones presidenciales más recientes en Pakistán y análisis de los resultados.]|[Evaluación|Los estudiantes serán evaluados en su capacidad para presentar información precisa y clara sobre un partido político, su capacidad para escribir un ensayo coherente y bien estructurado sobre los problemas políticos de Pakistán, y su participación en discusiones en clase. También se evaluará la comprensión del vocabulario y la gramática relacionada con la política.]|[Actividades de Extensión|Los estudiantes pueden investigar más a fondo un tema político específico en Pakistán y presentar su investigación a la clase. También se puede pedir a los estudiantes que escriban una carta a un líder político en Pakistán sobre un problema específico en el país.]|[Actividad de Cierre|La clase debe terminar con una discusión general sobre las lecciones aprendidas en cuanto a la política en Pakistán y cómo se relacionan estas lecciones con la política en otros países.] ◀"
 
             $completeDecoded = json_decode($complete);
 
             if (is_object($completeDecoded) && isset($completeDecoded->choices[0]->message->content)) {
                 $responseText = $completeDecoded->choices[0]->message->content;
                 $responseText = str_replace(['“', '”'], '"', $responseText); // Replace curly quotes with straight quotes if needed
-                $rawHeadings = explode("\n", trim($responseText));
+                $responseText = str_replace("]\n\n[", "]|[", $responseText); // Replace "] ◀\n[" with "]|["
+                $responseText = str_replace("] \n\n[", "]|[", $responseText); // Replace "] ◀\n[" with "]|["
+                $responseText = str_replace("\"\n \n", "]|[", $responseText); // Replace "] ◀\n[" with "]|["
+
+                $rawHeadings = explode("]|[", trim($responseText)); // Split by "]|[" instead of just "\n"
 
                 foreach ($rawHeadings as $headingContent) {
-                    if (strpos($headingContent, "|") !== false) {
-                        list($headingNumberAndHeading, $content) = explode("|", $headingContent, 2); // Add a limit of 2 to the explode function
-                        $headingNumberAndHeading = rtrim($headingNumberAndHeading, "]"); // Remove the closing square bracket
-                        list(, $heading) = explode("[", $headingNumberAndHeading, 2); // Add a limit of 2 to the explode function
+                    list($heading, $content) = explode("|", $headingContent, 2); // Add a limit of 2 to the explode function
+                    $heading = trim(str_replace(['[', ']'], '', $heading)); // Remove square brackets from the heading
+                    $content = rtrim(str_replace(['[', ']'], '', trim($content)), '}'); // Remove square brackets and the closing curly brace from the content
 
-                        $content = rtrim($content, "]"); // Add this line to remove the ending square bracket from the content
-
-                        $lesson[] = (object) [
-                            'Heading' => trim($heading),
-                            'Content' => trim($content),
-                        ];
-                    }
+                    $lesson[] = (object)[
+                        'Heading' => $heading,
+                        'Content' => $content,
+                    ];
                 }
             } else {
                 // Handle the case when the response is not as expected (e.g., missing the expected properties)
                 throw new Exception('Unexpected response from OpenAI API.');
             }
 
+            // dd($complete, $responseText, $rawHeadings, $lesson);
 
-            // dd($rawHeadings, $lesson);
+
+            // dd($responseText, $rawHeadings, $lesson);
         } catch (Exception $e) {
             // Handle exceptions thrown by the OpenAI PHP SDK or custom exceptions
             // Log the error message or display an appropriate error message to the user

@@ -166,17 +166,22 @@
                 </ul>
                 <div class="my-10">
                     <?php
-                        if (empty($lesson)) {
-                            echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generar plan de lección' para comenzar el proceso!";
-                       } else {
+                    if (empty($lesson)) {
+                        echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generar plan de lección' para comenzar el proceso!";
+                    } else {
                         foreach ($lesson as $item) {
                             echo '<h4 class="text-xl font-medium leading-none mt-3">' . $item->Heading . '</h4><br>';
-
-                            if ($item->Heading === "Materials and Resources" || $item->Heading === "Vocabulary and Grammar") {
-                                $sentences = preg_split('/(?<=[.?!])\s+(?=[a-z])/i', $item->Content);
+                
+                            // Check if the content has a list format (Roman, numeric, or alphabetic)
+                            $hasListFormat = preg_match('/^(-\s|\d+\.\s|[a-zA-Z]\.\s|(?:[MDCLXVI]+\.\s))/m', $item->Content);
+                
+                            if ($hasListFormat) {
+                                $sentences = preg_split('/^(-\s|\d+\.\s|[a-zA-Z]\.\s|(?:[MDCLXVI]+\.\s))/m', $item->Content);
                                 echo '<ul class="list-disc pl-5" style="list-style-type: disc;">';
                                 foreach ($sentences as $sentence) {
-                                    echo '<li class="ml-4">' . trim($sentence) . '</li>';
+                                    if (!empty(trim($sentence))) {
+                                        echo '<li class="ml-4">' . trim($sentence) . '</li>';
+                                    }
                                 }
                                 echo '</ul>';
                             } else {
@@ -184,7 +189,7 @@
                             }
                         }
                     }
-                        ?>
+                    ?>
                 </div>
                 <?php 
                 if (!empty($lesson)) {
