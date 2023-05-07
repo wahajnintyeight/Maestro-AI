@@ -49,6 +49,7 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
     Route::get('/classroom-tools', [PageController::class, 'showClassroomTools'])->name('showClassroomTools');
     Route::get('/free-tools', [PageController::class, 'showFreeTools'])->name('showFreeTools');
 
+    Route::get('/download-history/{id}', [ToolController::class, 'downloadHistory'])->name('downloadHistory');
 
     Route::post('/lesson-planner', [ToolController::class, 'generateLessonPlanner'])->name('generateLessonPlanner');
     Route::get('/download-docx', [ToolController::class, 'downloadDocx'])->name('download.docx');

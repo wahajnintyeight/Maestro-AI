@@ -107,6 +107,7 @@ class ToolController extends Controller
         $lesson = [];
 
         try {
+
             $prompt = "In Traditional Spanish from Spain. Create a lesson plan for grade $grade with the title \"$title\" and description \"$description\". Try to follow the \" $curriculum \" curriculum.  Please provide content for the following headings in this format: [ClassTitleHere|ClassObjectiveHere]|[HeadingHere1|ContentHere1]|[HeadingHere2|ContentHere2]. i.e [Metas y Objetivos|Contenido aquí]|[Materiales y Recursos|Contenido aquí]|[Actividad de Calentamiento|Contenido aquí]|[Vocabulario y Gramática|Contenido aquí]|[Actividades y Ejercicios|Contenido aquí]|[Evaluación|Contenido aquí]|[Actividades de Extensión|Contenido aquí]|[Actividad de Cierre|Contenido aquí]. Do not add new lines or use new line escape characters. Avoid the habit of doing this: 'Content: This is the content' i.e no need to prepend the content with a label & a colon.";
 
             $complete = $open_ai->chat([
@@ -130,6 +131,7 @@ class ToolController extends Controller
             // $complete = '{"id":"chatcmpl-7DS0Epv67ZcEM84POhBGx7BmLfBJu","object":"chat.completion","created":1683440262,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":239,"completion_tokens":493,"total_tokens":732},"choices":[{"message":{"role":"assistant","content":"[Matemáticas|Multiplicación] \n\n[Metas y Objetivos|Los estudiantes aprenderán a multiplicar de forma sencilla y aplicarán esta habilidad en situaciones cotidianas.] \n\n[Materiales y Recursos|Pizarrón, marcadores, manipulativos como bloques de construcción, pelotas y juguetes pequeños.] \n\n[Actividad de Calentamiento|El maestro mostrará diferentes objetos y preguntará cuántos hay en total si se suman dos grupos. Por ejemplo, si hay tres coches y tres bicicletas, ¿cuántos vehículos hay en total? El maestro también puede usar palillos chinos para que los estudiantes hagan grupos de dos o tres y cuenten cuántos palillos hay en total.] \n\n[Vocabulario y Gramática|Multiplicar, sumar, total, igual, grupos, objetos.] \n\n[Actividades y Ejercicios|El maestro comenzará con una lección sobre la multiplicación y cómo funciona. Luego, los estudiantes trabajarán en parejas para usar objetos y crear grupos iguales, por ejemplo, cuatro bloques en un grupo y cinco bloques en otro grupo. Luego, el maestro les preguntará cuántos bloques hay en total si se multiplican los grupos.\nPara continuar la actividad, los estudiantes usarán juguetes pequeños para crear grupos. El maestro les hará preguntas como \"Si tenemos dos grupos de tres pelotas, ¿cuántas pelotas tenemos en total?\"\n \n[Evaluación|El maestro evaluará a los estudiantes mediante preguntas y respuestas orales durante la actividad. También les pedirá que dibujen grupos de objetos y los multipliquen para poner en práctica lo que han aprendido.]\n \n[Actividades de Extensión|Los estudiantes pueden jugar al \"Bingo de multiplicación\" con tarjetas que contengan problemas de multiplicación. También pueden usar bloques de construcción para crear grupos más grandes y multiplicarlos.] \n\n[Actividad de Cierre|El maestro preguntará a los estudiantes qué han aprendido sobre la multiplicación y cómo pueden aplicarlo en su vida cotidiana. Los estudiantes también compartirán sus trabajos de dibujo y ejercicios con el resto de la clase.]"},"finish_reason":"stop","index":0}]}';
 
             // dd($complete);
+
 
             //"[Política en Pakistán|Comprender la política contemporánea de Pakistán]|[Metas y Objetivos|Los estudiantes serán capaces de comprender la situación política actual en Pakistán, los partidos políticos en el país así como los principales problemas políticos que enfrenta el país]|[Materiales y Recursos|Pizarra, proyector, papel, bolígrafos]|[Actividad de Calentamiento|Discusión de noticias recientes en Pakistán. Preguntas abiertas para discusión en clase: ¿Qué está sucediendo en Pakistán en este momento? ¿Qué problemas enfrenta el país? ¿Cómo describe la política de Pakistán? ¿Cuántos partidos políticos hay en el país? ¿Quiénes son los líderes políticos destacados de Pakistán?]|[Vocabulario y Gramática|Vocabulario relacionado con la política en Pakistán: sistema político, partidos políticos, elecciones, líderes políticos, corrupción, derechos humanos, etc. Se revisarán tiempos verbales en presente y pasado: presente simple, presente continuo, pasado simple y pasado continuo.]|[Actividades y Ejercicios|1. Los estudiantes deben trabajar en grupos para investigar un partido político en Pakistán y presentar sus hallazgos a la clase. 2. Los estudiantes deben escribir un ensayo sobre los desafíos políticos de Pakistán y presentar posibles soluciones. 3. Discusión de las elecciones presidenciales más recientes en Pakistán y análisis de los resultados.]|[Evaluación|Los estudiantes serán evaluados en su capacidad para presentar información precisa y clara sobre un partido político, su capacidad para escribir un ensayo coherente y bien estructurado sobre los problemas políticos de Pakistán, y su participación en discusiones en clase. También se evaluará la comprensión del vocabulario y la gramática relacionada con la política.]|[Actividades de Extensión|Los estudiantes pueden investigar más a fondo un tema político específico en Pakistán y presentar su investigación a la clase. También se puede pedir a los estudiantes que escriban una carta a un líder político en Pakistán sobre un problema específico en el país.]|[Actividad de Cierre|La clase debe terminar con una discusión general sobre las lecciones aprendidas en cuanto a la política en Pakistán y cómo se relacionan estas lecciones con la política en otros países.] ◀"
 
@@ -306,16 +308,18 @@ class ToolController extends Controller
         try {
             $prompt = "In Traditional Spanish from Spain. Create a worksheet on the topic of $description for a student of grade $grade, following the $curriculum curriculum. The worksheet should provide comprehensive and challenging questions. Structure the worksheet using the following format: TitleOfComprehension|ObjectiveOfComprehension|[MCQQuestion1|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion2|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion3|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion4|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion5|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion6|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion7|Choice1|Choice2|Choice3|CorrectChoice]|[MCQQuestion8|Choice1|Choice2|Choice3|CorrectChoice]|{GeneralQuestion1|GeneralQuestion2|GeneralQuestion3}|(Ask a Question that summarizes the assessment - wrap it in () parenthesis)|<Fill in Blank Statement 1 - add appropriate blanks i.e _____ | Fill In Blank Answer>|<Fill in Blank Statement 2 | Fill In Blank Answer>|<Fill in Blank Statement 3 | Fill In Blank Answer>|[Statement1|TrueOrFalse]|[Statement2|TrueOrFalse]|[Statement3|TrueOrFalse].";
 
-            $complete = $open_ai->completion([
-                'model' => 'text-davinci-003',
-                'prompt' => $prompt,
-                'temperature' => 0.9,
-                'max_tokens' => 1500,
-                'frequency_penalty' => 0,
-                'presence_penalty' => 0.6,
-            ]);
+            // $complete = $open_ai->completion([
+            //     'model' => 'text-davinci-003',
+            //     'prompt' => $prompt,
+            //     'temperature' => 0.9,
+            //     'max_tokens' => 1500,
+            //     'frequency_penalty' => 0,
+            //     'presence_penalty' => 0.6,
+            // ]);
 
-
+            // dd($complete);
+            //TODO: work on this
+            $complete = '{"id":"cmpl-7DFjIiE4PYJ4lM9tmHekhP467kw8Q","object":"text_completion","created":1683393084,"model":"text-davinci-003","choices":[{"text":"\n\nComprensión sobre Habilidades de Estudio, Pensamiento Crítico y Administración del Tiempo|Evaluar el conocimiento de estudiantes de 8º grado sobre habilidades de estudio, pensamiento crítico y administración del tiempo, siguiendo el currículum LOMLOE|[¿Cuál de las siguientes afirmaciones no representa una habilidad de estudio?|A) Prestar atención durante el aprendizajeB) Pasar la mayor parte del tiempo trabajandoC) Procesar y evaluar informaciónD) Descansar entre clases|B]|[¿Cuál es la característica principal del pensamiento crítico?|A) La rapidez de procesamientoB) El análisis de informaciónC) La creatividadD) La toma de decisiones rápidas|B]|[¿Qué aspecto clave debe abordar una persona para mejorar su administración del tiempo?|A) Priorizar sus tareasB) Ser perseveranteC) Descansar regularmenteD) Memorizar información|A]|[¿Qué herramienta se puede usar para mejorar la administración del tiempo?|A) Un planificadorB) Una grabadoraC) Una bicicletaD) Una lista de tareas|A]|[¿Cuál de los siguientes no es un consejo para mejorar sus habilidades de estudio?|A) Considere todas sus opciones antes de tomar una decisiónB)Pase tiempo libre con amigosC)Descanse adecuadamenteD)Levante la mano si tiene preguntas|B]|[¿Cuál de las siguientes afirmaciones describe mejor el pensamiento crítico?|A)Es el proceso de análisis de información para tomar decisionesB)Es la capacidad de hacer muchas cosas a la vezC)Es la habilidad de cuestionar informaciónD) Es la capacidad de triunfar en situaciones difíciles|A]|[¿Cuál es una forma efectiva de mejorar la administración del tiempo?|A) Aprender a decir noB)Trabajar durante el fin de semanaC)Evitar planificar sus objetivosD)Mantener un horario estricto|A]|{¿Qué consejos puede ofrecer un maestro o tutor para ayudar a los estudiantes a mejorar sus habilidades de estudio?|¿Qué beneficios surgen de desarrollar el pensamiento crítico?|¿Cómo puede una persona equilibrar el aprendizaje, el trabajo y diversas actividades sociales, administrando su tiempo?}|(¿Cómo puede un estudiante mejorar su pensamiento crítico, habilidades de estudio y administración del tiempo?)|<Para mejorar estas habilidades, un estudiante debe ____ practicar _____, _______ planificar, _________ evaluar y __________ innovar|práctica, planificar, evaluar, innovar>|<El pensamiento crítico puede mejorar el __________ y el __________ de un estudiante|aprendizaje, rendimiento>|<La administración del tiempo consiste en ___________ y _________ sus tareas y objetivos|priorizar, planificar>|[La administración del tiempo es una habilidad que se puede aprender|Falso]|[El pensamiento crítico es un proceso intuitivo|Falso]|[Uno de los consejos para mejorar la administración del tiempo es descansar adecuadamente|Falso].","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":335,"completion_tokens":1063,"total_tokens":1398}}';
             // $complete = '{"id":"cmpl-7AzLVBVb7FBDgsxQpQmJfA79TE2U0","object":"text_completion","created":1682853449,"model":"text-davinci-003","choices":[{"text":" \n\nComprehension on Pakistani Politics |The objective of this worksheet is to explore the basics of politics in Pakistan|[Which is the capital of Pakistan?|Beijing|Islamabad|Karachi|Islamabad]|[What is the official language spoken in Pakistan?|English|Hindi|Urdu|Urdu]|[Who is Pakistan’s current Prime Minister?|Imran Khan|Raja Pervez Ashraf|Nawaz Sharif|Imran Khan]|[Which article of the 1973 Constitution of Pakistan talks about civil liberties?|Article 2|Article 11|Article 19|Article 19]|[The president of Pakistan is also a ____ ?|Politician|Military Officer|Judge|Politician]|[How many provinces are there in Pakistan?|Four|Six|Eight|Eight]|[Who was the first governor-general of Pakistan?|Khawaja Nazimuddin|M.A. Jinnah|Sir Zafarullah Khan|M.A. Jinnah]|{Describe the three branches of government in Pakistan|What are the electoral rules for selecting the president of Pakistan?|How does the Prime Minister of Pakistan exercise their powers?}|(How does the government in Pakistan function?)|<Pakistan is made up of ______ provinces. | Eight>|<The Constitution of Pakistan was written in _____ . |1973>|<The President of Pakistan is elected by _____ . |electoral college>|[Pakistan is a federal republic|True]|[The President of Pakistan has control over the military|False]|[The Prime Minister of Pakistan is elected by the National Assembly|True].","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":322,"completion_tokens":348,"total_tokens":670}}';
             // dd($complete);
 
@@ -641,7 +645,10 @@ class ToolController extends Controller
         $concept = [];
         // In Traditional Spanish from Spain. 
         try {
-            $prompt = "In Traditional Spanish from Spain. Create a detailed concept explanation for a student aged $age studying the subject '$subject' and topic '$topic'. Try to follow the '$curriculum' curriculum. Explain each concept in depth, using simple language and examples to make it easy for the student to understand. Ensure that the explanation is comprehensive and covers all essential aspects of the topic. Please provide content in this format: TitleOfConcept|BodyOfConceptExplanation|ExampleOfConceptParagraph|ConciseSummaryOfExplanation. The explanation should be age-appropriate and easy to understand.\n\nFor exaompe - Here's how to structure it for a Noun & Pronoun Topic: Nouns & Pronouns|Long Paragraph explaining Nouns & Pronouns|Noun & Pronoun Example|Summary of the Concept";
+            // $prompt = "In Traditional Spanish from Spain. Create a detailed concept explanation for a student aged $age studying the subject '$subject' and topic '$topic'. Try to follow the '$curriculum' curriculum. Explain each concept in depth, using simple language and examples to make it easy for the student to understand. Ensure that the explanation is comprehensive and covers all essential aspects of the topic. Please provide content in this format: TitleOfConcept|BodyOfConceptExplanation|ExampleOfConceptParagraph|ConciseSummaryOfExplanation. The explanation should be age-appropriate and easy to understand.\n\nFor exaompe - Here's how to structure it for a Noun & Pronoun Topic: Nouns & Pronouns|Long Paragraph explaining Nouns & Pronouns|Noun & Pronoun Example|Summary of the Concept";
+
+            $prompt = "En español tradicional de España. Cree una explicación detallada del concepto para un estudiante de $age que estudie la materia '$subject' y el tema '$topic'. Trate de seguir el plan de estudios '$curriculum'. Explique cada concepto en profundidad, utilizando un lenguaje sencillo y ejemplos para que sea fácil de entender para el estudiante. Asegúrese de que la explicación sea completa y cubra todos los aspectos esenciales del tema. Proporcione contenido en este formato: TitleOfConcept|BodyOfConceptExplanation|ExampleOfConceptParagraph|ConciseSummaryOfExplanation. La explicación debe ser apropiada para la edad y fácil de entender.\n\nPor ejemplo, así es como se estructura para un tema de sustantivo y pronombre: sustantivos y pronombres|párrafo largo que explica sustantivos y pronombres|ejemplo de sustantivo y pronombre|resumen del concepto";
+
             $complete = $open_ai->completion([
                 'model' => 'text-davinci-003',
                 'prompt' => $prompt,
@@ -653,6 +660,7 @@ class ToolController extends Controller
 
             // dd($complete);
 
+            // $complete = '{"id":"cmpl-7DGP06O0jTTHc9hkVr9arqZ0974SB","object":"text_completion","created":1683395670,"model":"text-davinci-003","choices":[{"text":".\n\nGramática|La gramática es la estructura o el patrón de un idioma. Esto significa que hay una serie de reglas y patrones a seguir para que una persona hable correctamente. Estas reglas incluyen oraciones con los verbos adecuados, formas de pronombre y mucho más. Por ejemplo, en inglés, cuando utilizas un verbo para describir algo, como correr, debes usar la palabra correcta. En este caso, la palabra correcta es \'correr\'. Si dijera \'ir\', estaría cometiendo un error gramatical.|Ejemplo de concepto de gramática: si quiero decir, \"¡Corre!\", entonces debo usar el verbo correcto, que es \'correr\' en lugar de \'ir\'.|En resumen, la gramática es la estructura o el patrón de un idioma. Esto significa que hay una serie de reglas y patrones a seguir para que una persona hable correctamente.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":293,"completion_tokens":275,"total_tokens":568}}';
             // $complete = '{"id":"cmpl-79q7EEGfr2PNitvwpSNw5zzRcGlTz","object":"text_completion","created":1682579640,"model":"text-davinci-003","choices":[{"text":" (50-100 words).\n\nNouns|Nouns are words that name people, places, things, or ideas. They are a part of every sentence, and they usually come before verbs. Nouns can be singular or plural depending on how many items are being talked about. For example, dog is a singular noun and dogs is a plural noun. Understanding how to use nouns correctly is necessary for effectively communicating in English.|The dog barked loudly.|Nouns are words that name items and people, and are used to effectively communicate in English. They can be singular or plural, and come before verbs.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":162,"completion_tokens":135,"total_tokens":297}}';
 
             $completeDecoded = json_decode($complete);
@@ -767,20 +775,36 @@ class ToolController extends Controller
                 $prompt = "In Traditional Spanish from Spain. Create 10 questions for this given comprehension: " . $description . ". Two questions should be Vocabulary based, two questions should be Inference based, two should be from Evaluation, two should be from Author Choice, two should be from 'Compare, Contrast and Comment', two should be from 'Literal Retrieval', two should be from 'Summary and Prediction', two should be from 'Analysis of Language and Structure'. \nPlease provide well-written questions in this format: [VocabularyQuestionHere|AnswerStatement1]|[VocabularyQuestionHere|AnswerStatement2]|
                 [InferenceQuestionHere|Statement1]|InferenceQuestionHere|AnswerStatement2]|[EvaluationQuestionHere|AnswerStatement1]|EvaluationQuestionHere|AnswerStatement2]|[AuthorChoiceQuestionHere|AnswerStatement1]|AuthorChoiceQuestionHere|AnswerStatement2]|[ContrastQuestionHere|AnswerStatement1]|ContrastQuestionHere|AnswerStatement2]. Each question should be on a new line. \nThe questions should be great depth,relevant, long, detailed, and the grade level for the questions should be " . $grade . ".";
             }
-            $complete = $open_ai->completion([
-                'model' => 'text-davinci-003',
-                'prompt' => $prompt,
-                'temperature' => 0.9,
-                'max_tokens' => 1000,
-                'frequency_penalty' => 0,
-                'presence_penalty' => 0.6,
-            ]);
+            // $complete = $open_ai->chat([
+            //     'model' => 'gpt-3.5-turbo',
+            //     'messages' => [
+            //         [
+            //             'role' => 'system',
+            //             'content' => 'You are an expert at generating detailed comprehension questions. You are a teacher who is creating comprehension questions for a reading passage. Please provide well-written questions in this format: [QuestionStatement1|AnswerStatement1]|[QuestionStatement2|AnswerStatement2]|[QuestionStatement3|AnswerStatement3]|[QuestionStatement4|AnswerStatement4]|[QuestionStatement5|AnswerStatement5]. For example: [What is the main idea of the passage?|The main idea of the passage is that the author is trying to explain the importance of the topic.]'
+            //         ],
+            //         [
+            //             'role' => 'user',
+            //             'content' => $prompt
+            //         ],
+            //     ],
+            //     'temperature' => 0.9,
+            //     'max_tokens' => 1000,
+            //     'frequency_penalty' => 0,
+            //     'presence_penalty' => 0.6,
+            // ]);
+            // dd($complete);
+
+            $complete = '{"id":"chatcmpl-7DSEAZWgFEVIkqLYNnXyAZWgYXMve","object":"chat.completion","created":1683441126,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":569,"completion_tokens":781,"total_tokens":1350},"choices":[{"message":{"role":"assistant","content":"[Vocabulary Question 1: What does \"fritter away\" mean in the passage?|The phrase \"fritter away\" means to waste time or money on trivial matters.]\n[Vocabulary Question 2: What does \"conjugality\" mean in the passage?| The word \"conjugality\" refers to the state of being married or in a marital relationship.]\n\n[Inference Question 1: Why does the author state that Oran is a town without intimations?|The author implies that the people of Oran are so consumed by modernity and contemporary habits that they lack any knowledge or indication of something different.]\n[Inference Question 2: What does the author mean by \"people have to love one another without knowing much about it\"?| The statement implies that due to a lack of time and limited thinking, people in Oran engage in romantic or sexual relationships without fully understanding the depth of their feelings or desires.]\n\n[Evaluation Question 1: Is the author presenting a positive or negative view of the way people live and love in Oran?|The author presents a negative view on the manner of loving in Oran.]\n[Evaluation Question 2: In your opinion, is the author\'s description of Oran and its inhabitants accurate? Why or why not? Use evidence from the text to support your response.|Answer will vary, but should provide specific examples from the text to support the opinion.]\n\n[Author Choice Question 1: Why do you think the author chose to highlight the lack of intimacy and knowledge in relationships among the people of Oran?|Answer will vary, but could suggest that the author is making a commentary on the effects of modernization and contemporary society on personal relationships.]\n[Author Choice Question 2: How does the author\'s use of language contribute to the negative portrayal of life in Oran?|The author\'s use of words like \"consume,\" \"rapidly,\" and \"lack of time and thinking\" create a sense of emptiness and superficiality in the relationships described.]\n\n[Contrast Question 1: How does the way people live and love in Oran compare to other towns and countries where people have an \"inkling of something different\"?|The people in Oran are described as lacking any indication of anything different, while people in other towns and countries may have brief glimpses of alternative ways of living.]\n[Contrast Question 2: How does the author\'s tone change when discussing the habits of the people in Oran versus those in other towns and countries?|The author\'s tone is more negative and critical when describing the habits of the people in Oran, while there is a sense of hopefulness in the description of people elsewhere having an \"intimation\" of something different.]\n\n[Literal Retrieval Question 1: What is common among all contemporary people according to the passage?|According to the passage, it is common to see people working all day and then wasting their time on trivial matters like card games and small talk.]\n[Literal Retrieval Question 2: What is the range of types of loving relationships described in Oran?|The two extremes described are quickly consuming each other in \"the act of love\" or settling into a mild habit of conjugality.]\n\n[Summary and Prediction Question 1: Based on the passage, what do you think the author believes is missing from the way people live and love in Oran?|The author suggests that people in Oran lack intimacy, knowledge, and a deeper understanding of relationships.]\n[Summary and Prediction Question 2: What do you predict will happen to the people of Oran if they continue to live and love in the manner described in the passage?|Answer will vary, but could suggest that their relationships will continue to lack depth and meaning, leading to a sense of emptiness and dissatisfaction.]"},"finish_reason":"stop","index":0}]}';
+
+            // $complete = '{"id":"chatcmpl-7DRuo8toCkb4C9DMacrpkUI1lUdbo","object":"chat.completion","created":1683439926,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":443,"completion_tokens":413,"total_tokens":856},"choices":[{"message":{"role":"assistant","content":"[QuestionStatement1|AnswerStatement1] \r\nWhat do the unusual events described in the chronicle refer to and where did they occur? \r\nAnswer: The unusual events referred to in the chronicle occurred in 194- at Oran.\r\n\r\n[QuestionStatement2|AnswerStatement2] \r\nWhat is the description of the town of Oran, and how does it differ from other business centers in the world?\r\nAnswer: Oran is a large French port on the Algerian coast, and it has a smug, placid air. It is different from other business centers in the world because it is entirely negative, with no pigeons, trees, or gardens, and you never hear the rustle of leaves or the beat of wings.\r\n\r\n[QuestionStatement3|AnswerStatement3] \r\nHow are seasons discriminated in the town of Oran, and what tells people about spring\'s coming?\r\nAnswer: Seasons are discriminated only in the sky. People feel the air change, and baskets of flowers brought in from the suburbs by peddlers tell them about spring\'s coming.\r\n\r\n[QuestionStatement4|AnswerStatement4]\r\nWhat is the meaning of the phrase \"a spring cried in the marketplaces,\" and how does it relate to the passage?\r\nAnswer: The phrase means that people announce the coming of spring loudly, as if it were something to be sold. It relates to the passage because it shows how plain and ordinary life is in Oran, and how even the coming of spring is not a significant event there.\r\n\r\n[QuestionStatement5|AnswerStatement5]\r\nWhat is the significance of using \'negative words\' to describe the town of Oran, and how does this affect the overall tone of the passage?\r\nAnswer: The use of negative words to describe Oran affects the overall tone of the passage by creating a sense of apathy and indifference toward the town. The town is described as thoroughly negative, and the use of words like \"ugly\" and \"smug\" contribute to the passive, unremarkable tone of the passage."},"finish_reason":"stop","index":0}]}';
+
             // $complete = '{"id":"cmpl-7BdsUXFA6sm1bwTJoAtvijpnZJ2LW","object":"text_completion","created":1683009254,"model":"text-davinci-003","choices":[{"text":"\n\n[What does the term spur of the moment mean in this passage?|an impulsive action taken without due consideration]|[What might the phrase no more than that refer to?|Dr. Rieuxs initial reaction to the presence of the dead rat]|[How did M. Michel react when Dr. Rieux told him about the dead rat?|He was genuinely outraged]|[What does M. Michel’s insistence that there werent no rats in the building suggest?|That someone had brought it from outside]|[Evaluate how Dr. Rieux initially reacted to finding the dead rat.|He did not give it much thought and continued on his way downstairs]|[Evaluate how M. Michel reacts to the news of the dead rat.|He is shocked and determined to find out who brought the rat into the building]|[What is the authors choice in describing the reaction of Dr. Rieux and M. Michel to the news of the dead rat?|The author emphasizes the contrast between their reactions]|[Compare and contrast the initial reactions of Dr. Rieux and M. Michel to the news of the dead rat.|Dr. Rieux did not give the dead rat much thought while M. Michel was genuinely outraged]|[What is the literal meaning of the phrase There werent no rats here?|There were no rats in the building]|[Summarize what M. Michel believes about the dead rat.|M. Michel believes that someone must have brought it from outside]|[What evidence in the passage suggests that someone may have been playing a joke?|M. Michels implication that someone had brought the dead rat from outside]|[Analyze how the use of repetition in the passage affects the readers understanding of M. Michels reaction.|The repetition emphasizes M. Michels conviction that the rat must have been brought from outside, suggesting he found it suspicious].","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":492,"completion_tokens":417,"total_tokens":909}}';
 
             $complete_array = json_decode($complete, true);
-            $text = trim($complete_array['choices'][0]['text']);
+            // dd($complete_array);
+            $text = trim($complete_array['choices'][0]['message']['content']);
             $parts = explode('|', $text);
-
+            dd($parts);
             for ($i = 0; $i < count($parts); $i += 2) {
                 // Remove the brackets from the question and answer parts
                 $question = trim(str_replace(array('[', ']'), '', $parts[$i]));
@@ -837,6 +861,45 @@ class ToolController extends Controller
             ->header('Content-Disposition', 'attachment; filename=' . $filename);
     }
 
+    public function downloadHistory($id)
+    {
+        $history = History::find($id);
+
+
+        switch ($history->tool_name) {
+            case "Lesson Planner":
+                break;
+            case "Comprehension Question Generator":
+                $questions = json_decode($history->content, true);
+                $questions = $history->content;
+                $urlEncodedQuestions = urlencode($questions);
+                return redirect()->route('teacher.downloadComprehension', ['questions' => $urlEncodedQuestions]);
+            case "Rubric Generator":
+                $data = json_decode($history->content, true);
+                $data = $history->content;
+                $urlEncodedData = urlencode($data);
+                // dd(json_decode(urldecode($urlEncodedData), true));
+                // dd($urlEncodedData);
+                return redirect()->route('teacher.downloadRubric', ['rubric' => $urlEncodedData]);
+            case "Concept Explainer":
+                $data = json_decode($history->content, true);
+                $data = $history->content;
+                $urlEncodedData = urlencode($data);
+                return redirect()->route('teacher.downloadConceptDocx', ['concept' => $urlEncodedData]);
+            case "Worksheet Generator":
+                $data = json_decode($history->content, true);
+                $data = $history->content;
+                $urlEncodedData = urlencode($data);
+                return redirect()->route('teacher.downloadWorksheetDocx', ['worksheet' => $urlEncodedData]);
+            case "Slides":
+                $data = json_decode($history->content, true);
+                $data = $history->content;
+                $urlEncodedData = urlencode($data);
+                return redirect()->route('teacher.downloadSlidesPPTX', ['slides' => $urlEncodedData]);
+
+        }
+
+    }
     public function downloadDocx(Request $request)
     {
         $lesson = json_decode(urldecode($request->input('lesson')), true);
@@ -913,7 +976,7 @@ class ToolController extends Controller
     public function downloadRubricDocx(Request $request)
     {
         $rubric = json_decode(urldecode($request->input('rubric')), true);
-
+        // dd($rubric);
         $phpWord = new PhpWord();
 
         $section = $phpWord->addSection();
