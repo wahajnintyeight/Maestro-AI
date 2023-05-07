@@ -51,10 +51,10 @@
             <div class="flex items-center justify-start p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                 <div class="flex justify-start gap-4 items-center">
                     <h2 class="font-medium text-base mr-auto">
-                        Subscription Status
+                        Mi suscripción
                     </h2>
                     <button class="btn btn-sm btn-primary w-24 mr-1">{{($user->is_paid == 0) ? 'Free Tier' :
-                        "Paid"}}</button>
+                        "Premium"}}</button>
                 </div>
             </div>
             <div class="p-5">
@@ -198,8 +198,7 @@
                     @else
                     <div class="intro-y flex-1 px-5 py-16">
                         <i data-feather="shopping-bag" class="block w-12 h-12 text-primary mx-auto"></i>
-                        <div class="text-xl font-medium text-center mt-10">You have already subscribed to Premium
-                            Plan</div>
+                        <div class="text-xl font-medium text-center mt-10">Estás suscrito al plan de pago premium</div>
                     </div>
                     @endif
                 </div>

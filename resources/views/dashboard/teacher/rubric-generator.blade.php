@@ -85,31 +85,31 @@
                         </select>
                     </div>
                     <div class="mt-5">
-                        <label for="lesson-title" class="form-label">Topic</label>
+                        <label for="lesson-title" class="form-label">Tema</label>
                         <!-- Input for Lesson Title -->
                         <input required id="lesson-title" name="title" type="text" class="form-control"
                             placeholder="es decir, podcast" value="<?php echo htmlspecialchars($title); ?>">
                     </div>
                     <div class="mt-5">
-                        <label for="lesson-title" class="form-label">Category #1</label>
+                        <label for="lesson-title" class="form-label">Categoría 1</label>
                         <!-- Input for Lesson Title -->
                         <input required id="lesson-title" name="category_1" type="text" class="form-control"
                             placeholder="es decir, contenido" value="<?php echo htmlspecialchars($category_1); ?>">
                     </div>
                     <div class="mt-5">
-                        <label for="lesson-title" class="form-label">Category #2</label>
+                        <label for="lesson-title" class="form-label">Categoría 2</label>
                         <!-- Input for Lesson Title -->
                         <input required id="lesson-title" name="category_2" type="text" class="form-control"
                             placeholder="es decir, Organización" value="<?php echo htmlspecialchars($category_2); ?>">
                     </div>
                     <div class="mt-5">
-                        <label for="lesson-title" class="form-label">Category #3</label>
+                        <label for="lesson-title" class="form-label">Categoría 3</label>
                         <!-- Input for Lesson Title -->
                         <input required id="lesson-title" name="category_3" type="text" class="form-control"
                             placeholder="es decir, calidad" value="<?php echo htmlspecialchars($category_3); ?>">
                     </div>
                     <div class="mt-5">
-                        <label for="lesson-title" class="form-label">Category #4</label>
+                        <label for="lesson-title" class="form-label">Categoría 4</label>
                         <!-- Input for Lesson Title -->
                         <input required id="lesson-title" name="category_4" type="text" class="form-control"
                             placeholder="es decir, longitud" value="<?php echo htmlspecialchars($category_4); ?>">

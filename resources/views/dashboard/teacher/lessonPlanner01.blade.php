@@ -137,7 +137,7 @@
                 <div class="p-5 border-t justify-center mx-auto border-slate-200/60 dark:border-darkmode-400 flex">
 
                     <button type="submit" id="generate-btn" class="btn btn-primary px-2 py-2">
-                        ✨Generar plan de lección
+                        ✨Generar Programación
                         <span id="spinner" class="hidden">
                             <svg width="25" viewBox="-2 -2 42 42" xmlns="http://www.w3.org/2000/svg" stroke="white"
                                 class="w-4 h-4 ml-2">

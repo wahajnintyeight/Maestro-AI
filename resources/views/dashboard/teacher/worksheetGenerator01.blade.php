@@ -2,7 +2,7 @@
 @section('content')
 <div class="intro-y flex items-center mt-8">
     <h2 class="text-lg font-medium mr-auto">
-        Worksheet Generator
+        Tareas
     </h2>
 </div>
 <div class="grid grid-cols-12 gap-6">
@@ -26,7 +26,7 @@
                         </svg>
                     </div>
                     <div class="ml-6 mr-auto">
-                        <div class="font-medium text-base">Worksheet Generator</div>
+                        <div class="font-medium text-base">Tareas</div>
                     </div>
                 </div>
                 <div class="p-5 border-t border-slate-200/60 dark:border-darkmode-400">
@@ -42,7 +42,6 @@
                         </select>
                     </div>
                     <div class="mt-5">
-                        <label for="grade-level" class="form-label">Curso</label>
                         <label for="grade-level" class="form-label">Curso</label>
                         <select id="grade-level" required name="grade" class="form-select">
                             <option value="Infantil" <?php if ($grade=='Infantil' ) { echo 'selected' ; } ?>>Infantil
@@ -89,7 +88,7 @@
                         </select>
                     </div>
                     <div class="mt-5">
-                        <label for="lesson-description" class="form-label">Learning Objectives</label>
+                        <label for="lesson-description" class="form-label">Objetivos de aprendizaje</label>
                         <!-- Textarea for Lesson Description -->
                         <textarea id="lesson-description"
                             placeholder="Intente algo como esto: escriba un plan de lección sobre cómo se usa la música en las tribus nativas americanas"
@@ -100,7 +99,7 @@
                 <div class="p-5 border-t justify-center mx-auto border-slate-200/60 dark:border-darkmode-400 flex">
 
                     <button type="submit" id="generate-btn" class="btn btn-primary px-2 py-2">
-                        ✨Generate Worksheet
+                        ✨Generar Contenido
                         <span id="spinner" class="hidden">
                             <svg width="25" viewBox="-2 -2 42 42" xmlns="http://www.w3.org/2000/svg" stroke="white"
                                 class="w-4 h-4 ml-2">
@@ -140,8 +139,11 @@
                         documento con la explicación del concepto.
                     </li>
                     <li class="ml-4">¿No satisfecho? Modifique la edad del estudiante, el nombre del tema y el nombre de
-                        la asignatura
-                        para generar una explicación del concepto más adecuada.</li>
+                        la asignatura para generar una
+                        explicación del concepto más adecuada. Haga clic en el botón "Generar Contenido" a
+                        continuación para crear una
+                        hoja de ejercicios personalizada basada en el Objetivo de Aprendizaje y el Curso seleccionados.
+                    </li>
                 </ul>
                 <div class="mb-10 mt-3 bg-white shadow-lg p-8">
                     <?php
