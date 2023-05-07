@@ -108,7 +108,7 @@ class ToolController extends Controller
 
         try {
 
-            $prompt = "In Traditional Spanish from Spain. Create a lesson plan for grade $grade with the title \"$title\" and description \"$description\". Try to follow the \" $curriculum \" curriculum.  Please provide content for the following headings in this format: [ClassTitleHere|ClassObjectiveHere]|[HeadingHere1|ContentHere1]|[HeadingHere2|ContentHere2]. i.e [Metas y Objetivos|Contenido aquí]|[Materiales y Recursos|Contenido aquí]|[Actividad de Calentamiento|Contenido aquí]|[Vocabulario y Gramática|Contenido aquí]|[Actividades y Ejercicios|Contenido aquí]|[Evaluación|Contenido aquí]|[Actividades de Extensión|Contenido aquí]|[Actividad de Cierre|Contenido aquí]. Do not add new lines or use new line escape characters. Avoid the habit of doing this: 'Content: This is the content' i.e no need to prepend the content with a label & a colon.";
+            $prompt = "In Traditional Spanish from Spain. Create a lesson plan for grade $grade with the title \"$title\" and description \"$description\". Try to follow the \" $curriculum \" curriculum. For example: [Clase de Nombres y Pronombres|Aprender a identificar y utilizar correctamente los nombres y pronombres en oraciones]|[Metas y Objetivos|Que los estudiantes sean capaces de reconocer y utilizar los nombres y pronombres adecuadamente, mejorando sus habilidades de lectura y escritura]|[Materiales y Recursos|Pizarra, marcadores, hojas de trabajo, tarjetas con nombres y pronombres, dispositivos electrónicos (opcional)]|[Actividad de Calentamiento|Juego de asociación de tarjetas: Los estudiantes emparejan tarjetas con nombres y pronombres correspondientes, fomentando la familiarización con estos conceptos]|[Vocabulario y Gramática|Introducir y explicar los diferentes tipos de nombres (comunes, propios, abstractos, colectivos) y pronombres (personales, posesivos, demostrativos, relativos, interrogativos, indefinidos)]|[Actividades y Ejercicios|1. Práctica de identificación: Los estudiantes subrayan los nombres y pronombres en oraciones proporcionadas; 2. Creación de oraciones: Los alumnos crean oraciones utilizando los nombres y pronombres aprendidos; 3. Juego en equipo: Los estudiantes forman equipos y compiten para identificar y clasificar nombres y pronombres en una lista de palabras]|[Evaluación|Evaluar la comprensión de los estudiantes mediante preguntas de opción múltiple, preguntas de emparejamiento y ejercicios de completar oraciones con nombres y pronombres adecuados]|[Actividad de Cierre|Reflexión y discusión en grupo: Los estudiantes comparten sus experiencias y desafíos al trabajar con nombres y pronombres, y plantean preguntas o inquietudes para futuras lecciones]. Do not add new lines or use new line escape characters. Avoid the habit of doing this: 'Content: This is the content' i.e no need to prepend the content with a label & a colon.";
 
             $complete = $open_ai->chat([
                 'model' => 'gpt-3.5-turbo',
@@ -673,20 +673,38 @@ class ToolController extends Controller
         $concept = [];
         // In Traditional Spanish from Spain. 
         try {
-            // $prompt = "In Traditional Spanish from Spain. Create a detailed concept explanation for a student aged $age studying the subject '$subject' and topic '$topic'. Try to follow the '$curriculum' curriculum. Explain each concept in depth, using simple language and examples to make it easy for the student to understand. Ensure that the explanation is comprehensive and covers all essential aspects of the topic. Please provide content in this format: TitleOfConcept|BodyOfConceptExplanation|ExampleOfConceptParagraph|ConciseSummaryOfExplanation. The explanation should be age-appropriate and easy to understand.\n\nFor exaompe - Here's how to structure it for a Noun & Pronoun Topic: Nouns & Pronouns|Long Paragraph explaining Nouns & Pronouns|Noun & Pronoun Example|Summary of the Concept";
 
-            $prompt = "En español tradicional de España. Cree una explicación detallada del concepto para un estudiante de $age que estudie la materia '$subject' y el tema '$topic'. Trate de seguir el plan de estudios '$curriculum'. Explique cada concepto en profundidad, utilizando un lenguaje sencillo y ejemplos para que sea fácil de entender para el estudiante. Asegúrese de que la explicación sea completa y cubra todos los aspectos esenciales del tema. Proporcione contenido en este formato: TitleOfConcept|BodyOfConceptExplanation|ExampleOfConceptParagraph|ConciseSummaryOfExplanation. La explicación debe ser apropiada para la edad y fácil de entender.\n\nPor ejemplo, así es como se estructura para un tema de sustantivo y pronombre: sustantivos y pronombres|párrafo largo que explica sustantivos y pronombres|ejemplo de sustantivo y pronombre|resumen del concepto";
+            $prompt = "En español tradicional de España. Cree una explicación detallada del concepto para un estudiante de $age que estudie la materia '$subject' y el tema '$topic'. Trate de seguir el plan de estudios '$curriculum'. Explique cada concepto en profundidad, utilizando un lenguaje sencillo y ejemplos para que sea fácil de entender para el estudiante. Asegúrese de que la explicación sea completa y cubra todos los aspectos esenciales del tema. Por ejemplo: Exploring Photosynthesis|Students investigate the process of photosynthesis in plants by conducting an experiment using leaf disks. They observe the rate of oxygen production as a measure of photosynthetic activity under various light conditions.|After analyzing the data, students conclude that light intensity and wavelength play a crucial role in the efficiency of photosynthesis. They further discuss the importance of photosynthesis in the global carbon cycle and its implications for sustaining life on Earth.|Understand the process of photosynthesis and its importance by conducting experiments and analyzing the effects of light on plants.";
 
-            $complete = $open_ai->completion([
-                'model' => 'text-davinci-003',
-                'prompt' => $prompt,
+            $assistantPrompt = "You are an expert at explaining in-depth concepts for students at the age of " . $age . ". Please provide content for the following headings in this format: TitleOfConcept|BodyOfConceptExplanation|ExampleOfConceptParagraph|ConciseSummaryOfExplanation";
+            $complete = $open_ai->chat([
+                'model' => 'gpt-3.5-turbo',
+                'messages' => [
+                    [
+                        "role" => "system",
+                        "content" => $assistantPrompt
+                    ],
+                    [
+                        "role" => "user",
+                        "content" => $prompt
+                    ],
+                ],
                 'temperature' => 0.9,
-                'max_tokens' => 1000,
+                'max_tokens' => 1500,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
             ]);
 
-            // dd($complete);
+            // $complete = $open_ai->completion([
+            //     'model' => 'text-davinci-003',
+            //     'prompt' => $prompt,
+            //     'temperature' => 0.9,
+            //     'max_tokens' => 1000,
+            //     'frequency_penalty' => 0,
+            //     'presence_penalty' => 0.6,
+            // ]);
+
+            dd($complete);
 
             // $complete = '{"id":"cmpl-7DGP06O0jTTHc9hkVr9arqZ0974SB","object":"text_completion","created":1683395670,"model":"text-davinci-003","choices":[{"text":".\n\nGramática|La gramática es la estructura o el patrón de un idioma. Esto significa que hay una serie de reglas y patrones a seguir para que una persona hable correctamente. Estas reglas incluyen oraciones con los verbos adecuados, formas de pronombre y mucho más. Por ejemplo, en inglés, cuando utilizas un verbo para describir algo, como correr, debes usar la palabra correcta. En este caso, la palabra correcta es \'correr\'. Si dijera \'ir\', estaría cometiendo un error gramatical.|Ejemplo de concepto de gramática: si quiero decir, \"¡Corre!\", entonces debo usar el verbo correcto, que es \'correr\' en lugar de \'ir\'.|En resumen, la gramática es la estructura o el patrón de un idioma. Esto significa que hay una serie de reglas y patrones a seguir para que una persona hable correctamente.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":293,"completion_tokens":275,"total_tokens":568}}';
             // $complete = '{"id":"cmpl-79q7EEGfr2PNitvwpSNw5zzRcGlTz","object":"text_completion","created":1682579640,"model":"text-davinci-003","choices":[{"text":" (50-100 words).\n\nNouns|Nouns are words that name people, places, things, or ideas. They are a part of every sentence, and they usually come before verbs. Nouns can be singular or plural depending on how many items are being talked about. For example, dog is a singular noun and dogs is a plural noun. Understanding how to use nouns correctly is necessary for effectively communicating in English.|The dog barked loudly.|Nouns are words that name items and people, and are used to effectively communicate in English. They can be singular or plural, and come before verbs.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":162,"completion_tokens":135,"total_tokens":297}}';

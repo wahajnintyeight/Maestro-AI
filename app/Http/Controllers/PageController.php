@@ -28,6 +28,23 @@ class PageController extends Controller
         return view('dashboard.admin.viewMembers', compact('users'));
     }
 
+    public function viewDeletePage()
+    {
+        return view('dashboard.teacher.delete-teacher');
+    }
+
+    public function deleteTeacher(Request $request)
+    {
+        $user = Auth::user();
+        if ($user->email == $request->input('email')) {
+            $user->delete();
+            return redirect()->route('login');
+        } else {
+            // dd($user->email);
+            return redirect()->back()->with('error', 'Email does not match');
+        }
+    }
+
     public function deleteUser(User $user)
     {
         // Delete the user
