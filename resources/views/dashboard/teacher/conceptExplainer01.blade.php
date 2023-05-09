@@ -242,18 +242,7 @@
                     if (empty($concept)) {
                         echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Explicar concepto' para comenzar el proceso!";
                     } else {
-                        foreach ($concept as $item) {
-                            echo '<h4 class="text-xl font-medium leading-none mt-3">' . $topic . '</h4><br>';
-                            echo '<div class="font-normal">' . $item->Content . '</div><br>';
-                
-                            // Display summary points as bullet lists
-                            echo '<h4 class="text-xl font-medium leading-none mt-3">Ejemplo:</h4><br>';
-                            echo '<div class="font-normal">' . $item->Example . '</div><br>';
-
-                            // Display summary points as bullet lists
-                            echo '<h4 class="text-xl font-medium leading-none mt-3">Resumen:</h4><br>';
-                            echo '<div class="font-normal">' . $item->Summary . '</div>';
-                        }
+                        echo '<div class="font-medium text-md">' . nl2br($concept) . '</div>';
                     }
                     ?>
                 </div>

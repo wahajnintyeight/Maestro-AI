@@ -35,7 +35,7 @@ class ToolController extends Controller
 
     public function showConceptExplainer(Request $request)
     {
-        $concept = $request->session()->get('concept', []);
+        $concept = $request->session()->get('concept', '');
         $curriculum = $request->session()->get('curriculum', '');
         $age = $request->session()->get('age', '');
         $subject = $request->session()->get('subject', '');
@@ -746,9 +746,9 @@ class ToolController extends Controller
         // In Traditional Spanish from Spain. 
         try {
 
-            $prompt = "En español tradicional de España. Cree una explicación detallada del concepto para un estudiante de $age que estudie la materia '$subject' y el tema '$topic'. Trate de seguir el plan de estudios '$curriculum'. Explique cada concepto en profundidad, utilizando un lenguaje sencillo y ejemplos para que sea fácil de entender para el estudiante. Asegúrese de que la explicación sea completa y cubra todos los aspectos esenciales del tema. Por ejemplo: Exploring Photosynthesis|Students investigate the process of photosynthesis in plants by conducting an experiment using leaf disks. They observe the rate of oxygen production as a measure of photosynthetic activity under various light conditions.|After analyzing the data, students conclude that light intensity and wavelength play a crucial role in the efficiency of photosynthesis. They further discuss the importance of photosynthesis in the global carbon cycle and its implications for sustaining life on Earth.|Understand the process of photosynthesis and its importance by conducting experiments and analyzing the effects of light on plants.";
+            $prompt = "En español tradicional de España. Cree una explicación detallada del concepto para un estudiante de $age que estudia '$subject' y '$topic'. Trate de seguir el plan de estudios '$curriculum'. Explique cada concepto en profundidad, utilizando un lenguaje sencillo y ejemplos para que sea fácil de entender para el alumno. Asegúrese de que la explicación sea completa y cubra todos los aspectos esenciales del tema. Incluya un párrafo de ejemplo al final. Cada encabezado debe comenzar en una nueva línea. Evita la costumbre de hacer esto: 'Contenido: Este es el contenido', es decir, no es necesario anteponer el contenido con una etiqueta y dos puntos. Utiliza este punto de viñeta para elementos de lista: •";
 
-            $assistantPrompt = "You are an expert at explaining in-depth concepts for students at the age of " . $age . ". Please provide content for the following headings in this format: TitleOfConcept|BodyOfConceptExplanation|ExampleOfConceptParagraph|ConciseSummaryOfExplanation";
+            $assistantPrompt = "Eres un experto en explicar conceptos profundos para estudiantes de " . $age . " años.";
             $complete = $open_ai->chat([
                 'model' => 'gpt-3.5-turbo',
                 'messages' => [
@@ -767,47 +767,12 @@ class ToolController extends Controller
                 'presence_penalty' => 0.6,
             ]);
 
-            // $complete = $open_ai->completion([
-            //     'model' => 'text-davinci-003',
-            //     'prompt' => $prompt,
-            //     'temperature' => 0.9,
-            //     'max_tokens' => 1000,
-            //     'frequency_penalty' => 0,
-            //     'presence_penalty' => 0.6,
-            // ]);
-
-            dd($complete);
-
-            // $complete = '{"id":"cmpl-7DGP06O0jTTHc9hkVr9arqZ0974SB","object":"text_completion","created":1683395670,"model":"text-davinci-003","choices":[{"text":".\n\nGramática|La gramática es la estructura o el patrón de un idioma. Esto significa que hay una serie de reglas y patrones a seguir para que una persona hable correctamente. Estas reglas incluyen oraciones con los verbos adecuados, formas de pronombre y mucho más. Por ejemplo, en inglés, cuando utilizas un verbo para describir algo, como correr, debes usar la palabra correcta. En este caso, la palabra correcta es \'correr\'. Si dijera \'ir\', estaría cometiendo un error gramatical.|Ejemplo de concepto de gramática: si quiero decir, \"¡Corre!\", entonces debo usar el verbo correcto, que es \'correr\' en lugar de \'ir\'.|En resumen, la gramática es la estructura o el patrón de un idioma. Esto significa que hay una serie de reglas y patrones a seguir para que una persona hable correctamente.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":293,"completion_tokens":275,"total_tokens":568}}';
-            // $complete = '{"id":"cmpl-79q7EEGfr2PNitvwpSNw5zzRcGlTz","object":"text_completion","created":1682579640,"model":"text-davinci-003","choices":[{"text":" (50-100 words).\n\nNouns|Nouns are words that name people, places, things, or ideas. They are a part of every sentence, and they usually come before verbs. Nouns can be singular or plural depending on how many items are being talked about. For example, dog is a singular noun and dogs is a plural noun. Understanding how to use nouns correctly is necessary for effectively communicating in English.|The dog barked loudly.|Nouns are words that name items and people, and are used to effectively communicate in English. They can be singular or plural, and come before verbs.","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":162,"completion_tokens":135,"total_tokens":297}}';
 
             $completeDecoded = json_decode($complete);
 
             // dd($completeDecoded);
 
-            if (is_object($completeDecoded) && isset($completeDecoded->choices[0]->text)) {
-                $responseText = $completeDecoded->choices[0]->text;
-                $responseText = str_replace(["\r\n", "\r", "\n"], ' ', $responseText);
-                $responseText = trim($responseText);
-                $rawConceptData = explode("|", $responseText);
-
-                if (count($rawConceptData) >= 3) {
-                    $title = trim($rawConceptData[0]);
-                    $content = trim($rawConceptData[1]);
-                    $example = trim($rawConceptData[2]);
-                    $summary = trim(implode("|", array_slice($rawConceptData, 3)));
-
-                    $concept[] = (object) [
-                        'Title' => $title,
-                        'Content' => $content,
-                        'Example' => $example,
-                        'Summary' => $summary,
-                    ];
-                }
-            } else {
-                // Handle the case when the response is not as expected (e.g., missing the expected properties)
-                throw new Exception('Unexpected response from OpenAI API.');
-            }
+            $concept = $completeDecoded->choices[0]->message->content;
 
 
             // dd($concept);
@@ -1156,25 +1121,9 @@ class ToolController extends Controller
 
         $section = $phpWord->addSection();
 
-
-        foreach ($concept as $item) {
-            $cleanTitle = $this->removeInvalidXmlChars($item['Title']);
-            $cleanContent = $this->removeInvalidXmlChars($item['Content']);
-            $cleanExample = $this->removeInvalidXmlChars($item['Example']);
-            $cleanSummary = $this->removeInvalidXmlChars($item['Summary']);
-
-            $section->addTitle($cleanTitle, 1);
-            $section->addText($cleanContent);
-
-            $section->addTextBreak();
-
-            $section->addTitle("Example", 1);
-            $section->addText($cleanExample);
-
-            $section->addTextBreak();
-
-            $section->addTitle("Summary", 1);
-            $section->addText($cleanSummary);
+        $lines = explode("\n", $concept);
+        foreach ($lines as $line) {
+            $section->addText(trim($line));
         }
 
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
@@ -1193,7 +1142,6 @@ class ToolController extends Controller
     public function downloadConceptPDF(Request $request)
     {
         $concept = json_decode(urldecode($request->input('concept')), true);
-
         // Set PDF renderer
         // Set the PDF renderer path
 
@@ -1207,30 +1155,13 @@ class ToolController extends Controller
         Settings::setPdfRendererName('DomPDF');
 
         // Define font styles
-        $headingStyle = ['size' => 16, 'bold' => true];
         $contentStyle = ['size' => 12];
-        $summaryHeadingStyle = ['size' => 16, 'bold' => true];
 
         $section = $phpWord->addSection();
 
-        foreach ($concept as $item) {
-            $section->addText($item['Title'], $headingStyle);
-            $section->addTextBreak();
-            $section->addText($item['Content'], $contentStyle);
-            $section->addTextBreak();
-
-            $section->addText("Example", $headingStyle);
-            $section->addTextBreak();
-            $section->addText($item['Example'], $contentStyle);
-            $section->addTextBreak();
-
-            $section->addText("Summary", $headingStyle);
-            $section->addTextBreak();
-            $section->addText($item['Summary'], $contentStyle);
-
-
-
-            $section->addTextBreak();
+        $lines = explode("\n", $concept);
+        foreach ($lines as $line) {
+            $section->addText(trim($line), $contentStyle);
         }
 
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'PDF');
