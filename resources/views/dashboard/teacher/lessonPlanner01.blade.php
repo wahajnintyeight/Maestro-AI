@@ -12,47 +12,32 @@
             <form method="POST" action="{{ route('teacher.generateLessonPlanner') }}">
                 @csrf
                 <div class="relative flex items-center p-5">
-                    <div class="w-12 h-12 image-fit">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                            viewBox="0 0 64 64" id="lesson">
-                            <defs>
-                                <linearGradient id="a" x1="32" x2="32" y1="63.323" y2="-1.327"
-                                    gradientUnits="userSpaceOnUse">
-                                    <stop offset="0" stop-color="#e93e3a"></stop>
-                                    <stop offset=".35" stop-color="#ed683c"></stop>
-                                    <stop offset=".7" stop-color="#f3903f"></stop>
-                                    <stop offset="1" stop-color="#fdc70c"></stop>
-                                </linearGradient>
-                                <linearGradient id="b" x1="55" x2="55" y1="63.323" y2="-1.327" xlink:href="#a">
-                                </linearGradient>
-                                <linearGradient id="c" x1="32.667" x2="32.667" y1="63.323" y2="-1.327" xlink:href="#a">
-                                </linearGradient>
-                                <linearGradient id="d" x1="49" x2="49" y1="63.323" y2="-1.327" xlink:href="#a">
-                                </linearGradient>
-                                <linearGradient id="e" x1="44" x2="44" y1="63.323" y2="-1.327" xlink:href="#a">
-                                </linearGradient>
-                                <linearGradient id="f" x1="52" x2="52" y1="63.323" y2="-1.327" xlink:href="#a">
-                                </linearGradient>
-                                <linearGradient id="g" x1="15" x2="15" y1="63.323" y2="-1.327" xlink:href="#a">
-                                </linearGradient>
-                                <linearGradient id="h" x1="10" x2="10" y1="63.323" y2="-1.327" xlink:href="#a">
-                                </linearGradient>
-                                <linearGradient id="i" x1="18" x2="18" y1="63.323" y2="-1.327" xlink:href="#a">
-                                </linearGradient>
-                            </defs>
-                            <path fill="url(#a)"
-                                d="M55 2H9a7.008 7.008 0 0 0-7 7v34a7.008 7.008 0 0 0 7 7h13.867l-.75 6H19a3 3 0 0 0 0 6h26a3 3 0 0 0 0-6h-3.117l-.75-6H55a7.008 7.008 0 0 0 7-7V9a7.008 7.008 0 0 0-7-7ZM9 4h46a5.006 5.006 0 0 1 5 5v31H4V9a5.006 5.006 0 0 1 5-5Zm37 55a1 1 0 0 1-1 1H19a1 1 0 0 1 0-2h26a1 1 0 0 1 1 1Zm-6.133-3H24.133l.75-6h14.234ZM55 48H9a5.006 5.006 0 0 1-5-5v-1h56v1a5.006 5.006 0 0 1-5 5Z">
-                            </path>
-                            <path fill="url(#b)" d="M54 44h2v2h-2z"></path>
-                            <path fill="url(#c)"
-                                d="m21.2 29.557-1.907 1.907a3 3 0 0 0 4.243 4.243l1.907-1.907 3.239-.648a1 1 0 0 0 .51-.274l16.264-16.263a5 5 0 1 0-7.071-7.071L22.122 25.808a1 1 0 0 0-.274.51Zm.922 4.736a1 1 0 0 1-1.415-1.415l1.414-1.414 1.415 1.415Zm1.557-6.928 3.956 3.956-2.357.472-2.071-2.071ZM39.8 19.444 29.192 30.05l-1.414-1.414 9.193-9.193-1.414-1.414-9.193 9.193-1.414-1.414L35.557 15.2Zm-2.828-5.657.707-.707 4.243 4.242-.708.708Zm7.071-2.829a3.005 3.005 0 0 1 0 4.243l-.707.707-4.243-4.242.707-.708a3 3 0 0 1 4.242 0Z">
-                            </path>
-                            <path fill="url(#d)" d="M42 34h14v2H42zM42 30h14v2H42z"></path>
-                            <path fill="url(#e)" d="M42 26h4v2h-4z"></path>
-                            <path fill="url(#f)" d="M48 26h8v2h-8z"></path>
-                            <path fill="url(#g)" d="M8 16h14v2H8zM8 12h14v2H8z"></path>
-                            <path fill="url(#h)" d="M8 8h4v2H8z"></path>
-                            <path fill="url(#i)" d="M14 8h8v2h-8z"></path>
+                    <div class="w-12 mr-2 h-12 image-fit">
+                        <svg style="width: 58px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                            id="OnlineLesson">
+                            <g data-name="online lesson" fill="#595bd4" class="color000000 svgShape">
+                                <path
+                                    d="M24 23a1 1 0 0 1-1-1V8a3.003 3.003 0 0 1 3-3h9a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-9a1 1 0 0 0-1 1 1 1 0 0 1-1 1Zm2-16a1 1 0 0 0-1 1v11.17a2.998 2.998 0 0 1 1-.17h8V7Z"
+                                    fill="#595bd4" class="color000000 svgShape"></path>
+                                <path
+                                    d="M31 11h-3a1 1 0 0 1 0-2h3a1 1 0 0 1 0 2zm0 3h-3a1 1 0 0 1 0-2h3a1 1 0 0 1 0 2zm0 3h-3a1 1 0 0 1 0-2h3a1 1 0 0 1 0 2zm-7 6a1 1 0 0 1-1-1 1 1 0 0 0-1-1h-9a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h9a3.003 3.003 0 0 1 3 3v14a1 1 0 0 1-1 1zm-10-4h8a2.998 2.998 0 0 1 1 .17V8a1 1 0 0 0-1-1h-8z"
+                                    fill="#595bd4" class="color000000 svgShape"></path>
+                                <path
+                                    d="M20 11h-3a1 1 0 0 1 0-2h3a1 1 0 0 1 0 2zm0 3h-3a1 1 0 0 1 0-2h3a1 1 0 0 1 0 2zm0 3h-3a1 1 0 0 1 0-2h3a1 1 0 0 1 0 2z"
+                                    fill="#595bd4" class="color000000 svgShape"></path>
+                                <path
+                                    d="M24 27a3.006 3.006 0 0 1-2.83-2H10a2.003 2.003 0 0 1-2-2V9.042a2.003 2.003 0 0 1 2-2h3a1 1 0 0 1 0 2h-3V23h12a1 1 0 0 1 1 1 1 1 0 0 0 2 0 1 1 0 0 1 1-1h12V9h-3a1 1 0 0 1 0-2h3a2.003 2.003 0 0 1 2 2v14a2.003 2.003 0 0 1-2 2H26.83A3.006 3.006 0 0 1 24 27Z"
+                                    fill="#595bd4" class="color000000 svgShape"></path>
+                                <path
+                                    d="M44 35H4a1 1 0 0 1-1-1V10a2.003 2.003 0 0 1 2-2h4a1 1 0 0 1 0 2H5v23h38V10h-4a1 1 0 0 1 0-2h4a2.003 2.003 0 0 1 2 2v24a1 1 0 0 1-1 1Z"
+                                    fill="#595bd4" class="color000000 svgShape"></path>
+                                <path
+                                    d="M45 43H3a1 1 0 0 1-.992-.876l-1-8A.999.999 0 0 1 2 33h44a.999.999 0 0 1 .992 1.124l-1 8A1 1 0 0 1 45 43ZM3.883 41h40.234l.75-6H3.133Z"
+                                    fill="#595bd4" class="color000000 svgShape"></path>
+                                <path
+                                    d="M29 40H19a1 1 0 0 1-.97-.758l-1-4A1 1 0 0 1 18 34h12a1 1 0 0 1 .97 1.242l-1 4A1 1 0 0 1 29 40Zm-9.219-2h8.438l.5-2H19.28Z"
+                                    fill="#595bd4" class="color000000 svgShape"></path>
+                            </g>
                         </svg>
                     </div>
                     <div class="ml-4 mr-auto">

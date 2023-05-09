@@ -28,15 +28,15 @@
             <div class="hidden xl:flex flex-col min-h-screen">
                 <a href="" class="-intro-x flex items-center pt-5">
                     <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="dist/images/logo.svg">
-                    <span class="text-white text-lg ml-3"> Maestro AI </span>
+                    <span class="text-white text-lg ml-3"> Maestro IA </span>
                 </a>
                 <div class="my-auto">
                     <img alt="Tinker Tailwind HTML Admin Template" class="-intro-x w-1/2 -mt-16"
                         src="dist/images/illustration.svg">
                     <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">
-                        A few more clicks to
+                        Unos cuantos clics más para
                         <br>
-                        sign in to your account.
+                        iniciar sesión en tu cuenta.
                     </div>
 
                 </div>

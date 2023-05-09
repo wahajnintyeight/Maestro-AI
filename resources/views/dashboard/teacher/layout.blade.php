@@ -283,11 +283,11 @@
                             </li>
 
 
-                            <li class="flex items-center">
+                            <li class="flex items-center w-full dropdown-item hover:bg-white/5">
                                 <form action="{{ route('logout') }}" method="POST" class="flex items-center">
                                     @csrf
-                                    <i data-feather="toggle-right" class="w-4 h-4 ml-2"></i>
-                                    <input type="submit" class="w-full dropdown-item hover:bg-white/5" value="Logout">
+                                    <i data-feather="toggle-right" class="w-4 h-4 mr-2"></i>
+                                    <input type="submit" class="" value="Logout">
                                 </form>
                             </li>
                         </ul>
