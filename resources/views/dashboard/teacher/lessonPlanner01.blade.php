@@ -2,7 +2,7 @@
 @section('content')
 <div class="intro-y flex items-center mt-8">
     <h2 class="text-lg font-medium mr-auto">
-        Lesson Planner Generator
+        Ideas para Clase
     </h2>
 </div>
 <div class="grid grid-cols-12 gap-6">
@@ -56,7 +56,7 @@
                         </svg>
                     </div>
                     <div class="ml-4 mr-auto">
-                        <div class="font-medium text-base">Lesson Planner</div>
+                        <div class="font-medium text-base">Ideas para Clase</div>
                     </div>
                 </div>
                 <div class="p-5 border-t border-slate-200/60 dark:border-darkmode-400">
@@ -184,25 +184,26 @@
                     if (empty($lesson)) {
                         echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generar plan de lección' para comenzar el proceso!";
                     } else {
-                        foreach ($lesson as $item) {
-                            echo '<h4 class="text-xl font-medium leading-none mt-3">' . $item->Heading . '</h4><br>';
+                   //     foreach ($lesson as $item) {
+                    //         echo '<h4 class="text-xl font-medium leading-none mt-3">' . $item->Heading . '</h4><br>';
                 
-                            // Check if the content has a list format (Roman, numeric, or alphabetic)
-                            $hasListFormat = preg_match('/^(-\s|\d+\.\s|[a-zA-Z]\.\s|(?:[MDCLXVI]+\.\s))/m', $item->Content);
+                    //         // Check if the content has a list format (Roman, numeric, or alphabetic)
+                    //         $hasListFormat = preg_match('/^(-\s|\d+\.\s|[a-zA-Z]\.\s|(?:[MDCLXVI]+\.\s))/m', $item->Content);
                 
-                            if ($hasListFormat) {
-                                $sentences = preg_split('/^(-\s|\d+\.\s|[a-zA-Z]\.\s|(?:[MDCLXVI]+\.\s))/m', $item->Content);
-                                echo '<ul class="list-disc pl-5" style="list-style-type: disc;">';
-                                foreach ($sentences as $sentence) {
-                                    if (!empty(trim($sentence))) {
-                                        echo '<li class="ml-4">' . trim($sentence) . '</li>';
-                                    }
-                                }
-                                echo '</ul>';
-                            } else {
-                                echo '<div class="font-normal">' . $item->Content . '</div>';
-                            }
-                        }
+                    //         if ($hasListFormat) {
+                    //             $sentences = preg_split('/^(-\s|\d+\.\s|[a-zA-Z]\.\s|(?:[MDCLXVI]+\.\s))/m', $item->Content);
+                    //             echo '<ul class="list-disc pl-5" style="list-style-type: disc;">';
+                    //             foreach ($sentences as $sentence) {
+                    //                 if (!empty(trim($sentence))) {
+                    //                     echo '<li class="ml-4">' . trim($sentence) . '</li>';
+                    //                 }
+                    //             }
+                    //             echo '</ul>';
+                    //         } else {
+                    //             echo '<div class="font-normal">' . $item->Content . '</div>';
+                    //         }
+                    //     }
+                    echo '<div class="font-medium text-md">' . nl2br($lesson) . '</div>';
                     }
                     ?>
                 </div>

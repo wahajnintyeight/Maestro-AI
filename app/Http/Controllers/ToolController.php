@@ -22,7 +22,7 @@ class ToolController extends Controller
 {
     public function showLessonPlanner(Request $request)
     {
-        $lesson = $request->session()->get('lesson', []);
+        $lesson = $request->session()->get('lesson', '');
         $grade = $request->session()->get('grade', '');
         $title = $request->session()->get('title', '');
         $description = $request->session()->get('description', '');
@@ -104,18 +104,18 @@ class ToolController extends Controller
         $curriculum = $request->input('curriculum');
 
         // dd($grade, $title, $description);
-        $lesson = [];
+        $lesson = '';
 
         try {
 
-            $prompt = "In Traditional Spanish from Spain. Create a lesson plan for grade $grade with the title \"$title\" and description \"$description\". Try to follow the \" $curriculum \" curriculum. For example: [Clase de Nombres y Pronombres|Aprender a identificar y utilizar correctamente los nombres y pronombres en oraciones]|[Metas y Objetivos|Que los estudiantes sean capaces de reconocer y utilizar los nombres y pronombres adecuadamente, mejorando sus habilidades de lectura y escritura]|[Materiales y Recursos|Pizarra, marcadores, hojas de trabajo, tarjetas con nombres y pronombres, dispositivos electrónicos (opcional)]|[Actividad de Calentamiento|Juego de asociación de tarjetas: Los estudiantes emparejan tarjetas con nombres y pronombres correspondientes, fomentando la familiarización con estos conceptos]|[Vocabulario y Gramática|Introducir y explicar los diferentes tipos de nombres (comunes, propios, abstractos, colectivos) y pronombres (personales, posesivos, demostrativos, relativos, interrogativos, indefinidos)]|[Actividades y Ejercicios|1. Práctica de identificación: Los estudiantes subrayan los nombres y pronombres en oraciones proporcionadas; 2. Creación de oraciones: Los alumnos crean oraciones utilizando los nombres y pronombres aprendidos; 3. Juego en equipo: Los estudiantes forman equipos y compiten para identificar y clasificar nombres y pronombres en una lista de palabras]|[Evaluación|Evaluar la comprensión de los estudiantes mediante preguntas de opción múltiple, preguntas de emparejamiento y ejercicios de completar oraciones con nombres y pronombres adecuados]|[Actividad de Cierre|Reflexión y discusión en grupo: Los estudiantes comparten sus experiencias y desafíos al trabajar con nombres y pronombres, y plantean preguntas o inquietudes para futuras lecciones]. Do not add new lines or use new line escape characters. Avoid the habit of doing this: 'Content: This is the content' i.e no need to prepend the content with a label & a colon.";
+            $prompt = "En Español Tradicional de España. Crea un plan de lección para el grado $grade con el título \"$title\" y la descripción \"$description\". Intenta seguir el currículo \"$curriculum\". Habla sobre los siguientes encabezados: Metas y Objetivos, Materiales y Recursos, Actividad de Calentamiento, Vocabulario y Gramática, Actividades y Ejercicios, Evaluación, Actividad de Cierre. Cada encabezado debe comenzar en una nueva línea. Evita la costumbre de hacer esto: 'Contenido: Este es el contenido', es decir, no es necesario anteponer el contenido con una etiqueta y dos puntos. Utiliza este punto de viñeta para elementos de lista: •";
 
             $complete = $open_ai->chat([
                 'model' => 'gpt-3.5-turbo',
                 'messages' => [
                     [
                         "role" => "system",
-                        "content" => "You are an expert at creating in-depth Lesson Planners for students of grade " . $grade . ". Please provide content for the following headings in this format: [ClassTitleHere|ClassObjectiveHere]|[HeadingHere1|ContentHere1]|[HeadingHere2|ContentHere2]"
+                        "content" => "Eres un experto en crear Planificadores de Lecciones detallados para estudiantes de grado " . $grade . "."
                     ],
                     [
                         "role" => "user",
@@ -128,43 +128,14 @@ class ToolController extends Controller
                 'presence_penalty' => 0.6,
             ]);
 
-            // $complete = '{"id":"chatcmpl-7DS0Epv67ZcEM84POhBGx7BmLfBJu","object":"chat.completion","created":1683440262,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":239,"completion_tokens":493,"total_tokens":732},"choices":[{"message":{"role":"assistant","content":"[Matemáticas|Multiplicación] \n\n[Metas y Objetivos|Los estudiantes aprenderán a multiplicar de forma sencilla y aplicarán esta habilidad en situaciones cotidianas.] \n\n[Materiales y Recursos|Pizarrón, marcadores, manipulativos como bloques de construcción, pelotas y juguetes pequeños.] \n\n[Actividad de Calentamiento|El maestro mostrará diferentes objetos y preguntará cuántos hay en total si se suman dos grupos. Por ejemplo, si hay tres coches y tres bicicletas, ¿cuántos vehículos hay en total? El maestro también puede usar palillos chinos para que los estudiantes hagan grupos de dos o tres y cuenten cuántos palillos hay en total.] \n\n[Vocabulario y Gramática|Multiplicar, sumar, total, igual, grupos, objetos.] \n\n[Actividades y Ejercicios|El maestro comenzará con una lección sobre la multiplicación y cómo funciona. Luego, los estudiantes trabajarán en parejas para usar objetos y crear grupos iguales, por ejemplo, cuatro bloques en un grupo y cinco bloques en otro grupo. Luego, el maestro les preguntará cuántos bloques hay en total si se multiplican los grupos.\nPara continuar la actividad, los estudiantes usarán juguetes pequeños para crear grupos. El maestro les hará preguntas como \"Si tenemos dos grupos de tres pelotas, ¿cuántas pelotas tenemos en total?\"\n \n[Evaluación|El maestro evaluará a los estudiantes mediante preguntas y respuestas orales durante la actividad. También les pedirá que dibujen grupos de objetos y los multipliquen para poner en práctica lo que han aprendido.]\n \n[Actividades de Extensión|Los estudiantes pueden jugar al \"Bingo de multiplicación\" con tarjetas que contengan problemas de multiplicación. También pueden usar bloques de construcción para crear grupos más grandes y multiplicarlos.] \n\n[Actividad de Cierre|El maestro preguntará a los estudiantes qué han aprendido sobre la multiplicación y cómo pueden aplicarlo en su vida cotidiana. Los estudiantes también compartirán sus trabajos de dibujo y ejercicios con el resto de la clase.]"},"finish_reason":"stop","index":0}]}';
 
-            // dd($complete);
-
-
-            //"[Política en Pakistán|Comprender la política contemporánea de Pakistán]|[Metas y Objetivos|Los estudiantes serán capaces de comprender la situación política actual en Pakistán, los partidos políticos en el país así como los principales problemas políticos que enfrenta el país]|[Materiales y Recursos|Pizarra, proyector, papel, bolígrafos]|[Actividad de Calentamiento|Discusión de noticias recientes en Pakistán. Preguntas abiertas para discusión en clase: ¿Qué está sucediendo en Pakistán en este momento? ¿Qué problemas enfrenta el país? ¿Cómo describe la política de Pakistán? ¿Cuántos partidos políticos hay en el país? ¿Quiénes son los líderes políticos destacados de Pakistán?]|[Vocabulario y Gramática|Vocabulario relacionado con la política en Pakistán: sistema político, partidos políticos, elecciones, líderes políticos, corrupción, derechos humanos, etc. Se revisarán tiempos verbales en presente y pasado: presente simple, presente continuo, pasado simple y pasado continuo.]|[Actividades y Ejercicios|1. Los estudiantes deben trabajar en grupos para investigar un partido político en Pakistán y presentar sus hallazgos a la clase. 2. Los estudiantes deben escribir un ensayo sobre los desafíos políticos de Pakistán y presentar posibles soluciones. 3. Discusión de las elecciones presidenciales más recientes en Pakistán y análisis de los resultados.]|[Evaluación|Los estudiantes serán evaluados en su capacidad para presentar información precisa y clara sobre un partido político, su capacidad para escribir un ensayo coherente y bien estructurado sobre los problemas políticos de Pakistán, y su participación en discusiones en clase. También se evaluará la comprensión del vocabulario y la gramática relacionada con la política.]|[Actividades de Extensión|Los estudiantes pueden investigar más a fondo un tema político específico en Pakistán y presentar su investigación a la clase. También se puede pedir a los estudiantes que escriban una carta a un líder político en Pakistán sobre un problema específico en el país.]|[Actividad de Cierre|La clase debe terminar con una discusión general sobre las lecciones aprendidas en cuanto a la política en Pakistán y cómo se relacionan estas lecciones con la política en otros países.] ◀"
+            // $complete = '{"id":"chatcmpl-7EBU9msZTPFQ7U1Qbu6bdVdQpSbzs","object":"chat.completion","created":1683615097,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":165,"completion_tokens":334,"total_tokens":499},"choices":[{"message":{"role":"assistant","content":"Metas y Objetivos:\n- Comprender el funcionamiento del sistema digestivo humano.\n- Identificar las partes del sistema digestivo y su función.\n- Aprender y aplicar el vocabulario relacionado al tema.\n\nMateriales y Recursos:\n- Imágenes y dibujos del sistema digestivo.\n- Libros y recursos digitales sobre el tema.\n- Láminas con el vocabulario relacionado.\n\nActividad de Calentamiento:\n- Presentación de imágenes sobre digestión.\n- Preguntas sencillas para llamar la atención de los estudiantes.\n\nVocabulario y Gramática:\n- Partes del sistema digestivo: boca, esófago, estómago, intestino delgado y grueso, hígado, páncreas, recto y ano.\n- Verbos relacionados a la digestión: masticar, tragar, digerir, absorber y eliminar.\n\nActividades y Ejercicios:\n- Observación y descripción de láminas del sistema digestivo.\n- Juego de adivinanzas para identificar las partes del sistema digestivo.\n- Elaboración de un mural del sistema digestivo.\n- Realización de una ficha de ejercicios para reforzar el vocabulario y la gramática.\n\nEvaluación:\n- Participación activa en las actividades propuestas.\n- Entrega de la ficha de ejercicios completada.\n\nActividad de Cierre:\n- Reflexión en grupo sobre lo aprendido durante la clase.\n- Repaso del vocabulario y las partes del sistema digestivo."},"finish_reason":"stop","index":0}]}';
 
             $completeDecoded = json_decode($complete);
 
-            if (is_object($completeDecoded) && isset($completeDecoded->choices[0]->message->content)) {
-                $responseText = $completeDecoded->choices[0]->message->content;
-                $responseText = str_replace(['“', '”'], '"', $responseText); // Replace curly quotes with straight quotes if needed
-                $responseText = str_replace("]\n\n[", "]|[", $responseText); // Replace "] ◀\n[" with "]|["
-                $responseText = str_replace("] \n\n[", "]|[", $responseText); // Replace "] ◀\n[" with "]|["
-                $responseText = str_replace("\"\n \n", "]|[", $responseText); // Replace "] ◀\n[" with "]|["
 
-                $rawHeadings = explode("]|[", trim($responseText)); // Split by "]|[" instead of just "\n"
-
-                foreach ($rawHeadings as $headingContent) {
-                    list($heading, $content) = explode("|", $headingContent, 2); // Add a limit of 2 to the explode function
-                    $heading = trim(str_replace(['[', ']'], '', $heading)); // Remove square brackets from the heading
-                    $content = rtrim(str_replace(['[', ']'], '', trim($content)), '}'); // Remove square brackets and the closing curly brace from the content
-
-                    $lesson[] = (object) [
-                        'Heading' => $heading,
-                        'Content' => $content,
-                    ];
-                }
-            } else {
-                // Handle the case when the response is not as expected (e.g., missing the expected properties)
-                throw new Exception('Unexpected response from OpenAI API.');
-            }
-
-            // dd($complete, $responseText, $rawHeadings, $lesson);
-
-
-            // dd($responseText, $rawHeadings, $lesson);
+            $lesson = $completeDecoded->choices[0]->message->content;
+            // dd($lesson);
         } catch (Exception $e) {
             // Handle exceptions thrown by the OpenAI PHP SDK or custom exceptions
             // Log the error message or display an appropriate error message to the user
@@ -194,6 +165,107 @@ class ToolController extends Controller
         return redirect()->action([ToolController::class, 'showLessonPlanner']);
     }
 
+    // public function generateLessonPlanner(Request $request)
+    // {
+    //     $open_ai_key = getenv('OPENAI_API_KEY');
+    //     $open_ai = new OpenAi($open_ai_key);
+
+    //     $grade = $request->input('grade');
+    //     $title = $request->input('title');
+    //     $description = $request->input('description');
+    //     $curriculum = $request->input('curriculum');
+
+    //     // dd($grade, $title, $description);
+    //     $lesson = [];
+
+    //     try {
+
+    //         $prompt = "In Traditional Spanish from Spain. Create a lesson plan for grade $grade with the title \"$title\" and description \"$description\". Try to follow the \" $curriculum \" curriculum. For example: [Clase de Nombres y Pronombres|Aprender a identificar y utilizar correctamente los nombres y pronombres en oraciones]|[Metas y Objetivos|Que los estudiantes sean capaces de reconocer y utilizar los nombres y pronombres adecuadamente, mejorando sus habilidades de lectura y escritura]|[Materiales y Recursos|Pizarra, marcadores, hojas de trabajo, tarjetas con nombres y pronombres, dispositivos electrónicos (opcional)]|[Actividad de Calentamiento|Juego de asociación de tarjetas: Los estudiantes emparejan tarjetas con nombres y pronombres correspondientes, fomentando la familiarización con estos conceptos]|[Vocabulario y Gramática|Introducir y explicar los diferentes tipos de nombres (comunes, propios, abstractos, colectivos) y pronombres (personales, posesivos, demostrativos, relativos, interrogativos, indefinidos)]|[Actividades y Ejercicios|1. Práctica de identificación: Los estudiantes subrayan los nombres y pronombres en oraciones proporcionadas; 2. Creación de oraciones: Los alumnos crean oraciones utilizando los nombres y pronombres aprendidos; 3. Juego en equipo: Los estudiantes forman equipos y compiten para identificar y clasificar nombres y pronombres en una lista de palabras]|[Evaluación|Evaluar la comprensión de los estudiantes mediante preguntas de opción múltiple, preguntas de emparejamiento y ejercicios de completar oraciones con nombres y pronombres adecuados]|[Actividad de Cierre|Reflexión y discusión en grupo: Los estudiantes comparten sus experiencias y desafíos al trabajar con nombres y pronombres, y plantean preguntas o inquietudes para futuras lecciones]. Do not add new lines or use new line escape characters. Avoid the habit of doing this: 'Content: This is the content' i.e no need to prepend the content with a label & a colon.";
+
+    //         $complete = $open_ai->chat([
+    //             'model' => 'gpt-3.5-turbo',
+    //             'messages' => [
+    //                 [
+    //                     "role" => "system",
+    //                     "content" => "You are an expert at creating in-depth Lesson Planners for students of grade " . $grade . ". Please provide content for the following headings in this format: [ClassTitleHere|ClassObjectiveHere]|[HeadingHere1|ContentHere1]|[HeadingHere2|ContentHere2]"
+    //                 ],
+    //                 [
+    //                     "role" => "user",
+    //                     "content" => $prompt
+    //                 ],
+    //             ],
+    //             'temperature' => 0.9,
+    //             'max_tokens' => 1500,
+    //             'frequency_penalty' => 0,
+    //             'presence_penalty' => 0.6,
+    //         ]);
+
+    //         // $complete = '{"id":"chatcmpl-7DS0Epv67ZcEM84POhBGx7BmLfBJu","object":"chat.completion","created":1683440262,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":239,"completion_tokens":493,"total_tokens":732},"choices":[{"message":{"role":"assistant","content":"[Matemáticas|Multiplicación] \n\n[Metas y Objetivos|Los estudiantes aprenderán a multiplicar de forma sencilla y aplicarán esta habilidad en situaciones cotidianas.] \n\n[Materiales y Recursos|Pizarrón, marcadores, manipulativos como bloques de construcción, pelotas y juguetes pequeños.] \n\n[Actividad de Calentamiento|El maestro mostrará diferentes objetos y preguntará cuántos hay en total si se suman dos grupos. Por ejemplo, si hay tres coches y tres bicicletas, ¿cuántos vehículos hay en total? El maestro también puede usar palillos chinos para que los estudiantes hagan grupos de dos o tres y cuenten cuántos palillos hay en total.] \n\n[Vocabulario y Gramática|Multiplicar, sumar, total, igual, grupos, objetos.] \n\n[Actividades y Ejercicios|El maestro comenzará con una lección sobre la multiplicación y cómo funciona. Luego, los estudiantes trabajarán en parejas para usar objetos y crear grupos iguales, por ejemplo, cuatro bloques en un grupo y cinco bloques en otro grupo. Luego, el maestro les preguntará cuántos bloques hay en total si se multiplican los grupos.\nPara continuar la actividad, los estudiantes usarán juguetes pequeños para crear grupos. El maestro les hará preguntas como \"Si tenemos dos grupos de tres pelotas, ¿cuántas pelotas tenemos en total?\"\n \n[Evaluación|El maestro evaluará a los estudiantes mediante preguntas y respuestas orales durante la actividad. También les pedirá que dibujen grupos de objetos y los multipliquen para poner en práctica lo que han aprendido.]\n \n[Actividades de Extensión|Los estudiantes pueden jugar al \"Bingo de multiplicación\" con tarjetas que contengan problemas de multiplicación. También pueden usar bloques de construcción para crear grupos más grandes y multiplicarlos.] \n\n[Actividad de Cierre|El maestro preguntará a los estudiantes qué han aprendido sobre la multiplicación y cómo pueden aplicarlo en su vida cotidiana. Los estudiantes también compartirán sus trabajos de dibujo y ejercicios con el resto de la clase.]"},"finish_reason":"stop","index":0}]}';
+
+    //         // dd($complete);
+
+
+    //         //"[Política en Pakistán|Comprender la política contemporánea de Pakistán]|[Metas y Objetivos|Los estudiantes serán capaces de comprender la situación política actual en Pakistán, los partidos políticos en el país así como los principales problemas políticos que enfrenta el país]|[Materiales y Recursos|Pizarra, proyector, papel, bolígrafos]|[Actividad de Calentamiento|Discusión de noticias recientes en Pakistán. Preguntas abiertas para discusión en clase: ¿Qué está sucediendo en Pakistán en este momento? ¿Qué problemas enfrenta el país? ¿Cómo describe la política de Pakistán? ¿Cuántos partidos políticos hay en el país? ¿Quiénes son los líderes políticos destacados de Pakistán?]|[Vocabulario y Gramática|Vocabulario relacionado con la política en Pakistán: sistema político, partidos políticos, elecciones, líderes políticos, corrupción, derechos humanos, etc. Se revisarán tiempos verbales en presente y pasado: presente simple, presente continuo, pasado simple y pasado continuo.]|[Actividades y Ejercicios|1. Los estudiantes deben trabajar en grupos para investigar un partido político en Pakistán y presentar sus hallazgos a la clase. 2. Los estudiantes deben escribir un ensayo sobre los desafíos políticos de Pakistán y presentar posibles soluciones. 3. Discusión de las elecciones presidenciales más recientes en Pakistán y análisis de los resultados.]|[Evaluación|Los estudiantes serán evaluados en su capacidad para presentar información precisa y clara sobre un partido político, su capacidad para escribir un ensayo coherente y bien estructurado sobre los problemas políticos de Pakistán, y su participación en discusiones en clase. También se evaluará la comprensión del vocabulario y la gramática relacionada con la política.]|[Actividades de Extensión|Los estudiantes pueden investigar más a fondo un tema político específico en Pakistán y presentar su investigación a la clase. También se puede pedir a los estudiantes que escriban una carta a un líder político en Pakistán sobre un problema específico en el país.]|[Actividad de Cierre|La clase debe terminar con una discusión general sobre las lecciones aprendidas en cuanto a la política en Pakistán y cómo se relacionan estas lecciones con la política en otros países.] ◀"
+
+    //         $completeDecoded = json_decode($complete);
+
+    //         if (is_object($completeDecoded) && isset($completeDecoded->choices[0]->message->content)) {
+    //             $responseText = $completeDecoded->choices[0]->message->content;
+    //             $responseText = str_replace(['“', '”'], '"', $responseText); // Replace curly quotes with straight quotes if needed
+    //             $responseText = str_replace("]\n\n[", "]|[", $responseText); // Replace "] ◀\n[" with "]|["
+    //             $responseText = str_replace("] \n\n[", "]|[", $responseText); // Replace "] ◀\n[" with "]|["
+    //             $responseText = str_replace("\"\n \n", "]|[", $responseText); // Replace "] ◀\n[" with "]|["
+
+    //             $rawHeadings = explode("]|[", trim($responseText)); // Split by "]|[" instead of just "\n"
+
+    //             foreach ($rawHeadings as $headingContent) {
+    //                 list($heading, $content) = explode("|", $headingContent, 2); // Add a limit of 2 to the explode function
+    //                 $heading = trim(str_replace(['[', ']'], '', $heading)); // Remove square brackets from the heading
+    //                 $content = rtrim(str_replace(['[', ']'], '', trim($content)), '}'); // Remove square brackets and the closing curly brace from the content
+
+    //                 $lesson[] = (object) [
+    //                     'Heading' => $heading,
+    //                     'Content' => $content,
+    //                 ];
+    //             }
+    //         } else {
+    //             // Handle the case when the response is not as expected (e.g., missing the expected properties)
+    //             throw new Exception('Unexpected response from OpenAI API.');
+    //         }
+
+    //         // dd($complete, $responseText, $rawHeadings, $lesson);
+
+
+    //         // dd($responseText, $rawHeadings, $lesson);
+    //     } catch (Exception $e) {
+    //         // Handle exceptions thrown by the OpenAI PHP SDK or custom exceptions
+    //         // Log the error message or display an appropriate error message to the user
+    //         error_log("Error: " . $e->getMessage());
+    //     }
+
+    //     // Store the lesson data in the session and redirect to the showLessonPlanner method
+    //     $request->session()->put('lesson', $lesson);
+    //     $request->session()->put('grade', $grade);
+    //     $request->session()->put('title', $title);
+    //     $request->session()->put('curriculum', $curriculum);
+    //     $request->session()->put('description', $description);
+
+    //     // Store the generated content in the histories table
+    //     $user_id = auth()->id(); // Get the authenticated user's ID
+    //     $tool_name = 'Lesson Planner';
+    //     $content = json_encode($lesson); // Convert the lesson array to a JSON string
+
+    //     $history = new History([
+    //         'user_id' => $user_id,
+    //         'tool_name' => $tool_name,
+    //         'content' => $content,
+    //     ]);
+
+    //     $history->save();
+
+    //     return redirect()->action([ToolController::class, 'showLessonPlanner']);
+    // }
+
     public function generateSlides(Request $request)
     {
         $open_ai_key = getenv('OPENAI_API_KEY');
@@ -212,27 +284,27 @@ class ToolController extends Controller
 
             $assistant_prompt = "You are an expert at generating presentation slides for grade " . $grade . ". Provide content for each slide in this exact same format: TitleOfPresentationHere|ObjectiveOfPresentationHere|[SlideHeading1Here|SlideContent1Here|QuestionStatement1RegardingSlide1Here|QuestionStatement2RegardingSlide1Here|QuestionStatement3RegardingSlide1Here]|[SlideHeading2Here|SlideContent2Here|QuestionStatement1RegardingSlide2Here|QuestionStatement2RegardingSlide2Here|QuestionStatement3RegardingSlide2Here]|. For Questions in each slide - only give Question Statements. Do not proceed to give answer to the questions.";
 
-            // $complete = $open_ai->chat([
-            //     'model' => 'gpt-3.5-turbo',
-            //     'messages' => [
-            //         [
-            //             'role' => 'system',
-            //             'content' => $assistant_prompt
-            //         ],
-            //         [
-            //             'role' => 'user',
-            //             'content' => $prompt
-            //         ],
-            //     ],
-            //     'temperature' => 0.9,
-            //     'max_tokens' => 1000,
-            //     'frequency_penalty' => 0,
-            //     'presence_penalty' => 0.6,
-            // ]);
+            $complete = $open_ai->chat([
+                'model' => 'gpt-3.5-turbo',
+                'messages' => [
+                    [
+                        'role' => 'system',
+                        'content' => $assistant_prompt
+                    ],
+                    [
+                        'role' => 'user',
+                        'content' => $prompt
+                    ],
+                ],
+                'temperature' => 0.9,
+                'max_tokens' => 1000,
+                'frequency_penalty' => 0,
+                'presence_penalty' => 0.6,
+            ]);
             // dd($complete);
 
 
-            $complete = '{"id":"chatcmpl-7DWPntpL47Xi2GWyen0OxtuCxqlsG","object":"chat.completion","created":1683457223,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":428,"completion_tokens":345,"total_tokens":773},"choices":[{"message":{"role":"assistant","content":"Creación de contenido en Youtube|Objetivo: Crear contenido en Youtube con el fin de mejorar la competencia comunicativa del alumnado|[Introducción a Youtube|Presentación de la plataforma Youtube, explicación de sus características y otros datos de interés| ¿Qué es Youtube?| ¿Cuáles son las diferentes herramientas que ofrece Youtube?| ¿Por qué es importante utilizar Youtube para la creación de contenido?]|[Estrategias de contenido|Estrategias para la realización de contenido de calidad, planificación de guiones, grabación y edición de vídeos| ¿Cómo planificar la creación de contenido en Youtube?| ¿Cómo estructurar una historia que enganche al espectador?| ¿Qué herramientas digitales son útiles para la grabación y edición de vídeos?]|[Herramientas de análisis de vídeos|Explicación de herramientas para analizar los resultados obtenidos en Youtube, medición de estadísticas y otros datos de interés| ¿Qué son las estadísticas de Youtube?| ¿Cómo se miden las estadísticas en Youtube?| ¿En qué nos pueden ayudar las estadísticas de Youtube al crear contenido?]|[Difusión de contenido|Estrategias para la difusión del contenido generado, uso de redes sociales y otras estrategias para aumentar el número de visualizaciones| ¿Cómo se puede promocionar el contenido para llegar al mayor número de personas?| ¿Cuáles son las redes sociales más utilizadas para compartir contenido en Youtube?| ¿Qué otras estrategias se pueden utilizar para aumentar el número de visualizaciones?|"},"finish_reason":"stop","index":0}]}';
+            // $complete = '{"id":"chatcmpl-7DWPntpL47Xi2GWyen0OxtuCxqlsG","object":"chat.completion","created":1683457223,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":428,"completion_tokens":345,"total_tokens":773},"choices":[{"message":{"role":"assistant","content":"Creación de contenido en Youtube|Objetivo: Crear contenido en Youtube con el fin de mejorar la competencia comunicativa del alumnado|[Introducción a Youtube|Presentación de la plataforma Youtube, explicación de sus características y otros datos de interés| ¿Qué es Youtube?| ¿Cuáles son las diferentes herramientas que ofrece Youtube?| ¿Por qué es importante utilizar Youtube para la creación de contenido?]|[Estrategias de contenido|Estrategias para la realización de contenido de calidad, planificación de guiones, grabación y edición de vídeos| ¿Cómo planificar la creación de contenido en Youtube?| ¿Cómo estructurar una historia que enganche al espectador?| ¿Qué herramientas digitales son útiles para la grabación y edición de vídeos?]|[Herramientas de análisis de vídeos|Explicación de herramientas para analizar los resultados obtenidos en Youtube, medición de estadísticas y otros datos de interés| ¿Qué son las estadísticas de Youtube?| ¿Cómo se miden las estadísticas en Youtube?| ¿En qué nos pueden ayudar las estadísticas de Youtube al crear contenido?]|[Difusión de contenido|Estrategias para la difusión del contenido generado, uso de redes sociales y otras estrategias para aumentar el número de visualizaciones| ¿Cómo se puede promocionar el contenido para llegar al mayor número de personas?| ¿Cuáles son las redes sociales más utilizadas para compartir contenido en Youtube?| ¿Qué otras estrategias se pueden utilizar para aumentar el número de visualizaciones?|"},"finish_reason":"stop","index":0}]}';
 
             // $complete = '{"id":"cmpl-7Afqt6Yp1Ax56Yq2BY0qVmtG9XiIK","object":"text_completion","created":1682778515,"model":"text-davinci-003","choices":[{"text":",\n\nThe Digestive System|Objective: To understand the anatomy and physiology of the digestive system as outlined in the Spanish National Curriculum/LOMLOE|[Anatomy of the Digestive System|The digestive system is composed of the gastrointestinal (GI) tract, which consists of the mouth, esophagus, stomach, small intestine, large intestine and rectum, as well as several accessory organs such as the liver, gallbladder and pancreas. The GI tract turns food into the nutrients and energy needed for human life.|What is the first part of the digestive system?|What structures make up the gastrointestinal tract?|What do the accessory organs do?]|[Digestion Processes|Digestion begins in the mouth with chewing and saliva then moves through the esophagus to the stomach where acid helps breakdown food. It continues to the small intestine where enzymes and bile help break down proteins, carbs and fats. Vitamins and minerals are absorbed during this process. Lastly, undigested food moves to the large intestine and wastes are expelled through the rectum. |What processes occur in the mouth?|What is the role of the acid in the stomach?|Where do vitamins and minerals get absorbed? ]|[Nutrition and Digestion|In order for the body to utilize nutrients, they must be broken down into smaller molecules by the digestive system. This process is known as digestion which helps break down foods into their components so they can be used by the body. Good nutrition requires a balance of healthy foods and a variety of nutrients needed for growth, development, and energy. |What is the process of digestion?|What is the role of digestion in nutrition?|What is the goal of good nutrition? ]|[The Role of Digestion in Homeostasis|Homeostasis is the ability to maintain a consistent internal environment for optimal health. The digestive system plays an essential role in homeostasis by extracting essential nutrients from food and eliminating toxins from the body, thereby providing the energy and materials necessary for the body to function properly. |What is homeostasis?|What is the role of the digestive system in homeostasis?|What materials are necessary for the body to function optimally? ]|","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":139,"completion_tokens":462,"total_tokens":601}}';
 
@@ -958,19 +1030,9 @@ class ToolController extends Controller
 
         $section = $phpWord->addSection();
 
-        foreach ($lesson as $item) {
-            $section->addTitle($item['Heading'], 1);
-
-            if ($item['Heading'] === "Materials and Resources" || $item['Heading'] === "Vocabulary and Grammar") {
-                $sentences = preg_split('/(?<=[.?!])\s+(?=[a-z])/i', $item['Content']);
-                foreach ($sentences as $sentence) {
-                    $section->addListItem(trim($sentence));
-                }
-            } else {
-                $section->addText($item['Content']);
-            }
-
-            $section->addTextBreak();
+        $lines = explode("\n", $lesson);
+        foreach ($lines as $line) {
+            $section->addText(trim($line));
         }
 
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
@@ -985,6 +1047,7 @@ class ToolController extends Controller
         $objWriter->save('php://output');
         exit;
     }
+
 
     public function downloadComprehension(Request $request)
     {
