@@ -63,7 +63,7 @@ class ToolController extends Controller
 
     public function showWorksheetGenerator(Request $request)
     {
-        $worksheet = $request->session()->get('worksheet', []);
+        $worksheet = $request->session()->get('worksheet', '');
         $curriculum = $request->session()->get('curriculum', '');
         $grade = $request->session()->get('grade', '');
         $description = $request->session()->get('description', '');
@@ -399,9 +399,9 @@ class ToolController extends Controller
         $worksheet = [];
         // In Traditional Spanish from Spain.
         try {
-            $prompt = "In Traditional Spanish from Spain. Create a worksheet on the topic of $description for a student of grade $grade, following the $curriculum curriculum. The worksheet should provide comprehensive and challenging questions. You MUST make sure you accurately follow the format. Don't stray away from it. Here's an example of the format: Photosynthesis|Objective: Understand the process of photosynthesis|[What is the main purpose of photosynthesis?|Produce oxygen|Produce glucose|Produce carbon dioxide|Produce glucose]|[In which organelle does photosynthesis occur?|Chloroplast|Mitochondria|Nucleus|Chloroplast]|[Which gas is required for photosynthesis?|Oxygen|Carbon dioxide|Nitrogen|Carbon dioxide]|[What is the primary pigment involved in photosynthesis?|Chlorophyll|Carotene|Xanthophyll|Chlorophyll]|{What are the two main stages of photosynthesis?|What is the role of chlorophyll in photosynthesis?|Why is photosynthesis important for life on Earth?}|(Summarize the process of photosynthesis and its importance for plants and other organisms.)|<During photosynthesis, light energy is converted into ____ energy.|chemical>|<The _______ cycle is the second stage of photosynthesis.|Calvin>|<Plants release ____ as a byproduct of photosynthesis.|oxygen>|[Photosynthesis occurs in animal cells.|False]|[Plants use sunlight as a source of energy for photosynthesis.|True]|[The Calvin cycle produces glucose.|True].";
+            $prompt = "Crea una ficha de trabajo sobre el tema de $description para un estudiante de grado $grade, siguiendo el currículo $curriculum. La ficha debe proporcionar preguntas exhaustivas y desafiantes. Incluye una mezcla de los siguientes tipos de preguntas: 8x Preguntas de Opción Múltiple, 3x Preguntas Generales, 4x Rellenar los Espacios en Blanco, 4x Afirmaciones Verdadero o Falso. Al final, añade una larga '----------------' y luego incluye las respuestas a las preguntas por separado.";
 
-            $assistantPrompt = 'You are an expert generating worksheets for students in grade ' . $grade . '. Write using the following format: TitleOfComprehensionHere|ObjectiveOfComprehensionHere|[MCQQuestion1Here|Choice1|Choice2|Choice3|CorrectChoiceHere]|[MCQQuestion2Here|Choice1|Choice2|Choice3|CorrectChoiceHere]|[MCQQuestion3|Choice1|Choice2|Choice3|CorrectChoiceHere]|[MCQQuestion4Here|Choice1|Choice2|Choice3|CorrectChoiceHere]|{GeneralQuestion1Here|GeneralQuestion2Here|GeneralQuestion3}|(Ask a Question that summarizes the assessment - wrap it in () parenthesis)|<Fill in Blank Statement 1 - add appropriate blanks i.e _____ | Fill In Blank Answer>|<Fill in Blank Statement 2 | Fill In Blank Answer>|<Fill in Blank Statement 3 | Fill In Blank Answer>|[Statement1Here|TrueOrFalse]|[Statement2Here|TrueOrFalse]|[Statement3Here|TrueOrFalse].';
+            $assistantPrompt = 'Eres un experto generando fichas de trabajo para estudiantes en el grado ' . $grade . '.';
 
             $complete = $open_ai->chat([
                 'model' => 'gpt-3.5-turbo',
@@ -421,206 +421,9 @@ class ToolController extends Controller
                 'presence_penalty' => 0.6,
             ]);
 
-            // $complete = '{"id":"chatcmpl-7DVUx1pGwAXOK6wrePjpjhfOe1FH7","object":"chat.completion","created":1683453699,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":593,"completion_tokens":555,"total_tokens":1148},"choices":[{"message":{"role":"assistant","content":"Sistema Digestivo|Objetivo: Evaluar la comprensión del estudiante sobre el sistema digestivo.|[¿Cuál es el primer órgano que recibe los alimentos después de ser ingeridos?|Estómago|Boca|Intestino delgado|B]|[¿Qué enzima descompone las proteínas en el estómago?|Lipasa|Amilasa|Pepsina|C]|[¿Dónde tiene lugar la mayor parte de la absorción de nutrientes en el sistema digestivo?|Estómago|Boca|Intestino delgado|C]|[¿Qué órgano segrega la bilis para ayudar en la digestión de las grasas?|Páncreas|Hígado|Estómago|B]|[¿Qué tipo de músculo ayuda a mover los alimentos a través del sistema digestivo?|Músculo liso|Músculo esquelético|Músculo cardíaco|A]|[¿Qué estructura conecta el esófago al estómago?|Duodeno|Colon|Cardias|C]|[¿Qué órgano elimina los desechos no digeribles del cuerpo?|Hígado|Pulmones|Intestino grueso|C]|[¿Cuántos dientes permanentes tiene un adulto promedio?|28|32|36|B]|{¿Qué ocurre durante la absorción de nutrientes?|¿Cómo se relacionan el sistema digestivo y el sistema circulatorio en la absorción de nutrientes?|¿Por qué es importante masticar bien los alimentos antes de tragarlos?}|(¿Cuál es la función principal del sistema digestivo?)|<La ______ es el tubo muscular que conecta la garganta con el estómago.|esófago>|<El intestino delgado está dividido en tres partes: Duodeno, ______ e íleon.|Yeyuno>|<La bilis se almacena en la ______.|vesícula biliar>|[La saliva contiene una enzima que comienza la digestión de los ___.|Carbohidratos|Proteínas|Grasas|A]|[Los ácidos estomacales tienen un pH de alrededor de ___ |2|5|8|A]|[El hígado produce bilis para ayudar a digerir las grasas.|Verdadero|Falso|Verdadero]| [El colon también se conoce como intestino delgado.|Verdadero|Falso|Falso]"},"finish_reason":"stop","index":0}]}';
+            $completeDecoded = json_decode($complete);
 
-            // dd($complete);
-
-            $complete_array = json_decode($complete, true);
-            // dd($complete_array);
-            $text = trim($complete_array['choices'][0]['message']['content']);
-            $text = str_replace("]\n[", "]|[", $text);
-            $text = str_replace("]\n\n[", "]|[", $text);
-            // $text = str_replace("]\n\n\n[", "]|[", $text);
-            $parts = explode('|', $text);
-
-            // dd($parts);
-
-            // Extract the Title and Objective
-            $title = trim($parts[0]);
-            $objective = trim($parts[1]);
-
-            // Extract the MCQs and store them in an array
-            $mcqs = [];
-            $i = 2;
-            while ($i < count($parts) && $parts[$i] !== '{') {
-                $question = trim(preg_replace('/MCQQuestion\d+\|/', '', str_replace('[', '', $parts[$i])));
-                // dd($question);
-                $i++;
-                $choice1 = trim(str_replace(']', '', $parts[$i]));
-                $i++;
-                $choice2 = trim(str_replace(']', '', $parts[$i]));
-                $i++;
-                $choice3 = trim(str_replace(']', '', $parts[$i]));
-                $i++;
-                $correctChoice = trim(str_replace(']', '', $parts[$i]));
-                $i++;
-                // If the next element starts with '[', it is still part of the MCQs
-                if (
-                    $i < count($parts) && $parts[$i][0] === '['
-                ) {
-                    $mcqs[] = [
-                        'Question' => $question,
-                        'Choice1' => $choice1,
-                        'Choice2' => $choice2,
-                        'Choice3' => $choice3,
-                        'Correct' => $correctChoice,
-                    ];
-                } else {
-                    // Otherwise, we have reached the end of the MCQs, add the last MCQ and break the loop
-                    $mcqs[] = [
-                        'Question' => $question,
-                        'Choice1' => $choice1,
-                        'Choice2' => $choice2,
-                        'Choice3' => $choice3,
-                        'Correct' => $correctChoice,
-                    ];
-                    break;
-                }
-            }
-
-
-
-
-            $general_questions = [];
-            $assessment_summary = '';
-
-            if ($i < count($parts)) {
-                $current = trim($parts[$i]);
-                if ($current[0] === '{') {
-                    $i++;
-                    while ($i < count($parts)) {
-                        $current = trim($parts[$i], '{}.');
-                        if ($current[0] === '(') {
-                            break;
-                        }
-                        if ($current[0] === '}') {
-                            $general_questions[] = trim(trim($current, '|'), '}');
-                            $i++; // Increment $i to move to the next part
-                            break;
-                        } else {
-                            $general_questions[] = trim(trim($current, '|'), '}');
-                            $i++;
-                        }
-                    }
-                }
-
-                // dd($current[0]);
-            }
-
-            // dd($i, count($parts), $parts, $parts[$i]);
-
-            if ($i < count($parts)) {
-                $current = trim($parts[$i]);
-
-                if ($current[0] === '(') {
-                    while ($i < count($parts)) {
-                        $current = trim($parts[$i]);
-
-                        // Break the loop when encountering '<'
-                        if ($current[0] === '<') {
-                            break;
-                        }
-
-                        $current = trim($current, '().');
-
-                        if ($current[strlen($current) - 1] === ')') {
-                            $assessment_summary .= $current;
-                            break;
-                        } else {
-                            $assessment_summary .= $current . '';
-                            $i++;
-                        }
-                    }
-                }
-            }
-
-            $fill_in_the_blanks = [];
-
-            // Create a function to check if a character exists in any element of an array
-            function characterExistsInArray($char, $array, $startIndex)
-            {
-                for ($i = $startIndex; $i < count($array); $i++) {
-                    if (strpos($array[$i], $char) !== false) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-
-            while ($i !== false && $i < count($parts)) {
-                $current = trim($parts[$i]);
-                if ($current[0] === '<') {
-                    $statement = trim(substr($current, 1));
-                    $answer = trim(trim($parts[$i + 1]), '>');
-
-                    // Check if '>' is in the next element
-                    if (strpos($answer, '>') !== false) {
-                        $answer = trim(substr($answer, 0, strpos($answer, '>')));
-                        $i++;
-                    }
-
-                    $fill_in_the_blanks[] = [
-                        'Statement' => $statement,
-                        'Answer' => $answer,
-                    ];
-                    $i += 2;
-                } else {
-                    $i++;
-                }
-
-                // Check if there are no more '>' characters
-                if (!characterExistsInArray('>', $parts, $i)) {
-                    break;
-                }
-            }
-
-
-            // dd($i);
-
-            $true_or_false = [];
-
-            while (
-                $i < count($parts)
-            ) {
-                $current = trim($parts[$i]);
-                if ($current[0] === '[') {
-                    $statement = trim(substr($current, 1));
-                    $answer = trim(trim($parts[$i + 1]), ']');
-
-                    // Check if ']' is in the next element
-                    if (strpos($answer, ']') !== false) {
-                        $answer = trim(substr($answer, 0, strpos($answer, ']')));
-                        $i++;
-                    }
-
-                    $true_or_false[] = [
-                        'Statement' => $statement,
-                        'Answer' => $answer,
-                    ];
-                    $i += 2;
-                } else {
-                    $i++;
-                }
-            }
-
-
-            $decide = rand(0, 1);
-
-            $worksheet = [
-                'Title' => $title,
-                'Objective' => $objective,
-                'MCQs' => $mcqs,
-                'GeneralQuestions' => $general_questions,
-                'AssessmentSummary' => $assessment_summary,
-                'FillInTheBlanks' => $fill_in_the_blanks,
-                // Add the FillInTheBlanks array to the final worksheet
-                'TrueOrFalse' => $true_or_false,
-                'decide' => $decide
-            ];
-
-            // dd($parts, $i, $worksheet);
-
-            // dd($worksheet, $parts, $complete);
+            $worksheet = $completeDecoded->choices[0]->message->content;
         } catch (Exception $e) {
             // Handle exceptions thrown by the OpenAI PHP SDK or custom exceptions
             // Log the error message or display an appropriate error message to the user
