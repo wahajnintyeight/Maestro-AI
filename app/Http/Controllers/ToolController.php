@@ -280,9 +280,9 @@ class ToolController extends Controller
         $slides = [];
 
         try {
-            $prompt = "In Traditional Spanish from Spain. Create a presentation of " . $num_of_slides . " slides for grade $grade with the objective \"$description\". The presentation should follow the \"$curriculum\" curriculum. The content of the slides should be in-depth and at least 3 sentences long.  Generate this for " . $num_of_slides . " slides. For example: The Marvel of the Digestive System|o understand the structure and function of the human digestive system and its integral role in overall health and nutrition|[Anatomy and Functions of the Digestive System|The digestive system begins at the mouth and ends at the anus. Food is broken down through mastication and enzymatic action in the mouth, further processed by acids in the stomach, and then moved to the small intestine for nutrient absorption. The large intestine absorbs water, forming waste which is eliminated. The liver, gallbladder, and pancreas, although not in the digestive tract, produce bile and enzymes aiding digestion.|What is the role of the stomach in digestion?|Where does nutrient absorption primarily occur?|How do the liver, gallbladder, and pancreas aid in digestion?]";
+            $prompt = "In Traditional Spanish from Spain. Create a presentation of " . $num_of_slides . " slides for grade $grade with the objective \"$description\". The presentation should follow the \"$curriculum\" curriculum. The content of the slides should be in-depth and at least 3 sentences long.  Generate this for " . $num_of_slides . " slides. For example: [The Marvel of the Digestive System]|[Understand the structure and function of the human digestive system and its integral role in overall health and nutrition]|[Anatomy and Functions of the Digestive System|The digestive system begins at the mouth and ends at the anus. Food is broken down through mastication and enzymatic action in the mouth, further processed by acids in the stomach, and then moved to the small intestine for nutrient absorption. The large intestine absorbs water, forming waste which is eliminated. The liver, gallbladder, and pancreas, although not in the digestive tract, produce bile and enzymes aiding digestion.|What is the role of the stomach in digestion?|Where does nutrient absorption primarily occur?|How do the liver, gallbladder, and pancreas aid in digestion?]";
 
-            $assistant_prompt = "You are an expert at generating " . $num_of_slides . " presentation slides for grade " . $grade . ". Provide content for each slide in this exact same format: TitleOfPresentationHere|ObjectiveOfPresentationHere|[SlideHeading1Here|SlideContent1Here|QuestionStatement1RegardingSlide1Here|QuestionStatement2RegardingSlide1Here|QuestionStatement3RegardingSlide1Here]|[SlideHeading2Here|SlideContent2Here|QuestionStatement1RegardingSlide2Here|QuestionStatement2RegardingSlide2Here|QuestionStatement3RegardingSlide2Here]|. If there are 8 slides, then the format will go till SlideHeading8Here|SlideContent8Here For Questions in each slide - only give Question Statements. Do not proceed to give answer to the questions.";
+            $assistant_prompt = "You are an expert at generating " . $num_of_slides . " presentation slides for grade " . $grade . ". Provide content for each slide in this exact same format: [TitleOfPresentationHere]|[ObjectiveOfPresentationHere]|[SlideHeading1Here|SlideContent1Here|QuestionStatement1RegardingSlide1Here|QuestionStatement2RegardingSlide1Here|QuestionStatement3RegardingSlide1Here]|[SlideHeading2Here|SlideContent2Here|QuestionStatement1RegardingSlide2Here|QuestionStatement2RegardingSlide2Here|QuestionStatement3RegardingSlide2Here]|. If there are 8 slides, then the format will go till SlideHeading8Here|SlideContent8Here For Questions in each slide - only give Question Statements. Do not proceed to give answer to the questions.";
 
             $complete = $open_ai->chat([
                 'model' => 'gpt-3.5-turbo',
@@ -301,31 +301,29 @@ class ToolController extends Controller
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
             ]);
-            // dd($complete);
-
-
-            // $complete = '{"id":"chatcmpl-7DWPntpL47Xi2GWyen0OxtuCxqlsG","object":"chat.completion","created":1683457223,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":428,"completion_tokens":345,"total_tokens":773},"choices":[{"message":{"role":"assistant","content":"Creación de contenido en Youtube|Objetivo: Crear contenido en Youtube con el fin de mejorar la competencia comunicativa del alumnado|[Introducción a Youtube|Presentación de la plataforma Youtube, explicación de sus características y otros datos de interés| ¿Qué es Youtube?| ¿Cuáles son las diferentes herramientas que ofrece Youtube?| ¿Por qué es importante utilizar Youtube para la creación de contenido?]|[Estrategias de contenido|Estrategias para la realización de contenido de calidad, planificación de guiones, grabación y edición de vídeos| ¿Cómo planificar la creación de contenido en Youtube?| ¿Cómo estructurar una historia que enganche al espectador?| ¿Qué herramientas digitales son útiles para la grabación y edición de vídeos?]|[Herramientas de análisis de vídeos|Explicación de herramientas para analizar los resultados obtenidos en Youtube, medición de estadísticas y otros datos de interés| ¿Qué son las estadísticas de Youtube?| ¿Cómo se miden las estadísticas en Youtube?| ¿En qué nos pueden ayudar las estadísticas de Youtube al crear contenido?]|[Difusión de contenido|Estrategias para la difusión del contenido generado, uso de redes sociales y otras estrategias para aumentar el número de visualizaciones| ¿Cómo se puede promocionar el contenido para llegar al mayor número de personas?| ¿Cuáles son las redes sociales más utilizadas para compartir contenido en Youtube?| ¿Qué otras estrategias se pueden utilizar para aumentar el número de visualizaciones?|"},"finish_reason":"stop","index":0}]}';
-
-            // $complete = '{"id":"cmpl-7Afqt6Yp1Ax56Yq2BY0qVmtG9XiIK","object":"text_completion","created":1682778515,"model":"text-davinci-003","choices":[{"text":",\n\nThe Digestive System|Objective: To understand the anatomy and physiology of the digestive system as outlined in the Spanish National Curriculum/LOMLOE|[Anatomy of the Digestive System|The digestive system is composed of the gastrointestinal (GI) tract, which consists of the mouth, esophagus, stomach, small intestine, large intestine and rectum, as well as several accessory organs such as the liver, gallbladder and pancreas. The GI tract turns food into the nutrients and energy needed for human life.|What is the first part of the digestive system?|What structures make up the gastrointestinal tract?|What do the accessory organs do?]|[Digestion Processes|Digestion begins in the mouth with chewing and saliva then moves through the esophagus to the stomach where acid helps breakdown food. It continues to the small intestine where enzymes and bile help break down proteins, carbs and fats. Vitamins and minerals are absorbed during this process. Lastly, undigested food moves to the large intestine and wastes are expelled through the rectum. |What processes occur in the mouth?|What is the role of the acid in the stomach?|Where do vitamins and minerals get absorbed? ]|[Nutrition and Digestion|In order for the body to utilize nutrients, they must be broken down into smaller molecules by the digestive system. This process is known as digestion which helps break down foods into their components so they can be used by the body. Good nutrition requires a balance of healthy foods and a variety of nutrients needed for growth, development, and energy. |What is the process of digestion?|What is the role of digestion in nutrition?|What is the goal of good nutrition? ]|[The Role of Digestion in Homeostasis|Homeostasis is the ability to maintain a consistent internal environment for optimal health. The digestive system plays an essential role in homeostasis by extracting essential nutrients from food and eliminating toxins from the body, thereby providing the energy and materials necessary for the body to function properly. |What is homeostasis?|What is the role of the digestive system in homeostasis?|What materials are necessary for the body to function optimally? ]|","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":139,"completion_tokens":462,"total_tokens":601}}';
+            // 
+            // $complete = '{"id":"chatcmpl-7F4YGzADUC9phWmeycmG3bH9vuZKm","object":"chat.completion","created":1683826772,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":402,"completion_tokens":841,"total_tokens":1243},"choices":[{"message":{"role":"assistant","content":"[El Sorprendente Sistema Digestivo]|[Comprender la estructura y función del sistema digestivo humano y su papel integral en la salud y la nutrición en general]|[Anatomía y funciones del sistema digestivo|El sistema digestivo comienza en la boca y termina en el ano. Los alimentos se descomponen por la masticación y la acción enzimática en la boca, se procesan aún más en el estómago con la ayuda de los ácidos y luego se mueven al intestino delgado para absorber los nutrientes. El intestino grueso absorbe agua, formando desechos que se eliminan. El hígado, la vesícula biliar y el páncreas, aunque no están en el tracto digestivo, producen bilis y enzimas que ayudan en la digestión.|¿Cuál es el papel del estómago en la digestión?|¿Dónde ocurre principalmente la absorción de nutrientes?|¿Cómo ayudan el hígado, la vesícula biliar y el páncreas en la digestión?]|[La boca y el esófago|La boca es donde comienza el proceso digestivo. La comida es masticada y mojada con saliva antes de ser tragada. Luego, la comida pasa por el esófago, que es un tubo muscular que conecta la boca con el estómago. El esófago usa movimientos ondulatorios para empujar la comida hacia el estómago.|¿Qué es la saliva y cuál es su función en la digestión?|¿Qué es el esófago y cómo transporta la comida al estómago?|¿Qué son los movimientos ondulatorios y cómo ayudan a empujar la comida por el esófago?]|[El estómago|El estómago es un órgano muscular que se encarga de la mayor parte del trabajo de descomposición de los alimentos. Los ácidos que produce el estómago ayudan a descomponer los alimentos y matar las bacterias dañinas. El revestimiento del estómago está cubierto con una capa de moco que lo protege de los ácidos que se liberan.|¿Qué ácidos produce el estómago y para qué sirven?|¿Qué es la capa de moco y cómo protege al estómago?|¿Cuál es el papel del estómago en la digestión de las proteínas?]|[El intestino delgado|El intestino delgado es donde se absorben la mayoría de los nutrientes de los alimentos. Las paredes del intestino delgado están cubiertas de pequeñas estructuras llamadas vellosidades, que aumentan la superficie de absorción. Las enzimas producidas por el páncreas y el revestimiento del intestino delgado ayudan a descomponer aún más los alimentos.|¿Qué son las vellosidades y cómo ayudan en la absorción de nutrientes?|¿Qué enzimas ayudan a descomponer los alimentos en el intestino delgado?|¿Cuál es el papel del páncreas en la digestión en el intestino delgado?]|[El intestino grueso y el recto|El intestino grueso es donde se absorbe el agua del material no digerido y se forman los desechos sólidos. Los músculos del intestino grueso mueven los desechos hacia el recto, donde se almacenan antes de eliminarse. Los desechos son empujados fuera del cuerpo a través del ano.|¿Qué ocurre en el intestino grueso?|¿De qué está formado el material no digerido?|¿Qué músculos mueven los desechos hacia el recto?]]"},"finish_reason":"stop","index":0}]}';
 
             // dd($complete);
-
             $complete_array = json_decode($complete, true);
             $text = trim($complete_array['choices'][0]['message']['content']);
             $text = str_replace("]\n[", "]|[", $text);
             $text = str_replace("| \n[", "]|[", $text);
             $text = str_replace("? ¿", "]|[", $text);
             $text = str_replace("]\n\n[", "]|[", $text);
+
+            // Trim off the extra brackets from the start and end
+            $text = trim($text, '[]');
+
+            // Explode by '|'
             $parts = explode('|', $text);
-            // dd($text,$parts);
-            // dd($parts);
-            // dd($text,$parts);
+
             $slides = [
-                'Title' => trim($parts[0]),
-                'Objective' => $parts[1],
+                'Title' => trim($parts[0], '[]'), // Removing any extra brackets
+                'Objective' => trim($parts[1], '[]'), // Removing any extra brackets
                 'Slides' => [],
             ];
-            // dd($slides);
+
             for (
                 $i = 2;
                 $i < count($parts);
@@ -341,22 +339,16 @@ class ToolController extends Controller
                     // Decrement the index by one to correctly process the next slide or end the loop
                     $i--;
                     $slides['Slides'][] = [
-                        'Heading' => $slideHeading,
-                        'Content' => $slideContent,
-                        'Questions' => $questions,
+                        'Heading' => trim($slideHeading, '[]'),
+                        'Content' => trim($slideContent, '[]'),
+                        'Questions' => array_map(function ($question) {
+                            return trim($question, '[]'); // Trim any extra brackets off each question
+                        }, $questions),
                     ];
                 }
             }
-            // dd($slides);
-            // Clean the title
-            $slides['Title'] = preg_replace('/[\r\n]+/', '', $slides['Title']);
 
-            // Clean the questions
-            foreach ($slides['Slides'] as $slideKey => $slide) {
-                foreach ($slide['Questions'] as $questionKey => $question) {
-                    $slides['Slides'][$slideKey]['Questions'][$questionKey] = rtrim($question, ']');
-                }
-            }
+            dd($slides);
         } catch (Exception $e) {
             // Handle exceptions thrown by the OpenAI PHP SDK or custom exceptions
             // Log the error message or display an appropriate error message to the user
