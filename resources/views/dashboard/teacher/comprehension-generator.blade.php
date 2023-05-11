@@ -2,7 +2,7 @@
 @section('content')
 <div class="intro-y flex items-center mt-8">
     <h2 class="text-lg font-medium mr-auto">
-        Generar Preguntas de Comprensión
+        Comprensión lectora
     </h2>
 </div>
 <div class="grid grid-cols-12 gap-6">
@@ -30,14 +30,15 @@
                         </svg>
                     </div>
                     <div class="ml-4 mr-auto">
-                        <div class="font-medium text-base">Generar Preguntas de Comprensión</div>
+                        <div class="font-medium text-base">Comprensión lectora</div>
                     </div>
                 </div>
                 <div class="p-5 border-t border-slate-200/60 dark:border-darkmode-400">
                     <div>
                         <label for="grade-level" class="form-label">Curso</label>
                         <select id="grade-level" required name="grade" class="form-select">
-                            <option value="Infantil" <?php if ($grade=='Infantil' ) { echo 'selected' ; } ?>>Infantil
+                            <option value="si esta bien" <?php if ($grade=='si esta bien' ) { echo 'selected' ; } ?>>si
+                                esta bien
                             </option>
                             <option value="Primero de primaria" <?php if ($grade=='Primero de primaria' ) {
                                 echo 'selected' ; } ?>

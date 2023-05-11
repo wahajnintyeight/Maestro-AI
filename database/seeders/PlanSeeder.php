@@ -26,7 +26,7 @@ class PlanSeeder extends Seeder
                 'name' => 'Annual',
                 'slug' => 'annual',
                 'stripe_plan' => env('STRIPE_PREMIUM_PLAN'),
-                'price' => 6.00,
+                'price' => 72.00,
                 'description' => 'Annual'
             ]
         ];

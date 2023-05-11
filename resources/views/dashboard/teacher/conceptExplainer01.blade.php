@@ -2,7 +2,7 @@
 @section('content')
 <div class="intro-y flex items-center mt-8">
     <h2 class="text-lg font-medium mr-auto">
-        Explica un Concepto
+        Explicación de conceptos
     </h2>
 </div>
 <div class="grid grid-cols-12 gap-6">
@@ -58,7 +58,7 @@
                         </svg>
                     </div>
                     <div class="ml-6 mr-auto">
-                        <div class="font-medium text-base">Explica un Concepto</div>
+                        <div class="font-medium text-base">Explicación de conceptos</div>
                     </div>
                 </div>
                 <div class="p-5 border-t border-slate-200/60 dark:border-darkmode-400">

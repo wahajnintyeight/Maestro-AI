@@ -2,8 +2,7 @@
 @section('content')
 <div class="intro-y flex items-center mt-8">
     <h2 class="text-lg font-medium mr-auto">
-        Ideas para Clase
-    </h2>
+        Planificador de situaciones de aprendizaje </h2>
 </div>
 <div class="grid grid-cols-12 gap-6">
     <!-- BEGIN: Profile Menu -->
@@ -41,7 +40,7 @@
                         </svg>
                     </div>
                     <div class="ml-4 mr-auto">
-                        <div class="font-medium text-base">Ideas para Clase</div>
+                        <div class="font-medium text-base">Planificador de situaciones de aprendizaje</div>
                     </div>
                 </div>
                 <div class="p-5 border-t border-slate-200/60 dark:border-darkmode-400">
@@ -102,7 +101,7 @@
                         </select>
                     </div>
                     <div class="mt-5">
-                        <label for="lesson-title" class="form-label">Objetivo</label>
+                        <label for="lesson-title" class="form-label">Situación de aprendizaje</label>
                         <!-- Input for Lesson Title -->
                         <input id="lesson-title" name="title" type="text" class="form-control"
                             placeholder="Agregar un título o tema de la lección"

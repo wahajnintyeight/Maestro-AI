@@ -108,7 +108,7 @@ class ToolController extends Controller
 
         try {
 
-            $prompt = "En Español Tradicional de España. Crea un plan de lección para el grado $grade con el título \"$title\" y la descripción \"$description\". Intenta seguir el currículo \"$curriculum\". Habla sobre los siguientes encabezados: Metas y Objetivos, Materiales y Recursos, Actividad de Calentamiento, Vocabulario y Gramática, Actividades y Ejercicios, Evaluación, Actividad de Cierre. Cada encabezado debe comenzar en una nueva línea. Evita la costumbre de hacer esto: 'Contenido: Este es el contenido', es decir, no es necesario anteponer el contenido con una etiqueta y dos puntos. Utiliza este punto de viñeta para elementos de lista: •";
+            $prompt = "En Español Tradicional de España. Crea un plan de lección para el grado $grade con el título \"$title\" y la descripción \"$description\". Intenta seguir el currículo \"$curriculum\". Habla sobre los siguientes encabezados: Metas y Objetivos, Recursos materiales, Conocimientos previos, Vocabulario, Actividades y Ejercicios, Evaluación, Actividad de Cierre. Cada encabezado debe comenzar en una nueva línea. Evita la costumbre de hacer esto: 'Contenido: Este es el contenido', es decir, no es necesario anteponer el contenido con una etiqueta y dos puntos. Utiliza este punto de viñeta para elementos de lista: •";
 
             $complete = $open_ai->chat([
                 'model' => 'gpt-3.5-turbo',
@@ -280,9 +280,9 @@ class ToolController extends Controller
         $slides = [];
 
         try {
-            $prompt = "In Traditional Spanish from Spain. Create a presentation for grade $grade with the objective \"$description\". The presentation should follow the \"$curriculum\" curriculum. The content of the slides should be in-depth and at least 3 sentences long.  Generate this for " . $num_of_slides . " slides. For example: Innovations in Renewable Energy: A Sustainable Future|Exploring the latest advancements in renewable energy technologies|[Solar Energy Breakthroughs|Perovskite solar cells offer higher efficiency, lower production costs, and flexibility|What are perovskite solar cells?|How do they achieve higher efficiency?|What factors contribute to their lower production costs?]|[Wind Energy Innovations|Airborne wind energy systems harness high-altitude winds; smart wind turbines use sensors and AI for optimization|What are airborne wind energy systems?|What are the benefits of high-altitude winds?|How do smart wind turbines optimize energy production?]|";
+            $prompt = "In Traditional Spanish from Spain. Create a presentation of " . $num_of_slides . " slides for grade $grade with the objective \"$description\". The presentation should follow the \"$curriculum\" curriculum. The content of the slides should be in-depth and at least 3 sentences long.  Generate this for " . $num_of_slides . " slides. For example: The Marvel of the Digestive System|o understand the structure and function of the human digestive system and its integral role in overall health and nutrition|[Anatomy and Functions of the Digestive System|The digestive system begins at the mouth and ends at the anus. Food is broken down through mastication and enzymatic action in the mouth, further processed by acids in the stomach, and then moved to the small intestine for nutrient absorption. The large intestine absorbs water, forming waste which is eliminated. The liver, gallbladder, and pancreas, although not in the digestive tract, produce bile and enzymes aiding digestion.|What is the role of the stomach in digestion?|Where does nutrient absorption primarily occur?|How do the liver, gallbladder, and pancreas aid in digestion?]";
 
-            $assistant_prompt = "You are an expert at generating presentation slides for grade " . $grade . ". Provide content for each slide in this exact same format: TitleOfPresentationHere|ObjectiveOfPresentationHere|[SlideHeading1Here|SlideContent1Here|QuestionStatement1RegardingSlide1Here|QuestionStatement2RegardingSlide1Here|QuestionStatement3RegardingSlide1Here]|[SlideHeading2Here|SlideContent2Here|QuestionStatement1RegardingSlide2Here|QuestionStatement2RegardingSlide2Here|QuestionStatement3RegardingSlide2Here]|. For Questions in each slide - only give Question Statements. Do not proceed to give answer to the questions.";
+            $assistant_prompt = "You are an expert at generating " . $num_of_slides . " presentation slides for grade " . $grade . ". Provide content for each slide in this exact same format: TitleOfPresentationHere|ObjectiveOfPresentationHere|[SlideHeading1Here|SlideContent1Here|QuestionStatement1RegardingSlide1Here|QuestionStatement2RegardingSlide1Here|QuestionStatement3RegardingSlide1Here]|[SlideHeading2Here|SlideContent2Here|QuestionStatement1RegardingSlide2Here|QuestionStatement2RegardingSlide2Here|QuestionStatement3RegardingSlide2Here]|. If there are 8 slides, then the format will go till SlideHeading8Here|SlideContent8Here For Questions in each slide - only give Question Statements. Do not proceed to give answer to the questions.";
 
             $complete = $open_ai->chat([
                 'model' => 'gpt-3.5-turbo',
@@ -297,7 +297,7 @@ class ToolController extends Controller
                     ],
                 ],
                 'temperature' => 0.9,
-                'max_tokens' => 1000,
+                'max_tokens' => 2000,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
             ]);

@@ -19,30 +19,68 @@
                         @if ($user->is_paid == 1)
                         <a href="{{ route('teacher.showConceptExplainer') }}">
                             <div class="report-box zoom-in">
-                                <div class="box p-5 py-10">
+                                <div class="box h-full p-5 py-10">
                                     <div class="flex">
-                                        <svg style="width: 58px !important;" xmlns="http://www.w3.org/2000/svg"
-                                            xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64" id="idea">
-                                            <defs>
-                                                <linearGradient id="b" x1="906.952" x2="931.379" y1="515.915"
-                                                    y2="546.094"
-                                                    gradientTransform="translate(-1388.715 212.304) scale(1.53785)"
-                                                    gradientUnits="userSpaceOnUse" xlink:href="#a"></linearGradient>
-                                                <linearGradient id="a">
-                                                    <stop offset="0" stop-color="#ffd800"></stop>
-                                                    <stop offset="1" stop-color="#ff6100"></stop>
-                                                </linearGradient>
-                                            </defs>
-                                            <g transform="translate(-.004 -1005.324)">
-                                                <rect width="48" height="48" x=".004" y="1005.324" fill="url(#b)"
-                                                    rx="10.144" ry="10.144"></rect>
-                                                <path
-                                                    style="line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-transform:none;block-progression:tb"
-                                                    fill="#fff"
-                                                    d="m23.768 1013.31-.496.063-.6.08-.043.01-.385.086-.488.107.217.977.488-.108.385-.086h.002l.555-.072.496-.065zm1.18.056-.213.978.488.106.51.113h.011l.403.127.478.148.297-.955-.478-.148-.446-.139-.04-.01-.522-.115zm-4.239.713-.445.228-.045.025-.037.02-.514.32-.033.023-.275.206-.4.298.597.801.4-.299.264-.195.012-.01.455-.281.033-.018.445-.229zm7.268.322-.594.803.4.297.444.328.306.27.375.33.66-.753-.374-.33-.323-.283-.033-.024-.459-.34zm-4.47 17.951v12.984h1v-12.984zm-5.335-16.35-.314.393-.047.061-.026.031-.34.504-.023.037-.154.275-.242.438.873.486.242-.435.133-.24.004-.01.312-.463.006-.01.041-.051.312-.39zm5.834.303a4.606 4.606 0 0 1 4.617 4.61c0 1.366-.683 2.352-1.459 3.59-.706 1.127-1.39 2.52-1.52 4.386h-1.138v-3.412a.52.52 0 0 0-.5-.507.52.52 0 0 0-.5.507v3.412h-1.139c-.13-1.866-.813-3.26-1.52-4.387-.775-1.237-1.458-2.223-1.458-3.59a4.606 4.606 0 0 1 4.617-4.609zm6.326.268-.873.488.246.436.28.492.005.016.157.344.207.455.91-.414-.207-.455-.162-.358-.02-.039-.299-.53zm-13.707 2.226-.123.485-.043.168-.008.043-.103.625-.004.043-.016.191-.037.5.998.074.037-.498.01-.15.002-.01.098-.602.002-.014.033-.125.123-.484zm14.934.68-.987.166.083.492.015.09.047.604-.002.213-.004.5 1 .012.004-.5.002-.256-.002-.045-.049-.621-.006-.043-.02-.117zm-14.235 2.32-.982.182.09.492.049.268.01.04.16.585.013.04.041.114.172.47.94-.343-.172-.47-.037-.102-.004-.012-.143-.52-.045-.252zm13.26.616-.13.48-.048.176-.002.01-.183.506-.08.172-.21.453.909.418.209-.453.088-.188.016-.039.205-.568.013-.04.05-.183.128-.482zm-12.385 2.02-.824.566.283.412.166.242.026.033.385.469.027.03.07.073.348.359.719-.697-.35-.36-.057-.059-.011-.012-.342-.418-.156-.228zm11.272.519-.316.386-.12.147-.396.412-.012.012-.103.092-.377.326.658.754.377-.33.135-.12.03-.026.423-.438.029-.033.133-.162.314-.388zm-7.012 4.937h1.467c.054.01.109.01.162 0h1.465v1.461h-3.094zm-3.242 4.62h.002c2.044 0 3.721 1.445 4.16 3.398-.342.087-.683.188-1.037.19-2.045 0-3.725-1.446-4.164-3.4.342-.086.685-.187 1.04-.189zm9.594 2.349h.002c.348 0 .684.1 1.021.186-.436 1.927-2.093 3.35-4.111 3.353-.35 0-.686-.1-1.024-.185.436-1.928 2.093-3.352 4.112-3.354z"
-                                                    color="#000" font-family="sans-serif" font-weight="400"
-                                                    overflow="visible"></path>
-                                            </g>
+                                        <svg style="width: 58px;" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"
+                                            viewBox="0 0 64 64" id="ConceptExchange">
+                                            <rect width="2" height="2" x="6" y="26" fill="#595bd4"
+                                                class="color000000 svgShape"></rect>
+                                            <rect width="2" height="2" x="6" y="30" fill="#595bd4"
+                                                class="color000000 svgShape"></rect>
+                                            <rect width="2" height="2" x="6" y="34" fill="#595bd4"
+                                                class="color000000 svgShape"></rect>
+                                            <rect width="2" height="2" x="6" y="38" fill="#595bd4"
+                                                class="color000000 svgShape"></rect>
+                                            <rect width="2" height="2" x="6" y="42" fill="#595bd4"
+                                                class="color000000 svgShape"></rect>
+                                            <rect width="2" height="2" x="14" y="46" fill="#595bd4"
+                                                class="color000000 svgShape"></rect>
+                                            <rect width="2" height="2" x="18" y="46" fill="#595bd4"
+                                                class="color000000 svgShape"></rect>
+                                            <rect width="2" height="2" x="6" y="46" fill="#595bd4"
+                                                class="color000000 svgShape"></rect>
+                                            <rect width="2" height="2" x="10" y="46" fill="#595bd4"
+                                                class="color000000 svgShape"></rect>
+                                            <polygon points="22 50 26 47 22 44 22 50" fill="#595bd4"
+                                                class="color000000 svgShape"></polygon>
+                                            <rect width="2" height="2" x="56" y="36" fill="#595bd4"
+                                                class="color000000 svgShape"></rect>
+                                            <rect width="2" height="2" x="56" y="32" fill="#595bd4"
+                                                class="color000000 svgShape"></rect>
+                                            <rect width="2" height="2" x="56" y="28" fill="#595bd4"
+                                                class="color000000 svgShape"></rect>
+                                            <rect width="2" height="2" x="56" y="24" fill="#595bd4"
+                                                class="color000000 svgShape"></rect>
+                                            <rect width="2" height="2" x="56" y="20" fill="#595bd4"
+                                                class="color000000 svgShape"></rect>
+                                            <rect width="2" height="2" x="48" y="16" fill="#595bd4"
+                                                class="color000000 svgShape"></rect>
+                                            <rect width="2" height="2" x="44" y="16" fill="#595bd4"
+                                                class="color000000 svgShape"></rect>
+                                            <rect width="2" height="2" x="56" y="16" fill="#595bd4"
+                                                class="color000000 svgShape"></rect>
+                                            <rect width="2" height="2" x="52" y="16" fill="#595bd4"
+                                                class="color000000 svgShape"></rect>
+                                            <polygon points="42 20 42 14 38 17 42 20" fill="#595bd4"
+                                                class="color000000 svgShape"></polygon>
+                                            <circle cx="45" cy="51" r="1" fill="#595bd4" class="color000000 svgShape">
+                                            </circle>
+                                            <circle cx="37" cy="51" r="1" fill="#595bd4" class="color000000 svgShape">
+                                            </circle>
+                                            <path
+                                                d="M48,32,35,40H28V62H62V40H44ZM37,54a3,3,0,1,1,3-3A3,3,0,0,1,37,54Zm16-6a3,3,0,1,1-3,3A3,3,0,0,1,53,48Zm-8,0a3,3,0,1,1-3,3A3,3,0,0,1,45,48Z"
+                                                fill="#595bd4" class="color000000 svgShape"></path>
+                                            <circle cx="53" cy="51" r="1" fill="#595bd4" class="color000000 svgShape">
+                                            </circle>
+                                            <circle cx="19" cy="13" r="1" fill="#595bd4" class="color000000 svgShape">
+                                            </circle>
+                                            <circle cx="27" cy="13" r="1" fill="#595bd4" class="color000000 svgShape">
+                                            </circle>
+                                            <path
+                                                d="M16,32l13-8h7V2H2V24H20ZM27,10a3,3,0,1,1-3,3A3,3,0,0,1,27,10ZM11,16a3,3,0,1,1,3-3A3,3,0,0,1,11,16Zm8,0a3,3,0,1,1,3-3A3,3,0,0,1,19,16Z"
+                                                fill="#595bd4" class="color000000 svgShape"></path>
+                                            <circle cx="11" cy="13" r="1" fill="#595bd4" class="color000000 svgShape">
+                                            </circle>
                                         </svg>
                                         <div class="ml-auto">
 
@@ -56,29 +94,68 @@
                         </a>
                         @else
                         <div class="report-box">
-                            <div class="box p-5 py-6">
+                            <div class="box h-full p-5 py-6">
                                 <div class="flex">
-                                    <svg style="width: 58px !important;" xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64" id="idea">
-                                        <defs>
-                                            <linearGradient id="b" x1="906.952" x2="931.379" y1="515.915" y2="546.094"
-                                                gradientTransform="translate(-1388.715 212.304) scale(1.53785)"
-                                                gradientUnits="userSpaceOnUse" xlink:href="#a"></linearGradient>
-                                            <linearGradient id="a">
-                                                <stop offset="0" stop-color="#ffd800"></stop>
-                                                <stop offset="1" stop-color="#ff6100"></stop>
-                                            </linearGradient>
-                                        </defs>
-                                        <g transform="translate(-.004 -1005.324)">
-                                            <rect width="48" height="48" x=".004" y="1005.324" fill="url(#b)"
-                                                rx="10.144" ry="10.144"></rect>
-                                            <path
-                                                style="line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-transform:none;block-progression:tb"
-                                                fill="#fff"
-                                                d="m23.768 1013.31-.496.063-.6.08-.043.01-.385.086-.488.107.217.977.488-.108.385-.086h.002l.555-.072.496-.065zm1.18.056-.213.978.488.106.51.113h.011l.403.127.478.148.297-.955-.478-.148-.446-.139-.04-.01-.522-.115zm-4.239.713-.445.228-.045.025-.037.02-.514.32-.033.023-.275.206-.4.298.597.801.4-.299.264-.195.012-.01.455-.281.033-.018.445-.229zm7.268.322-.594.803.4.297.444.328.306.27.375.33.66-.753-.374-.33-.323-.283-.033-.024-.459-.34zm-4.47 17.951v12.984h1v-12.984zm-5.335-16.35-.314.393-.047.061-.026.031-.34.504-.023.037-.154.275-.242.438.873.486.242-.435.133-.24.004-.01.312-.463.006-.01.041-.051.312-.39zm5.834.303a4.606 4.606 0 0 1 4.617 4.61c0 1.366-.683 2.352-1.459 3.59-.706 1.127-1.39 2.52-1.52 4.386h-1.138v-3.412a.52.52 0 0 0-.5-.507.52.52 0 0 0-.5.507v3.412h-1.139c-.13-1.866-.813-3.26-1.52-4.387-.775-1.237-1.458-2.223-1.458-3.59a4.606 4.606 0 0 1 4.617-4.609zm6.326.268-.873.488.246.436.28.492.005.016.157.344.207.455.91-.414-.207-.455-.162-.358-.02-.039-.299-.53zm-13.707 2.226-.123.485-.043.168-.008.043-.103.625-.004.043-.016.191-.037.5.998.074.037-.498.01-.15.002-.01.098-.602.002-.014.033-.125.123-.484zm14.934.68-.987.166.083.492.015.09.047.604-.002.213-.004.5 1 .012.004-.5.002-.256-.002-.045-.049-.621-.006-.043-.02-.117zm-14.235 2.32-.982.182.09.492.049.268.01.04.16.585.013.04.041.114.172.47.94-.343-.172-.47-.037-.102-.004-.012-.143-.52-.045-.252zm13.26.616-.13.48-.048.176-.002.01-.183.506-.08.172-.21.453.909.418.209-.453.088-.188.016-.039.205-.568.013-.04.05-.183.128-.482zm-12.385 2.02-.824.566.283.412.166.242.026.033.385.469.027.03.07.073.348.359.719-.697-.35-.36-.057-.059-.011-.012-.342-.418-.156-.228zm11.272.519-.316.386-.12.147-.396.412-.012.012-.103.092-.377.326.658.754.377-.33.135-.12.03-.026.423-.438.029-.033.133-.162.314-.388zm-7.012 4.937h1.467c.054.01.109.01.162 0h1.465v1.461h-3.094zm-3.242 4.62h.002c2.044 0 3.721 1.445 4.16 3.398-.342.087-.683.188-1.037.19-2.045 0-3.725-1.446-4.164-3.4.342-.086.685-.187 1.04-.189zm9.594 2.349h.002c.348 0 .684.1 1.021.186-.436 1.927-2.093 3.35-4.111 3.353-.35 0-.686-.1-1.024-.185.436-1.928 2.093-3.352 4.112-3.354z"
-                                                color="#000" font-family="sans-serif" font-weight="400"
-                                                overflow="visible"></path>
-                                        </g>
+                                    <svg style="width: 58px;" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"
+                                        viewBox="0 0 64 64" id="ConceptExchange">
+                                        <rect width="2" height="2" x="6" y="26" fill="#595bd4"
+                                            class="color000000 svgShape"></rect>
+                                        <rect width="2" height="2" x="6" y="30" fill="#595bd4"
+                                            class="color000000 svgShape"></rect>
+                                        <rect width="2" height="2" x="6" y="34" fill="#595bd4"
+                                            class="color000000 svgShape"></rect>
+                                        <rect width="2" height="2" x="6" y="38" fill="#595bd4"
+                                            class="color000000 svgShape"></rect>
+                                        <rect width="2" height="2" x="6" y="42" fill="#595bd4"
+                                            class="color000000 svgShape"></rect>
+                                        <rect width="2" height="2" x="14" y="46" fill="#595bd4"
+                                            class="color000000 svgShape"></rect>
+                                        <rect width="2" height="2" x="18" y="46" fill="#595bd4"
+                                            class="color000000 svgShape"></rect>
+                                        <rect width="2" height="2" x="6" y="46" fill="#595bd4"
+                                            class="color000000 svgShape"></rect>
+                                        <rect width="2" height="2" x="10" y="46" fill="#595bd4"
+                                            class="color000000 svgShape"></rect>
+                                        <polygon points="22 50 26 47 22 44 22 50" fill="#595bd4"
+                                            class="color000000 svgShape"></polygon>
+                                        <rect width="2" height="2" x="56" y="36" fill="#595bd4"
+                                            class="color000000 svgShape"></rect>
+                                        <rect width="2" height="2" x="56" y="32" fill="#595bd4"
+                                            class="color000000 svgShape"></rect>
+                                        <rect width="2" height="2" x="56" y="28" fill="#595bd4"
+                                            class="color000000 svgShape"></rect>
+                                        <rect width="2" height="2" x="56" y="24" fill="#595bd4"
+                                            class="color000000 svgShape"></rect>
+                                        <rect width="2" height="2" x="56" y="20" fill="#595bd4"
+                                            class="color000000 svgShape"></rect>
+                                        <rect width="2" height="2" x="48" y="16" fill="#595bd4"
+                                            class="color000000 svgShape"></rect>
+                                        <rect width="2" height="2" x="44" y="16" fill="#595bd4"
+                                            class="color000000 svgShape"></rect>
+                                        <rect width="2" height="2" x="56" y="16" fill="#595bd4"
+                                            class="color000000 svgShape"></rect>
+                                        <rect width="2" height="2" x="52" y="16" fill="#595bd4"
+                                            class="color000000 svgShape"></rect>
+                                        <polygon points="42 20 42 14 38 17 42 20" fill="#595bd4"
+                                            class="color000000 svgShape"></polygon>
+                                        <circle cx="45" cy="51" r="1" fill="#595bd4" class="color000000 svgShape">
+                                        </circle>
+                                        <circle cx="37" cy="51" r="1" fill="#595bd4" class="color000000 svgShape">
+                                        </circle>
+                                        <path
+                                            d="M48,32,35,40H28V62H62V40H44ZM37,54a3,3,0,1,1,3-3A3,3,0,0,1,37,54Zm16-6a3,3,0,1,1-3,3A3,3,0,0,1,53,48Zm-8,0a3,3,0,1,1-3,3A3,3,0,0,1,45,48Z"
+                                            fill="#595bd4" class="color000000 svgShape"></path>
+                                        <circle cx="53" cy="51" r="1" fill="#595bd4" class="color000000 svgShape">
+                                        </circle>
+                                        <circle cx="19" cy="13" r="1" fill="#595bd4" class="color000000 svgShape">
+                                        </circle>
+                                        <circle cx="27" cy="13" r="1" fill="#595bd4" class="color000000 svgShape">
+                                        </circle>
+                                        <path
+                                            d="M16,32l13-8h7V2H2V24H20ZM27,10a3,3,0,1,1-3,3A3,3,0,0,1,27,10ZM11,16a3,3,0,1,1,3-3A3,3,0,0,1,11,16Zm8,0a3,3,0,1,1,3-3A3,3,0,0,1,19,16Z"
+                                            fill="#595bd4" class="color000000 svgShape"></path>
+                                        <circle cx="11" cy="13" r="1" fill="#595bd4" class="color000000 svgShape">
+                                        </circle>
                                     </svg>
                                     <div class="ml-auto">
 
@@ -86,8 +163,8 @@
                                 </div>
                                 <div class="text-3xl font-medium leading-8 mt-6 mb-2">Explicador de conceptos</div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
-                                    <div class="text-base text-slate-500 mt-1">Want access? <span
-                                            class="font-bold">Upgrade to Premium</span>
+                                    <div class="text-base text-slate-500 mt-1"><span class="font-bold">¡Hazte
+                                            Premium!</span>
                                     </div>
                                     <a href="{{ route('teacher.teacherAccountInfo') }}"
                                         class="btn rounded-md py-3 px-4 block mx-auto">Upgrade</a>
@@ -101,45 +178,48 @@
                         @if ($user->is_paid == 1)
                         <a href="{{ route('teacher.showWorksheetGenerator') }}">
                             <div class="report-box zoom-in">
-                                <div class="box p-5 py-10">
+                                <div class="box h-full p-5 py-10">
                                     <div class="flex">
-                                        <svg style="width: 58px !important;" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 32 32" id="Document">
+                                        <svg style="width: 58px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"
+                                            id="Clipboard">
                                             <path
-                                                d="M4 32h24a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v28a2 2 0 0 0 2 2zM4 2h24v28H4V2zm19 4h-8a1 1 0 0 0 0 2h8a1 1 0 0 0 0-2zm0 6H9a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2zm0 6H9a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2zm0 6H9a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2z"
-                                                fill="#d8a353" class="color000000 svgShape"></path>
+                                                d="M15 18.998v54a2 2 0 0 0 2 2h46a2 2 0 0 0 2-2v-54a2 2 0 0 0-2-2h-8v-2a2 2 0 0 0-2-2h-4.055a8.937 8.937 0 0 0-2.58-5.364 8.937 8.937 0 0 0-5.99-2.624c-2.382-.09-4.666.78-6.44 2.48a9.57 9.57 0 0 0-2.836 5.508H27a2 2 0 0 0-2 2v2h-8a2 2 0 0 0-2 2zm14-2h4a2 2 0 0 0 2-2v-.65a5.53 5.53 0 0 1 1.703-3.97 4.831 4.831 0 0 1 3.51-1.372 4.956 4.956 0 0 1 3.322 1.456A4.97 4.97 0 0 1 45 13.998v1a2 2 0 0 0 2 2h4v3H29v-3zm-10 4h6v1a2 2 0 0 0 2 2h26a2 2 0 0 0 2-2v-1h6v50H19v-50z"
+                                                fill="#595bd4" class="color000000 svgShape"></path>
+                                            <path
+                                                d="M56.5 34.498h-19a2 2 0 0 0 0 4h19a2 2 0 0 0 0-4zm-31.36 5.408a2.002 2.002 0 0 0 2.84 0l6.94-7a2 2 0 1 0-2.84-2.816l-5.52 5.567-1.64-1.655a2.001 2.001 0 0 0-2.842 2.816l3.062 3.088zm31.36 7.092h-19a2 2 0 0 0 0 4h19a2 2 0 0 0 0-4zm-21.592-4.42a1.998 1.998 0 0 0-2.828.012l-5.52 5.567-1.64-1.655a2.001 2.001 0 0 0-2.842 2.816l3.062 3.088a2.002 2.002 0 0 0 2.84 0l6.94-7a2 2 0 0 0-.012-2.828zM56.5 59.498h-19a2 2 0 0 0 0 4h19a2 2 0 0 0 0-4zm-24.086-1.914a2 2 0 0 0-2.828 0L28 59.17l-1.586-1.586a2 2 0 1 0-2.828 2.828l1.586 1.586-1.586 1.586a2 2 0 1 0 2.828 2.828L28 64.826l1.586 1.586c.39.39.902.586 1.414.586s1.023-.195 1.414-.586a2 2 0 0 0 0-2.828l-1.586-1.586 1.586-1.586a2 2 0 0 0 0-2.828z"
+                                                fill="#595bd4" class="color000000 svgShape"></path>
                                         </svg>
                                         <div class="ml-auto">
 
                                         </div>
                                     </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">Generador de ejercicios</div>
-                                    <div class="text-base text-slate-500 mt-1">Crea hojas de trabajo personalizadas
-                                        con
-                                        la
-                                        ayuda de la IA.</div>
+                                    <div class="text-3xl font-medium leading-8 mt-6">Generador de actividades</div>
+                                    <div class="text-base text-slate-500 mt-1">Crea tareas y ejercicios para tus clases
+                                    </div>
                                 </div>
                             </div>
                         </a>
                         @else
                         <div class="report-box">
-                            <div class="box p-5 py-6">
+                            <div class="box h-full p-5 py-6">
                                 <div class="flex">
-                                    <svg style="width: 58px !important;" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 32 32" id="Document">
+                                    <svg style="width: 58px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"
+                                        id="Clipboard">
                                         <path
-                                            d="M4 32h24a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v28a2 2 0 0 0 2 2zM4 2h24v28H4V2zm19 4h-8a1 1 0 0 0 0 2h8a1 1 0 0 0 0-2zm0 6H9a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2zm0 6H9a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2zm0 6H9a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2z"
-                                            fill="#d8a353" class="color000000 svgShape"></path>
+                                            d="M15 18.998v54a2 2 0 0 0 2 2h46a2 2 0 0 0 2-2v-54a2 2 0 0 0-2-2h-8v-2a2 2 0 0 0-2-2h-4.055a8.937 8.937 0 0 0-2.58-5.364 8.937 8.937 0 0 0-5.99-2.624c-2.382-.09-4.666.78-6.44 2.48a9.57 9.57 0 0 0-2.836 5.508H27a2 2 0 0 0-2 2v2h-8a2 2 0 0 0-2 2zm14-2h4a2 2 0 0 0 2-2v-.65a5.53 5.53 0 0 1 1.703-3.97 4.831 4.831 0 0 1 3.51-1.372 4.956 4.956 0 0 1 3.322 1.456A4.97 4.97 0 0 1 45 13.998v1a2 2 0 0 0 2 2h4v3H29v-3zm-10 4h6v1a2 2 0 0 0 2 2h26a2 2 0 0 0 2-2v-1h6v50H19v-50z"
+                                            fill="#595bd4" class="color000000 svgShape"></path>
+                                        <path
+                                            d="M56.5 34.498h-19a2 2 0 0 0 0 4h19a2 2 0 0 0 0-4zm-31.36 5.408a2.002 2.002 0 0 0 2.84 0l6.94-7a2 2 0 1 0-2.84-2.816l-5.52 5.567-1.64-1.655a2.001 2.001 0 0 0-2.842 2.816l3.062 3.088zm31.36 7.092h-19a2 2 0 0 0 0 4h19a2 2 0 0 0 0-4zm-21.592-4.42a1.998 1.998 0 0 0-2.828.012l-5.52 5.567-1.64-1.655a2.001 2.001 0 0 0-2.842 2.816l3.062 3.088a2.002 2.002 0 0 0 2.84 0l6.94-7a2 2 0 0 0-.012-2.828zM56.5 59.498h-19a2 2 0 0 0 0 4h19a2 2 0 0 0 0-4zm-24.086-1.914a2 2 0 0 0-2.828 0L28 59.17l-1.586-1.586a2 2 0 1 0-2.828 2.828l1.586 1.586-1.586 1.586a2 2 0 1 0 2.828 2.828L28 64.826l1.586 1.586c.39.39.902.586 1.414.586s1.023-.195 1.414-.586a2 2 0 0 0 0-2.828l-1.586-1.586 1.586-1.586a2 2 0 0 0 0-2.828z"
+                                            fill="#595bd4" class="color000000 svgShape"></path>
                                     </svg>
                                     <div class="ml-auto">
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Generador de ejercicios</div>
+                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Generador de actividades</div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
-                                    <div class="text-base text-slate-500 mt-1">Want access? <span
-                                            class="font-bold">Upgrade to
-                                            Premium</span>
+                                    <div class="text-base text-slate-500 mt-1"><span class="font-bold">¡Hazte
+                                            Premium!</span>
                                     </div>
                                     <a href="{{ route('teacher.teacherAccountInfo') }}"
                                         class="btn rounded-md py-3 px-4 block mx-auto">Upgrade</a>
@@ -153,40 +233,28 @@
                         @if ($user->is_paid == 1)
                         <a href="{{ route('teacher.comprehension.form') }}">
                             <div class="report-box zoom-in">
-                                <div class="box p-5 py-10">
+                                <div class="box h-full p-5 py-10">
                                     <div class="flex">
-                                        <svg style="width: 58px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
-                                            id="questionnaire">
-                                            <linearGradient id="a" x1="925.021" x2="937.235" y1="-571.934" y2="-587.024"
-                                                gradientTransform="matrix(3.0757 0 0 -3.0757 -2839.739 -1758.136)"
-                                                gradientUnits="userSpaceOnUse">
-                                                <stop offset="0" stop-color="#FCD600"></stop>
-                                                <stop offset="1" stop-color="#F16222"></stop>
-                                            </linearGradient>
-                                            <path fill="url(#a)"
-                                                d="M10.1 0h27.7C43.5 0 48 4.5 48 10.1v27.7C48 43.5 43.5 48 37.9 48H10.1C4.5 48 0 43.5 0 37.9V10.1C0 4.5 4.5 0 10.1 0z">
-                                            </path>
-                                            <path fill="#fff"
-                                                d="M19.5 32.5h-.2c-.3-.1-.4-.4-.3-.7l7.4-17c.1-.3.4-.4.7-.3.3.1.4.4.3.7l-7.4 17c-.1.2-.3.3-.5.3z">
-                                            </path>
-                                            <path fill="#fff"
-                                                d="M32 33.5c-.1 0-.2 0-.3-.1l-3.9-2.9H21c-.2 0-.5 0-.7-.1-.3-.1-.4-.4-.3-.6.1-.3.4-.4.6-.3.1 0 .3.1.4.1h7c.1 0 .2 0 .3.1l3.2 2.4v-2c0-.3.2-.5.5-.5h1c.8 0 1.5-.7 1.5-1.5v-7c0-.8-.7-1.5-1.5-1.5h-7.8c-.3 0-.5-.2-.5-.5s.2-.5.5-.5H33c1.4 0 2.5 1.1 2.5 2.5v7c0 1.4-1.1 2.5-2.5 2.5h-.5V33c0 .2-.1.4-.3.4-.1.1-.1.1-.2.1zm-13-8h-1c-.8 0-1.5-.7-1.5-1.5v-3c0-.8.7-1.5 1.5-1.5h1c.8 0 1.5.7 1.5 1.5v3c0 .8-.7 1.5-1.5 1.5zm-1-5c-.3 0-.5.2-.5.5v3c0 .3.2.5.5.5h1c.3 0 .5-.2.5-.5v-3c0-.3-.2-.5-.5-.5h-1z">
-                                            </path>
-                                            <path fill="#fff"
-                                                d="M30 27.5c-.3 0-.5-.2-.5-.5v-4c0-.3-.2-.5-.5-.5h-2c-.3 0-.5.2-.5.5v4c0 .3-.2.5-.5.5s-.5-.2-.5-.5v-4c0-.8.7-1.5 1.5-1.5h2c.8 0 1.5.7 1.5 1.5v4c0 .3-.2.5-.5.5z">
-                                            </path>
-                                            <path fill="#fff"
-                                                d="M29.5 25.5h-3c-.3 0-.5-.2-.5-.5s.2-.5.5-.5h3c.3 0 .5.2.5.5s-.2.5-.5.5zm-8.5 0c-.1 0-.3 0-.4-.1l-2-2c-.2-.2-.2-.5 0-.7s.5-.2.7 0l2 2c.2.2.2.5 0 .7 0 .1-.2.1-.3.1z">
-                                            </path>
-                                            <path fill="#fff"
-                                                d="M15 31.5c-.1 0-.2 0-.2-.1-.2-.1-.3-.3-.3-.4v-2.5H14c-1.4 0-2.5-1.1-2.5-2.5v-7c0-1.4 1.1-2.5 2.5-2.5h12c.3 0 .5.2.5.5s-.2.5-.5.5H14c-.8 0-1.5.7-1.5 1.5v7c0 .8.7 1.5 1.5 1.5h1c.3 0 .5.2.5.5v2l3.2-2.4c.1-.1.2-.1.3-.1h2c.3 0 .5.2.5.5s-.2.5-.5.5h-1.8l-3.9 2.9c-.1.1-.2.1-.3.1z">
-                                            </path>
+                                        <svg style="width: 58px;" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"
+                                            viewBox="0 0 128 128" id="Teacher">
+                                            <path
+                                                d="M81.195 27.936h-9.36A15.898 15.898 0 0 1 74 35.94c0 .291-.028.576-.044.863zM40 62.958v8.005h4v-8.005a2 2 0 1 0-4 0zm38.045-5.032L95.417 35.62a5.743 5.743 0 0 0 1.373-3.731 5.899 5.899 0 0 0-2.121-4.522 5.992 5.992 0 0 0-8.378.653l-13 15.926h-1.456a16.1 16.1 0 0 1-3.288 4.003h5.693a2 2 0 0 0 1.549-.735L89.349 30.6a1.966 1.966 0 0 1 2.745-.17 1.883 1.883 0 0 1 .696 1.459 1.744 1.744 0 0 1-.426 1.145 1.444 1.444 0 0 0-.071.086l-17.83 22.894a2 2 0 0 0-.423 1.23v.028c.02 2.206.008 12.014.005 13.692h4"
+                                                fill="#595bd4" class="color000000 svgShape"></path>
+                                            <path
+                                                d="M44 43.946a12.017 12.017 0 0 0-12 12.008v15.01h4v-15.01a8.012 8.012 0 0 1 8-8.005h3.453a16.1 16.1 0 0 1-3.288-4.003zm14-20.013a12.008 12.008 0 1 0 12 12.008 12.017 12.017 0 0 0-12-12.008z"
+                                                fill="#595bd4" class="color000000 svgShape"></path>
+                                            <path
+                                                d="M122 0H6a6.008 6.008 0 0 0-6 6.004V62.04a6.008 6.008 0 0 0 6 6.004l22-.151v-11.94a16.023 16.023 0 0 1 14.546-15.936 15.756 15.756 0 0 1 1.619-12.081H10a2.001 2.001 0 0 1 0-4.003h37.453A15.91 15.91 0 0 1 58 19.931H10a2.001 2.001 0 0 1 0-4.003h62a2.001 2.001 0 0 1 0 4.003H58a15.91 15.91 0 0 1 10.547 4.002h16.29a10.017 10.017 0 0 1 12.412.376 9.878 9.878 0 0 1 3.541 7.58 9.764 9.764 0 0 1-2.293 6.285L82.052 59.292c.008 1.924.006 4.235-.002 6.687v1.543l4.985-.034c-.011-.176-.035-.349-.035-.527v-4.003a8.012 8.012 0 0 1 8-8.005h18a8.012 8.012 0 0 1 8 8.005v.585a8.035 8.035 0 0 1 4.045 3.664A5.438 5.438 0 0 0 128 62.04V6.004A6.008 6.008 0 0 0 122 0ZM34 11.926H10a2.001 2.001 0 0 1 0-4.003h24a2.001 2.001 0 0 1 0 4.003Z"
+                                                fill="#595bd4" class="color000000 svgShape"></path>
+                                            <path
+                                                d="M124 74.966h-2v-4.002a4.001 4.001 0 0 0-4-4.003h-1v-4.003a4.001 4.001 0 0 0-4-4.002H95a4.001 4.001 0 0 0-4 4.002v4.003a4.001 4.001 0 0 0 4 4.002h1v4.003H4a4.001 4.001 0 0 0-4 4.003v4.002a4.001 4.001 0 0 0 4 4.003h2v39.025a2 2 0 1 0 4 0V86.974h108v39.025a2 2 0 1 0 4 0V86.974h2a4.001 4.001 0 0 0 4-4.003V78.97a4.001 4.001 0 0 0-4-4.003Zm-6-4.002v4.002h-18v-4.002ZM95 66.96v-4.003h18v4.003Zm29 16.01H4V78.97h120Z"
+                                                fill="#595bd4" class="color000000 svgShape"></path>
                                         </svg>
                                         <div class="ml-auto">
 
                                         </div>
                                     </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">Generador de preguntas</div>
+                                    <div class="text-3xl font-medium leading-8 mt-6">Comprensión lectora</div>
                                     <div class="text-base text-slate-500 mt-1">Genera preguntas con precisión y rapidez,
                                         gracias a la IA.</div>
                                 </div>
@@ -194,45 +262,32 @@
                         </a>
                         @else
                         <div class="report-box">
-                            <div class="box p-5 py-6">
+                            <div class="box h-full p-5 py-6">
                                 <div class="flex">
-                                    <svg style="width: 58px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
-                                        id="questionnaire">
-                                        <linearGradient id="a" x1="925.021" x2="937.235" y1="-571.934" y2="-587.024"
-                                            gradientTransform="matrix(3.0757 0 0 -3.0757 -2839.739 -1758.136)"
-                                            gradientUnits="userSpaceOnUse">
-                                            <stop offset="0" stop-color="#FCD600"></stop>
-                                            <stop offset="1" stop-color="#F16222"></stop>
-                                        </linearGradient>
-                                        <path fill="url(#a)"
-                                            d="M10.1 0h27.7C43.5 0 48 4.5 48 10.1v27.7C48 43.5 43.5 48 37.9 48H10.1C4.5 48 0 43.5 0 37.9V10.1C0 4.5 4.5 0 10.1 0z">
-                                        </path>
-                                        <path fill="#fff"
-                                            d="M19.5 32.5h-.2c-.3-.1-.4-.4-.3-.7l7.4-17c.1-.3.4-.4.7-.3.3.1.4.4.3.7l-7.4 17c-.1.2-.3.3-.5.3z">
-                                        </path>
-                                        <path fill="#fff"
-                                            d="M32 33.5c-.1 0-.2 0-.3-.1l-3.9-2.9H21c-.2 0-.5 0-.7-.1-.3-.1-.4-.4-.3-.6.1-.3.4-.4.6-.3.1 0 .3.1.4.1h7c.1 0 .2 0 .3.1l3.2 2.4v-2c0-.3.2-.5.5-.5h1c.8 0 1.5-.7 1.5-1.5v-7c0-.8-.7-1.5-1.5-1.5h-7.8c-.3 0-.5-.2-.5-.5s.2-.5.5-.5H33c1.4 0 2.5 1.1 2.5 2.5v7c0 1.4-1.1 2.5-2.5 2.5h-.5V33c0 .2-.1.4-.3.4-.1.1-.1.1-.2.1zm-13-8h-1c-.8 0-1.5-.7-1.5-1.5v-3c0-.8.7-1.5 1.5-1.5h1c.8 0 1.5.7 1.5 1.5v3c0 .8-.7 1.5-1.5 1.5zm-1-5c-.3 0-.5.2-.5.5v3c0 .3.2.5.5.5h1c.3 0 .5-.2.5-.5v-3c0-.3-.2-.5-.5-.5h-1z">
-                                        </path>
-                                        <path fill="#fff"
-                                            d="M30 27.5c-.3 0-.5-.2-.5-.5v-4c0-.3-.2-.5-.5-.5h-2c-.3 0-.5.2-.5.5v4c0 .3-.2.5-.5.5s-.5-.2-.5-.5v-4c0-.8.7-1.5 1.5-1.5h2c.8 0 1.5.7 1.5 1.5v4c0 .3-.2.5-.5.5z">
-                                        </path>
-                                        <path fill="#fff"
-                                            d="M29.5 25.5h-3c-.3 0-.5-.2-.5-.5s.2-.5.5-.5h3c.3 0 .5.2.5.5s-.2.5-.5.5zm-8.5 0c-.1 0-.3 0-.4-.1l-2-2c-.2-.2-.2-.5 0-.7s.5-.2.7 0l2 2c.2.2.2.5 0 .7 0 .1-.2.1-.3.1z">
-                                        </path>
-                                        <path fill="#fff"
-                                            d="M15 31.5c-.1 0-.2 0-.2-.1-.2-.1-.3-.3-.3-.4v-2.5H14c-1.4 0-2.5-1.1-2.5-2.5v-7c0-1.4 1.1-2.5 2.5-2.5h12c.3 0 .5.2.5.5s-.2.5-.5.5H14c-.8 0-1.5.7-1.5 1.5v7c0 .8.7 1.5 1.5 1.5h1c.3 0 .5.2.5.5v2l3.2-2.4c.1-.1.2-.1.3-.1h2c.3 0 .5.2.5.5s-.2.5-.5.5h-1.8l-3.9 2.9c-.1.1-.2.1-.3.1z">
-                                        </path>
+                                    <svg style="width: 58px;" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"
+                                        viewBox="0 0 128 128" id="Teacher">
+                                        <path
+                                            d="M81.195 27.936h-9.36A15.898 15.898 0 0 1 74 35.94c0 .291-.028.576-.044.863zM40 62.958v8.005h4v-8.005a2 2 0 1 0-4 0zm38.045-5.032L95.417 35.62a5.743 5.743 0 0 0 1.373-3.731 5.899 5.899 0 0 0-2.121-4.522 5.992 5.992 0 0 0-8.378.653l-13 15.926h-1.456a16.1 16.1 0 0 1-3.288 4.003h5.693a2 2 0 0 0 1.549-.735L89.349 30.6a1.966 1.966 0 0 1 2.745-.17 1.883 1.883 0 0 1 .696 1.459 1.744 1.744 0 0 1-.426 1.145 1.444 1.444 0 0 0-.071.086l-17.83 22.894a2 2 0 0 0-.423 1.23v.028c.02 2.206.008 12.014.005 13.692h4"
+                                            fill="#595bd4" class="color000000 svgShape"></path>
+                                        <path
+                                            d="M44 43.946a12.017 12.017 0 0 0-12 12.008v15.01h4v-15.01a8.012 8.012 0 0 1 8-8.005h3.453a16.1 16.1 0 0 1-3.288-4.003zm14-20.013a12.008 12.008 0 1 0 12 12.008 12.017 12.017 0 0 0-12-12.008z"
+                                            fill="#595bd4" class="color000000 svgShape"></path>
+                                        <path
+                                            d="M122 0H6a6.008 6.008 0 0 0-6 6.004V62.04a6.008 6.008 0 0 0 6 6.004l22-.151v-11.94a16.023 16.023 0 0 1 14.546-15.936 15.756 15.756 0 0 1 1.619-12.081H10a2.001 2.001 0 0 1 0-4.003h37.453A15.91 15.91 0 0 1 58 19.931H10a2.001 2.001 0 0 1 0-4.003h62a2.001 2.001 0 0 1 0 4.003H58a15.91 15.91 0 0 1 10.547 4.002h16.29a10.017 10.017 0 0 1 12.412.376 9.878 9.878 0 0 1 3.541 7.58 9.764 9.764 0 0 1-2.293 6.285L82.052 59.292c.008 1.924.006 4.235-.002 6.687v1.543l4.985-.034c-.011-.176-.035-.349-.035-.527v-4.003a8.012 8.012 0 0 1 8-8.005h18a8.012 8.012 0 0 1 8 8.005v.585a8.035 8.035 0 0 1 4.045 3.664A5.438 5.438 0 0 0 128 62.04V6.004A6.008 6.008 0 0 0 122 0ZM34 11.926H10a2.001 2.001 0 0 1 0-4.003h24a2.001 2.001 0 0 1 0 4.003Z"
+                                            fill="#595bd4" class="color000000 svgShape"></path>
+                                        <path
+                                            d="M124 74.966h-2v-4.002a4.001 4.001 0 0 0-4-4.003h-1v-4.003a4.001 4.001 0 0 0-4-4.002H95a4.001 4.001 0 0 0-4 4.002v4.003a4.001 4.001 0 0 0 4 4.002h1v4.003H4a4.001 4.001 0 0 0-4 4.003v4.002a4.001 4.001 0 0 0 4 4.003h2v39.025a2 2 0 1 0 4 0V86.974h108v39.025a2 2 0 1 0 4 0V86.974h2a4.001 4.001 0 0 0 4-4.003V78.97a4.001 4.001 0 0 0-4-4.003Zm-6-4.002v4.002h-18v-4.002ZM95 66.96v-4.003h18v4.003Zm29 16.01H4V78.97h120Z"
+                                            fill="#595bd4" class="color000000 svgShape"></path>
                                     </svg>
                                     <div class="ml-auto">
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Generador de preguntas
+                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Comprensión lectora
                                 </div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
-                                    <div class="text-base text-slate-500 mt-1">Want access? <span
-                                            class="font-bold">Upgrade to
-                                            Premium</span>
+                                    <div class="text-base text-slate-500 mt-1"><span class="font-bold">¡Hazte
+                                            Premium!</span>
                                     </div>
                                     <a href="{{ route('teacher.teacherAccountInfo') }}"
                                         class="btn rounded-md py-3 px-4 block mx-auto">Upgrade</a>
