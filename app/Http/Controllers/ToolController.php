@@ -406,7 +406,7 @@ class ToolController extends Controller
         $worksheet = [];
         // In Traditional Spanish from Spain.
         try {
-            $prompt = "Crea una ficha de trabajo sobre el tema de $description para un estudiante de grado $grade, siguiendo el currículo $curriculum. La ficha debe proporcionar preguntas exhaustivas y desafiantes. Incluye una mezcla de los siguientes tipos de preguntas: 8x Preguntas de Opción Múltiple, 3x Preguntas Generales, 4x Rellenar los Espacios en Blanco, 4x Afirmaciones Verdadero o Falso. Al final, añade una larga '----------------' y luego incluye las respuestas a las preguntas por separado.";
+            $prompt = "Crea una ficha de trabajo sobre el tema de $description para un estudiante de grado $grade, siguiendo el currículo $curriculum. La ficha debe proporcionar preguntas exhaustivas y desafiantes. Incluye los siguientes encabezados: Título, Objetivo, Instrucciones y variedad de preguntas. Envuelve cada encabezado en [h] [/h]. Incluye una mezcla de las siguientes preguntas: 4x Preguntas de Opción Múltiple, 3x Preguntas Generales, 4x Rellenar los Espacios en Blanco, 4x Afirmaciones Verdadero o Falso. Al final, añade una larga '----------------' y luego incluye las respuestas a las preguntas por separado.";
 
             $assistantPrompt = 'Eres un experto generando fichas de trabajo para estudiantes en el grado ' . $grade . '.';
 
@@ -431,6 +431,9 @@ class ToolController extends Controller
             $completeDecoded = json_decode($complete);
 
             $worksheet = $completeDecoded->choices[0]->message->content;
+            $worksheet = str_replace('[h]', '<h2>', $worksheet);
+            $worksheet = str_replace('[/h]', '</h2>', $worksheet);
+            $worksheet = str_replace('-', '•', $worksheet);
         } catch (Exception $e) {
             // Handle exceptions thrown by the OpenAI PHP SDK or custom exceptions
             // Log the error message or display an appropriate error message to the user
@@ -1001,95 +1004,27 @@ class ToolController extends Controller
 
     public function downloadWorksheetDocx(Request $request)
     {
-        Settings::setOutputEscapingEnabled(true);
         $worksheet = json_decode(urldecode($request->input('worksheet')), true);
+
         $phpWord = new PhpWord();
-
-        $headingStyle = ['size' => 16, 'bold' => true];
-        $taskStyle = ['size' => 14, 'bold' => true];
-        $objectiveStyle = ['size' => 14];
-
-        $contentStyle = ['size' => 12];
 
         $section = $phpWord->addSection();
 
-        // Add title
-        $cleanTitle = $this->removeInvalidXmlChars($worksheet['Title']);
-        $section->addText($cleanTitle, $headingStyle);
+        $fontStyleName = 'myOwnStyle';
+        $phpWord->addFontStyle(
+            $fontStyleName,
+            array('name' => 'Tahoma', 'size' => 16, 'color' => '1B2232', 'bold' => true)
+        );
 
-        // Add objective
-        $cleanObjective = $this->removeInvalidXmlChars($worksheet['Objective']);
-        $section->addText('Objective', $objectiveStyle);
-        $section->addText($cleanObjective, $contentStyle);
-
-        // Add Task 1: MCQs
-        $section->addText('Task 1: Multiple Choice Questions', $taskStyle);
-        foreach ($worksheet['MCQs'] as $index => $mcq) {
-            $section->addText(($index + 1) . '. ' . $mcq['Question']);
-            $section->addListItem($mcq['Choice1'], 0);
-            $section->addListItem($mcq['Choice2'], 0);
-            $section->addListItem($mcq['Choice3'], 0);
-            $section->addTextBreak();
-        }
-
-        // Add Task 2: Fill in the Blanks
-        $section->addText('Task 2: Fill in the Blanks', $taskStyle);
-        $section->addText('Word Bank:');
-        foreach ($worksheet['FillInTheBlanks'] as $index => $fib) {
-            $section->addListItem($fib['Answer'], 0);
-        }
-        $section->addTextBreak();
-
-        foreach ($worksheet['FillInTheBlanks'] as $index => $fib) {
-            $section->addText(($index + 1) . '. ' . $fib['Statement']);
-        }
-
-        $section->addTextBreak();
-
-        // Add Task 3: Critical Thinking
-        $section->addText('Task 3: Critical Thinking', $taskStyle);
-        if ($worksheet['decide'] == 0) {
-            $section->addText('Answer the following questions in complete sentences:');
-            foreach ($worksheet['GeneralQuestions'] as $index => $question) {
-                $section->addListItem($question, 0);
-            }
-        } else {
-            $section->addText('Label the following statements as: True or False');
-            foreach ($worksheet['TrueOrFalse'] as $index => $question) {
-                $section->addListItem($question['Statement'] . ' __________', 0);
+        $lines = explode("\n", $worksheet);
+        foreach ($lines as $line) {
+            if (strpos($line, '<h2>') !== false && strpos($line, '</h2>') !== false) {
+                $line = str_replace(['<h2>', '</h2>'], '', $line); // remove the HTML tags
+                $section->addText(trim($line), $fontStyleName); // add the line as heading with special style
+            } else {
+                $section->addText(trim($line)); // add the line as regular text
             }
         }
-        $section->addTextBreak();
-
-        // Add Task 4: Assessment
-        $section->addText('Task 4: Assessment', $taskStyle);
-        $cleanAssessmentSummary = $this->removeInvalidXmlChars($worksheet['AssessmentSummary']);
-        $section->addText($cleanAssessmentSummary);
-
-        // Add Answer Key
-        $section->addPageBreak();
-        $section->addText('Answer Key (For Teacher Use Only)', $headingStyle);
-
-        // MCQs
-        $section->addText('MCQs:', $taskStyle);
-        foreach ($worksheet['MCQs'] as $index => $mcq) {
-            $section->addText(($index + 1) . '. ' . $mcq['Correct']);
-        }
-
-        // Fill in the Blanks
-        $section->addText('Fill in the Blanks:', $taskStyle);
-        foreach ($worksheet['FillInTheBlanks'] as $index => $fib) {
-            $section->addText(($index + 1) . '. ' . $fib['Answer']);
-        }
-
-        // True or False
-        if ($worksheet['decide'] == 1) {
-            $section->addText('True or False:', $taskStyle);
-            foreach ($worksheet['TrueOrFalse'] as $index => $tof) {
-                $section->addText(($index + 1) . '. ' . $tof['Answer']);
-            }
-        }
-
 
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
 
@@ -1104,9 +1039,11 @@ class ToolController extends Controller
         exit;
     }
 
+
     public function downloadWorksheetPDF(Request $request)
     {
         $worksheet = json_decode(urldecode($request->input('worksheet')), true);
+
         $phpWord = new PhpWord();
         $phpWord->getDocInfo()->setTitle("MaestroIA - Worksheet PDF");
 
@@ -1115,104 +1052,21 @@ class ToolController extends Controller
         Settings::setPdfRendererPath($domPdfPath);
         Settings::setPdfRendererName('DomPDF');
 
-        // Define font styles
-        $headingStyle = ['size' => 14, 'bold' => true];
-        $taskStyle = ['size' => 14, 'bold' => true];
-        $objectiveStyle = ['size' => 14];
-        $contentStyle = ['size' => 12];
-
         $section = $phpWord->addSection();
 
-        // Add title
-        $section->addText($worksheet['Title'], $headingStyle);
-        $section->addTextBreak();
+        $fontStyleName = 'myOwnStyle';
+        $phpWord->addFontStyle(
+            $fontStyleName,
+            array('name' => 'Tahoma', 'size' => 16, 'color' => '1B2232', 'bold' => true)
+        );
 
-        // Add objective
-        $section->addText('Objective: ' . $worksheet['Objective'], $contentStyle);
-
-        // Add Task 1: MCQs
-        $section->addTextBreak();
-        $section->addText('Task 1: Multiple Choice Questions', $taskStyle);
-        $section->addTextBreak();
-
-        foreach ($worksheet['MCQs'] as $index => $mcq) {
-            $section->addText(($index + 1) . '. ' . $mcq['Question']);
-            $section->addListItem('a. ' . $mcq['Choice1'], 0);
-            $section->addListItem('b. ' . $mcq['Choice2'], 0);
-            $section->addListItem('c. ' . $mcq['Choice3'], 0);
-            $section->addTextBreak();
-        }
-
-        // Add Task 2: Fill in the Blanks
-        $section->addText('Task 2: Fill in the Blanks', $taskStyle);
-        $section->addTextBreak();
-
-        $section->addText('Word Bank:');
-        foreach ($worksheet['FillInTheBlanks'] as $index => $fib) {
-            $section->addListItem($fib['Answer'], 0);
-        }
-        $section->addTextBreak();
-
-        foreach ($worksheet['FillInTheBlanks'] as $index => $fib) {
-            $section->addText(($index + 1) . '. ' . $fib['Statement']);
-        }
-
-        $section->addTextBreak();
-
-        // Add Task 3: Critical Thinking
-        $section->addText('Task 3: Critical Thinking', $taskStyle);
-        $section->addTextBreak();
-
-        if ($worksheet['decide'] == 0) {
-            $section->addText('Answer the following questions in complete sentences:');
-            foreach ($worksheet['GeneralQuestions'] as $index => $question) {
-                $section->addListItem($question, 0);
-            }
-        } else {
-            $section->addText('Label the following statements as: True or False');
-            foreach ($worksheet['TrueOrFalse'] as $index => $question) {
-                $section->addListItem($question['Statement'] . ' __________', 0);
-            }
-        }
-        $section->addTextBreak();
-
-        // Add Task 4: Assessment
-        $section->addText('Task 4: Assessment', $taskStyle);
-        $section->addTextBreak();
-
-        $section->addText($worksheet['AssessmentSummary']);
-        $section->addTextBreak();
-
-        $section2 = $phpWord->addSection(['breakType' => 'nextPage']);
-
-        // Add Answer Key
-        $section2->addText('Answer Key (For Teacher Use Only)', $headingStyle);
-        $section2->addTextBreak();
-
-        $section2->addText('MCQs:', $taskStyle);
-        $section2->addTextBreak();
-
-        foreach ($worksheet['MCQs'] as $index => $mcq) {
-            $section2->addText(($index + 1) . '. ' . $mcq['Correct']);
-        }
-        $section2->addTextBreak();
-
-        // Fill in the Blanks
-        $section2->addText('Fill in the Blanks:', $taskStyle);
-        $section2->addTextBreak();
-
-        foreach ($worksheet['FillInTheBlanks'] as $index => $fib) {
-            $section2->addText(($index + 1) . '. ' . $fib['Answer']);
-        }
-        $section2->addTextBreak();
-
-        // True or False
-        if ($worksheet['decide'] == 1) {
-            $section2->addText('True or False:', $taskStyle);
-            $section2->addTextBreak();
-
-            foreach ($worksheet['TrueOrFalse'] as $index => $tof) {
-                $section2->addText(($index + 1) . '. ' . $tof['Answer']);
+        $lines = explode("\n", $worksheet);
+        foreach ($lines as $line) {
+            if (strpos($line, '<h2>') !== false && strpos($line, '</h2>') !== false) {
+                $line = str_replace(['<h2>', '</h2>'], '', $line); // remove the HTML tags
+                $section->addText(trim($line), $fontStyleName); // add the line as heading with special style
+            } else {
+                $section->addText(trim($line)); // add the line as regular text
             }
         }
 
@@ -1224,6 +1078,7 @@ class ToolController extends Controller
         header("Content-Disposition: attachment; filename=$fileName");
         header('Content-Type: application/pdf');
 
+        // Save the file to output buffer and send it to the browser
         $objWriter->save('php://output');
         exit;
     }

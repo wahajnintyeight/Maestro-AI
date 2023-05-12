@@ -1,5 +1,11 @@
 @extends('dashboard.teacher.layout')
 @section('content')
+<style>
+    h2 {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+</style>
 <div class="intro-y flex items-center mt-8">
     <h2 class="text-lg font-medium mr-auto">
         Generador de actividades
