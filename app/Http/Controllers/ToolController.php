@@ -805,9 +805,20 @@ class ToolController extends Controller
 
         $section = $phpWord->addSection();
 
+        $fontStyleName = 'myOwnStyle';
+        $phpWord->addFontStyle(
+            $fontStyleName,
+            array('name' => 'Tahoma', 'size' => 16, 'color' => '1B2232', 'bold' => true)
+        );
+
         $lines = explode("\n", $lesson);
         foreach ($lines as $line) {
-            $section->addText(trim($line));
+            if (strpos($line, '<h2>') !== false && strpos($line, '</h2>') !== false) {
+                $line = str_replace(['<h2>', '</h2>'], '', $line); // remove the HTML tags
+                $section->addText(trim($line), $fontStyleName); // add the line as heading with special style
+            } else {
+                $section->addText(trim($line)); // add the line as regular text
+            }
         }
 
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
@@ -822,6 +833,7 @@ class ToolController extends Controller
         $objWriter->save('php://output');
         exit;
     }
+
 
 
     public function downloadComprehension(Request $request)
