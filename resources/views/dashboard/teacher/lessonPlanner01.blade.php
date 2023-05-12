@@ -2,7 +2,7 @@
 @section('content')
 <style>
     h2 {
-        font-size: 1.5em;
+        font-size: 18px;
         font-weight: bold;
     }
 </style>

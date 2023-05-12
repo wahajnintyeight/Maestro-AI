@@ -559,7 +559,7 @@ class ToolController extends Controller
         // In Traditional Spanish from Spain. 
         try {
 
-            $prompt = "En español tradicional de España. Cree una explicación detallada del concepto para un estudiante de $age que estudia '$subject' y '$topic'. Trate de seguir el plan de estudios '$curriculum'. Explique cada concepto en profundidad, utilizando un lenguaje sencillo y ejemplos para que sea fácil de entender para el alumno. Asegúrese de que la explicación sea completa y cubra todos los aspectos esenciales del tema. Incluya un párrafo de ejemplo al final. Cada encabezado debe comenzar en una nueva línea. Evita la costumbre de hacer esto: 'Contenido: Este es el contenido', es decir, no es necesario anteponer el contenido con una etiqueta y dos puntos. Utiliza este punto de viñeta para elementos de lista: •";
+            $prompt = "En español tradicional de España. Cree una explicación detallada del concepto para un estudiante de $age que estudia '$subject' y '$topic'. Trate de seguir el plan de estudios '$curriculum'. Explique cada concepto en profundidad, utilizando un lenguaje sencillo y ejemplos para que sea fácil de entender para el estudiante. Encierre cada encabezado en [h] [/h]. Asegúrese de que la explicación sea completa y cubra todos los aspectos esenciales del tema. Incluye un párrafo de ejemplo al final. Cada encabezado debe comenzar en una nueva línea. Evite el hábito de hacer esto: 'Contenido: Este es el contenido', es decir, no necesita anteponer al contenido una etiqueta y dos puntos.";
 
             $assistantPrompt = "Eres un experto en explicar conceptos profundos para estudiantes de " . $age . " años.";
             $complete = $open_ai->chat([
@@ -586,7 +586,8 @@ class ToolController extends Controller
             // dd($completeDecoded);
 
             $concept = $completeDecoded->choices[0]->message->content;
-
+            $concept = str_replace('[h]', '<h2>', $concept);
+            $concept = str_replace('[/h]', '</h2>', $concept);
 
             // dd($concept);
         } catch (Exception $e) {
@@ -675,26 +676,26 @@ class ToolController extends Controller
 
                 $assistantPrompt = "You are an expert at generating detailed comprehension questions. You are a teacher who is creating comprehension questions for a reading passage. Please provide well-written questions in this format: [VocabularyQuestionHere|AnswerStatement1]|[VocabularyQuestionHere|AnswerStatement2]|[InferenceQuestionHere|Statement1]|InferenceQuestionHere|AnswerStatement2]|[EvaluationQuestionHere|AnswerStatement1]|EvaluationQuestionHere|AnswerStatement2]|[AuthorChoiceQuestionHere|AnswerStatement1]|AuthorChoiceQuestionHere|AnswerStatement2]|[ContrastQuestionHere|AnswerStatement1]|ContrastQuestionHere|AnswerStatement2]. For example: [What is the main idea of the passage?|The main idea of the passage is that the author is trying to explain the importance of the topic.]";
             }
-            // $complete = $open_ai->chat([
-            //     'model' => 'gpt-3.5-turbo',
-            //     'messages' => [
-            //         [
-            //             'role' => 'system',
-            //             'content' => $assistantPrompt
-            //         ],
-            //         [
-            //             'role' => 'user',
-            //             'content' => $prompt
-            //         ],
-            //     ],
-            //     'temperature' => 0.9,
-            //     'max_tokens' => 1000,
-            //     'frequency_penalty' => 0,
-            //     'presence_penalty' => 0.6,
-            // ]);
+            $complete = $open_ai->chat([
+                'model' => 'gpt-3.5-turbo',
+                'messages' => [
+                    [
+                        'role' => 'system',
+                        'content' => $assistantPrompt
+                    ],
+                    [
+                        'role' => 'user',
+                        'content' => $prompt
+                    ],
+                ],
+                'temperature' => 0.9,
+                'max_tokens' => 1000,
+                'frequency_penalty' => 0,
+                'presence_penalty' => 0.6,
+            ]);
             // dd($complete);
 
-            $complete = '{"id":"chatcmpl-7DT5GvyTMELkChV3YjmGJ3RXchLTs","object":"chat.completion","created":1683444418,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":498,"completion_tokens":371,"total_tokens":869},"choices":[{"message":{"role":"assistant","content":"[What is the meaning of the word \"terrestrial\" as used in the passage?| The word \"terrestrial\" means relating to the earth or land.]\n\n[What does the word \"quagmire\" mean in the passage?| The word \"quagmire\" means a difficult or complicated situation.]\n\n[What does the phrase \"dismissed from service\" mean in the passage?| The phrase \"dismissed from service\" means to be fired from employment.]\n\n[What is the meaning of the word \"authority\" in the passage?| The word \"authority\" means the power or right to give orders, make decisions, and enforce obedience.]\n\n[What does the word \"topography\" mean as used in the passage?| The word \"topography\" means the detailed description or charting of the features of a relatively small area, district, or locality.]\n\n[What was the name given to the passage that Magellan found?| Magellan named the passage \'the Strait of All Saints\']\n\n[What is the current name of the strait that Magellan had discovered?| The Strait of All Saints is currently known as the Strait of Magellan.]\n\n[What happened to one of the ships during the expedition, and where were they exploring at that time?| One of the five ships sank while exploring the topography of South America in search of a water route across the continent.]\n\n[What did Ferdinand Magellan offer to prove to the future Emperor Charles V of Spain?| Ferdinand Magellan offered to prove that the East Indies fell under Spanish authority.]\n\n[What was the purpose of the papal decree of 1493?| The purpose of the papal decree of 1493 assigned all land in the New World west of 50 degrees W longitude to Spain and all the land east of that line to Portugal.]"},"finish_reason":"stop","index":0}]}';
+            // $complete = '{"id":"chatcmpl-7DT5GvyTMELkChV3YjmGJ3RXchLTs","object":"chat.completion","created":1683444418,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":498,"completion_tokens":371,"total_tokens":869},"choices":[{"message":{"role":"assistant","content":"[What is the meaning of the word \"terrestrial\" as used in the passage?| The word \"terrestrial\" means relating to the earth or land.]\n\n[What does the word \"quagmire\" mean in the passage?| The word \"quagmire\" means a difficult or complicated situation.]\n\n[What does the phrase \"dismissed from service\" mean in the passage?| The phrase \"dismissed from service\" means to be fired from employment.]\n\n[What is the meaning of the word \"authority\" in the passage?| The word \"authority\" means the power or right to give orders, make decisions, and enforce obedience.]\n\n[What does the word \"topography\" mean as used in the passage?| The word \"topography\" means the detailed description or charting of the features of a relatively small area, district, or locality.]\n\n[What was the name given to the passage that Magellan found?| Magellan named the passage \'the Strait of All Saints\']\n\n[What is the current name of the strait that Magellan had discovered?| The Strait of All Saints is currently known as the Strait of Magellan.]\n\n[What happened to one of the ships during the expedition, and where were they exploring at that time?| One of the five ships sank while exploring the topography of South America in search of a water route across the continent.]\n\n[What did Ferdinand Magellan offer to prove to the future Emperor Charles V of Spain?| Ferdinand Magellan offered to prove that the East Indies fell under Spanish authority.]\n\n[What was the purpose of the papal decree of 1493?| The purpose of the papal decree of 1493 assigned all land in the New World west of 50 degrees W longitude to Spain and all the land east of that line to Portugal.]"},"finish_reason":"stop","index":0}]}';
 
             // $complete = '{"id":"chatcmpl-7DRuo8toCkb4C9DMacrpkUI1lUdbo","object":"chat.completion","created":1683439926,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":443,"completion_tokens":413,"total_tokens":856},"choices":[{"message":{"role":"assistant","content":"[QuestionStatement1|AnswerStatement1] \r\nWhat do the unusual events described in the chronicle refer to and where did they occur? \r\nAnswer: The unusual events referred to in the chronicle occurred in 194- at Oran.\r\n\r\n[QuestionStatement2|AnswerStatement2] \r\nWhat is the description of the town of Oran, and how does it differ from other business centers in the world?\r\nAnswer: Oran is a large French port on the Algerian coast, and it has a smug, placid air. It is different from other business centers in the world because it is entirely negative, with no pigeons, trees, or gardens, and you never hear the rustle of leaves or the beat of wings.\r\n\r\n[QuestionStatement3|AnswerStatement3] \r\nHow are seasons discriminated in the town of Oran, and what tells people about spring\'s coming?\r\nAnswer: Seasons are discriminated only in the sky. People feel the air change, and baskets of flowers brought in from the suburbs by peddlers tell them about spring\'s coming.\r\n\r\n[QuestionStatement4|AnswerStatement4]\r\nWhat is the meaning of the phrase \"a spring cried in the marketplaces,\" and how does it relate to the passage?\r\nAnswer: The phrase means that people announce the coming of spring loudly, as if it were something to be sold. It relates to the passage because it shows how plain and ordinary life is in Oran, and how even the coming of spring is not a significant event there.\r\n\r\n[QuestionStatement5|AnswerStatement5]\r\nWhat is the significance of using \'negative words\' to describe the town of Oran, and how does this affect the overall tone of the passage?\r\nAnswer: The use of negative words to describe Oran affects the overall tone of the passage by creating a sense of apathy and indifference toward the town. The town is described as thoroughly negative, and the use of words like \"ugly\" and \"smug\" contribute to the passive, unremarkable tone of the passage."},"finish_reason":"stop","index":0}]}';
 
@@ -940,15 +941,27 @@ class ToolController extends Controller
 
     public function downloadConceptDocx(Request $request)
     {
-        Settings::setOutputEscapingEnabled(true);
         $concept = json_decode(urldecode($request->input('concept')), true);
+
+        // dd($concept);
         $phpWord = new PhpWord();
 
         $section = $phpWord->addSection();
 
+        $fontStyleName = 'myOwnStyle';
+        $phpWord->addFontStyle(
+            $fontStyleName,
+            array('name' => 'Tahoma', 'size' => 16, 'color' => '1B2232', 'bold' => true)
+        );
+
         $lines = explode("\n", $concept);
         foreach ($lines as $line) {
-            $section->addText(trim($line));
+            if (strpos($line, '<h2>') !== false && strpos($line, '</h2>') !== false) {
+                $line = str_replace(['<h2>', '</h2>'], '', $line); // remove the HTML tags
+                $section->addText(trim($line), $fontStyleName); // add the line as heading with special style
+            } else {
+                $section->addText(trim($line)); // add the line as regular text
+            }
         }
 
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
@@ -967,26 +980,30 @@ class ToolController extends Controller
     public function downloadConceptPDF(Request $request)
     {
         $concept = json_decode(urldecode($request->input('concept')), true);
-        // Set PDF renderer
-        // Set the PDF renderer path
 
         $phpWord = new PhpWord();
 
         $phpWord->getDocInfo()->setTitle("MaestroIA - Concept Explainer PDF");
 
-
         $domPdfPath = base_path('vendor/dompdf/dompdf');
         Settings::setPdfRendererPath($domPdfPath);
         Settings::setPdfRendererName('DomPDF');
 
+
         // Define font styles
         $contentStyle = ['size' => 12];
+        $headingStyle = ['size' => 16, 'bold' => true];
 
         $section = $phpWord->addSection();
 
         $lines = explode("\n", $concept);
         foreach ($lines as $line) {
-            $section->addText(trim($line), $contentStyle);
+            if (strpos($line, '<h2>') !== false && strpos($line, '</h2>') !== false) {
+                $line = str_replace(['<h2>', '</h2>'], '', $line); // remove the HTML tags
+                $section->addText(trim($line), $headingStyle); // add the line as heading with special style
+            } else {
+                $section->addText(trim($line), $contentStyle); // add the line as regular text
+            }
         }
 
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'PDF');
@@ -996,11 +1013,12 @@ class ToolController extends Controller
         // Set headers for downloading the file
         header("Content-Disposition: attachment; filename=$fileName");
         header('Content-Type: application/pdf');
-
         // Save the file to output buffer and send it to the browser
         $objWriter->save('php://output');
+
         exit;
     }
+
 
     public function downloadWorksheetDocx(Request $request)
     {

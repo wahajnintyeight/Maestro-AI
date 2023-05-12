@@ -1,5 +1,11 @@
 @extends('dashboard.teacher.layout')
 @section('content')
+<style>
+    h2 {
+        font-size: 18px;
+        font-weight: bold;
+    }
+</style>
 <div class="intro-y flex items-center mt-8">
     <h2 class="text-lg font-medium mr-auto">
         Explicación de conceptos
@@ -155,10 +161,10 @@
                     <a target="_blank"
                         href="{{ route('teacher.downloadConceptDocx', ['concept' => urlencode(json_encode($concept))]) }}"
                         class="btn btn-primary">Descargar.DOCX</a>
-
+                    {{--
                     <a target="_blank"
                         href="{{ route('teacher.downloadConceptPDF', ['concept' => urlencode(json_encode($concept))]) }}"
-                        class="btn btn-primary">Descargar.PDF</a>
+                        class="btn btn-primary">Descargar.PDF</a> --}}
                 </div>
 
                 <div class="font-medium italic mt-5">

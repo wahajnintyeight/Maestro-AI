@@ -10,7 +10,7 @@
             <div class="col-span-12 mt-8">
                 <div class="intro-y flex items-center h-10">
                     <h2 class="text-lg font-medium truncate mr-5">
-                        Classroom Tools
+                        Herramientas para el aula
                     </h2>
 
                 </div>
@@ -18,7 +18,7 @@
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
                         @if ($user->is_paid == 1)
                         <a href="{{ route('teacher.showConceptExplainer') }}">
-                            <div class="report-box zoom-in">
+                            <div style="height: 100% !important;" class="report-box zoom-in">
                                 <div class="box h-full p-5 py-10">
                                     <div class="flex">
                                         <svg style="width: 58px;" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"
@@ -93,7 +93,7 @@
                             </div>
                         </a>
                         @else
-                        <div class="report-box">
+                        <div style="height: 100% !important;" class="report-box">
                             <div class="box h-full p-5 py-6">
                                 <div class="flex">
                                     <svg style="width: 58px;" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"
@@ -177,7 +177,7 @@
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
                         @if ($user->is_paid == 1)
                         <a href="{{ route('teacher.showWorksheetGenerator') }}">
-                            <div class="report-box zoom-in">
+                            <div style="height: 100% !important;" class="report-box zoom-in">
                                 <div class="box h-full p-5 py-10">
                                     <div class="flex">
                                         <svg style="width: 58px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"
@@ -200,7 +200,7 @@
                             </div>
                         </a>
                         @else
-                        <div class="report-box">
+                        <div style="height: 100% !important;" class="report-box">
                             <div class="box h-full p-5 py-6">
                                 <div class="flex">
                                     <svg style="width: 58px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"
@@ -232,7 +232,7 @@
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
                         @if ($user->is_paid == 1)
                         <a href="{{ route('teacher.comprehension.form') }}">
-                            <div class="report-box zoom-in">
+                            <div style="height: 100% !important;" class="report-box zoom-in">
                                 <div class="box h-full p-5 py-10">
                                     <div class="flex">
                                         <svg style="width: 58px;" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"
@@ -261,7 +261,7 @@
                             </div>
                         </a>
                         @else
-                        <div class="report-box">
+                        <div style="height: 100% !important;" class="report-box">
                             <div class="box h-full p-5 py-6">
                                 <div class="flex">
                                     <svg style="width: 58px;" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"
