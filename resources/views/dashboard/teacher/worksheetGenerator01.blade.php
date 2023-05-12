@@ -30,7 +30,7 @@
                     <div>
                         <label for="curriculum" class="form-label">Currículo</label>
                         <select id="curriculum" name="curriculum" class="form-select">
-                            <option value="Spanish National Curriculum/LOMLOE">Spanish National Curriculum/LOMLOE
+                            <option value="Currículo Espanol - LOMLOE">Currículo Espanol - LOMLOE
                             </option>
                             <option value="Chile">Chile: Curriculum Nacional Base</option>
                             <option value="Argentina">Argentina: Diseño Curricular Nacional</option>

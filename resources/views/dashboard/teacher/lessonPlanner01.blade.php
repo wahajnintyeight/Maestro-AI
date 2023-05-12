@@ -1,5 +1,11 @@
 @extends('dashboard.teacher.layout')
 @section('content')
+<style>
+    h2 {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+</style>
 <div class="intro-y flex items-center mt-8">
     <h2 class="text-lg font-medium mr-auto">
         Planificador de situaciones de aprendizaje </h2>
@@ -47,7 +53,7 @@
                     <div>
                         <label for="curriculum" class="form-label">Curriculum</label>
                         <select id="curriculum" name="curriculum" class="form-select">
-                            <option value="Spanish National Curriculum/LOMLOE">Spanish National Curriculum/LOMLOE
+                            <option value="Currículo Espanol - LOMLOE">Currículo Espanol - LOMLOE
                             </option>
                             <option value="Chile">Chile</option>
                             <option value="Argentina">Argentina</option>
