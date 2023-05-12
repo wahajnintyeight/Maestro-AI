@@ -90,7 +90,7 @@
                             class="form-control">
                     </div>
                     <div class="mt-5">
-                        <label for="comprehension-focus" class="form-label">Enfoque de las preguntas</label>
+                        <label for="comprehension-focus" class="form-label">Ideas principales del texto</label>
                         <!-- Textarea for Lesson Description -->
                         <select id="comprehension-focus" name="focus" required class="form-select">
                             <option value="Vocabulary and Spelling" <?php if ($focus=='Vocabulary' ) { echo 'selected' ;
@@ -101,7 +101,11 @@
                             <option value="Inference" <?php if ($focus=='Inference' ) { echo 'selected' ; } ?>
                                 >Comprensión inferencial
                             </option>
-                            <option value="Evaluation" <?php if ($focus=='Evaluation' ) { echo 'selected' ; } ?>
+                            <option value="Comprension critica" <?php if ($focus=='Comprension critica' ) {
+                                echo 'selected' ; } ?>
+                                >Comprensión critica
+                            </option>
+                            {{-- <option value="Evaluation" <?php if ($focus=='Evaluation' ) { echo 'selected' ; } ?>
                                 >Evaluation</option>
                             <option value="Author Choice" <?php if ($focus=='Author Choice' ) { echo 'selected' ; } ?>
                                 >Author Choice</option>
@@ -116,7 +120,7 @@
                                 Language
                                 and Structure</option>
                             <option value="Mixture of All" <?php if ($focus=='Mixture of All' ) { echo 'selected' ; } ?>
-                                >Mixture of All</option>
+                                >Mixture of All</option> --}}
                         </select>
                     </div>
                     <div class="mt-5">

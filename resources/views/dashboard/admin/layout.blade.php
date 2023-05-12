@@ -62,7 +62,8 @@
                         </g>
                     </g>
                 </svg>
-                <span class="hidden xl:block text-white text-lg ml-3"> MaestroIA </span>
+                <a href="{{route('teacher.dashboard')}}"> <span class="hidden xl:block text-white text-lg ml-3">
+                        MaestroIA </span></a>
             </a>
             <div class="side-nav__devider my-6"></div>
             <ul>
