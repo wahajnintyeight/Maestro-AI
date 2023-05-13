@@ -14,7 +14,7 @@
     <meta name="author" content="LEFT4CODE">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
     <title>Maestro AI - Dashboard</title>
     <!-- BEGIN: CSS Assets-->
     <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}" />
@@ -22,7 +22,7 @@
 </head>
 <!-- END: Head -->
 
-<body style="font-family: Inter;" class="py-5 md:py-0 bg-black/[0.15] dark:bg-transparent">
+<body style="font-family: 'Poppins', sans-serif;" class="py-5 md:py-0 bg-black/[0.15] dark:bg-transparent">
     <!-- BEGIN: Mobile Menu -->
     <div class="mobile-menu md:hidden">
         <div class="mobile-menu-bar">

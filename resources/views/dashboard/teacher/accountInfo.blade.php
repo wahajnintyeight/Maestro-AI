@@ -1,6 +1,8 @@
 @extends('dashboard.teacher.layout')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
+{{--
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" /> --}}
 @section('content')
+<script src="https://cdn.tailwindcss.com"></script>
 <div class="intro-y flex items-center mt-8">
     <h2 class="text-lg font-medium mr-auto">
         Account Settings
@@ -59,315 +61,392 @@
             </div>
             <div class="p-5">
                 <div class="intro-y box mt-5">
-                    @if ($user->is_paid == 0)
+                    @if ($user->is_paid == 1)
                     {{-- START --}}
-                    <div class="xl:container m-auto px-6 py-20 md:px-12 lg:px-20">
+                    <div class="xl:container m-auto">
                         <div class="m-auto text-center">
 
-                            <div class="mb-4">
-                                <ul class="hidden mx-auto text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg shadow sm:flex w-96""
-                                            id=" myTab" data-tabs-toggle="#myTabContent" role="tablist">
-                                    <li class="mr-2 w-full" role="presentation">
-                                        <button
-                                            class="inline-block w-full p-4 text-gray-900 bg-gray-100 rounded-l-lg focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700 dark:text-white"
-                                            aria-current="page" id="monthly-tab" data-tabs-target="#monthly"
-                                            type="button" role="tab" aria-controls="monthly"
-                                            aria-selected="true">Monthly</button>
-                                    </li>
-                                    <li class="w-full" role="presentation">
-                                        <button
-                                            class="inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
-                                            id="annually-tab" data-tabs-target="#annually" type="button" role="tab"
-                                            aria-controls="annually" aria-selected="false">Annual</button>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div id="myTabContent">
-                                @foreach ($plans as $key => $plan)
-                                {{-- Monthly --}}
-                                @if ($key == 0)
-                                <div class="hidden p-4 mx-auto w-1/4 rounded-lg bg-gray-100 " id="monthly"
-                                    role="tabpanel" aria-labelledby="monthly-tab">
-                                    <div class="mt-4  items-center ">
-                                        <div class="group relative row-start-1 md:col-span-2 lg:w-[36%]">
-                                            <div aria-hidden="true"
-                                                class="absolute top-0 h-full w-full rounded-3xl  shadow-2xl shadow-gray-600/10  transition duration-500 group-hover:scale-105 lg:group-hover:scale-110">
+                            <div class="bg-white py-6 sm:py-8 lg:py-12">
+                                <div class="mx-auto px-4 md:px-8">
+                                    <h2
+                                        class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-8 lg:text-3xl xl:mb-12">
+                                        Suscríbete a MaestroIA
+                                    </h2>
+
+                                    <div class="mb-6 grid gap-6 sm:grid-cols-2 md:mb-8 lg:grid-cols-4 lg:gap-8">
+                                        <!-- plan - start -->
+                                        <div class="flex flex-col rounded-lg border p-4 pt-6">
+                                            <div class="mb-12">
+                                                <div
+                                                    class="mb-2 text-center text-2xl border-b border-gray-200 pb-2 font-bold text-gray-800">
+                                                    Gratis
+                                                </div>
+
+                                                <p class="mx-auto pt-2 mb-8 px-8 text-center text-gray-500">Acceso a
+                                                    nuestras
+                                                    herramientas gratis para que ppuedas comprobar como funcionan</p>
+
+                                                <div class="space-y-2">
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+
+                                                        <span class="text-gray-600">Accesso a la plataforma</span>
+                                                    </div>
+                                                    <!-- check - end -->
+
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+
+                                                        <span class="text-gray-600">Herramientas Gratis</span>
+                                                    </div>
+                                                    <!-- check - end -->
+
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                            class="h-6 w-6 shrink-0 text-gray-500">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+
+                                                        <span class="text-gray-600">Historial</span>
+                                                    </div>
+                                                    <!-- check - end -->
+
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                            class="h-6 w-6 shrink-0 text-gray-500">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+
+                                                        <span class="text-gray-600">Comunity support</span>
+                                                    </div>
+                                                    <!-- check - end -->
+                                                </div>
                                             </div>
-                                            <div class="relative space-y-8 p-8">
-                                                <h3
-                                                    class="text-center text-3xl font-semibold text-gray-700 dark:text-white">
-                                                    Monthly</h3>
-                                                <div class="overflow-hidden">
-                                                    <div class="-mr-20 flex items-end justify-center">
-                                                        <div class="flex">
-                                                            <span
-                                                                class="-ml-6 mt-2 text-3xl font-bold text-primary">€</span>
-                                                            <span
-                                                                class="leading-0 text-8xl font-bold text-gray-800 dark:text-white">{{
-                                                                intval($plan->price) }}</span>
-                                                        </div>
-                                                        <div class="mb-2">
-                                                            <span
-                                                                class="block text-xl font-bold text-gray-500 dark:text-gray-400">.99</span>
-                                                            <span class="block text-xl font-bold text-primary">/
-                                                                Month</span>
-                                                        </div>
-                                                    </div>
+
+                                            <div class="mt-auto flex flex-col gap-8">
+                                                <div class="flex items-end justify-center gap-1">
+                                                    <span class="self-start text-gray-600">€</span>
+                                                    <span class="text-4xl font-bold text-gray-800">0</span>
+                                                    <span class="text-gray-500">per month</span>
                                                 </div>
-                                                <ul role="list"
-                                                    class="m-auto w-max space-y-4 pb-6 text-gray-600 dark:text-gray-300">
-                                                    <li class="space-x-2">
-                                                        <span class="font-semibold text-primary">&check;</span>
-                                                        <span>Multiple Tools</span>
-                                                    </li>
-                                                    <li class="space-x-2">
-                                                        <span class="font-semibold text-primary">&check;</span>
-                                                        <span>Complete Access</span>
-                                                    </li>
-                                                    <li class="space-x-2">
-                                                        <span class="font-semibold text-primary">&check;</span>
-                                                        <span>Customer Support</span>
-                                                    </li>
-                                                </ul>
-                                                <div>
-                                                    <p>By purchasing - you agree & abide by our Terms and Conditions
-                                                        which you can read here.</p>
-                                                    <div class="flex justify-center items-center gap-2 mt-2">
-                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="32"
-                                                                height="32" id="check" fill="#34a853">
-                                                                <path
-                                                                    d="M16.084 0c-8.836 0-16 7.164-16 16s7.164 16 16 16 16-7.164 16-16-7.164-16-16-16zm7.412 11.574-7.664 11.714c-.002.002-.006.004-.006.006-.04.06-.062.128-.112.184-.07.076-.16.116-.24.174-.02.014-.04.03-.062.044-.124.078-.252.13-.392.164-.046.012-.088.024-.136.032a1.35 1.35 0 0 1-.336.004 1.324 1.324 0 0 1-.234-.036 1.415 1.415 0 0 1-.23-.092c-.064-.03-.132-.038-.192-.076-.044-.028-.068-.072-.106-.106-.016-.014-.036-.018-.052-.032l-4.462-4.126a1.4 1.4 0 0 1 1.9-2.056l3.23 2.988 6.75-10.318a1.4 1.4 0 1 1 2.344 1.532z">
-                                                                </path>
-                                                            </svg></div>
-                                                        <div class="font-bold">WE<br>ACCEPT</div>
-                                                        <svg style="width: 48px;" xmlns="http://www.w3.org/2000/svg"
-                                                            viewBox="0 0 30 30" id="visa">
-                                                            <g fill="#303C42">
-                                                                <path d="m22.504 13.84-.895 2.138h1.4l-.39-1.646z">
-                                                                </path>
-                                                                <path
-                                                                    d="M28 4H2C.897 4 0 4.897 0 6v18c0 1.103.897 2 2 2h26c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zM5.006 12.43a.185.185 0 0 1 .185-.143l1.768.002h.007c.259.01.616.068.729.459l.002.009.314 1.368a.17.17 0 0 1-.106.194.2.2 0 0 1-.228-.053c-.59-.717-1.472-1.285-2.55-1.643a.172.172 0 0 1-.121-.193zm4.163 5.562-1.517.002a.187.187 0 0 1-.18-.124l-1.318-4.154c-.023-.072.007-.15.074-.192s.156-.04.22.006c.95.673 1.63 1.52 1.882 2.062a.142.142 0 0 1 .009.023l.172.575 1.603-3.777a.188.188 0 0 1 .175-.11l1.37-.001a.19.19 0 0 1 .157.078c.035.048.041.11.016.164l-2.49 5.344a.19.19 0 0 1-.173.104zm4.115-.138a.184.184 0 0 1-.186.145h-1.302a.195.195 0 0 1-.144-.062.165.165 0 0 1-.042-.141l.99-5.355a.184.184 0 0 1 .185-.144h1.303c.055 0 .108.023.144.062.035.039.05.09.041.14l-.99 5.355zm4.395-3.245c.933.39 1.366.863 1.36 1.49-.012 1.141-1.122 1.879-2.827 1.88h-.002c-.595-.007-1.215-.096-1.659-.24a.173.173 0 0 1-.123-.193l.161-.87a.175.175 0 0 1 .095-.123.202.202 0 0 1 .163-.008c.504.193.86.285 1.522.285.464 0 .966-.167.97-.536.003-.241-.209-.413-.84-.682-.616-.263-1.434-.704-1.423-1.494.009-1.068 1.137-1.814 2.744-1.814.567 0 1.02.099 1.3.182.09.026.144.109.128.194l-.152.826a.175.175 0 0 1-.093.122.202.202 0 0 1-.16.011 3.176 3.176 0 0 0-1.147-.187c-.614 0-.934.237-.934.471-.003.26.347.43.917.686zm7.282 3.327a.194.194 0 0 1-.146.065h-1.177a.185.185 0 0 1-.184-.137c-.04-.165-.134-.566-.173-.717l-1.183-.001h-.025l-.949-.001c-.035.083-.142.34-.307.744a.189.189 0 0 1-.176.112h-1.35a.192.192 0 0 1-.158-.079.162.162 0 0 1-.014-.165l2.383-4.981c.159-.332.423-.473.883-.473h1.15c.088 0 .164.056.183.136l1.28 5.35a.164.164 0 0 1-.037.147z">
-                                                                </path>
-                                                            </g>
-                                                        </svg>
-                                                        <svg style="width: 48px;" xmlns="http://www.w3.org/2000/svg"
-                                                            xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                            fill-rule="evenodd" clip-rule="evenodd"
-                                                            image-rendering="optimizeQuality"
-                                                            shape-rendering="geometricPrecision"
-                                                            text-rendering="geometricPrecision" viewBox="0 0 4335 4335"
-                                                            id="gold-mastercard">
-                                                            <defs>
-                                                                <linearGradient id="a" x1="2167.46" x2="2167.46"
-                                                                    y1="868.38" y2="3596.59"
-                                                                    gradientUnits="userSpaceOnUse">
-                                                                    <stop offset="0" stop-color="#D5B73E"></stop>
-                                                                    <stop offset="1" stop-color="#C09410"></stop>
-                                                                </linearGradient>
-                                                                <linearGradient id="b" x1="2167.46" x2="2167.46"
-                                                                    y1="845.69" y2="3573.9"
-                                                                    gradientUnits="userSpaceOnUse" xlink:href="#a">
-                                                                </linearGradient>
-                                                            </defs>
-                                                            <rect width="4267" height="2728" x="34" y="868"
-                                                                fill="url(#a)" rx="262" ry="262"></rect>
-                                                            <rect width="4267" height="2728" x="34" y="846"
-                                                                fill="url(#b)" rx="262" ry="262"></rect>
-                                                            <path fill="#e41d2c"
-                                                                d="m1172 2226 19-75c73-22 222-32 250 47 16 46-30 237-39 293l-71 1c-16-20-3 17-14-32-68 61-213 51-202-72 11-122 117-106 232-124-2-78-100-57-176-39zm535-12c-65 0-75-14-132 11 7 71 44 43 95 77 97 64-7 262-238 177l13-72c65 13 98 26 148-2 12-101-167-35-117-197 27-88 146-76 244-67l-14 73zm-996-153 153 5 16 240 83-192c28-69 9-54 185-52l-79 429-86-1 47-308-127 310-103-3c-3-60-8-271-24-311l-52 312-90-1 77-428zm1459 911 42-50c-84-11-99 13-137-55l193-2c12-20 32-39 42-62-220-15-282 41-317-55h353l39-61-436-2-20-51 470-2c27-15 27-32 34-63l-445-1c-80 1-85 19-100-54h560l18-62-164-2-8 42-94-4 59-349 89 12c0 2 2 9 2 12 0 2 1 5 1 6l5 18c25-30 41-52 99-50l-30 81c-17 22-67-3-88 57l98 4c11-63 23-82 41-133l1-30-613 1-2 22c33 0 32-6 51 10l-9 59c-62 15-60-22-66 59 9 15-2 7 17 12l39 1c63-205 251-160 294-96 23 34 46 146-11 155l-191 2c9 101 125 80 200 55-3 42 0 76-39 90-31 11-96 8-130 0-84-19-120-61-126-152l-36-1c-33-15-7 0-24-41-14 84-52 138 52 126-6 50 1 67-54 73-160 19-108-88-82-231 41-228 9-200 125-198l596 1-12-62-576-2 11-50 545-3c-14-85-17-64-215-64h-302c21-73 10-53 206-53h265l-28-63-384-1 26-52 321-2c-41-84-39-60-266-64 29-72 80-54 169-54-25-40-43-37-58-71-37-19-70-53-107-79-283-200-667-221-975-71-277 134-549 444-546 873 4 613 542 1060 1151 956 286-49 358-165 476-230z">
-                                                            </path>
-                                                            <path fill="#f8b02b"
-                                                                d="M2823 2149c310-63 259 90 234 214-8 37-8 110-37 130-7 0-48 1-52-1-28-11-15 22-19-29-84 48-217 59-201-75 13-107 121-124 231-119-4-79-76-66-176-41l21-79zm306-9 83 1c1 2 2 5 2 7l13 37c15-23 43-43 87-44l-12 71-41 16c-82 27-77 130-99 265h-93l60-353zm441-76h85l-73 430c-95 1-72 6-102-30-62 92-248 7-191-183 42-142 184-180 254-96l28-122zm-1399-540c15 34 34 31 58 71-89 0-140-19-169 54 227 4 225-20 266 64l-321 2-26 52 384 1 28 63h-265c-195 0-185-19-206 53h302c198 0 201-21 215 64l-545 3-11 50 576 2 12 62-596-1-8 56 613-1-1 30c46-44 38-67 124-92 71-20 116-5 186 10l-15 92c-120-36-198-27-226 97-31 133 74 183 185 130-10 97-26 121-140 106-79-10-103-48-138-95h-143l-8 55 164 2-18 62h-560c15 73 20 55 100 54l445 1c-8 30-7 48-34 63l-470 2 20 51 436 2-39 61h-353c35 95 97 40 317 55-10 23-30 42-42 62l-193 2c37 67 53 44 137 55l-42 50c143 105 254 193 485 233 210 36 429-4 598-87 732-361 712-1401-6-1745-258-123-600-134-867 6-129 67-160 115-208 144z">
-                                                            </path>
-                                                            <path fill="#fefefe"
-                                                                d="m634 2490 90 1 52-312c16 40 21 251 24 311l103 3 127-310-47 308 86 1 79-429c-176-2-157-17-185 52l-83 192-16-240-153-5-77 428zM3420 2412c-75-77-11-205 59-188 69 17 56 186-59 188zm122-227c-70-84-211-46-254 96-57 189 129 275 191 183 30 36 7 30 102 30l73-430h-85l-28 122zM2855 2412c-14-67 48-93 107-81 3 68-45 105-107 81zm-32-263-21 79c100-24 173-37 176 41-110-5-218 12-231 119-17 134 117 123 201 75 4 51-9 18 19 29 4 2 45 1 52 1 30-19 30-93 37-130 26-125 76-277-234-214zM1331 2328c2 34-4 60-26 77-15 11-60 24-78 7-56-51 49-85 103-84zm-159-102c76-18 174-39 176 39-115 18-221 2-232 124-12 123 133 133 202 72 11 49-2 12 14 32l71-1c9-57 55-247 39-293-28-80-176-70-250-47l-19 75zM2001 2276c13-51 35-72 94-64 21 30 21 21 25 64h-119zm-106 5-4 54c6 91 43 132 126 152 34 8 99 11 130 0 39-13 36-48 39-90-75 25-191 46-200-55l191-2c57-9 34-120 11-155-43-64-231-109-294 96zM2477 2148c-18 51-30 70-41 133v55l17 61c35 47 59 85 138 95 114 15 130-9 140-106-112 53-216 3-185-130 29-125 107-133 226-97l15-92c-70-14-115-29-186-10-86 24-78 48-124 92zM1720 2141c-98-8-217-21-244 67-50 162 128 96 117 197-51 28-83 15-148 2l-13 72c231 85 334-112 238-177-51-34-88-5-95-77 57-26 66-11 132-11l14-73z">
-                                                            </path>
-                                                            <path fill="#fefefe"
-                                                                d="m1832 2293 7-24c6-81 4-44 66-59l9-59c-19-16-18-10-51-10l2-22 8-56c-116-2-84-30-125 198-26 143-78 250 82 231 54-6 48-23 54-73-103 12-65-42-52-126zM2302 2452l8-55 10-60 18-60c22-60 72-35 88-57l30-81c-59-2-75 20-99 50l-5-18c0-1-1-4-1-6s-2-10-2-12l-89-12-59 349 94 4 8-42zM3069 2493h93c22-135 17-238 99-265l41-16 12-71c-44 1-72 21-87 44l-13-37c-1-2-1-5-2-7l-83-1-60 353z">
-                                                            </path>
-                                                            <path fill="#f8b02b"
-                                                                d="M3420 2412c116-2 129-171 59-188-71-17-134 111-59 188z">
-                                                            </path>
-                                                            <path fill="#e41d2c"
-                                                                d="M1331 2328c-54-1-159 33-103 84 18 16 63 3 78-7 22-16 27-43 26-77zM2310 2397h143l-17-61h-116z">
-                                                            </path>
-                                                            <path fill="#f8b02b"
-                                                                d="M2855 2412c63 23 110-13 107-81-60-11-121 15-107 81zM2320 2336h116v-55l-98-5z">
-                                                            </path>
-                                                            <path fill="#e41d2c"
-                                                                d="M2001 2276h119c-3-42-4-34-25-64-59-8-81 13-94 64z">
-                                                            </path>
-                                                            <path fill="#f8b02b"
-                                                                d="M1832 2293c17 41-9 26 24 41l36 1 4-54-39-1c-20-4-9 3-17-12l-7 24z">
-                                                            </path>
-                                                        </svg>
-                                                        <svg style="width: 48px;" xmlns="http://www.w3.org/2000/svg"
-                                                            viewBox="0 0 30 30" id="american-express">
-                                                            <g fill="#303C42">
-                                                                <path
-                                                                    d="M12.917 13.14H11.35v-.654h1.53v-.671h-1.53v-.59h1.567v-.683h-2.236v3.277h2.236zM8.524 13.82l.97-2.567.003 2.566h.686v-3.277H9.067l-.804 2.223-.876-2.223H6.294v3.103l-1.14-3.103h-.993l-1.2 3.277h.728l.26-.73h1.393l.258.73h1.362V11.25l.972 2.569h.59zm-4.337-1.415l.456-1.306.457 1.306h-.913zM14.805 16.182h-2.142l-.852 1.073-.824-1.073H8.294v3.277h2.652l.857-1.085.825 1.085h1.301V18.36h.835c.585 0 1.166-.188 1.166-1.098 0-.906-.595-1.08-1.125-1.08zm-4.197 2.595H8.963v-.652h1.469v-.67h-1.47v-.595h1.679l.732.954-.765.963zm2.654.384l-1.028-1.336 1.028-1.292v2.628zm1.533-1.467h-.866v-.835h.873c.242 0 .41.116.41.403 0 .282-.16.432-.417.432zM18.8 13.82h.783l.252-.732h1.39l.261.731h1.363v-2.46l1.27 2.46h.948v-3.277h-.684v2.283l-1.178-2.283h-1.02v3.1l-1.133-3.1H20.05l-.945 2.577h-.3c-.175 0-.364-.04-.467-.17-.126-.164-.184-.418-.184-.768 0-.344.077-.605.192-.743.132-.151.27-.194.515-.194h.635v-.702h-.648c-.462 0-.801.12-1.017.382-.287.35-.36.795-.36 1.281 0 .596.123.973.359 1.251.232.278.644.363.97.363zm1.734-2.721l.464 1.306h-.924l.46-1.306z">
-                                                                </path>
-                                                                <path
-                                                                    d="M18.669 11.826c-.006.01-.053.128-.053.355 0 .225.03.333.053.382a.456.456 0 00.131.015l.29-.793H18.856c-.151 0-.167.02-.186.04zM16.459 10.542h.683v3.277h-.683zM14.052 12.627h.718c.24 0 .39.025.488.14.121.158.105.44.105.638l.003.414h.676v-.645c0-.292-.017-.437-.112-.6a.797.797 0 00-.331-.276c.174-.081.472-.352.472-.874 0-.365-.128-.579-.338-.726-.218-.146-.47-.156-.812-.156h-1.54v3.277h.67v-1.192zm0-1.402h.824c.116 0 .238.007.317.059.087.048.14.149.14.29 0 .142-.05.258-.137.31-.093.066-.201.068-.331.068h-.814v-.727zM18.941 17.063c0-.374-.133-.579-.343-.728-.221-.137-.468-.154-.806-.154h-1.546v3.277h.672v-1.196h.715c.245 0 .393.028.492.145.124.153.108.445.108.642v.41h.671v-.65c-.002-.289-.015-.438-.11-.598a.74.74 0 00-.328-.275c.175-.082.474-.348.475-.873zm-.879.465c-.09.063-.2.068-.331.068h-.814v-.736h.825c.118 0 .238.003.32.059.086.053.138.155.138.295s-.052.253-.138.314zM23.338 17.467l-.36-.012a.67.67 0 01-.261-.037c-.084-.037-.146-.12-.146-.244 0-.104.027-.183.101-.237.067-.053.146-.059.268-.059h1.228v-.697h-1.341c-.703 0-.958.5-.958.976 0 1.036.785.99 1.41 1.013.118 0 .188.023.239.073a.3.3 0 01.081.217c0 .089-.032.163-.078.213-.057.062-.147.081-.273.081h-1.299v.703h1.304c.675 0 1.052-.329 1.052-1.034 0-.337-.07-.537-.2-.694-.155-.179-.404-.251-.767-.262zM19.312 19.458h2.234v-.68l-1.568-.003v-.651h1.53v-.669h-1.53v-.596h1.568v-.678h-2.234zM26.073 17.467l-.36-.012a.676.676 0 01-.261-.037c-.083-.037-.146-.12-.146-.244 0-.104.027-.183.101-.237.067-.053.147-.059.269-.059h1.228v-.697h-1.342c-.702 0-.958.5-.958.976 0 1.036.785.99 1.411 1.013.117 0 .186.023.239.073.046.046.08.12.08.217a.32.32 0 01-.077.213c-.057.062-.147.081-.274.081h-1.298v.703h1.304c.675 0 1.051-.329 1.051-1.034 0-.337-.07-.537-.2-.694-.154-.179-.404-.251-.767-.262z">
-                                                                </path>
-                                                                <path
-                                                                    d="M28 4H2C.897 4 0 4.897 0 6v18c0 1.103.897 2 2 2h26c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zM7.512 14.037l-.088-.232v.012c0 .299-.207.541-.462.541H5.6c-.188 0-.356-.132-.428-.335l-.14-.396h-.775l-.141.399c-.071.201-.24.333-.426.333h-.728a.45.45 0 0 1-.386-.243.622.622 0 0 1-.038-.511l1.198-3.277c.072-.199.24-.328.425-.328h.994c.185 0 .352.129.425.327l.251.685v-.47c0-.299.207-.541.463-.541h1.093c.18 0 .344.123.42.314l.438 1.112.398-1.096c.072-.2.24-.33.425-.33h1.116c.094 0 .176.04.25.097a.409.409 0 0 1 .249-.097h2.236c.086 0 .163.035.232.083a.406.406 0 0 1 .232-.083h1.54c.398 0 .727.016 1.042.229.032.022.055.05.083.075.075-.178.23-.304.412-.304h.683c.232 0 .415.201.45.46.299-.304.707-.46 1.256-.46h.648c.103 0 .2.04.276.107a.418.418 0 0 1 .276-.107h1.003c.185 0 .351.13.425.327l.246.673v-.46c0-.298.207-.54.463-.54h1.019c.162 0 .312.099.396.26l.318.618v-.338c0-.299.208-.541.464-.541h.684c.256 0 .463.242.463.541v3.277c0 .299-.208.54-.463.54h-.948a.453.453 0 0 1-.397-.26l-.41-.797v.517c0 .299-.208.54-.463.54h-1.363c-.186 0-.354-.13-.427-.332l-.141-.398h-.772l-.136.393c-.07.204-.24.338-.427.338h-.784c-.298 0-.832-.062-1.212-.435-.043.246-.22.435-.445.435h-.683a.407.407 0 0 1-.21-.065.396.396 0 0 1-.207.065h-.676c-.254 0-.46-.24-.463-.536l-.002-.414v-.072c0-.044.002-.11-.001-.165a1.652 1.652 0 0 0-.13-.004h-.256v.65c0 .3-.207.541-.462.541h-.67a.408.408 0 0 1-.233-.083.402.402 0 0 1-.231.083h-2.236a.412.412 0 0 1-.25-.097.415.415 0 0 1-.25.097h-.686c-.255 0-.462-.241-.462-.54v-.013l-.089.232c-.074.196-.239.322-.422.322h-.589c-.182 0-.348-.126-.422-.323zM25.99 20h-1.307c-.19 0-.354-.136-.425-.33-.254.211-.59.33-1.007.33h-1.303a.403.403 0 0 1-.201-.059.402.402 0 0 1-.2.059h-2.235a.392.392 0 0 1-.204-.061.403.403 0 0 1-.204.06h-.671c-.257 0-.463-.242-.463-.54v-.476a2.51 2.51 0 0 0-.002-.176 1.682 1.682 0 0 0-.136-.005h-.253v.657c0 .299-.207.54-.462.54h-.673c-.256 0-.463-.242-.463-.54v-.833c-.237.165-.565.274-1.017.274h-.372v.559c0 .299-.208.54-.463.54h-1.301a.437.437 0 0 1-.347-.18l-.484-.64-.511.648a.435.435 0 0 1-.34.174H8.294c-.255 0-.462-.243-.462-.542v-3.277c0-.3.207-.541.462-.541h2.693c.132 0 .256.065.344.18l.486.633.507-.64a.434.434 0 0 1 .339-.173h2.139c.469 0 .798.121 1.033.3.076-.176.228-.3.409-.3h1.546c.356 0 .7.016 1.023.218.035.024.058.055.09.08.076-.175.227-.298.408-.298h2.234c.173 0 .32.116.399.282.22-.175.512-.282.88-.282h1.342c.202 0 .368.152.432.361.23-.218.543-.361.961-.361h1.343c.255 0 .462.242.462.541v.698a.568.568 0 0 1-.212.455l.014.016c.23.276.334.617.334 1.075 0 .985-.564 1.574-1.51 1.574z">
-                                                                </path>
-                                                            </g>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                <a href="{{ route('teacher.plans.show', $plan->slug) }}"
-                                                    class="btn btn-rounded-primary w-32 py-3 px-4 block mx-auto mt-8">
-                                                    Purchase
-                                                </a>
+
+                                                <button disabled
+                                                    class="block rounded-lg bg-gray-200 px-8 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base">Actual</button>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                @else
-                                <div class="hidden p-4 mx-auto w-1/4 rounded-lg bg-gray-100" id="annually"
-                                    role="tabpanel" aria-labelledby="annually-tab">
-                                    <div class="mt-4  items-center ">
-                                        <div class="group relative row-start-1 md:col-span-2 lg:w-[36%]">
-                                            <div aria-hidden="true"
-                                                class="absolute top-0 h-full w-full rounded-3xl  shadow-2xl shadow-gray-600/10  transition duration-500 group-hover:scale-105 lg:group-hover:scale-110">
+                                        <!-- plan - end -->
+
+                                        <!-- plan - start -->
+                                        <div
+                                            class="relative flex flex-col rounded-lg border-2 border-indigo-500 p-4 pt-6">
+                                            <div class="mb-12">
+                                                <div class="absolute inset-x-0 -top-3 flex justify-center">
+                                                    <span
+                                                        class="flex h-6 items-center justify-center rounded-full bg-indigo-500 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-white">Más
+                                                        Popular ✨</span>
+                                                </div>
+
+                                                <div
+                                                    class="mb-2 pb-2 border-b border-gray-200 text-center text-2xl font-bold text-gray-800">
+                                                    Premium
+                                                    Anual
+                                                </div>
+
+                                                <p class="mx-auto pt-2 mb-8 px-8 text-center text-gray-500">Acceso a
+                                                    herramientas premium con soporte completo</p>
+
+                                                <div class="space-y-2">
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+
+                                                        <span class="text-gray-600">Acceso a la plataforma</span>
+                                                    </div>
+                                                    <!-- check - end -->
+
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+
+                                                        <span class="text-gray-600">Herramientas Gratis</span>
+                                                    </div>
+                                                    <!-- check - end -->
+
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+
+                                                        <span class="text-gray-600">Historial</span>
+                                                    </div>
+                                                    <!-- check - end -->
+
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+
+                                                        <span class="text-gray-600">Herramientas Premium</span>
+                                                    </div>
+                                                    <!-- check - end -->
+
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+
+                                                        <span class="text-gray-600">Solicitar Herramientas</span>
+                                                    </div>
+
+
+                                                    <!-- check - end -->
+                                                </div>
                                             </div>
-                                            <div class="relative space-y-8 p-8">
-                                                <h3
-                                                    class="text-center text-3xl font-semibold text-gray-700 dark:text-white">
-                                                    Annually</h3>
-                                                <div class="overflow-hidden">
-                                                    <div class="-mr-20 flex items-end justify-center">
-                                                        <div class="flex">
-                                                            <span
-                                                                class="-ml-6 mt-2 text-3xl font-bold text-primary">€</span>
-                                                            <span
-                                                                class="leading-0 text-8xl font-bold text-gray-800 dark:text-white">{{
-                                                                intval($plan->price) }}</span>
-                                                        </div>
-                                                        <div class="mb-2">
-                                                            <span
-                                                                class="block text-xl font-bold text-gray-500 dark:text-gray-400"></span>
-                                                            <span class="block text-xl font-bold text-primary">/
-                                                                Year</span>
-                                                        </div>
-                                                    </div>
+
+                                            <div class="mt-auto flex flex-col gap-2">
+                                                <div class="flex items-end justify-center gap-1">
+                                                    <span class="self-start text-gray-600">€</span>
+                                                    <span class="text-4xl font-bold text-gray-800">6.00</span>
+
                                                 </div>
-                                                <ul role="list"
-                                                    class="m-auto w-max space-y-4 pb-6 text-gray-600 dark:text-gray-300">
-                                                    <li class="space-x-2">
-                                                        <span class="font-semibold text-primary">&check;</span>
-                                                        <span>Multiple Tools</span>
-                                                    </li>
-                                                    <li class="space-x-2">
-                                                        <span class="font-semibold text-primary">&check;</span>
-                                                        <span>Complete Access</span>
-                                                    </li>
-                                                    <li class="space-x-2">
-                                                        <span class="font-semibold text-primary">&check;</span>
-                                                        <span>Customer Support</span>
-                                                    </li>
-                                                </ul>
-                                                <div>
-                                                    <p>By purchasing - you agree & abide by our Terms and Conditions
-                                                        which you can read here.</p>
-                                                    <div class="flex justify-center items-center gap-2 mt-2">
-                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="32"
-                                                                height="32" id="check" fill="#34a853">
-                                                                <path
-                                                                    d="M16.084 0c-8.836 0-16 7.164-16 16s7.164 16 16 16 16-7.164 16-16-7.164-16-16-16zm7.412 11.574-7.664 11.714c-.002.002-.006.004-.006.006-.04.06-.062.128-.112.184-.07.076-.16.116-.24.174-.02.014-.04.03-.062.044-.124.078-.252.13-.392.164-.046.012-.088.024-.136.032a1.35 1.35 0 0 1-.336.004 1.324 1.324 0 0 1-.234-.036 1.415 1.415 0 0 1-.23-.092c-.064-.03-.132-.038-.192-.076-.044-.028-.068-.072-.106-.106-.016-.014-.036-.018-.052-.032l-4.462-4.126a1.4 1.4 0 0 1 1.9-2.056l3.23 2.988 6.75-10.318a1.4 1.4 0 1 1 2.344 1.532z">
-                                                                </path>
-                                                            </svg></div>
-                                                        <div class="font-bold">WE<br>ACCEPT</div>
-                                                        <svg style="width: 48px;" xmlns="http://www.w3.org/2000/svg"
-                                                            viewBox="0 0 30 30" id="visa">
-                                                            <g fill="#303C42">
-                                                                <path d="m22.504 13.84-.895 2.138h1.4l-.39-1.646z">
-                                                                </path>
-                                                                <path
-                                                                    d="M28 4H2C.897 4 0 4.897 0 6v18c0 1.103.897 2 2 2h26c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zM5.006 12.43a.185.185 0 0 1 .185-.143l1.768.002h.007c.259.01.616.068.729.459l.002.009.314 1.368a.17.17 0 0 1-.106.194.2.2 0 0 1-.228-.053c-.59-.717-1.472-1.285-2.55-1.643a.172.172 0 0 1-.121-.193zm4.163 5.562-1.517.002a.187.187 0 0 1-.18-.124l-1.318-4.154c-.023-.072.007-.15.074-.192s.156-.04.22.006c.95.673 1.63 1.52 1.882 2.062a.142.142 0 0 1 .009.023l.172.575 1.603-3.777a.188.188 0 0 1 .175-.11l1.37-.001a.19.19 0 0 1 .157.078c.035.048.041.11.016.164l-2.49 5.344a.19.19 0 0 1-.173.104zm4.115-.138a.184.184 0 0 1-.186.145h-1.302a.195.195 0 0 1-.144-.062.165.165 0 0 1-.042-.141l.99-5.355a.184.184 0 0 1 .185-.144h1.303c.055 0 .108.023.144.062.035.039.05.09.041.14l-.99 5.355zm4.395-3.245c.933.39 1.366.863 1.36 1.49-.012 1.141-1.122 1.879-2.827 1.88h-.002c-.595-.007-1.215-.096-1.659-.24a.173.173 0 0 1-.123-.193l.161-.87a.175.175 0 0 1 .095-.123.202.202 0 0 1 .163-.008c.504.193.86.285 1.522.285.464 0 .966-.167.97-.536.003-.241-.209-.413-.84-.682-.616-.263-1.434-.704-1.423-1.494.009-1.068 1.137-1.814 2.744-1.814.567 0 1.02.099 1.3.182.09.026.144.109.128.194l-.152.826a.175.175 0 0 1-.093.122.202.202 0 0 1-.16.011 3.176 3.176 0 0 0-1.147-.187c-.614 0-.934.237-.934.471-.003.26.347.43.917.686zm7.282 3.327a.194.194 0 0 1-.146.065h-1.177a.185.185 0 0 1-.184-.137c-.04-.165-.134-.566-.173-.717l-1.183-.001h-.025l-.949-.001c-.035.083-.142.34-.307.744a.189.189 0 0 1-.176.112h-1.35a.192.192 0 0 1-.158-.079.162.162 0 0 1-.014-.165l2.383-4.981c.159-.332.423-.473.883-.473h1.15c.088 0 .164.056.183.136l1.28 5.35a.164.164 0 0 1-.037.147z">
-                                                                </path>
-                                                            </g>
+                                                <span class="text-gray-500">72€/Año - Un único pago con descuento del
+                                                    14%</span>
+
+
+                                            </div>
+                                            <a href="{{ route('teacher.plans.show', trim(" annual")) }}"
+                                                class="block rounded-lg mt-4 bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 md:text-base">Suscríbete</a>
+                                        </div>
+                                        <!-- plan - end -->
+
+                                        <!-- plan - start -->
+                                        <div class="flex flex-col rounded-lg border-2 border-blue-500 p-4 pt-6">
+                                            <div class="mb-12">
+                                                <div
+                                                    class="mb-2 pb-2 border-b border-gray-200 text-center text-2xl font-bold text-gray-800">
+                                                    Premium Mensual</div>
+
+                                                <p class="mx-auto pt-2 mb-8 px-8 text-center text-gray-500">Acceso a
+                                                    herramientas premium con soporte completo</p>
+
+                                                <div class="space-y-2">
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
                                                         </svg>
-                                                        <svg style="width: 48px;" xmlns="http://www.w3.org/2000/svg"
-                                                            xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                            fill-rule="evenodd" clip-rule="evenodd"
-                                                            image-rendering="optimizeQuality"
-                                                            shape-rendering="geometricPrecision"
-                                                            text-rendering="geometricPrecision" viewBox="0 0 4335 4335"
-                                                            id="gold-mastercard">
-                                                            <defs>
-                                                                <linearGradient id="a" x1="2167.46" x2="2167.46"
-                                                                    y1="868.38" y2="3596.59"
-                                                                    gradientUnits="userSpaceOnUse">
-                                                                    <stop offset="0" stop-color="#D5B73E"></stop>
-                                                                    <stop offset="1" stop-color="#C09410"></stop>
-                                                                </linearGradient>
-                                                                <linearGradient id="b" x1="2167.46" x2="2167.46"
-                                                                    y1="845.69" y2="3573.9"
-                                                                    gradientUnits="userSpaceOnUse" xlink:href="#a">
-                                                                </linearGradient>
-                                                            </defs>
-                                                            <rect width="4267" height="2728" x="34" y="868"
-                                                                fill="url(#a)" rx="262" ry="262"></rect>
-                                                            <rect width="4267" height="2728" x="34" y="846"
-                                                                fill="url(#b)" rx="262" ry="262"></rect>
-                                                            <path fill="#e41d2c"
-                                                                d="m1172 2226 19-75c73-22 222-32 250 47 16 46-30 237-39 293l-71 1c-16-20-3 17-14-32-68 61-213 51-202-72 11-122 117-106 232-124-2-78-100-57-176-39zm535-12c-65 0-75-14-132 11 7 71 44 43 95 77 97 64-7 262-238 177l13-72c65 13 98 26 148-2 12-101-167-35-117-197 27-88 146-76 244-67l-14 73zm-996-153 153 5 16 240 83-192c28-69 9-54 185-52l-79 429-86-1 47-308-127 310-103-3c-3-60-8-271-24-311l-52 312-90-1 77-428zm1459 911 42-50c-84-11-99 13-137-55l193-2c12-20 32-39 42-62-220-15-282 41-317-55h353l39-61-436-2-20-51 470-2c27-15 27-32 34-63l-445-1c-80 1-85 19-100-54h560l18-62-164-2-8 42-94-4 59-349 89 12c0 2 2 9 2 12 0 2 1 5 1 6l5 18c25-30 41-52 99-50l-30 81c-17 22-67-3-88 57l98 4c11-63 23-82 41-133l1-30-613 1-2 22c33 0 32-6 51 10l-9 59c-62 15-60-22-66 59 9 15-2 7 17 12l39 1c63-205 251-160 294-96 23 34 46 146-11 155l-191 2c9 101 125 80 200 55-3 42 0 76-39 90-31 11-96 8-130 0-84-19-120-61-126-152l-36-1c-33-15-7 0-24-41-14 84-52 138 52 126-6 50 1 67-54 73-160 19-108-88-82-231 41-228 9-200 125-198l596 1-12-62-576-2 11-50 545-3c-14-85-17-64-215-64h-302c21-73 10-53 206-53h265l-28-63-384-1 26-52 321-2c-41-84-39-60-266-64 29-72 80-54 169-54-25-40-43-37-58-71-37-19-70-53-107-79-283-200-667-221-975-71-277 134-549 444-546 873 4 613 542 1060 1151 956 286-49 358-165 476-230z">
-                                                            </path>
-                                                            <path fill="#f8b02b"
-                                                                d="M2823 2149c310-63 259 90 234 214-8 37-8 110-37 130-7 0-48 1-52-1-28-11-15 22-19-29-84 48-217 59-201-75 13-107 121-124 231-119-4-79-76-66-176-41l21-79zm306-9 83 1c1 2 2 5 2 7l13 37c15-23 43-43 87-44l-12 71-41 16c-82 27-77 130-99 265h-93l60-353zm441-76h85l-73 430c-95 1-72 6-102-30-62 92-248 7-191-183 42-142 184-180 254-96l28-122zm-1399-540c15 34 34 31 58 71-89 0-140-19-169 54 227 4 225-20 266 64l-321 2-26 52 384 1 28 63h-265c-195 0-185-19-206 53h302c198 0 201-21 215 64l-545 3-11 50 576 2 12 62-596-1-8 56 613-1-1 30c46-44 38-67 124-92 71-20 116-5 186 10l-15 92c-120-36-198-27-226 97-31 133 74 183 185 130-10 97-26 121-140 106-79-10-103-48-138-95h-143l-8 55 164 2-18 62h-560c15 73 20 55 100 54l445 1c-8 30-7 48-34 63l-470 2 20 51 436 2-39 61h-353c35 95 97 40 317 55-10 23-30 42-42 62l-193 2c37 67 53 44 137 55l-42 50c143 105 254 193 485 233 210 36 429-4 598-87 732-361 712-1401-6-1745-258-123-600-134-867 6-129 67-160 115-208 144z">
-                                                            </path>
-                                                            <path fill="#fefefe"
-                                                                d="m634 2490 90 1 52-312c16 40 21 251 24 311l103 3 127-310-47 308 86 1 79-429c-176-2-157-17-185 52l-83 192-16-240-153-5-77 428zM3420 2412c-75-77-11-205 59-188 69 17 56 186-59 188zm122-227c-70-84-211-46-254 96-57 189 129 275 191 183 30 36 7 30 102 30l73-430h-85l-28 122zM2855 2412c-14-67 48-93 107-81 3 68-45 105-107 81zm-32-263-21 79c100-24 173-37 176 41-110-5-218 12-231 119-17 134 117 123 201 75 4 51-9 18 19 29 4 2 45 1 52 1 30-19 30-93 37-130 26-125 76-277-234-214zM1331 2328c2 34-4 60-26 77-15 11-60 24-78 7-56-51 49-85 103-84zm-159-102c76-18 174-39 176 39-115 18-221 2-232 124-12 123 133 133 202 72 11 49-2 12 14 32l71-1c9-57 55-247 39-293-28-80-176-70-250-47l-19 75zM2001 2276c13-51 35-72 94-64 21 30 21 21 25 64h-119zm-106 5-4 54c6 91 43 132 126 152 34 8 99 11 130 0 39-13 36-48 39-90-75 25-191 46-200-55l191-2c57-9 34-120 11-155-43-64-231-109-294 96zM2477 2148c-18 51-30 70-41 133v55l17 61c35 47 59 85 138 95 114 15 130-9 140-106-112 53-216 3-185-130 29-125 107-133 226-97l15-92c-70-14-115-29-186-10-86 24-78 48-124 92zM1720 2141c-98-8-217-21-244 67-50 162 128 96 117 197-51 28-83 15-148 2l-13 72c231 85 334-112 238-177-51-34-88-5-95-77 57-26 66-11 132-11l14-73z">
-                                                            </path>
-                                                            <path fill="#fefefe"
-                                                                d="m1832 2293 7-24c6-81 4-44 66-59l9-59c-19-16-18-10-51-10l2-22 8-56c-116-2-84-30-125 198-26 143-78 250 82 231 54-6 48-23 54-73-103 12-65-42-52-126zM2302 2452l8-55 10-60 18-60c22-60 72-35 88-57l30-81c-59-2-75 20-99 50l-5-18c0-1-1-4-1-6s-2-10-2-12l-89-12-59 349 94 4 8-42zM3069 2493h93c22-135 17-238 99-265l41-16 12-71c-44 1-72 21-87 44l-13-37c-1-2-1-5-2-7l-83-1-60 353z">
-                                                            </path>
-                                                            <path fill="#f8b02b"
-                                                                d="M3420 2412c116-2 129-171 59-188-71-17-134 111-59 188z">
-                                                            </path>
-                                                            <path fill="#e41d2c"
-                                                                d="M1331 2328c-54-1-159 33-103 84 18 16 63 3 78-7 22-16 27-43 26-77zM2310 2397h143l-17-61h-116z">
-                                                            </path>
-                                                            <path fill="#f8b02b"
-                                                                d="M2855 2412c63 23 110-13 107-81-60-11-121 15-107 81zM2320 2336h116v-55l-98-5z">
-                                                            </path>
-                                                            <path fill="#e41d2c"
-                                                                d="M2001 2276h119c-3-42-4-34-25-64-59-8-81 13-94 64z">
-                                                            </path>
-                                                            <path fill="#f8b02b"
-                                                                d="M1832 2293c17 41-9 26 24 41l36 1 4-54-39-1c-20-4-9 3-17-12l-7 24z">
-                                                            </path>
-                                                        </svg>
-                                                        <svg style="width: 48px;" xmlns="http://www.w3.org/2000/svg"
-                                                            viewBox="0 0 30 30" id="american-express">
-                                                            <g fill="#303C42">
-                                                                <path
-                                                                    d="M12.917 13.14H11.35v-.654h1.53v-.671h-1.53v-.59h1.567v-.683h-2.236v3.277h2.236zM8.524 13.82l.97-2.567.003 2.566h.686v-3.277H9.067l-.804 2.223-.876-2.223H6.294v3.103l-1.14-3.103h-.993l-1.2 3.277h.728l.26-.73h1.393l.258.73h1.362V11.25l.972 2.569h.59zm-4.337-1.415l.456-1.306.457 1.306h-.913zM14.805 16.182h-2.142l-.852 1.073-.824-1.073H8.294v3.277h2.652l.857-1.085.825 1.085h1.301V18.36h.835c.585 0 1.166-.188 1.166-1.098 0-.906-.595-1.08-1.125-1.08zm-4.197 2.595H8.963v-.652h1.469v-.67h-1.47v-.595h1.679l.732.954-.765.963zm2.654.384l-1.028-1.336 1.028-1.292v2.628zm1.533-1.467h-.866v-.835h.873c.242 0 .41.116.41.403 0 .282-.16.432-.417.432zM18.8 13.82h.783l.252-.732h1.39l.261.731h1.363v-2.46l1.27 2.46h.948v-3.277h-.684v2.283l-1.178-2.283h-1.02v3.1l-1.133-3.1H20.05l-.945 2.577h-.3c-.175 0-.364-.04-.467-.17-.126-.164-.184-.418-.184-.768 0-.344.077-.605.192-.743.132-.151.27-.194.515-.194h.635v-.702h-.648c-.462 0-.801.12-1.017.382-.287.35-.36.795-.36 1.281 0 .596.123.973.359 1.251.232.278.644.363.97.363zm1.734-2.721l.464 1.306h-.924l.46-1.306z">
-                                                                </path>
-                                                                <path
-                                                                    d="M18.669 11.826c-.006.01-.053.128-.053.355 0 .225.03.333.053.382a.456.456 0 00.131.015l.29-.793H18.856c-.151 0-.167.02-.186.04zM16.459 10.542h.683v3.277h-.683zM14.052 12.627h.718c.24 0 .39.025.488.14.121.158.105.44.105.638l.003.414h.676v-.645c0-.292-.017-.437-.112-.6a.797.797 0 00-.331-.276c.174-.081.472-.352.472-.874 0-.365-.128-.579-.338-.726-.218-.146-.47-.156-.812-.156h-1.54v3.277h.67v-1.192zm0-1.402h.824c.116 0 .238.007.317.059.087.048.14.149.14.29 0 .142-.05.258-.137.31-.093.066-.201.068-.331.068h-.814v-.727zM18.941 17.063c0-.374-.133-.579-.343-.728-.221-.137-.468-.154-.806-.154h-1.546v3.277h.672v-1.196h.715c.245 0 .393.028.492.145.124.153.108.445.108.642v.41h.671v-.65c-.002-.289-.015-.438-.11-.598a.74.74 0 00-.328-.275c.175-.082.474-.348.475-.873zm-.879.465c-.09.063-.2.068-.331.068h-.814v-.736h.825c.118 0 .238.003.32.059.086.053.138.155.138.295s-.052.253-.138.314zM23.338 17.467l-.36-.012a.67.67 0 01-.261-.037c-.084-.037-.146-.12-.146-.244 0-.104.027-.183.101-.237.067-.053.146-.059.268-.059h1.228v-.697h-1.341c-.703 0-.958.5-.958.976 0 1.036.785.99 1.41 1.013.118 0 .188.023.239.073a.3.3 0 01.081.217c0 .089-.032.163-.078.213-.057.062-.147.081-.273.081h-1.299v.703h1.304c.675 0 1.052-.329 1.052-1.034 0-.337-.07-.537-.2-.694-.155-.179-.404-.251-.767-.262zM19.312 19.458h2.234v-.68l-1.568-.003v-.651h1.53v-.669h-1.53v-.596h1.568v-.678h-2.234zM26.073 17.467l-.36-.012a.676.676 0 01-.261-.037c-.083-.037-.146-.12-.146-.244 0-.104.027-.183.101-.237.067-.053.147-.059.269-.059h1.228v-.697h-1.342c-.702 0-.958.5-.958.976 0 1.036.785.99 1.411 1.013.117 0 .186.023.239.073.046.046.08.12.08.217a.32.32 0 01-.077.213c-.057.062-.147.081-.274.081h-1.298v.703h1.304c.675 0 1.051-.329 1.051-1.034 0-.337-.07-.537-.2-.694-.154-.179-.404-.251-.767-.262z">
-                                                                </path>
-                                                                <path
-                                                                    d="M28 4H2C.897 4 0 4.897 0 6v18c0 1.103.897 2 2 2h26c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zM7.512 14.037l-.088-.232v.012c0 .299-.207.541-.462.541H5.6c-.188 0-.356-.132-.428-.335l-.14-.396h-.775l-.141.399c-.071.201-.24.333-.426.333h-.728a.45.45 0 0 1-.386-.243.622.622 0 0 1-.038-.511l1.198-3.277c.072-.199.24-.328.425-.328h.994c.185 0 .352.129.425.327l.251.685v-.47c0-.299.207-.541.463-.541h1.093c.18 0 .344.123.42.314l.438 1.112.398-1.096c.072-.2.24-.33.425-.33h1.116c.094 0 .176.04.25.097a.409.409 0 0 1 .249-.097h2.236c.086 0 .163.035.232.083a.406.406 0 0 1 .232-.083h1.54c.398 0 .727.016 1.042.229.032.022.055.05.083.075.075-.178.23-.304.412-.304h.683c.232 0 .415.201.45.46.299-.304.707-.46 1.256-.46h.648c.103 0 .2.04.276.107a.418.418 0 0 1 .276-.107h1.003c.185 0 .351.13.425.327l.246.673v-.46c0-.298.207-.54.463-.54h1.019c.162 0 .312.099.396.26l.318.618v-.338c0-.299.208-.541.464-.541h.684c.256 0 .463.242.463.541v3.277c0 .299-.208.54-.463.54h-.948a.453.453 0 0 1-.397-.26l-.41-.797v.517c0 .299-.208.54-.463.54h-1.363c-.186 0-.354-.13-.427-.332l-.141-.398h-.772l-.136.393c-.07.204-.24.338-.427.338h-.784c-.298 0-.832-.062-1.212-.435-.043.246-.22.435-.445.435h-.683a.407.407 0 0 1-.21-.065.396.396 0 0 1-.207.065h-.676c-.254 0-.46-.24-.463-.536l-.002-.414v-.072c0-.044.002-.11-.001-.165a1.652 1.652 0 0 0-.13-.004h-.256v.65c0 .3-.207.541-.462.541h-.67a.408.408 0 0 1-.233-.083.402.402 0 0 1-.231.083h-2.236a.412.412 0 0 1-.25-.097.415.415 0 0 1-.25.097h-.686c-.255 0-.462-.241-.462-.54v-.013l-.089.232c-.074.196-.239.322-.422.322h-.589c-.182 0-.348-.126-.422-.323zM25.99 20h-1.307c-.19 0-.354-.136-.425-.33-.254.211-.59.33-1.007.33h-1.303a.403.403 0 0 1-.201-.059.402.402 0 0 1-.2.059h-2.235a.392.392 0 0 1-.204-.061.403.403 0 0 1-.204.06h-.671c-.257 0-.463-.242-.463-.54v-.476a2.51 2.51 0 0 0-.002-.176 1.682 1.682 0 0 0-.136-.005h-.253v.657c0 .299-.207.54-.462.54h-.673c-.256 0-.463-.242-.463-.54v-.833c-.237.165-.565.274-1.017.274h-.372v.559c0 .299-.208.54-.463.54h-1.301a.437.437 0 0 1-.347-.18l-.484-.64-.511.648a.435.435 0 0 1-.34.174H8.294c-.255 0-.462-.243-.462-.542v-3.277c0-.3.207-.541.462-.541h2.693c.132 0 .256.065.344.18l.486.633.507-.64a.434.434 0 0 1 .339-.173h2.139c.469 0 .798.121 1.033.3.076-.176.228-.3.409-.3h1.546c.356 0 .7.016 1.023.218.035.024.058.055.09.08.076-.175.227-.298.408-.298h2.234c.173 0 .32.116.399.282.22-.175.512-.282.88-.282h1.342c.202 0 .368.152.432.361.23-.218.543-.361.961-.361h1.343c.255 0 .462.242.462.541v.698a.568.568 0 0 1-.212.455l.014.016c.23.276.334.617.334 1.075 0 .985-.564 1.574-1.51 1.574z">
-                                                                </path>
-                                                            </g>
-                                                        </svg>
+
+                                                        <span class="text-gray-600">Accesso a la plataforma</span>
                                                     </div>
+                                                    <!-- check - end -->
+
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+
+                                                        <span class="text-gray-600">Herramientas Gratis</span>
+                                                    </div>
+                                                    <!-- check - end -->
+
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+
+                                                        <span class="text-gray-600">Historial</span>
+                                                    </div>
+                                                    <!-- check - end -->
+
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+
+                                                        <span class="text-gray-600">Herramientas Premium</span>
+                                                    </div>
+                                                    <!-- check - end -->
+
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+
+                                                        <span class="text-gray-600">Solicitar Herramientas</span>
+                                                    </div>
+                                                    <!-- check - end -->
                                                 </div>
-                                                <a href="{{ route('teacher.plans.show', $plan->slug) }}"
-                                                    class="btn btn-rounded-primary w-32 py-3 px-4 block mx-auto mt-8">
-                                                    Purchase
-                                                </a>
+                                            </div>
+
+                                            <div class="mt-auto flex flex-col gap-2">
+                                                <div class="flex items-end justify-center gap-1">
+                                                    <span class="self-start text-gray-600">€</span>
+                                                    <span class="text-4xl font-bold text-gray-800">6.99</span>
+
+                                                </div>
+                                                <span class="text-gray-500">Paga cada mes y cancela cuando
+                                                    quieras</span>
+
+                                            </div>
+                                            <a href="{{ route('teacher.plans.show', trim(" monthly")) }}" class="block rounded-lg mt-4 bg-blue-500 px-8 py-3
+                                                text-center text-sm font-semibold text-white outline-none
+                                                ring-blue-300 transition duration-100 hover:bg-blue-600
+                                                focus-visible:ring active:bg-blue-700 md:text-base">Suscríbete</a>
+                                        </div>
+
+                                        <!-- plan - start -->
+                                        <div class="flex flex-col rounded-lg border p-4 pt-6">
+                                            <div class="mb-12">
+                                                <div
+                                                    class="mb-2 pb-2 border-b border-gray-200 text-center text-2xl font-bold text-gray-800">
+                                                    Cuentas para Centros</div>
+
+
+
+                                                {{-- <div class="space-y-2">
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+
+                                                        <span class="text-gray-600">Unlimited file storage</span>
+                                                    </div>
+                                                    <!-- check - end -->
+
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+
+                                                        <span class="text-gray-600">Unlimited bandwidth per month</span>
+                                                    </div>
+                                                    <!-- check - end -->
+
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+
+                                                        <span class="text-gray-600">1.000.000 tasks per month</span>
+                                                    </div>
+                                                    <!-- check - end -->
+
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+
+                                                        <span class="text-gray-600">Email and phone support</span>
+                                                    </div>
+                                                    <!-- check - end -->
+
+                                                    <!-- check - start -->
+                                                    <div class="flex gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+
+                                                        <span class="text-gray-600">Unlimited Webhooks</span>
+                                                    </div>
+                                                    <!-- check - end -->
+                                                </div> --}}
+                                            </div>
+                                            <p
+                                                style="font-size: 45px;line-height: 1.1;font-weight: 500;margin-top: 20%;">
+                                                MUY
+                                                PRONTO</p>
+                                            <div class="mt-auto flex flex-col gap-8">
+
+
+                                                <button disabled
+                                                    class="block rounded-lg bg-gray-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-gray-700 focus-visible:ring active:bg-gray-600 md:text-base">Suscríbete</button>
                                             </div>
                                         </div>
+                                        <!-- plan - end -->
                                     </div>
+
+
                                 </div>
-                                @endif
-                                @endforeach
                             </div>
+
                         </div>
                     </div>
                     {{-- END --}}
