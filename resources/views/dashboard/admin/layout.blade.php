@@ -105,6 +105,7 @@
                     </div>
                     <div class="dropdown-menu w-56">
                         <ul class="dropdown-content bg-primary text-white">
+
                             <li>
                                 <a href="{{route('teacher.teacherAccountInfo')}}"
                                     class="dropdown-item hover:bg-white/5"> <i data-feather="user"

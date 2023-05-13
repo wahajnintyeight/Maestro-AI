@@ -276,6 +276,11 @@
                     <div class="dropdown-menu w-56">
                         <ul class="dropdown-content bg-primary text-white">
                             <li>
+                                <a href="{{route('teacher.switchToAdmin')}}" class="dropdown-item hover:bg-white/5"> <i
+                                        data-feather="shield" class="w-4 h-4 mr-2"></i>
+                                    Admin Dashboard </a>
+                            </li>
+                            <li>
                                 <a href="{{route('teacher.teacherAccountInfo')}}"
                                     class="dropdown-item hover:bg-white/5"> <i data-feather="user"
                                         class="w-4 h-4 mr-2"></i>
