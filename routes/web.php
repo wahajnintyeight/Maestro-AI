@@ -79,10 +79,9 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
     // Stripe Payment
     Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");
     Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");
-
-    Route::get('switch-to-admin', [PageController::class, 'switchToAdmin'])->name('switchToAdmin');
 });
 
+Route::get('switch-to-admin', [PageController::class, 'switchToAdmin'])->name('switchToAdmin');
 
 
 Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('google.login');

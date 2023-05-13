@@ -17,10 +17,28 @@ class PageController extends Controller
     {
         return view('partials.register');
     }
+
+    public function switchToAdmin()
+    {
+        $user = auth()->user();
+
+        // Toggle the role_id (0 or 1)
+        $user->role_id = !$user->role_id;
+
+        // Save the updated user
+        $user->save();
+
+        // Redirect to the desired page
+        return redirect()->back()->with('success', 'Role switched successfully.');
+    }
+
     public function adminDashboard()
     {
-        return view('dashboard.admin.home');
+        $userCount = count(User::all());
+        $paidUsers = count(User::where('is_paid', 1)->get());
+        return view('dashboard.admin.home', compact('userCount', 'paidUsers'));
     }
+
 
     public function adminViewMembers()
     {
