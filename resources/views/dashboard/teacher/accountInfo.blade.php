@@ -61,7 +61,7 @@
             </div>
             <div class="p-5">
                 <div class="intro-y box mt-5">
-                    @if ($user->is_paid == 1)
+                    @if ($user->is_paid == 0)
                     {{-- START --}}
                     <div class="xl:container m-auto">
                         <div class="m-auto text-center">
