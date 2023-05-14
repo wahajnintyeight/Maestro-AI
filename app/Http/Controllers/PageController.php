@@ -104,7 +104,6 @@ class PageController extends Controller
             $started_at = $subscription->created_at->format('Y-m-d');  // Get the created_at timestamp
             $ended_at = $subscription->ends_at->format('Y-m-d');  // Get the ends_at timestamp
         }
-
         return view('dashboard.teacher.accountInfo', compact('user', 'plans', 'started_at', 'ended_at'));
     }
 

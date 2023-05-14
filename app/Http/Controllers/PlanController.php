@@ -15,6 +15,29 @@ class PlanController extends Controller
         return view("plans", compact("plans"));
     }
 
+    // create update card view funciton
+    public function createUpdateCardView()
+    {
+        $intent = auth()->user()->createSetupIntent();
+        return view('dashboard.teacher.update-card', compact('intent'));
+    }
+
+    public function updateCard(Request $request)
+    {
+        $request->validate([
+            'payment_method' => 'required',
+        ]);
+
+        $user = $request->user();
+
+        $paymentMethod = $request['payment_method'];
+        $user->updateDefaultPaymentMethod($paymentMethod);
+        $user->save();
+        // return response()->json(['success' => null]);
+
+        return response()->json(['success' => 'Payment method updated successfully!']);
+    }
+
     /**
      * Write code on Method
      *
@@ -59,6 +82,29 @@ class PlanController extends Controller
         ]);
         $user = Auth::user();
         $plans = Plan::all();
+        return redirect()->route('teacher.teacherAccountInfo');
+    }
+
+    public function cancelSubscription(Request $request)
+    {
+        $user = Auth::user();
+        $userPlan = $user->subscriptions->last()->name;
+        $user->subscription($userPlan)->cancelNow();
+        $user->update([
+            'is_paid' => 0,
+            'sub_type' => ''
+        ]);
+        $plans = Plan::all();
         return view('dashboard.teacher.accountInfo', compact('user', 'plans'));
+    }
+
+    public function viewCancelSubscription(Request $request)
+    {
+        //get current authenticated user, and fetch the subscription
+        $user = Auth::user();
+        //fetch his subscription from stripe
+        // dd($user);
+        $subscription = $user->subscription();
+        return view('dashboard.teacher.cancel-subscription');
     }
 }

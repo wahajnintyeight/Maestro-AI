@@ -79,6 +79,12 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
     // Stripe Payment
     Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");
     Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");
+
+    Route::post('/cancel-subscription', [PlanController::class, 'viewCancelSubscription'])->name("view-cancel-now");
+    Route::post('/cancel', [PlanController::class, 'cancelSubscription'])->name("cancel-now");
+
+    Route::get('/update-card', [PlanController::class, 'createUpdateCardView'])->name('updateCard');
+    Route::post('/update-card/save', [PlanController::class, 'updateCard'])->name('updateCard-save');
 });
 
 Route::get('switch-to-admin', [PageController::class, 'switchToAdmin'])->name('switchToAdmin');
