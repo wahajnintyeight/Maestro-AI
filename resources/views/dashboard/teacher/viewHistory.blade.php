@@ -44,10 +44,12 @@
 
 <hr class="border-b mt-5 border-gray-200" />
 
-<div class="mt-5">
-    <span>Informar de un Error - <a class="font-medium text-md"
-            href="mailto:ayuda@maestroia.com">ayuda@maestroia.com</a></span><br>
-    <span>Idea para una Herramienta - <a class="font-medium text-md"
+<div class="mt-5 space-y-2">
+    <div class="mb-3">
+        <span>Informar de un Error - <a target="_blank" class="btn btn-success text-white"
+                href="mailto:ayuda@maestroia.com">ayuda@maestroia.com</a></span>
+    </div>
+    <span>Idea para una Herramienta - <a target="_blank" class="btn btn-success text-white"
             href="mailto:Admin@maestroia.com">Admin@maestroia.com</a></span>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="

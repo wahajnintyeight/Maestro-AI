@@ -96,12 +96,22 @@ class PageController extends Controller
     {
         $user = Auth::user();
         $plans = Plan::all();
-        return view('dashboard.teacher.accountInfo', compact('user', 'plans'));
+
+        $started_at = '';
+        $ended_at = '';
+
+        foreach ($user->subscriptions as $subscription) {
+            $started_at = $subscription->created_at->format('Y-m-d');  // Get the created_at timestamp
+            $ended_at = $subscription->ends_at->format('Y-m-d');  // Get the ends_at timestamp
+        }
+
+        return view('dashboard.teacher.accountInfo', compact('user', 'plans', 'started_at', 'ended_at'));
     }
 
     public function showHistory()
     {
         $user = Auth::user();
+
         return view('dashboard.teacher.viewHistory', compact('user'));
     }
 
