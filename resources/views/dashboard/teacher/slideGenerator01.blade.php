@@ -156,7 +156,7 @@
                     <div>
                         <label for="curriculum" class="form-label">Curriculum</label>
                         <select id="curriculum" name="curriculum" class="form-select">
-                            <option value="Currículo Espanol - LOMLOE">Currículo Espanol - LOMLOE
+                            <option value="Currículo Español - LOMLOE">Currículo Español - LOMLOE
                             </option>
                             <option value="Chile">Chile</option>
                             <option value="Argentina">Argentina</option>
