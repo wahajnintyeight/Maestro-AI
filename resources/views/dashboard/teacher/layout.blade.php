@@ -204,7 +204,7 @@
                 <li>
                     <a href="{{route('teacher.showFreeTools')}}" class="side-menu">
                         <div class="side-menu__icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" id="free">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" id="free">
                                 <g font-family="sans-serif" font-weight="400">
                                     <path fill="#fff" fill-rule="evenodd"
                                         style="line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;block-progression:tb;isolation:auto;mix-blend-mode:normal"
