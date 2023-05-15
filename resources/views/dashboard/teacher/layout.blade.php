@@ -36,7 +36,7 @@
             <li>
                 <a href="{{route('teacher.dashboard')}}" class="menu">
                     <div class="menu__icon"> <i data-feather="home"></i> </div>
-                    <div class="menu__title"> Dashboard </div>
+                    <div class="menu__title"> Panel de Control </div>
                 </a>
             </li>
 
@@ -134,7 +134,7 @@
     <div class="flex overflow-hidden">
         <!-- BEGIN: Side Menu -->
         <nav class="side-nav">
-            <a href="" class="intro-x flex items-center pl-5 pt-4 mt-3">
+            <a href="{{route('teacher.dashboard')}}" class="intro-x flex items-center pl-5 pt-4 mt-3">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6" viewBox="0 0 311.899 291.707">
                     <g id="Icon_ionic-ios-apps" data-name="Icon ionic-ios-apps" transform="translate(-4.57 -4.492)">
                         <path id="Path_9" data-name="Path 9"
@@ -150,14 +150,15 @@
                         </g>
                     </g>
                 </svg>
-                <span class="hidden xl:block text-white text-lg ml-3"> MaestroIA </span>
-            </a>
+                <span class="hidden xl:block text-white text-lg ml-3">
+                    MaestroIA </span></a>
+
             <div class="side-nav__devider my-6"></div>
             <ul>
                 <li>
                     <a href="{{route('teacher.dashboard')}}" class="side-menu">
                         <div class="side-menu__icon"> <i data-feather="home"></i> </div>
-                        <div class="side-menu__title"> Dashboard </div>
+                        <div class="side-menu__title"> Panel de Control </div>
                     </a>
                 </li>
                 <li>
@@ -262,7 +263,7 @@
                 <nav aria-label="breadcrumb" class="-intro-x mr-auto hidden sm:flex">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('teacher.dashboard')}}">MaestroIA</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                        <li class="breadcrumb-item active" aria-current="page">Panel de Control</li>
                     </ol>
                 </nav>
                 <!-- END: Breadcrumb -->

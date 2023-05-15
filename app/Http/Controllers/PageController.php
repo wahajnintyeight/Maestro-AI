@@ -18,6 +18,11 @@ class PageController extends Controller
         return view('partials.register');
     }
 
+    public function viewFAQ()
+    {
+        return view('faq');
+    }
+
     public function switchToAdmin()
     {
         $user = auth()->user();

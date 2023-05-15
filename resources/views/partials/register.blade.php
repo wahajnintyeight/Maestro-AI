@@ -74,6 +74,12 @@
                                 class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Iniciar
                                 sesión</a>
                         </div>
+
+                        <div class="text-center">
+                            By signing up - you agree to our <a style="text-decoration: underline;"
+                                href="https://docs.google.com/document/d/1cQiCRPqIjStTpbi8jlasY16f3PHU4zrpcTW6BmSthjQ/edit?usp=sharing">Privacy
+                                Policy</a>
+                        </div>
                     </form>
                     <br>
                     <hr>
