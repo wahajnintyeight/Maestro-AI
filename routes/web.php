@@ -42,6 +42,7 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
     Route::get('/slides-generator', [ToolController::class, 'showSlidesGenerator'])->name('showSlidesGenerator');
     Route::get('/concept-explainer', [ToolController::class, 'showConceptExplainer'])->name('showConceptExplainer');
     Route::get('/worksheet-generator', [ToolController::class, 'showWorksheetGenerator'])->name('showWorksheetGenerator');
+    Route::get('/frequently-asked-questions', [PageController::class, 'viewFAQ'])->name('showFAQ');
 
     Route::get('/view-history', [PageController::class, 'showHistory'])->name('showHistory');
     Route::get('/delete', [PageController::class, 'viewDeletePage'])->name('view.delete');

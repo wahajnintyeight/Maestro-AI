@@ -20,7 +20,7 @@ class PageController extends Controller
 
     public function viewFAQ()
     {
-        return view('faq');
+        return view('dashboard.faq');
     }
 
     public function switchToAdmin()
