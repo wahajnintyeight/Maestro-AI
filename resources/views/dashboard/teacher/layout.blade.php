@@ -157,13 +157,13 @@
             <ul>
                 <li>
                     <a href="{{route('teacher.dashboard')}}" class="side-menu">
-                        <div class="side-menu__icon"> <i data-feather="home"></i> </div>
+                        <div class="side-menu__icon"> <i data-lucide="home"></i> </div>
                         <div class="side-menu__title"> Panel de Control </div>
                     </a>
                 </li>
                 <li>
                     <a href="{{route('teacher.teacherAccountInfo')}}" class="side-menu">
-                        <div class="side-menu__icon"> <i data-feather="user"></i> </div>
+                        <div class="side-menu__icon"> <i data-lucide="user"></i> </div>
                         <div class="side-menu__title"> Mis Datos </div>
                     </a>
                 </li>
