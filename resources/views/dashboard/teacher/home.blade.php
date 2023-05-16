@@ -17,7 +17,7 @@
 
                 <div class="grid grid-cols-12 gap-6 mt-5">
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
-                        @if ($user->is_paid == 1)
+                        @if ($lessonPlanner->free_status == 1 || $user->is_paid == 1)
                         <a href="{{ route('teacher.showLessonPlanner') }}">
                             <div style="height: 100% !important;" class="report-box zoom-in">
                                 <div class="box p-5 h-full py-10">
@@ -111,7 +111,7 @@
                         @endif
                     </div>
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
-                        @if ($user->is_paid == 1)
+                        @if ($comprehensionGenerator->free_status == 1 || $user->is_paid == 1)
                         <a href="{{ route('teacher.comprehension.form') }}">
                             <div style="height: 100% !important;" class="report-box zoom-in">
                                 <div class="box p-5 h-full py-10">
@@ -180,7 +180,7 @@
                         @endif
                     </div>
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
-                        @if ($user->is_paid == 1)
+                        @if ($conceptExplainer->free_status == 1 || $user->is_paid == 1)
                         <a href="{{ route('teacher.showConceptExplainer') }}">
                             <div style="height: 100% !important;" class="report-box zoom-in">
                                 <div class="box p-5 h-full py-10">
@@ -341,7 +341,7 @@
                         @endif
                     </div>
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
-                        @if ($user->is_paid == 1)
+                        @if ($worksheetGenerator->free_status == 1 || $user->is_paid == 1)
                         <a href="{{ route('teacher.showWorksheetGenerator') }}">
                             <div style="height: 100% !important;" class="report-box zoom-in">
                                 <div class="box p-5 h-full py-10">
@@ -398,7 +398,7 @@
                         @endif
                     </div>
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
-                        @if ($user->is_paid == 1)
+                        @if ($rubricGenerator->free_status == 1 || $user->is_paid == 1)
                         <a href="{{ route('teacher.showRubricGenerator') }}">
                             <div style="height: 100% !important;" class="report-box zoom-in">
                                 <div class="box p-5 h-full py-10">
@@ -470,7 +470,7 @@
                         @endif
                     </div>
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
-                        @if ($user->is_paid == 1)
+                        @if ($slidesGenerator->free_status == 1 || $user->is_paid == 1)
                         <a href="{{ route('teacher.showSlidesGenerator') }}">
                             <div style="height: 100% !important;" class="report-box zoom-in">
                                 <div class="box p-5 h-full py-10">

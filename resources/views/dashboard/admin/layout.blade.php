@@ -30,21 +30,28 @@
             <a href="" class="flex mr-auto">
                 <img class="w-6" src="dist/images/logo.svg">
             </a>
-            <a href="javascript:;" id="mobile-menu-toggler"> <i data-feather="bar-chart-2"
+            <a href="javascript:;" id="mobile-menu-toggler"> <i data-lucide="bar-chart-2"
                     class="w-8 h-8 text-white transform -rotate-90"></i> </a>
         </div>
         <ul class="border-t border-white/[0.08] py-5 hidden">
             <li>
                 <a href="{{route('admin.dashboard')}}" class="menu">
-                    <div class="menu__icon"> <i data-feather="home"></i> </div>
+                    <div class="menu__icon"> <i data-lucide="home"></i> </div>
                     <div class="menu__title"> Dashboard </div>
                 </a>
             </li>
 
             <li>
                 <a href="{{route('admin.viewMembers')}}" class="menu">
-                    <div class="menu__icon"> <i data-feather="home"></i> </div>
+                    <div class="menu__icon"> <i data-lucide="user"></i> </div>
                     <div class="menu__title"> Users </div>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{route('admin.viewTools')}}" class="menu">
+                    <div class="menu__icon"> <i data-lucide="pen-tool"></i> </div>
+                    <div class="menu__title"> Tools </div>
                 </a>
             </li>
 
@@ -68,15 +75,22 @@
             <ul>
                 <li>
                     <a href="{{route('admin.dashboard')}}" class="side-menu">
-                        <div class="side-menu__icon"> <i data-feather="home"></i> </div>
+                        <div class="side-menu__icon"> <i data-lucide="home"></i> </div>
                         <div class="side-menu__title"> Dashboard </div>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{route('admin.viewMembers')}}" class="side-menu">
-                        <div class="side-menu__icon"><i data-feather="user"></i></div>
+                        <div class="side-menu__icon"><i data-lucide="user"></i></div>
                         <div class="side-menu__title"> Users </div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('admin.viewTools')}}" class="side-menu">
+                        <div class="side-menu__icon"><i data-lucide="pen-tool"></i></div>
+                        <div class="side-menu__title"> Tools </div>
                     </a>
                 </li>
 

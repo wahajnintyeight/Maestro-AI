@@ -16,7 +16,7 @@
                 </div>
                 <div class="grid grid-cols-12 gap-6 mt-5">
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
-                        @if ($user->is_paid == 1)
+                        @if ($user->is_paid == 1 || $conceptExplainer->free_status == 1)
                         <a href="{{ route('teacher.showConceptExplainer') }}">
                             <div style="height: 100% !important;" class="report-box zoom-in">
                                 <div class="box h-full p-5 py-10">
@@ -175,7 +175,7 @@
                         @endif
                     </div>
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
-                        @if ($user->is_paid == 1)
+                        @if ($user->is_paid == 1 || $worksheetGenerator->free_status == 1)
                         <a href="{{ route('teacher.showWorksheetGenerator') }}">
                             <div style="height: 100% !important;" class="report-box zoom-in">
                                 <div class="box h-full p-5 py-10">
@@ -230,7 +230,7 @@
                         @endif
                     </div>
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
-                        @if ($user->is_paid == 1)
+                        @if ($user->is_paid == 1 || $comprehensionGenerator->free_status == 1)
                         <a href="{{ route('teacher.comprehension.form') }}">
                             <div style="height: 100% !important;" class="report-box zoom-in">
                                 <div class="box h-full p-5 py-10">

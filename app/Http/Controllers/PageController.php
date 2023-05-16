@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Plan;
+use App\Models\Tool;
 use App\Models\User;
 
 class PageController extends Controller
@@ -16,6 +17,22 @@ class PageController extends Controller
     public function register()
     {
         return view('partials.register');
+    }
+
+    public function adminViewTools()
+    {
+        $tools = Tool::all();
+        return view('dashboard.admin.adminViewTools', compact('tools'));
+    }
+
+    public function toggleToolStatus(Tool $tool)
+    {
+        // Toggle the free_status of the tool
+        $tool->free_status = !$tool->free_status;
+        $tool->save();
+
+        // Redirect back or perform any other action as needed
+        return redirect()->back()->with('success', 'Tool status toggled successfully.');
     }
 
     public function viewFAQ()
@@ -94,8 +111,16 @@ class PageController extends Controller
     {
         $user = Auth::user();
 
-        return view('dashboard.teacher.home', compact('user'));
+        $lessonPlanner = Tool::where('name', 'Lesson Planner')->first();
+        $comprehensionGenerator = Tool::where('name', 'Comprehension Generator')->first();
+        $worksheetGenerator = Tool::where('name', 'Worksheet Generator')->first();
+        $conceptExplainer = Tool::where('name', 'Concept Explainer')->first();
+        $slidesGenerator = Tool::where('name', 'Slides Generator')->first();
+        $rubricGenerator = Tool::where('name', 'Rubric Generator')->first();
+
+        return view('dashboard.teacher.home', compact('user', 'lessonPlanner', 'comprehensionGenerator', 'worksheetGenerator', 'conceptExplainer', 'slidesGenerator', 'rubricGenerator'));
     }
+
 
     public function teacherAccountInfo()
     {
@@ -121,8 +146,25 @@ class PageController extends Controller
 
     public function showTeacherTools()
     {
+
         $user = Auth::user();
-        return view('dashboard.teacher.teacher-tools', compact('user'));
+        $tools = Tool::all();
+        $lessonPlanner = Tool::where('name', 'Lesson Planner')->first();
+        $comprehensionGenerator = Tool::where('name', 'Comprehension Generator')->first();
+        $worksheetGenerator = Tool::where('name', 'Worksheet Generator')->first();
+        $conceptExplainer = Tool::where('name', 'Concept Explainer')->first();
+        $slidesGenerator = Tool::where('name', 'Slides Generator')->first();
+        $rubricGenerator = Tool::where('name', 'Rubric Generator')->first();
+
+        $free_tools_available = 0;
+        foreach ($tools as $tool) {
+            if ($tool->free_status == 1) {
+                $free_tools_available = 1;
+                break;
+            }
+        }
+
+        return view('dashboard.teacher.teacher-tools', compact('user', 'lessonPlanner', 'comprehensionGenerator', 'worksheetGenerator', 'conceptExplainer', 'slidesGenerator', 'rubricGenerator', 'free_tools_available'));
     }
 
     public function showRubricGenerator()
@@ -133,12 +175,45 @@ class PageController extends Controller
     public function showClassroomTools()
     {
         $user = Auth::user();
-        return view('dashboard.teacher.classroom-tools', compact('user'));
+        $tools = Tool::all();
+        $lessonPlanner = Tool::where('name', 'Lesson Planner')->first();
+        $comprehensionGenerator = Tool::where('name', 'Comprehension Generator')->first();
+        $worksheetGenerator = Tool::where('name', 'Worksheet Generator')->first();
+        $conceptExplainer = Tool::where('name', 'Concept Explainer')->first();
+        $slidesGenerator = Tool::where('name', 'Slides Generator')->first();
+        $rubricGenerator = Tool::where('name', 'Rubric Generator')->first();
+
+        $free_tools_available = 0;
+        foreach ($tools as $tool) {
+            if ($tool->free_status == 1) {
+                $free_tools_available = 1;
+                break;
+            }
+        }
+
+        return view('dashboard.teacher.classroom-tools', compact('user', 'lessonPlanner', 'comprehensionGenerator', 'worksheetGenerator', 'conceptExplainer', 'slidesGenerator', 'rubricGenerator', 'free_tools_available'));
     }
 
     public function showFreeTools()
     {
         $user = Auth::user();
-        return view('dashboard.teacher.free-tools', compact('user'));
+        $tools = Tool::all();
+
+        $lessonPlanner = Tool::where('name', 'Lesson Planner')->first();
+        $comprehensionGenerator = Tool::where('name', 'Comprehension Generator')->first();
+        $worksheetGenerator = Tool::where('name', 'Worksheet Generator')->first();
+        $conceptExplainer = Tool::where('name', 'Concept Explainer')->first();
+        $slidesGenerator = Tool::where('name', 'Slides Generator')->first();
+        $rubricGenerator = Tool::where('name', 'Rubric Generator')->first();
+
+        $free_tools_available = 0;
+        foreach ($tools as $tool) {
+            if ($tool->free_status == 1) {
+                $free_tools_available = 1;
+                break;
+            }
+        }
+
+        return view('dashboard.teacher.free-tools', compact('user', 'lessonPlanner', 'comprehensionGenerator', 'worksheetGenerator', 'conceptExplainer', 'slidesGenerator', 'rubricGenerator', 'free_tools_available'));
     }
 }

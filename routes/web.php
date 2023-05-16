@@ -28,8 +28,11 @@ Route::group(
         Route::get('/dashboard', [PageController::class, 'adminDashboard'])->name('dashboard');
         Route::get('/', [PageController::class, 'adminDashboard'])->name('dashboard');
         Route::get('/members', [PageController::class, 'adminViewMembers'])->name('viewMembers');
+        Route::get('/tools', [PageController::class, 'adminViewTools'])->name('viewTools');
+
         Route::post('/toggle-status/{user}', [PageController::class, 'toggleStatus'])->name('toggleStatus');
         Route::post('/delete-user/{user}', [PageController::class, 'deleteUser'])->name('deleteUser');
+        Route::post('/tools/{tool}/toggle-status', [PageController::class, 'toggleToolStatus'])->name('toggleStatus');
     }
 );
 
