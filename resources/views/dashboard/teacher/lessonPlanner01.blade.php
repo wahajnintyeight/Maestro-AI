@@ -51,7 +51,7 @@
                 </div>
                 <div class="p-5 border-t border-slate-200/60 dark:border-darkmode-400">
                     <div>
-                        <label for="curriculum" class="form-label">Curriculum</label>
+                        <label for="curriculum" class="form-label">Currículo</label>
                         <select id="curriculum" name="curriculum" class="form-select">
                             <option value="Currículo Español - LOMLOE">Currículo Español - LOMLOE
                             </option>
