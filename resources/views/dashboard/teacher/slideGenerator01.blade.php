@@ -215,7 +215,7 @@
                         <label for="lesson-description" class="form-label">Objetivo</label>
                         <!-- Textarea for Lesson Description -->
                         <textarea id="lesson-description"
-                            placeholder="Intente algo como esto: escriba un plan de lección sobre cómo se usa la música en las tribus nativas americanas"
+                            placeholder="Intente algo como esto: Entender los diferentes procesos que tienen lugar en el ciclo del agua."
                             name="description"
                             class="form-control h-40"><?php echo htmlspecialchars($description); ?></textarea>
                     </div>

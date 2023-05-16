@@ -119,7 +119,7 @@
                         <label for="lesson-description" class="form-label">Descripción de la lección</label>
                         <!-- Textarea for Lesson Description -->
                         <textarea id="lesson-description"
-                            placeholder="Intente algo como esto: escriba un plan de lección sobre cómo se usa la música en las tribus nativas americanas"
+                            placeholder="Intente algo como esto: Escriba un plan de lección sobre la primera guerra mundial. Incluye una actividad dinámica en grupo."
                             name="description"
                             class="form-control h-40"><?php echo htmlspecialchars($description); ?></textarea>
                     </div>

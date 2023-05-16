@@ -79,15 +79,15 @@
                         </select>
                     </div>
                     <div class="mt-5">
-                        <label for="grade-level" class="form-label">Asignatura / Curso</label>
+                        <label for="grade-level" class="form-label">Asignatura/Curso</label>
                         <input required id="lesson-title" name="subject" type="text" class="form-control"
-                            placeholder="ej. Inglés" value="<?php echo htmlspecialchars($subject); ?>">
+                            placeholder="Ej. Ciencias" value="<?php echo htmlspecialchars($subject); ?>">
                     </div>
                     <div class="mt-5">
                         <label for="lesson-title" class="form-label">Tema</label>
                         <!-- Input for Lesson Title -->
                         <input required id="lesson-title" name="topic" type="text" class="form-control"
-                            placeholder="ej. Sustantivos y pronombres" value="<?php echo htmlspecialchars($topic); ?>">
+                            placeholder="El Ciclo del Agua" value="<?php echo htmlspecialchars($topic); ?>">
 
 
                     </div>
