@@ -320,11 +320,14 @@
                     </div>
                     <div class="dropdown-menu w-56">
                         <ul class="dropdown-content bg-primary text-white">
+                            @if(Auth::user()->email == 'joseodonovan17@gmail.com' || Auth::user()->email ==
+                            'sp20-bse-005@cuilahore.edu.pk' || Auth::user()->email == 'wahaj.dkz@gmail.com')
                             <li>
                                 <a href="{{route('switchToAdmin')}}" class="dropdown-item hover:bg-white/5"> <i
                                         data-feather="shield" class="w-4 h-4 mr-2"></i>
                                     Admin Dashboard </a>
                             </li>
+                            @endif
                             <li>
                                 <a href="{{route('teacher.teacherAccountInfo')}}"
                                     class="dropdown-item hover:bg-white/5"> <i data-feather="user"

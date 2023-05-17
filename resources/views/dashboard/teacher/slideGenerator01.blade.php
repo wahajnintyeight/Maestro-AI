@@ -292,7 +292,7 @@
                     <div class="editable-slides-default">
                         <?php
                             if (empty($slides)) {
-                                echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generate Slides' para comenzar el proceso!";
+                                echo "Los resultados se mostrarán aquí. ¡Haz clic en 'Generar Contenido' para comenzar el proceso!";
                             } else {
                                 echo '<div class="slide flex flex-col justify-center items-center h-full">';
                                 echo '<h2 class="text-xl font-medium leading-none mt-3 text-center" style="font-size: 41px;">' . $slides['Title'] . '</h2>';
