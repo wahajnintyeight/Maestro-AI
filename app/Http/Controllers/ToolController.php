@@ -446,6 +446,8 @@ class ToolController extends Controller
 
     public function generateConceptExplainer(Request $request)
     {
+        set_time_limit(120); // sets the maximum execution time to 2 minutes
+
         $open_ai_key = getenv('OPENAI_API_KEY');
         $open_ai = new OpenAi($open_ai_key);
 
@@ -462,30 +464,39 @@ class ToolController extends Controller
             $prompt = "En español tradicional de España. Cree una explicación detallada del concepto para un estudiante de $age que estudia '$subject' y '$topic'. Trate de seguir el plan de estudios '$curriculum'. Explique cada concepto en profundidad, utilizando un lenguaje sencillo y ejemplos para que sea fácil de entender para el estudiante. Encierre cada encabezado en [h] [/h]. Asegúrese de que la explicación sea completa y cubra todos los aspectos esenciales del tema. Incluye un párrafo de ejemplo al final. Cada encabezado debe comenzar en una nueva línea. Evite el hábito de hacer esto: 'Contenido: Este es el contenido', es decir, no necesita anteponer al contenido una etiqueta y dos puntos.";
 
             $assistantPrompt = "Eres un experto en explicar conceptos profundos para estudiantes de " . $age . " años.";
-            $complete = $open_ai->chat([
-                'model' => 'gpt-3.5-turbo',
-                'messages' => [
-                    [
-                        "role" => "system",
-                        "content" => $assistantPrompt
-                    ],
-                    [
-                        "role" => "user",
-                        "content" => $prompt
-                    ],
-                ],
+            $data = [
+                'model' => 'text-davinci-002',
+                'prompt' => $prompt,
                 'temperature' => 0.9,
-                'max_tokens' => 1200,
+                'max_tokens' => 1000,
                 'frequency_penalty' => 0,
-                'presence_penalty' => 0.6,
+                'presence_penalty' => 0,
+            ];
+
+            $json_data = json_encode($data);
+
+            $ch = curl_init('https://api.openai.com/v1/completions');
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/json',
+                'Authorization: Bearer ' . getenv('OPENAI_API_KEY'),
+                'Content-Length: ' . strlen($json_data)
             ]);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 120); // 120 seconds is 2 minutes
 
 
-            $completeDecoded = json_decode($complete);
+            $result = curl_exec($ch);
+            $completeDecoded = json_decode($result);
 
-            // dd($completeDecoded);
+            if (curl_errno($ch)) {
+                throw new Exception(curl_error($ch));
+            }
 
-            $concept = $completeDecoded->choices[0]->message->content;
+            curl_close($ch);
+
+            $concept = $completeDecoded->choices[0]->text;
             $concept = str_replace('[h]', '<h2>', $concept);
             $concept = str_replace('[/h]', '</h2>', $concept);
 
