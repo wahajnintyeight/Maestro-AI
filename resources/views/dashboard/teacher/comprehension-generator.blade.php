@@ -5,6 +5,24 @@
         Comprensión lectora
     </h2>
 </div>
+<div id="success-modal-preview" class="modal" data-tw-backdrop="static" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="p-5 text-center">
+                    <i data-lucide="hourglass-full" class="w-16 h-16 text-primary mx-auto mt-3"></i>
+                    <div class="text-3xl mt-5">¡Por favor espera!</div>
+                    <div class="text-gray-700 mt-2">Actualmente estamos generando tu planificador de lecciones.</div>
+                    <div class="text-gray-500 mt-2">Este proceso puede tardar unos minutos. Por favor, no cierres ni
+                        actualices esta página.</div>
+                </div>
+                <div class="px-5 pb-8 text-center">
+                    <button type="button" data-tw-dismiss="modal" class="btn btn-primary w-24">Entendido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="grid grid-cols-12 gap-6">
     <!-- BEGIN: Profile Menu -->
     <div class="col-span-12 lg:col-span-4 2xl:col-span-4 flex lg:block flex-col-reverse">
@@ -236,5 +254,15 @@
     document.getElementById('generate-btn').addEventListener('click', function() {
             document.getElementById('spinner').classList.remove('hidden');
         });
+</script>
+<script>
+    document.getElementById('generate-btn').addEventListener('click', function() {
+        document.getElementById('spinner').classList.remove('hidden');
+        
+        // Get or create an instance of the modal
+        var myModal = tailwind.Modal.getOrCreateInstance(document.querySelector("#success-modal-preview"));
+        // Show the modal
+        myModal.show();
+    });
 </script>
 @endsection

@@ -95,6 +95,8 @@ class ToolController extends Controller
 
     public function generateLessonPlanner(Request $request)
     {
+        set_time_limit(180); // sets the maximum execution time to 2 minutes
+
         $open_ai_key = getenv('OPENAI_API_KEY');
         $open_ai = new OpenAi($open_ai_key);
 
@@ -175,6 +177,8 @@ class ToolController extends Controller
 
     public function generateSlides(Request $request)
     {
+        set_time_limit(180); // sets the maximum execution time to 2 minutes
+
         $open_ai_key = getenv('OPENAI_API_KEY');
         $open_ai = new OpenAi($open_ai_key);
 
@@ -295,6 +299,8 @@ class ToolController extends Controller
 
     public function generateWorksheet(Request $request)
     {
+        set_time_limit(180); // sets the maximum execution time to 2 minutes
+
         $open_ai_key = getenv('OPENAI_API_KEY');
         $open_ai = new OpenAi($open_ai_key);
 
@@ -364,6 +370,8 @@ class ToolController extends Controller
 
     public function generateRubric(Request $request)
     {
+        set_time_limit(180); // sets the maximum execution time to 2 minutes
+
         $open_ai_key = getenv('OPENAI_API_KEY');
         $open_ai = new OpenAi($open_ai_key);
 
@@ -446,7 +454,7 @@ class ToolController extends Controller
 
     public function generateConceptExplainer(Request $request)
     {
-        set_time_limit(120); // sets the maximum execution time to 2 minutes
+        set_time_limit(180); // sets the maximum execution time to 2 minutes
 
         $open_ai_key = getenv('OPENAI_API_KEY');
         $open_ai = new OpenAi($open_ai_key);
@@ -563,6 +571,7 @@ class ToolController extends Controller
     }
     public function generateComprehensionQuestions(Request $request)
     {
+        set_time_limit(180); // sets the maximum execution time to 2 minutes
 
 
         $open_ai_key = getenv('OPENAI_API_KEY');
