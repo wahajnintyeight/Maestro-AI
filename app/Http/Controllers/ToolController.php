@@ -112,14 +112,15 @@ class ToolController extends Controller
 
         try {
 
-            $prompt = "Crea una programación para el Nivel Educativo $grade con el título \"$title\" y la descripción \"$description\". Sigue el currículo \"$curriculum\". Envuelve cada encabezado en [h] [/h]. Habla sobre los siguientes encabezados: Título, un Objetivo, dos Competencias de la LOMLOE, 3x Vocabulario (con Definiciones de Palabras), Explicación del Profesor corta, Actividades y ejercicios breves, Evaluación, Actividad de Cierre. Cada encabezado debe comenzar en una nueva línea. Evita la costumbre de hacer esto: 'Contenido: Este es el contenido', es decir, no es necesario anteponer el contenido con una etiqueta y dos puntos. Utiliza este punto de viñeta para elementos de lista: •. Muestra los encabezados en texto en negrita";
+            $prompt = "Crea una programación para el Nivel Educativo $grade con el título \"$title\" y la descripción \"$description\". Sigue el currículo \"$curriculum\". Envuelve cada encabezado en [h] [/h].  Cada encabezado debe comenzar en una nueva línea. Evita la costumbre de hacer esto: 'Contenido: Este es el contenido', es decir, no es necesario anteponer el contenido con una etiqueta y dos puntos. Utiliza este punto de viñeta para elementos de lista: •. Muestra los encabezados en texto en negrita";
 
+            // Habla sobre los siguientes encabezados: Título, un Objetivo, dos Competencias de la LOMLOE, 3x Vocabulario (con Definiciones de Palabras), Explicación del Profesor corta, Actividades y ejercicios breves, Evaluación, Actividad de Cierre.
 
             $complete = $open_ai->completion([
                 'model' => 'text-davinci-003',
                 'prompt' => $prompt,
                 'temperature' => 0.9,
-                'max_tokens' => 700,
+                'max_tokens' => 600,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
                 'user' => $user_id
