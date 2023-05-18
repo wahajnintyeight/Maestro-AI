@@ -113,21 +113,16 @@ class ToolController extends Controller
             $prompt = "​​En español tradicional de España. Crea una programación para el curso $grade con el título \"$title\" y la descripción \"$description\". Sigue el currículo \"$curriculum\". Envuelve cada encabezado en [h] [/h]. Habla sobre los siguientes encabezados: Título, Metas y Objetivos, Competencias de la LOMLOE, Vocabulario (con Definiciones de Palabras), Explicación del Profesor corta, Actividades y Ejercicios, Evaluación, Actividad de Cierre. Cada encabezado debe comenzar en una nueva línea. Evita la costumbre de hacer esto: 'Contenido: Este es el contenido', es decir, no es necesario anteponer el contenido con una etiqueta y dos puntos. Utiliza este punto de viñeta para elementos de lista: •. Muestra los encabezados en texto en negrita";
 
 
-            $complete = $open_ai->chat([
-                'model' => 'gpt-3.5-turbo',
-                'messages' => [
-                    [
-                        "role" => "user",
-                        "content" => $prompt
-                    ],
-                ],
+            $complete = $open_ai->completion([
+                'model' => 'text-davinci-003',
+                'prompt' => $prompt,
                 'temperature' => 0.9,
-                'max_tokens' => 700,
+                'max_tokens' => 600,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
             ]);
 
-            dd($complete);
+            // dd($complete);
 
 
             // $complete = '{"id":"chatcmpl-7EBU9msZTPFQ7U1Qbu6bdVdQpSbzs","object":"chat.completion","created":1683615097,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":165,"completion_tokens":334,"total_tokens":499},"choices":[{"message":{"role":"assistant","content":"Metas y Objetivos:\n- Comprender el funcionamiento del sistema digestivo humano.\n- Identificar las partes del sistema digestivo y su función.\n- Aprender y aplicar el vocabulario relacionado al tema.\n\nMateriales y Recursos:\n- Imágenes y dibujos del sistema digestivo.\n- Libros y recursos digitales sobre el tema.\n- Láminas con el vocabulario relacionado.\n\nActividad de Calentamiento:\n- Presentación de imágenes sobre digestión.\n- Preguntas sencillas para llamar la atención de los estudiantes.\n\nVocabulario y Gramática:\n- Partes del sistema digestivo: boca, esófago, estómago, intestino delgado y grueso, hígado, páncreas, recto y ano.\n- Verbos relacionados a la digestión: masticar, tragar, digerir, absorber y eliminar.\n\nActividades y Ejercicios:\n- Observación y descripción de láminas del sistema digestivo.\n- Juego de adivinanzas para identificar las partes del sistema digestivo.\n- Elaboración de un mural del sistema digestivo.\n- Realización de una ficha de ejercicios para reforzar el vocabulario y la gramática.\n\nEvaluación:\n- Participación activa en las actividades propuestas.\n- Entrega de la ficha de ejercicios completada.\n\nActividad de Cierre:\n- Reflexión en grupo sobre lo aprendido durante la clase.\n- Repaso del vocabulario y las partes del sistema digestivo."},"finish_reason":"stop","index":0}]}';
@@ -135,7 +130,7 @@ class ToolController extends Controller
             $completeDecoded = json_decode($complete);
 
 
-            $lesson = $completeDecoded->choices[0]->message->content;
+            $lesson = $completeDecoded->choices[0]->text;
             $lesson = str_replace('[h]', '<h2>', $lesson);
             $lesson = str_replace('[/h]', '</h2>', $lesson);
             $lesson = str_replace('-', '•', $lesson);
