@@ -125,10 +125,6 @@ class ToolController extends Controller
                 'user' => $user_id
             ]);
 
-            // dd($complete);
-
-
-            // $complete = '{"id":"cmpl-7HYrq1NNMwmNsa0QkqUCpyY4vGok8","object":"text_completion","created":1684419962,"model":"text-davinci-003","choices":[{"text":".\n\n[h1]Programación del Curso Infantil: Sistema Digestivo[/h1]\n\n[h2]Metas y Objetivos[/h2]\n• Comprender el funcionamiento general del sistema digestivo. \n• Reconocer los órganos principales que forman parte del sistema digestivo. \n• Comprender la importancia de una alimentación saludable.\n\n[h2]Competencias de la LOMLOE[/h2]\n• Lograr la comprensión de la relación entre los humanos y su medio.\n• Desarrollar habilidades y actitudes propias del aprendizaje del conocimiento científico. \n• Promover el uso responsable de los recursos naturales. \n\n[h2]Vocabulario (con Definiciones de Palabras)[/h2]\n• Sistema Digestivo: conjunto de órganos encargados de producir los nutrientes necesarios para el correcto funcionamiento del cuerpo humano. \n• Estómago: organo de la digestión que se encuentra en la parte superior del abdomen. \n• Intestino Grueso: sección del tracto digestivo responsable de la absorción de nutrientes. \n• Intestino Delgado: sección del tracto digestivo donde ocurre la absorción de los nutritentes.\n\n[h2]Explicación del Profesor corta[/h2]\nLos niños aprenderán sobre el sistema digestivo humano, sus órganos principales y la importancia de una alimentación saludable. Se enseñará vocabulario relacionado y ejercicios de comprensión. \n\n[h2]Actividades y Ejercicios[/h2]\n• Explicar en qué consiste el sistema digestivo.\n• Realizar preguntas y repasar las palabras clave del tema.\n• Explicar cuál es la función de cada órgano dentro del sistema digestivo. \n• Discutir la importancia de una alimentación saludable.\n• Trabajar en grupos para identificar las partes del sistema digestivo.\n• Realizar una representación gráfica","index":0,"logprobs":null,"finish_reason":"length"}],"usage":{"prompt_tokens":281,"completion_tokens":600,"total_tokens":881}}';
 
             $completeDecoded = json_decode($complete);
 
