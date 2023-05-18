@@ -110,7 +110,8 @@ class ToolController extends Controller
 
         try {
 
-            $prompt = "En español tradicional de España. Crea un plan de lección para el grado $grade con el título \"$title\" y la descripción \"$description\". Sigue el currículo \"$curriculum\". Envuelve cada encabezado en [h] [/h]. Habla sobre los siguientes encabezados: Título, Habilidades, Metas y Objetivos, Recursos Materiales, Conocimientos Previos, Vocabulario (con Definiciones de Palabras), Explicación del Profesor (explique el concepto con detalle aquí), Actividades y Ejercicios, Evaluación, Actividad de Cierre. Cada encabezado debe comenzar en una nueva línea. Evita la costumbre de hacer esto: 'Contenido: Este es el contenido', es decir, no es necesario anteponer el contenido con una etiqueta y dos puntos. Utiliza este punto de viñeta para elementos de lista: •. Muestra los encabezados en texto en negrita.";
+            $prompt = "En español tradicional de España. Cree un plan de lección para la $grade con el título \"$title\" y la descripción \"$description\". Sigue el plan de estudios de \"$curriculum\". Envuelva cada encabezado en [h] [/h]. Hable sobre los siguientes encabezados: Título, Habilidades, Metas y Objetivos, Recursos Materiales, Conocimientos Previos, Vocabulario (Definiciones de Palabras), Explicación del Maestro (explique el concepto aquí en 2 líneas), Actividades y Ejercicios, Evaluación, Actividad de Cierre. Cada encabezado debe comenzar en una nueva línea. Evite el hábito de hacer esto: 'Contenido: Este es el contenido', es decir, no necesita anteponer al contenido una etiqueta y dos puntos. Utilice esta viñeta para los elementos de la lista: •. Mostrar encabezados en negrita.";
+
 
             $complete = $open_ai->chat([
                 'model' => 'gpt-3.5-turbo',
