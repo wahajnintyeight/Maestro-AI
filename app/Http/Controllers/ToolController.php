@@ -309,13 +309,14 @@ class ToolController extends Controller
 
             $complete = $open_ai->completion([
                 'model' => 'text-davinci-003',
-                'prpmpt' => $prompt,
+                'prompt' => $prompt,
                 'temperature' => 0.9,
                 'max_tokens' => 800,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
             ]);
 
+            // dd($complete);
             $completeDecoded = json_decode($complete);
 
             $worksheet = $completeDecoded->choices[0]->text;
