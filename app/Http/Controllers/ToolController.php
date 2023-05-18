@@ -100,6 +100,8 @@ class ToolController extends Controller
         $open_ai_key = getenv('OPENAI_API_KEY');
         $open_ai = new OpenAi($open_ai_key);
 
+        $user_id = Auth::user()->email;
+
         $grade = $request->input('grade');
         $title = $request->input('title');
         $description = $request->input('description');
@@ -110,22 +112,23 @@ class ToolController extends Controller
 
         try {
 
-            $prompt = "​​En español tradicional de España. Crea una programación para el curso $grade con el título \"$title\" y la descripción \"$description\". Sigue el currículo \"$curriculum\". Envuelve cada encabezado en [h] [/h]. Habla sobre los siguientes encabezados: Título, Metas y Objetivos, Competencias de la LOMLOE, Vocabulario (con Definiciones de Palabras), Explicación del Profesor corta, Actividades y Ejercicios, Evaluación, Actividad de Cierre. Cada encabezado debe comenzar en una nueva línea. Evita la costumbre de hacer esto: 'Contenido: Este es el contenido', es decir, no es necesario anteponer el contenido con una etiqueta y dos puntos. Utiliza este punto de viñeta para elementos de lista: •. Muestra los encabezados en texto en negrita";
+            $prompt = "Crea una programación para el Nivel Educativo $grade con el título \"$title\" y la descripción \"$description\". Sigue el currículo \"$curriculum\". Envuelve cada encabezado en [h] [/h]. Habla sobre los siguientes encabezados: Título, un Objetivo, dos Competencias de la LOMLOE, 3x Vocabulario (con Definiciones de Palabras), Explicación del Profesor corta, Actividades y ejercicios breves, Evaluación, Actividad de Cierre. Cada encabezado debe comenzar en una nueva línea. Evita la costumbre de hacer esto: 'Contenido: Este es el contenido', es decir, no es necesario anteponer el contenido con una etiqueta y dos puntos. Utiliza este punto de viñeta para elementos de lista: •. Muestra los encabezados en texto en negrita";
 
 
             $complete = $open_ai->completion([
                 'model' => 'text-davinci-003',
                 'prompt' => $prompt,
                 'temperature' => 0.9,
-                'max_tokens' => 600,
+                'max_tokens' => 700,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
+                'user' => $user_id
             ]);
 
             // dd($complete);
 
 
-            // $complete = '{"id":"chatcmpl-7EBU9msZTPFQ7U1Qbu6bdVdQpSbzs","object":"chat.completion","created":1683615097,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":165,"completion_tokens":334,"total_tokens":499},"choices":[{"message":{"role":"assistant","content":"Metas y Objetivos:\n- Comprender el funcionamiento del sistema digestivo humano.\n- Identificar las partes del sistema digestivo y su función.\n- Aprender y aplicar el vocabulario relacionado al tema.\n\nMateriales y Recursos:\n- Imágenes y dibujos del sistema digestivo.\n- Libros y recursos digitales sobre el tema.\n- Láminas con el vocabulario relacionado.\n\nActividad de Calentamiento:\n- Presentación de imágenes sobre digestión.\n- Preguntas sencillas para llamar la atención de los estudiantes.\n\nVocabulario y Gramática:\n- Partes del sistema digestivo: boca, esófago, estómago, intestino delgado y grueso, hígado, páncreas, recto y ano.\n- Verbos relacionados a la digestión: masticar, tragar, digerir, absorber y eliminar.\n\nActividades y Ejercicios:\n- Observación y descripción de láminas del sistema digestivo.\n- Juego de adivinanzas para identificar las partes del sistema digestivo.\n- Elaboración de un mural del sistema digestivo.\n- Realización de una ficha de ejercicios para reforzar el vocabulario y la gramática.\n\nEvaluación:\n- Participación activa en las actividades propuestas.\n- Entrega de la ficha de ejercicios completada.\n\nActividad de Cierre:\n- Reflexión en grupo sobre lo aprendido durante la clase.\n- Repaso del vocabulario y las partes del sistema digestivo."},"finish_reason":"stop","index":0}]}';
+            // $complete = '{"id":"cmpl-7HYrq1NNMwmNsa0QkqUCpyY4vGok8","object":"text_completion","created":1684419962,"model":"text-davinci-003","choices":[{"text":".\n\n[h1]Programación del Curso Infantil: Sistema Digestivo[/h1]\n\n[h2]Metas y Objetivos[/h2]\n• Comprender el funcionamiento general del sistema digestivo. \n• Reconocer los órganos principales que forman parte del sistema digestivo. \n• Comprender la importancia de una alimentación saludable.\n\n[h2]Competencias de la LOMLOE[/h2]\n• Lograr la comprensión de la relación entre los humanos y su medio.\n• Desarrollar habilidades y actitudes propias del aprendizaje del conocimiento científico. \n• Promover el uso responsable de los recursos naturales. \n\n[h2]Vocabulario (con Definiciones de Palabras)[/h2]\n• Sistema Digestivo: conjunto de órganos encargados de producir los nutrientes necesarios para el correcto funcionamiento del cuerpo humano. \n• Estómago: organo de la digestión que se encuentra en la parte superior del abdomen. \n• Intestino Grueso: sección del tracto digestivo responsable de la absorción de nutrientes. \n• Intestino Delgado: sección del tracto digestivo donde ocurre la absorción de los nutritentes.\n\n[h2]Explicación del Profesor corta[/h2]\nLos niños aprenderán sobre el sistema digestivo humano, sus órganos principales y la importancia de una alimentación saludable. Se enseñará vocabulario relacionado y ejercicios de comprensión. \n\n[h2]Actividades y Ejercicios[/h2]\n• Explicar en qué consiste el sistema digestivo.\n• Realizar preguntas y repasar las palabras clave del tema.\n• Explicar cuál es la función de cada órgano dentro del sistema digestivo. \n• Discutir la importancia de una alimentación saludable.\n• Trabajar en grupos para identificar las partes del sistema digestivo.\n• Realizar una representación gráfica","index":0,"logprobs":null,"finish_reason":"length"}],"usage":{"prompt_tokens":281,"completion_tokens":600,"total_tokens":881}}';
 
             $completeDecoded = json_decode($complete);
 
