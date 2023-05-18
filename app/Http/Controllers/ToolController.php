@@ -186,11 +186,11 @@ class ToolController extends Controller
         $slides = [];
 
         try {
-            $prompt = "Crear una presentación de " . $num_of_slides . " diapositivas para el grado $grade con el objetivo \"$description\". La presentación debe seguir el currículo \"$curriculum\". El contenido de las diapositivas debe ser profundo y tener al menos 3 frases de longitud. Genera esto para " . $num_of_slides . " diapositivas. Por ejemplo: La Maravilla del Sistema Digestivo|Entender la estructura y función del sistema digestivo humano y su papel integral en la salud y nutrición en general|[Anatomía y Funciones del Sistema Digestivo|El sistema digestivo comienza en la boca y termina en el ano. La comida se descompone a través de la masticación y la acción enzimática en la boca, luego es procesada por ácidos en el estómago, y luego se mueve al intestino delgado para la absorción de nutrientes. El intestino grueso absorbe agua, formando desechos que se eliminan. El hígado, la vesícula biliar y el páncreas, aunque no están en el tracto digestivo, producen bilis y enzimas que ayudan a la digestión.|¿Cuál es el papel del estómago en la digestión?|¿Dónde ocurre principalmente la absorción de nutrientes?|¿Cómo ayudan el hígado, la vesícula biliar y el páncreas en la digestión?]|";
+            $prompt = "Crear una presentación de " . $num_of_slides . " diapositivas para el grado $grade con el objetivo \"$description\". La presentación debe seguir el currículo \"$curriculum\". Genera esto para " . $num_of_slides . " diapositivas. Por ejemplo: La Maravilla del Sistema Digestivo|Entender la estructura y función del sistema digestivo humano y su papel integral en la salud y nutrición en general|[Anatomía y Funciones del Sistema Digestivo|El sistema digestivo comienza en la boca y termina en el ano. La comida se descompone a través de la masticación y la acción enzimática en la boca, luego es procesada por ácidos en el estómago, y luego se mueve al intestino delgado para la absorción de nutrientes. El intestino grueso absorbe agua, formando desechos que se eliminan. El hígado, la vesícula biliar y el páncreas, aunque no están en el tracto digestivo, producen bilis y enzimas que ayudan a la digestión.|¿Cuál es el papel del estómago en la digestión?|¿Dónde ocurre principalmente la absorción de nutrientes?|¿Cómo ayudan el hígado, la vesícula biliar y el páncreas en la digestión?]|";
 
             $assistant_prompt = "Eres un experto en generar " . $num_of_slides . " diapositivas de presentación para el grado " . $grade . ". Proporciona contenido para cada diapositiva en este formato exacto: TitleOfPresentationHere|ObjectiveOfPresentationHere|[SlideHeading1Here|SlideContent1Here|QuestionStatement1RegardingSlide1Here|QuestionStatement2RegardingSlide1Here|QuestionStatement3RegardingSlide1Here]|[SlideHeading2Here|SlideContent2Here|QuestionStatement1RegardingSlide2Here|QuestionStatement2RegardingSlide2Here|QuestionStatement3RegardingSlide2Here]|. Si hay 8 diapositivas, entonces el formato irá hasta SlideHeading8Here|SlideContent8Here Para las preguntas en cada diapositiva, solo da declaraciones de preguntas. No procedas a responder las preguntas.";
 
-            $complete = $open_ai->chat([
+            $complete = $open_ai->completion([
                 'model' => 'gpt-3.5-turbo',
                 'messages' => [
                     [
@@ -203,7 +203,7 @@ class ToolController extends Controller
                     ],
                 ],
                 'temperature' => 0.9,
-                'max_tokens' => 900,
+                'max_tokens' => 700,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
             ]);
