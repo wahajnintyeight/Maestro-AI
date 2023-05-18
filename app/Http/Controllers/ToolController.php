@@ -125,7 +125,7 @@ class ToolController extends Controller
                     ],
                 ],
                 'temperature' => 0.9,
-                'max_tokens' => 500,
+                'max_tokens' => 900,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
             ]);
@@ -208,7 +208,7 @@ class ToolController extends Controller
                     ],
                 ],
                 'temperature' => 0.9,
-                'max_tokens' => 700,
+                'max_tokens' => 900,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
             ]);
@@ -329,7 +329,7 @@ class ToolController extends Controller
                     ],
                 ],
                 'temperature' => 0.9,
-                'max_tokens' => 700,
+                'max_tokens' => 900,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
             ]);
@@ -393,7 +393,7 @@ class ToolController extends Controller
                 'model' => 'text-davinci-003',
                 'prompt' => $prompt,
                 'temperature' => 0.9,
-                'max_tokens' => 700,
+                'max_tokens' => 800,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
             ]);
@@ -476,7 +476,7 @@ class ToolController extends Controller
                 'model' => 'text-davinci-002',
                 'prompt' => $prompt,
                 'temperature' => 0.9,
-                'max_tokens' => 700,
+                'max_tokens' => 800,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0,
             ];
@@ -609,7 +609,7 @@ class ToolController extends Controller
                     ],
                 ],
                 'temperature' => 0.9,
-                'max_tokens' => 700,
+                'max_tokens' => 800,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
             ]);
