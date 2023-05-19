@@ -315,9 +315,18 @@ class ToolController extends Controller
 
             $assistantPrompt = 'Eres un experto generando fichas de trabajo para estudiantes en el grado ' . $grade . '.';
 
-            $complete = $open_ai->completion([
-                'model' => 'text-davinci-003',
-                'prompt' => $prompt,
+            $complete = $open_ai->chat([
+                'model' => 'gpt-3.5-turbo',
+                'messages' => [
+                    [
+                        'role' => 'system',
+                        'content' => $assistantPrompt
+                    ],
+                    [
+                        'role' => 'user',
+                        'content' => $prompt
+                    ],
+                ],
                 'temperature' => 0.9,
                 'max_tokens' => 800,
                 'frequency_penalty' => 0,
