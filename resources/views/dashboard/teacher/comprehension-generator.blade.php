@@ -55,8 +55,8 @@
                     <div>
                         <label for="grade-level" class="form-label">Curso</label>
                         <select id="grade-level" required name="grade" class="form-select">
-                            <option value="si esta bien" <?php if ($grade=='si esta bien' ) { echo 'selected' ; } ?>>si
-                                esta bien
+                            <option value="si esta bien" <?php if ($grade=='Infantil' ) { echo 'selected' ; } ?>
+                                >Infantil
                             </option>
                             <option value="Primero de primaria" <?php if ($grade=='Primero de primaria' ) {
                                 echo 'selected' ; } ?>
