@@ -336,7 +336,7 @@ class ToolController extends Controller
             // dd($complete);
             $completeDecoded = json_decode($complete);
 
-            $worksheet = $completeDecoded->choices[0]->text;
+            $worksheet = $completeDecoded->choices[0]->message->content;
             $worksheet = str_replace('[h]', '<h2>', $worksheet);
             $worksheet = str_replace('[/h]', '</h2>', $worksheet);
             $worksheet = str_replace('-', '•', $worksheet);
