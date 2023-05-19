@@ -471,7 +471,7 @@ class ToolController extends Controller
 
             $prompt = "En español tradicional de España. Cree una explicación detallada del concepto para un estudiante de $age que estudia '$subject' y '$topic'. Trate de seguir el plan de estudios '$curriculum'. Explique cada concepto en profundidad, utilizando un lenguaje sencillo y ejemplos para que sea fácil de entender para el estudiante. Encierre cada encabezado en [h] [/h]. Asegúrese de que la explicación sea completa y cubra todos los aspectos esenciales del tema. Incluye un párrafo de ejemplo al final. Cada encabezado debe comenzar en una nueva línea. Evite el hábito de hacer esto: 'Contenido: Este es el contenido', es decir, no necesita anteponer al contenido una etiqueta y dos puntos.";
 
-            $assistantPrompt = "Eres un experto en explicar conceptos profundos para estudiantes de " . $age . " años.";
+            $assistantPrompt = "Eres un experto en explicar conceptos profundos de manera concisa y efectiva a estudiantes de " . $age . " años de edad.";
             $data = [
                 'model' => 'gpt-3.5-turbo',
                 'messages' => [
