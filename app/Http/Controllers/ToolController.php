@@ -328,7 +328,7 @@ class ToolController extends Controller
                     ],
                 ],
                 'temperature' => 0.9,
-                'max_tokens' => 800,
+                'max_tokens' => 700,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0.6,
             ]);
