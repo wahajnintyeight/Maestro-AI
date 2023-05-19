@@ -513,7 +513,7 @@ class ToolController extends Controller
 
             curl_close($ch);
 
-            $concept = $completeDecoded->choices[0]->text;
+            $concept = $completeDecoded->choices[0]->message->content;
             $concept = str_replace('[h]', '<h2>', $concept);
             $concept = str_replace('[/h]', '</h2>', $concept);
 
