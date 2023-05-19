@@ -311,7 +311,7 @@ class ToolController extends Controller
         $worksheet = [];
         // In Traditional Spanish from Spain.
         try {
-            $prompt = "Crea una ficha de trabajo sobre el tema de $description para un estudiante de grado $grade, siguiendo el currículo $curriculum. La ficha debe proporcionar preguntas desafiantes. Incluye los siguientes encabezados: Título, Objetivo, Instrucciones breves y variedad de preguntas. Envuelve cada encabezado en [h] [/h]. Incluye una mezcla de las siguientes preguntas:  solo 3 preguntas de opción múltiple, solo 3 preguntas generales, solo 4 espacios en blanco, solo 4 afirmaciones verdaderas o falsas.";
+            $prompt = "Crea una ficha de trabajo sobre el tema de $description para un estudiante de grado $grade, siguiendo el currículo $curriculum. La ficha debe proporcionar preguntas desafiantes. Incluye los siguientes encabezados: Título, Objetivo, Instrucciones breves y variedad de preguntas. Envuelve cada encabezado en [h] [/h]. Incluye una mezcla de las siguientes preguntas: 3x Preguntas de Opción Múltiple, 3x Preguntas Generales, 4x Rellenar los Espacios en Blanco, 4x Afirmaciones Verdadero o Falso.";
             //  Al final, añade una larga '----------------' y luego incluye las respuestas a las preguntas por separado.
             $assistantPrompt = 'Eres un experto generando fichas de trabajo para estudiantes en el grado ' . $grade . '.';
 
