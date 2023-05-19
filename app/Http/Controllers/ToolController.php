@@ -473,17 +473,26 @@ class ToolController extends Controller
 
             $assistantPrompt = "Eres un experto en explicar conceptos profundos para estudiantes de " . $age . " años.";
             $data = [
-                'model' => 'text-davinci-002',
-                'prompt' => $prompt,
+                'model' => 'gpt-3.5-turbo',
+                'messages' => [
+                    [
+                        "role" => "system",
+                        "content" => $assistantPrompt
+                    ],
+                    [
+                        "role" => "user",
+                        "content" => $prompt
+                    ],
+                ],
                 'temperature' => 0.9,
-                'max_tokens' => 800,
+                'max_tokens' => 650,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0,
             ];
 
             $json_data = json_encode($data);
 
-            $ch = curl_init('https://api.openai.com/v1/completions');
+            $ch = curl_init('https://api.openai.com/v1/chat/completions');
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
             curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
