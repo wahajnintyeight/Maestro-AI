@@ -137,7 +137,7 @@ class ToolController extends Controller
             $completeDecoded = json_decode($complete);
 
 
-            $lesson = $completeDecoded->choices[0]->text;
+            $lesson = $completeDecoded->choices[0]->message->content;
             $lesson = str_replace('[h]', '<h2>', $lesson);
             $lesson = str_replace('[/h]', '</h2>', $lesson);
             $lesson = str_replace('-', '•', $lesson);
