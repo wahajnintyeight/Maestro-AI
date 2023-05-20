@@ -243,7 +243,7 @@
                         <label for="lesson-title" class="form-label">Número de páginas</label>
                         <!-- Input for Lesson Title -->
                         <input id="lesson-title" name="num_of_slides" type="text" class="form-control"
-                            placeholder="i.e 8" value="<?php echo htmlspecialchars($num_of_slides); ?>">
+                            placeholder="i.e 4" value="<?php echo htmlspecialchars($num_of_slides); ?>">
 
 
                     </div>
