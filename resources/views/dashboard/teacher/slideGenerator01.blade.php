@@ -93,8 +93,8 @@
 
     @media (max-width: 768px) {
         .editable-slides-default .slide {
-            width: 4in;
-            height: 2.25in;
+            width: 6in;
+            height: 4.25in;
         }
 
         .editable-slides-default .slide h3 {
@@ -328,7 +328,7 @@
                                     // Display questions as bullets
                                     echo '<ul class="list-disc pl-5 mt-10" style="list-style-type: disc;">';
                                     foreach ($item['Questions'] as $question) {
-                                        echo '<li class="font-normal leading-none text-md py-1"><span class="font-normal leading-none text-xl ">' . $question . '</span></li>';
+                                        echo '<li class="font-normal leading-none text-md py-1"><p class="font-normal leading-none text-xl ">' . $question . '</p></li>';
                                     }
                                     echo '</ul>';
                             
