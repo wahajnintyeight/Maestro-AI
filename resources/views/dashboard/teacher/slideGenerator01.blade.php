@@ -50,7 +50,6 @@
         font-size: 18px;
         color: #606f7b;
         line-height: 1.5;
-        margin-top: 29px;
     }
 
     .editable-slides-default .slide h3:focus,
@@ -323,7 +322,7 @@
                                 foreach ($slides['Slides'] as $item) {
                                     echo '<div class="slide">';
                                     echo '<h3 class="text-xl font-medium leading-none mt-3">' . $item['Heading'] . '</h3>';
-                                    echo '<p class="font-normal">' . $item['Content'] . '</p>';
+                                    echo '<p class="font-normal" style="margin-top: 29px;">' . $item['Content'] . '</p>';
                             
                                     // Display questions as bullets
                                     echo '<ul class="list-disc pl-5 mt-10" style="list-style-type: disc;">';
