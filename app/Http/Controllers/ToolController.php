@@ -170,17 +170,16 @@ class ToolController extends Controller
 
     public function generateSlides(Request $request)
     {
-        set_time_limit(180); // sets the maximum execution time to 2 minutes
+        set_time_limit(180);
 
         $open_ai_key = getenv('OPENAI_API_KEY');
         $open_ai = new OpenAi($open_ai_key);
 
         $grade = $request->input('grade');
-        $num_of_slides = $request->input('num_of_slides');
+        $num_of_slides = 6;
         $description = $request->input('description');
         $curriculum = $request->input('curriculum');
 
-        // dd($grade, $num_of_slides, $description);
         $slides = [];
 
         try {

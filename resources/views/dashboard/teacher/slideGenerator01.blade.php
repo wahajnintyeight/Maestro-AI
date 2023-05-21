@@ -239,14 +239,14 @@
                             class="form-control h-40"><?php echo htmlspecialchars($description); ?></textarea>
                     </div>
 
-                    <div class="mt-3">
+                    {{-- <div class="mt-3">
                         <label for="lesson-title" class="form-label">Número de páginas</label>
                         <!-- Input for Lesson Title -->
                         <input id="lesson-title" name="num_of_slides" type="text" class="form-control"
                             placeholder="i.e 4" value="<?php echo htmlspecialchars($num_of_slides); ?>">
 
 
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="p-5 border-t justify-center mx-auto border-slate-200/60 dark:border-darkmode-400 flex">
 
