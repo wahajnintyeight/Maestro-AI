@@ -86,6 +86,7 @@ class PlanController extends Controller
         $plans = Plan::all();
 
         Mail::to('signup@maestroia.com')->send(new UserSubscription($user, $sub_type));
+        Mail::to('admin@maestroia.com')->send(new UserSubscription($user, $sub_type));
 
 
         return redirect()->route('teacher.teacherAccountInfo');
