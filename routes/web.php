@@ -32,7 +32,7 @@ Route::group(
 
         Route::post('/toggle-status/{user}', [PageController::class, 'toggleStatus'])->name('toggleStatus');
         Route::post('/delete-user/{user}', [PageController::class, 'deleteUser'])->name('deleteUser');
-        Route::post('/tools/{tool}/toggle-status', [PageController::class, 'toggleToolStatus'])->name('toggleStatus');
+        Route::post('/tools/{tool}/toggle-status', [PageController::class, 'toggleToolStatus'])->name('toggleToolStatus');
     }
 );
 

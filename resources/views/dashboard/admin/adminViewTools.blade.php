@@ -34,14 +34,14 @@
                             <td>
                                 <div class="flex justify-start items-center">
                                     @if ($tool->free_status == 0)
-                                    <form action="{{ route('admin.toggleStatus', $tool) }}" method="POST">
+                                    <form action="{{ route('admin.toggleToolStatus', $tool) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="btn btn-primary w-32 mr-2 mb-2">
                                             Make it Free
                                         </button>
                                     </form>
                                     @else
-                                    <form action="{{ route('admin.toggleStatus', $tool) }}" method="POST">
+                                    <form action="{{ route('admin.toggleToolStatus', $tool) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="btn btn-primary w-32 mr-2 mb-2">
                                             Make it Premium
