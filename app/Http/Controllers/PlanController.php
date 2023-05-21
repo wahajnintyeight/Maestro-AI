@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserSubscription;
 use App\Models\Plan;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class PlanController extends Controller
 {
@@ -82,6 +84,10 @@ class PlanController extends Controller
         ]);
         $user = Auth::user();
         $plans = Plan::all();
+
+        Mail::to('signup@maestroia.com')->send(new UserSubscription($user, $sub_type));
+
+
         return redirect()->route('teacher.teacherAccountInfo');
     }
 

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewUserRegistered;
 use Auth;
 use Hash;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Str;
 
 class GoogleController extends Controller
@@ -35,9 +37,9 @@ class GoogleController extends Controller
 
         // log in the user
         Auth::login($authUser, true);
+        Mail::to('signup@maestroia.com')->send(new NewUserRegistered($authUser));
 
         // redirect to the dashboard
         return redirect()->route('teacher.dashboard');
-
     }
 }
