@@ -11,10 +11,11 @@
             <div class="modal-body p-0">
                 <div class="p-5 text-center">
                     <i data-lucide="hourglass-full" class="w-16 h-16 text-primary mx-auto mt-3"></i>
-                    <div class="text-3xl mt-5">¡Por favor espera!</div>
-                    <div class="text-gray-700 mt-2">Actualmente estamos generando tu planificador de lecciones.</div>
-                    <div class="text-gray-500 mt-2">Este proceso puede tardar unos minutos. Por favor, no cierres ni
-                        actualices esta página.</div>
+                    <div class="text-3xl mt-5">¡Por favor, ten paciencia!</div>
+                    <div class="text-gray-700 mt-2">Estamos generando tu contenido en este momento.</div>
+                    <div class="text-gray-500 mt-2">Este proceso puede llevar algunos minutos, dependiendo de la carga
+                        de los servidores.
+                        Por favor, no cierres ni actualices esta página. ¡Merecerá la pena!</div>
                 </div>
                 <div class="px-5 pb-8 text-center">
                     <button type="button" data-tw-dismiss="modal" class="btn btn-primary w-24">Entendido</button>
