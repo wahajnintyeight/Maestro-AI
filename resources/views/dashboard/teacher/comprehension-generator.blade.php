@@ -10,7 +10,7 @@
         <div class="modal-content">
             <div class="modal-body p-0">
                 <div class="p-5 text-center">
-                    <i data-lucide="hourglass-full" class="w-16 h-16 text-primary mx-auto mt-3"></i>
+                <i data-lucide="hourglass-full" class="w-16 h-16 text-primary mx-auto mt-3"></i>
                     <div class="text-3xl mt-5">¡Por favor, ten paciencia!</div>
                     <div class="text-gray-700 mt-2">Estamos generando tu contenido en este momento.</div>
                     <div class="text-gray-500 mt-2">Este proceso puede llevar algunos minutos, dependiendo de la carga
