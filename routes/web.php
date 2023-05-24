@@ -40,8 +40,6 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
     Route::get('/', [PageController::class, 'teacherDashboard'])->name('dashboard');
     Route::get('/dashboard', [PageController::class, 'teacherDashboard'])->name('dashboard');
     Route::get('/accountInfo', [PageController::class, 'teacherAccountInfo'])->name('teacherAccountInfo');
-    // web.php
-    Route::get('/lesson-planner/status/{history}', [ToolController::class, 'status'])->name('lesson-planner.status');
 
     Route::get('/lesson-planner', [ToolController::class, 'showLessonPlanner'])->name('showLessonPlanner');
     Route::get('/slides-generator', [ToolController::class, 'showSlidesGenerator'])->name('showSlidesGenerator');
