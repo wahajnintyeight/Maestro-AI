@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\GenerateLessonPlanner;
+use App\Jobs\GenerateLessonPlannerJob;
 use App\Models\History;
 use Exception;
 use Illuminate\Http\Request;
@@ -17,6 +19,7 @@ use PhpOffice\PhpPresentation\Style\Bullet;
 use PhpOffice\PhpPresentation\Style\Color;
 use PhpOffice\PhpPresentation\Style\Shadow;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
 
 class ToolController extends Controller
 {
@@ -95,77 +98,117 @@ class ToolController extends Controller
 
     public function generateLessonPlanner(Request $request)
     {
-        set_time_limit(180);
 
-        $open_ai_key = getenv('OPENAI_API_KEY');
-        $open_ai = new OpenAi($open_ai_key);
-
-        $user_id = Auth::user()->email;
+        $history = new History([
+            'user_id' => Auth::user()->id,
+            'tool_name' => 'Lesson Planner',
+            'content' => '', // Initially empty
+        ]);
 
         $grade = $request->input('grade');
         $title = $request->input('title');
         $description = $request->input('description');
         $curriculum = $request->input('curriculum');
 
-        $lesson = '';
-
-        try {
-
-            $prompt = "Crea una programación para el Nivel Educativo $grade con el título \"$title\" y la descripción \"$description\". Sigue el currículo \"$curriculum\". Envuelve cada encabezado en [h] [/h]. Habla sobre los siguientes encabezados: Título, un Objetivo, dos Competencias de la LOMLOE, 3x Vocabulario (con Definiciones de Palabras), Explicación del Profesor corta, Actividades y ejercicios breves, Evaluación, Actividad de Cierre. Cada encabezado debe comenzar en una nueva línea. Evita la costumbre de hacer esto: 'Contenido: Este es el contenido', es decir, no es necesario anteponer el contenido con una etiqueta y dos puntos. Utiliza este punto de viñeta para elementos de lista: •.";
-
-
-            $complete = $open_ai->chat([
-                'model' => 'gpt-3.5-turbo',
-                'messages' => [
-                    [
-                        "role" => "system",
-                        "content" => "Eres un experto en crear Planificadores de Lecciones detallados para estudiantes de grado " . $grade . "."
-                    ],
-                    [
-                        "role" => "user",
-                        "content" => $prompt
-                    ],
-                ],
-                'temperature' => 0.9,
-                'max_tokens' => 650,
-                'frequency_penalty' => 0,
-                'presence_penalty' => 0.6,
-            ]);
-
-
-            $completeDecoded = json_decode($complete);
-
-
-            $lesson = $completeDecoded->choices[0]->message->content;
-            $lesson = str_replace('[h]', '<h2>', $lesson);
-            $lesson = str_replace('[/h]', '</h2>', $lesson);
-            $lesson = str_replace('-', '•', $lesson);
-        } catch (Exception $e) {
-            error_log("Error: " . $e->getMessage());
-        }
-
-        // Store the lesson data in the session and redirect to the showLessonPlanner method
-        $request->session()->put('lesson', $lesson);
-        $request->session()->put('grade', $grade);
-        $request->session()->put('title', $title);
-        $request->session()->put('curriculum', $curriculum);
-        $request->session()->put('description', $description);
-
-        // Store the generated content in the histories table
-        $user_id = auth()->id(); // Get the authenticated user's ID
-        $tool_name = 'Lesson Planner';
-        $content = json_encode($lesson); // Convert the lesson array to a JSON string
-
-        $history = new History([
-            'user_id' => $user_id,
-            'tool_name' => $tool_name,
-            'content' => $content,
-        ]);
-
         $history->save();
 
-        return redirect()->action([ToolController::class, 'showLessonPlanner']);
+        Log::info('About to dispatch the job');
+
+        GenerateLessonPlanner::dispatch($grade, $title, $description, $curriculum, $history->id)->onQueue('lessonPlanner');
+
+        return response()->json(['history_id' => $history->id]);
     }
+
+
+    public function status($id)
+    {
+        $history = History::find($id);
+        if ($history) {
+            return response()->json([
+                'status' => $history->status,
+                'content' => json_decode($history->content) // Assuming content is a JSON string
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'FAILED',
+                'content' => 'Unable to do it'
+            ]);
+        }
+    }
+
+    // public function generateLessonPlanner(Request $request)
+    // {
+    //     set_time_limit(180);
+
+    //     $open_ai_key = getenv('OPENAI_API_KEY');
+    //     $open_ai = new OpenAi($open_ai_key);
+
+    //     $user_id = Auth::user()->email;
+
+    //     $grade = $request->input('grade');
+    //     $title = $request->input('title');
+    //     $description = $request->input('description');
+    //     $curriculum = $request->input('curriculum');
+
+    //     $lesson = '';
+
+    //     try {
+
+    //         $prompt = "Crea una programación para el Nivel Educativo $grade con el título \"$title\" y la descripción \"$description\". Sigue el currículo \"$curriculum\". Envuelve cada encabezado en [h] [/h]. Habla sobre los siguientes encabezados: Título, un Objetivo, dos Competencias de la LOMLOE, 3x Vocabulario (con Definiciones de Palabras), Explicación del Profesor corta, Actividades y ejercicios breves, Evaluación, Actividad de Cierre. Cada encabezado debe comenzar en una nueva línea. Evita la costumbre de hacer esto: 'Contenido: Este es el contenido', es decir, no es necesario anteponer el contenido con una etiqueta y dos puntos. Utiliza este punto de viñeta para elementos de lista: •.";
+
+
+    //         $complete = $open_ai->chat([
+    //             'model' => 'gpt-3.5-turbo',
+    //             'messages' => [
+    //                 [
+    //                     "role" => "system",
+    //                     "content" => "Eres un experto en crear Planificadores de Lecciones detallados para estudiantes de grado " . $grade . "."
+    //                 ],
+    //                 [
+    //                     "role" => "user",
+    //                     "content" => $prompt
+    //                 ],
+    //             ],
+    //             'temperature' => 0.9,
+    //             'max_tokens' => 650,
+    //             'frequency_penalty' => 0,
+    //             'presence_penalty' => 0.6,
+    //         ]);
+
+
+    //         $completeDecoded = json_decode($complete);
+
+
+    //         $lesson = $completeDecoded->choices[0]->message->content;
+    //         $lesson = str_replace('[h]', '<h2>', $lesson);
+    //         $lesson = str_replace('[/h]', '</h2>', $lesson);
+    //         $lesson = str_replace('-', '•', $lesson);
+    //     } catch (Exception $e) {
+    //         error_log("Error: " . $e->getMessage());
+    //     }
+
+    //     // Store the lesson data in the session and redirect to the showLessonPlanner method
+    //     $request->session()->put('lesson', $lesson);
+    //     $request->session()->put('grade', $grade);
+    //     $request->session()->put('title', $title);
+    //     $request->session()->put('curriculum', $curriculum);
+    //     $request->session()->put('description', $description);
+
+    //     // Store the generated content in the histories table
+    //     $user_id = auth()->id(); // Get the authenticated user's ID
+    //     $tool_name = 'Lesson Planner';
+    //     $content = json_encode($lesson); // Convert the lesson array to a JSON string
+
+    //     $history = new History([
+    //         'user_id' => $user_id,
+    //         'tool_name' => $tool_name,
+    //         'content' => $content,
+    //     ]);
+
+    //     $history->save();
+
+    //     return redirect()->action([ToolController::class, 'showLessonPlanner']);
+    // }
 
 
     public function generateSlides(Request $request)

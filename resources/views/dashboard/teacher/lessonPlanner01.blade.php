@@ -1,9 +1,19 @@
 @extends('dashboard.teacher.layout')
 @section('content')
+
 <style>
     h2 {
         font-size: 18px;
         font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    br {
+        line-height: 1.5;
+    }
+
+    .hidden {
+        display: none;
     }
 </style>
 <div class="intro-y flex items-center mt-8">
@@ -147,7 +157,7 @@
                 </div>
                 <div class="p-5 border-t justify-center mx-auto border-slate-200/60 dark:border-darkmode-400 flex">
 
-                    <button type="submit" id="generate-btn" class="btn btn-primary px-2 py-2">
+                    <button type="button" id="generate-btn" class="btn btn-primary px-2 py-2">
                         ✨Generar Programación
                         <span id="spinner" class="hidden">
                             <svg width="25" viewBox="-2 -2 42 42" xmlns="http://www.w3.org/2000/svg" stroke="white"
@@ -191,58 +201,27 @@
                         los
                         resultados.</li>
                 </ul>
-                <div class="my-10">
-                    <?php
-                    if (empty($lesson)) {
-                        echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generar plan de lección' para comenzar el proceso!";
-                    } else {
-                   //     foreach ($lesson as $item) {
-                    //         echo '<h4 class="text-xl font-medium leading-none mt-3">' . $item->Heading . '</h4><br>';
-                
-                    //         // Check if the content has a list format (Roman, numeric, or alphabetic)
-                    //         $hasListFormat = preg_match('/^(-\s|\d+\.\s|[a-zA-Z]\.\s|(?:[MDCLXVI]+\.\s))/m', $item->Content);
-                
-                    //         if ($hasListFormat) {
-                    //             $sentences = preg_split('/^(-\s|\d+\.\s|[a-zA-Z]\.\s|(?:[MDCLXVI]+\.\s))/m', $item->Content);
-                    //             echo '<ul class="list-disc pl-5" style="list-style-type: disc;">';
-                    //             foreach ($sentences as $sentence) {
-                    //                 if (!empty(trim($sentence))) {
-                    //                     echo '<li class="ml-4">' . trim($sentence) . '</li>';
-                    //                 }
-                    //             }
-                    //             echo '</ul>';
-                    //         } else {
-                    //             echo '<div class="font-normal">' . $item->Content . '</div>';
-                    //         }
-                    //     }
-                    echo '<div class="font-medium text-md">' . nl2br($lesson) . '</div>';
-                    }
-                    ?>
+
+
+                <div id="results" class="my-10 space-y-2">
+                    Los resultados se mostrarán aquí. ¡Haz clic en '✨Generar plan de lección' para comenzar el proceso!
                 </div>
-                <?php 
-                if (!empty($lesson)) {
-                    ?>
-                <div class="my-2 flex">
-                    <a target="_blank"
+
+
+                <div id="file-download" class="my-2 flex">
+                    {{-- <a target="_blank"
                         href="{{ route('teacher.download.docx', ['lesson' => urlencode(json_encode($lesson))]) }}"
-                        class="btn btn-primary">Descargar.DOCX</a>
+                        class="btn btn-primary">Descargar.DOCX</a> --}}
                 </div>
-                <?php
-                }
-                ?>
             </div>
         </div>
 
 
     </div>
 </div>
-
-<script>
-    document.getElementById('generate-btn').addEventListener('click', function() {
-            document.getElementById('spinner').classList.remove('hidden');
-        });
-</script>
-
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+    crossorigin="anonymous"></script>
+{{--
 <script>
     document.getElementById('generate-btn').addEventListener('click', function() {
         document.getElementById('spinner').classList.remove('hidden');
@@ -251,6 +230,77 @@
         var myModal = tailwind.Modal.getOrCreateInstance(document.querySelector("#success-modal-preview"));
         // Show the modal
         myModal.show();
+    });
+</script> --}}
+
+<script>
+    jQuery(document).ready(function($) {
+    $('#generate-btn').on('click', function(e) {
+    e.preventDefault();
+    
+    $('#generate-btn').attr('disabled', 'disabled');
+    $('#spinner').removeClass('hidden');
+    $('#file-download').addClass('hidden'); // Hide download button initially
+    var myModal = tailwind.Modal.getOrCreateInstance(document.querySelector("#success-modal-preview"));
+    // Show the modal
+    myModal.show();
+    
+// function formatContent(content) {
+// let formattedContent = content.split('\n').map(para => `<p>${para}</p><br><br>`).join('\n');
+// return formattedContent;
+// }
+
+
+    var formData = new FormData($('form')[0]);
+    $.ajax({
+    type: "POST",
+    url: "{{ route('teacher.generateLessonPlanner') }}",
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function(data) {
+    // Start polling
+    var historyId = data.history_id; // Get the historyId from the response
+
+
+var lessonPlannerStatusUrl = "{{ route('teacher.lesson-planner.status', ['history' => '_historyId_']) }}";
+
+    var poll = setInterval(function() {
+    $.ajax({
+    type: "GET",
+    url: lessonPlannerStatusUrl.replace('_historyId_', historyId),
+   success: function(data) {
+    if (data.status === 'done') {
+    clearInterval(poll); // stop polling
+    console.log("status is done");
+    let formattedContent = data.content.replace(/(\r\n\r\n|\n\n|\r\r)/gm, '<br><br>');
+    $('#results').html(formattedContent);    
+    $('#generate-btn').removeAttr('disabled');
+    $('#spinner').addClass('hidden');
+    // Add download link when data is ready
+    console.log("creating download link");
+    var downloadLink = "{{ route('teacher.download.docx', ['lesson' => '_lesson_']) }}";
+    console.log("download link created");
+    downloadLink = downloadLink.replace('_lesson_', encodeURIComponent(JSON.stringify(data.content)));
+    $('#file-download').html('<a target="_blank" href="' + downloadLink + '" class="btn btn-primary">Descargar.DOCX</a>');
+    $('#file-download').removeClass('hidden'); // Show download button when data is ready
+
+   
+    }
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+    console.log(textStatus, errorThrown);
+    }
+    });
+    }, 5000); // poll every 5 seconds
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+    console.log(textStatus, errorThrown);
+    $('#generate-btn').removeAttr('disabled');
+    $('#spinner').addClass('hidden');
+    }
+    });
+    });
     });
 </script>
 @endsection
