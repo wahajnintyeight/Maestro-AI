@@ -17,7 +17,6 @@ class CreateHistoriesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('tool_name');
-            $table->string('status');
             $table->longText('content');
             $table->timestamps();
 

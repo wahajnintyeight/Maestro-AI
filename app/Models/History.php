@@ -11,7 +11,6 @@ class History extends Model
 
     protected $fillable = [
         'user_id',
-        'status',
         'tool_name',
         'content',
     ];
