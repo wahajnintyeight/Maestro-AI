@@ -258,10 +258,10 @@
                                             <div class="mt-auto flex flex-col gap-2">
                                                 <div class="flex items-end justify-center gap-1">
                                                     <span class="self-start text-gray-600">€</span>
-                                                    <span class="text-4xl font-bold text-gray-800">6.00</span>
+                                                    <span class="text-4xl font-bold text-gray-800">5.00</span>
 
                                                 </div>
-                                                <span class="text-gray-500">72€/Año - Un único pago con descuento
+                                                <span class="text-gray-500">60€/Año - Un único pago con descuento
                                                     del
                                                     14%</span>
 
@@ -359,7 +359,7 @@
                                             <div class="mt-auto flex flex-col gap-2">
                                                 <div class="flex items-end justify-center gap-1">
                                                     <span class="self-start text-gray-600">€</span>
-                                                    <span class="text-4xl font-bold text-gray-800">6.99</span>
+                                                    <span class="text-4xl font-bold text-gray-800">5.99</span>
 
                                                 </div>
                                                 <span class="text-gray-500">Paga cada mes y cancela cuando
