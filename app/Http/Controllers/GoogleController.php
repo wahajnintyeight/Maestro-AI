@@ -37,8 +37,8 @@ class GoogleController extends Controller
 
         // log in the user
         Auth::login($authUser, true);
-        Mail::to('signup@maestroia.com')->send(new NewUserRegistered($authUser));
-        Mail::to('admin@maestroia.com')->send(new NewUserRegistered($authUser));
+        // Mail::to('signup@maestroia.com')->send(new NewUserRegistered($authUser));
+        // Mail::to('admin@maestroia.com')->send(new NewUserRegistered($authUser));
 
         // redirect to the dashboard
         return redirect()->route('teacher.dashboard');

@@ -54,8 +54,8 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Mail::to('signup@maestroia.com')->send(new NewUserRegistered($user));
-        Mail::to('admin@maestroia.com')->send(new NewUserRegistered($user));
+        // Mail::to('signup@maestroia.com')->send(new NewUserRegistered($user));
+        // Mail::to('admin@maestroia.com')->send(new NewUserRegistered($user));
 
 
         Auth::login($user);
