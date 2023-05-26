@@ -1,5 +1,9 @@
 @extends('dashboard.teacher.layout')
 @section('content')
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+    crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <style>
     h2 {
         font-size: 18px;
@@ -196,25 +200,7 @@
                     if (empty($lesson)) {
                         echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generar plan de lección' para comenzar el proceso!";
                     } else {
-                   //     foreach ($lesson as $item) {
-                    //         echo '<h4 class="text-xl font-medium leading-none mt-3">' . $item->Heading . '</h4><br>';
-                
-                    //         // Check if the content has a list format (Roman, numeric, or alphabetic)
-                    //         $hasListFormat = preg_match('/^(-\s|\d+\.\s|[a-zA-Z]\.\s|(?:[MDCLXVI]+\.\s))/m', $item->Content);
-                
-                    //         if ($hasListFormat) {
-                    //             $sentences = preg_split('/^(-\s|\d+\.\s|[a-zA-Z]\.\s|(?:[MDCLXVI]+\.\s))/m', $item->Content);
-                    //             echo '<ul class="list-disc pl-5" style="list-style-type: disc;">';
-                    //             foreach ($sentences as $sentence) {
-                    //                 if (!empty(trim($sentence))) {
-                    //                     echo '<li class="ml-4">' . trim($sentence) . '</li>';
-                    //                 }
-                    //             }
-                    //             echo '</ul>';
-                    //         } else {
-                    //             echo '<div class="font-normal">' . $item->Content . '</div>';
-                    //         }
-                    //     }
+                  
                     echo '<div class="font-medium text-md">' . nl2br($lesson) . '</div>';
                     }
                     ?>
@@ -238,19 +224,34 @@
 </div>
 
 <script>
-    document.getElementById('generate-btn').addEventListener('click', function() {
-            document.getElementById('spinner').classList.remove('hidden');
-        });
-</script>
+    toastr.options = {
+        "closeButton": true,
+        "debug": true,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "maxOpened": 1,
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "120000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
 
-<script>
     document.getElementById('generate-btn').addEventListener('click', function() {
         document.getElementById('spinner').classList.remove('hidden');
-        
         // Get or create an instance of the modal
-        var myModal = tailwind.Modal.getOrCreateInstance(document.querySelector("#success-modal-preview"));
-        // Show the modal
-        myModal.show();
+        // var myModal = tailwind.Modal.getOrCreateInstance(document.querySelector("#success-modal-preview"));
+        // // Show the modal
+        // myModal.show();
+        
+        // Show the toastr
+        toastr.success('¡Por favor, ten paciencia! Estamos generando tu contenido en este momento. Este proceso puede llevar algunos minutos, dependiendo de la carga de los servidores. Por favor, no cierres ni actualices esta página. ¡Merecerá la pena!');
     });
 </script>
 @endsection
