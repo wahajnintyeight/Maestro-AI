@@ -1,5 +1,9 @@
 @extends('dashboard.teacher.layout')
 @section('content')
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+    crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <div class="intro-y flex items-center mt-8">
     <h2 class="text-lg font-medium mr-auto">
         Comprensión lectora
@@ -10,7 +14,7 @@
         <div class="modal-content">
             <div class="modal-body p-0">
                 <div class="p-5 text-center">
-                <i data-lucide="hourglass-full" class="w-16 h-16 text-primary mx-auto mt-3"></i>
+                    <i data-lucide="hourglass-full" class="w-16 h-16 text-primary mx-auto mt-3"></i>
                     <div class="text-3xl mt-5">¡Por favor, ten paciencia!</div>
                     <div class="text-gray-700 mt-2">Estamos generando tu contenido en este momento.</div>
                     <div class="text-gray-500 mt-2">Este proceso puede llevar algunos minutos, dependiendo de la carga
@@ -252,18 +256,34 @@
 </div>
 
 <script>
-    document.getElementById('generate-btn').addEventListener('click', function() {
-            document.getElementById('spinner').classList.remove('hidden');
-        });
-</script>
-<script>
+    toastr.options = {
+        "closeButton": true,
+        "debug": true,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "maxOpened": 1,
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "120000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
     document.getElementById('generate-btn').addEventListener('click', function() {
         document.getElementById('spinner').classList.remove('hidden');
-        
         // Get or create an instance of the modal
-        var myModal = tailwind.Modal.getOrCreateInstance(document.querySelector("#success-modal-preview"));
-        // Show the modal
-        myModal.show();
+        // var myModal = tailwind.Modal.getOrCreateInstance(document.querySelector("#success-modal-preview"));
+        // // Show the modal
+        // myModal.show();
+        
+        // Show the toastr
+        toastr.success('¡Por favor, ten paciencia! Estamos generando tu contenido en este momento. Por favor, no cierres ni actualices esta página. ¡Merecerá la pena!');
     });
 </script>
 @endsection
