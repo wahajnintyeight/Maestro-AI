@@ -8,6 +8,7 @@ use Hash;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Str;
 
@@ -20,7 +21,13 @@ class GoogleController extends Controller
 
     public function callback()
     {
-        $user = Socialite::driver('google')->user();
+        try {
+            $user = Socialite::driver('google')->user();
+            Log::info('User from Google: ' . json_encode($user));
+        } catch (\Laravel\Socialite\Two\InvalidStateException $e) {
+            Log::error('InvalidStateException: ' . $e->getMessage());
+            return redirect()->route('google.redirect');
+        }
 
         // do something with the user data (e.g. create a new user, log in, etc.)
         // find or create the user by email
