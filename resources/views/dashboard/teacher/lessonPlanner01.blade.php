@@ -251,7 +251,7 @@
         // myModal.show();
         
         // Show the toastr
-        toastr.success('¡Por favor, ten paciencia! Estamos generando tu contenido en este momento. Este proceso puede llevar algunos minutos, dependiendo de la carga de los servidores. Por favor, no cierres ni actualices esta página. ¡Merecerá la pena!');
+        toastr.success('¡Por favor, ten paciencia! Estamos generando tu contenido en este momento. Por favor, no cierres ni actualices esta página. ¡Merecerá la pena!');
     });
 </script>
 @endsection
