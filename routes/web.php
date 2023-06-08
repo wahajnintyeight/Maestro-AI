@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\GuesController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ToolController;
@@ -20,6 +21,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 })->name('/');
+
+Route::get('/contact-us', [GuesController::class, 'contactUs'])->name('contactUs');
+Route::post('/contacto/enviar', [GuesController::class, 'submitContactForm'])->name('guest.contact.submit');
 
 
 Route::group(
@@ -46,6 +50,11 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
     Route::get('/concept-explainer', [ToolController::class, 'showConceptExplainer'])->name('showConceptExplainer');
     Route::get('/worksheet-generator', [ToolController::class, 'showWorksheetGenerator'])->name('showWorksheetGenerator');
     Route::get('/frequently-asked-questions', [PageController::class, 'viewFAQ'])->name('showFAQ');
+
+    Route::get('/send-support', [ToolController::class, 'showSendSupport'])->name('showSendSupport');
+    Route::post('/send-support', [ToolController::class, 'generateSendSupport'])->name('generateSendSupport');
+    Route::get('/download-support-docx', [ToolController::class, 'downloadSendSupportDocx'])->name('downloadSendSupportDocx');
+
 
     Route::get('/view-history', [PageController::class, 'showHistory'])->name('showHistory');
     Route::get('/delete', [PageController::class, 'viewDeletePage'])->name('view.delete');

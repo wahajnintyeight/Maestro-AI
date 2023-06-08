@@ -194,9 +194,11 @@
                         <select id="curriculum" name="curriculum" class="form-select">
                             <option value="Currículo Español - LOMLOE">Currículo Español - LOMLOE
                             </option>
-                            <option value="Chile">Chile</option>
-                            <option value="Argentina">Argentina</option>
-                            <option value="Peru">Peru</option>
+                            <option value="Chile">Chile: Curriculum Nacional Base</option>
+                            <option value="Argentina">Argentina: Diseño Curricular Nacional</option>
+                            <option value="Peru">Peru: Curriculum Nacional</option>
+                            <option value="Mexico">Mexico: Sistema Educativo Nacional</option>
+                            <option value="Uruguayan Curriculum">Uruguayan Curriculum</option>
                         </select>
                     </div>
                     <div class="mt-5">

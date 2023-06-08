@@ -164,6 +164,7 @@
                             <option value="Argentina">Argentina: Diseño Curricular Nacional</option>
                             <option value="Peru">Peru: Curriculum Nacional</option>
                             <option value="Mexico">Mexico: Sistema Educativo Nacional</option>
+                            <option value="Uruguayan Curriculum">Uruguayan Curriculum</option>
                         </select>
                     </div>
                     <div class="mt-5">

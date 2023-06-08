@@ -554,8 +554,8 @@
                     <h2 class="text-xl font-bold text-red-500">Danger Zone</h2>
                     <div class="mt-4 flex flex-row items-center">
                         <div class="w-1/2 pr-2 text-left">
-                            <h4 class="font-bold text-lg">Account deletion</h4>
-                            <p class="font-medium">This will delete your account forever.</p>
+                            <h4 class="font-bold text-lg">Borrar Cuenta</h4>
+                            <p class="font-medium">Esto borrará tu cuenta para siempre</p>
                         </div>
                         <div class="w-1/2 pl-2 flex justify-end">
                             <a class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline mr-2"
