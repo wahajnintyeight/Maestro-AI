@@ -788,7 +788,8 @@ class ToolController extends Controller
 
     public function downloadSendSupportDocx(Request $request)
     {
-        $send_support = json_decode(urldecode($request->session()->get('send')), true);
+        // dd(json_decode(urldecode($request->send)));
+        $send_support = json_decode(urldecode($request->send), true);
 
         $phpWord = new PhpWord();
 

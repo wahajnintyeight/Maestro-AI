@@ -60,6 +60,7 @@
                             <div class="header__bottom-right d-flex justify-content-end align-items-center pl-30">
                                 <div class="header__action d-none d-xl-block">
                                     <ul>
+
                                         <li>
                                             <a href="{{route('login')}}">
                                                 <svg width="15" height="20" viewBox="0 0 15 20" fill="none"
@@ -82,16 +83,16 @@
                                     <ul>
                                         <li>
                                             <a style="display: inline-block;
-    width: 44px;
-    height: 44px;
-    line-height: 38px;
-    text-align: center;
-    border: 2px solid rgba(12, 20, 15, 0.08);
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -o-border-radius: 50%;
-    -ms-border-radius: 50%;
-    border-radius: 50%;" href="{{route('login')}}">
+                                                    width: 44px;
+                                                    height: 44px;
+                                                    line-height: 38px;
+                                                    text-align: center;
+                                                    border: 2px solid rgba(12, 20, 15, 0.08);
+                                                    -webkit-border-radius: 50%;
+                                                    -moz-border-radius: 50%;
+                                                    -o-border-radius: 50%;
+                                                    -ms-border-radius: 50%;
+                                                    border-radius: 50%;" href="{{route('login')}}">
                                                 <svg width="15" height="20" viewBox="0 0 15 20" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path
@@ -214,7 +215,7 @@
                             <h3 class="slider__title-2">Herramientas de Inteligencia Artificial pioneras para educadores
                                 en Español</h3>
                             <p>Aprovecha al máximo la Inteligencia Artificial.</p>
-                            <a href="{{route('login')}}" class="tp-btn-green">Comenzar</a>
+                            <a href="{{route('login')}}" class="tp-btn-green">Prueba Gratis</a>
                         </div>
                     </div>
                     <div class="col-xxl-6 col-lg-6">
@@ -237,6 +238,7 @@
             </div>
         </section>
         <!-- slider area end -->
+
 
 
         <!-- course area start -->
@@ -305,12 +307,147 @@
                             </div>
                         </div>
                     </div>
-                    <a href="{{route('login')}}" style="width: 170px; border-radius: 200px;"
-                        class="tp-btn-green w-32 text-center mx-auto">Prueba Gratis</a>
+                    {{-- <a href="{{route('login')}}" style="width: 170px; border-radius: 200px;"
+                        class="tp-btn-green w-32 text-center mx-auto">Prueba Gratis</a> --}}
                 </div>
 
             </div>
         </section>
+
+        <!-- price area start -->
+        <section class="price__area pb-85">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xxl-12">
+                        <div class="section__title-wrapper text-center mt-40 mb-60">
+                            <h2 class="section__title-2">Nuestros Precios</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex align-items-stretch">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 d-flex">
+                        <div style="display: flex; flex-direction: column;"
+                            class="price__banner theme-bg-3 mb-30 fix p-relative">
+                            <div class="price__shape">
+                                <img src="assets/img/price/price-shape.png" alt="">
+                            </div>
+                            <div class="price__banner-content p-relative z-index-1">
+                                <h3>
+                                    <span>Comienza Gratis Con Nuestros Planes Iniciales.</span>
+
+                                </h3>
+                                <p>Únete ahora y explora sin coste.</p>
+
+                                <a href="{{route('login')}}" class="tp-price-btn">Prueba Gratis</a>
+                            </div>
+                            <div class="price__thumb">
+                                <img src="https://wphix.com/html/eduker-html/eduker/assets/img/price/price-thumb.png"
+                                    alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 d-flex">
+                        <div style="display: flex; flex-direction: column;"
+                            class="price__item white-bg mb-30 transition-3 fix">
+                            <h3 class="price__title">Premium Mensual</h3>
+
+                            <div class="price__content">
+                                <div class="price__list mb-35">
+                                    <ul>
+                                        <li>Accesso a la plataforma <span><i class="fa-solid fa-check"></i></span></li>
+                                        <li>Herramientas Gratis <span><i class="fa-solid fa-check"></i></span></li>
+                                        <li>Historial <span><i class="fa-solid fa-check"></i></span></li>
+                                        <li>Herramientas Premium <span><i class="fa-solid fa-check"></i></span></li>
+                                        </li>
+                                        <li>Solicitar Herramientas <span><i class="fa-solid fa-check"></i></span></li>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div style="text-align: center" class="price__amount mb-30">
+                                    <h4>€5.99 <span> /monthly</span></h4>
+                                    <p style="text-align: center">Paga cada mes y cancela cuando quieras</p>
+                                </div>
+                                <div class="price__btn">
+                                    <a href="{{route('login')}}" class="tp-btn-9 tp-btn-12 w-100">Elige un Plan</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 d-flex">
+                        <div style="display: flex; flex-direction: column;"
+                            class="price__item active white-bg mb-30 transition-3 fix">
+                            <h3 class="price__title">Premium Anual</h3>
+
+                            <div class="price__content">
+                                <div class="price__list mb-35">
+                                    <ul>
+                                        <li>Accesso a la plataforma <span><i class="fa-solid fa-check"></i></span></li>
+                                        <li>Herramientas Gratis <span><i class="fa-solid fa-check"></i></span></li>
+                                        <li>Historial <span><i class="fa-solid fa-check"></i></span></li>
+                                        <li>Herramientas Premium<span><i class="fa-solid fa-check"></i></span></li>
+                                        <li>Solicitar Herramientas <span><i class="fa-solid fa-check"></i></span></li>
+                                    </ul>
+                                </div>
+                                <div style="text-align: center" class="price__amount mb-30">
+                                    <h4>€5.00 <span>/ monthly</span></h4>
+                                    <p style="text-align: center">60€/Año - Un único pago con descuento del 14%</p>
+                                </div>
+                                <div class="price__btn">
+                                    <a href="{{route('login')}}" class="tp-btn-9 tp-btn-12 w-100">Elige un Plan</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <div style="margin-bottom: 40px;" class="row justify-content-center mb-40 ">
+            <div class="col-xxl-6 col-xl-6 col-lg-6">
+                <div class="course__enroll-wrapper p-relative d-sm-flex align-items-center justify-content-between include-bg"
+                    data-background="assets/img/course/bg/course-bg.png">
+                    <div class="course__enroll-icon">
+                        <span>
+                            <svg width="28" height="34" viewBox="0 0 28 34" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g filter="url(#filter0_d_268_615)">
+                                    <path
+                                        d="M7.59649 15.161H11.2015V23.561C11.2015 25.521 12.2632 25.9177 13.5582 24.4477L22.3898 14.4144C23.4748 13.1894 23.0198 12.1744 21.3748 12.1744H17.7698V3.77435C17.7698 1.81435 16.7082 1.41769 15.4132 2.88769L6.58149 12.921C5.50816 14.1577 5.96316 15.161 7.59649 15.161Z"
+                                        fill="white" />
+                                </g>
+                                <defs>
+                                    <filter id="filter0_d_268_615" x="2" y="2" width="24.9795" height="31.3354"
+                                        filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                        <feColorMatrix in="SourceAlpha" type="matrix"
+                                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                                        <feOffset dy="4" />
+                                        <feGaussianBlur stdDeviation="2" />
+                                        <feComposite in2="hardAlpha" operator="out" />
+                                        <feColorMatrix type="matrix"
+                                            values="0 0 0 0 0.825 0 0 0 0 0.38207 0 0 0 0 0 0 0 0 0.5 0" />
+                                        <feBlend mode="normal" in2="BackgroundImageFix"
+                                            result="effect1_dropShadow_268_615" />
+                                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_268_615"
+                                            result="shape" />
+                                    </filter>
+                                </defs>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="course__enroll-content">
+                        <p>Permítenos Ayudar</p>
+                        <h4>Encuentra Tus Cursos Adecuados</h4>
+                    </div>
+                    <div class="course__enroll-btn pt-5">
+                        <a href="{{route('contactUs')}}" class="tp-btn-5 tp-btn-11">Solicita un Presupuesto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- price area end -->
         <!-- research area end -->
         <!-- course area end -->
 

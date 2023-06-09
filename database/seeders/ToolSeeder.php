@@ -20,7 +20,8 @@ class ToolSeeder extends Seeder
             'Worksheet Generator',
             'Concept Explainer',
             'Slides Generator',
-            'Rubric Generator'
+            'Rubric Generator',
+            'Send Support Tool'
         ];
 
         \DB::table('tools')->truncate();
