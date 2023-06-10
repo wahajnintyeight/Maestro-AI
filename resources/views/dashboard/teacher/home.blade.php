@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="grid grid-cols-12 gap-6 mt-5">
-                    <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+                    <div class="col-span-12 sm:col-span-6 xl:col-span-6 intro-y">
                         @if ($lessonPlanner->free_status == 1 || $user->is_paid == 1)
                         <a href="{{ route('teacher.showLessonPlanner') }}">
                             <div style="height: 100% !important;" class="report-box zoom-in">
@@ -110,7 +110,7 @@
                         </div>
                         @endif
                     </div>
-                    <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+                    <div class="col-span-12 sm:col-span-6 xl:col-span-6 intro-y">
                         @if ($comprehensionGenerator->free_status == 1 || $user->is_paid == 1)
                         <a href="{{ route('teacher.comprehension.form') }}">
                             <div style="height: 100% !important;" class="report-box zoom-in">
@@ -179,7 +179,7 @@
                         </div>
                         @endif
                     </div>
-                    <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+                    <div class="col-span-12 sm:col-span-6 xl:col-span-6 intro-y">
                         @if ($conceptExplainer->free_status == 1 || $user->is_paid == 1)
                         <a href="{{ route('teacher.showConceptExplainer') }}">
                             <div style="height: 100% !important;" class="report-box zoom-in">
@@ -340,7 +340,7 @@
                         </div>
                         @endif
                     </div>
-                    <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+                    <div class="col-span-12 sm:col-span-6 xl:col-span-6 intro-y">
                         @if ($worksheetGenerator->free_status == 1 || $user->is_paid == 1)
                         <a href="{{ route('teacher.showWorksheetGenerator') }}">
                             <div style="height: 100% !important;" class="report-box zoom-in">
@@ -397,7 +397,7 @@
                         </div>
                         @endif
                     </div>
-                    <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+                    <div class="col-span-12 sm:col-span-6 xl:col-span-6 intro-y">
                         @if ($rubricGenerator->free_status == 1 || $user->is_paid == 1)
                         <a href="{{ route('teacher.showRubricGenerator') }}">
                             <div style="height: 100% !important;" class="report-box zoom-in">
@@ -469,7 +469,7 @@
                         </div>
                         @endif
                     </div>
-                    <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+                    <div class="col-span-12 sm:col-span-6 xl:col-span-6 intro-y">
                         @if ($slidesGenerator->free_status == 1 || $user->is_paid == 1)
                         <a href="{{ route('teacher.showSlidesGenerator') }}">
                             <div style="height: 100% !important;" class="report-box zoom-in">
@@ -529,7 +529,7 @@
                         @endif
                     </div>
 
-                    <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+                    <div class="col-span-12 sm:col-span-6 xl:col-span-6 intro-y">
                         @if ($sendSupport->free_status == 1 || $user->is_paid == 1)
                         <a href="{{ route('teacher.showSendSupport') }}">
                             <div style="height: 100% !important;" class="report-box zoom-in">
@@ -589,7 +589,7 @@
                         </div>
                         @endif
                     </div>
-                    <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+                    <div class="col-span-12 sm:col-span-6 xl:col-span-6 intro-y">
 
                         <div style="height: 100% !important;" class="report-box">
                             <div class="box p-5 h-full py-6">

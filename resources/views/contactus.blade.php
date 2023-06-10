@@ -200,7 +200,7 @@
     <main>
         <!-- breadcrumb area start -->
         <section class="breadcrumb__area include-bg pt-150 pb-150 breadcrumb__overlay"
-            data-background="https://wphix.com/html/eduker-html/eduker/assets/img/breadcrumb/breadcrumb-bg-1.jpg">
+            data-background="https://images.unsplash.com/photo-1648420325217-c8a1f20a6c29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80">
             <div class="container">
                 <div class="row">
                     <div class="col-xxl-12">
