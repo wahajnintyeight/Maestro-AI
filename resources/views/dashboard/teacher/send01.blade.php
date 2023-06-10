@@ -112,7 +112,7 @@
 </style>
 <div class="intro-y flex items-center mt-8">
     <h2 class="text-lg font-medium mr-auto">
-        ENVÍA Herramienta de Soporte</h2>
+        Estrategias para Alumnos con Dificultades Específicas de Aprendizaje</h2>
 </div>
 {{-- <div id="success-modal-preview" class="modal" data-tw-backdrop="static" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
@@ -209,7 +209,8 @@
                         </svg> --}}
                     </div>
                     <div class="ml-4 mr-auto">
-                        <div class="font-medium text-base">ENVÍA Herramienta de Soporte</div>
+                        <div class="font-medium text-base">Estrategias para Alumnos con Dificultades Específicas de
+                            Aprendizaje</div>
                     </div>
                 </div>
                 <div class="p-5 border-t border-slate-200/60 dark:border-darkmode-400">

@@ -42,18 +42,35 @@
 
     <!-- header area start -->
     <header>
-        <div style="padding-top: 10px; padding-bottom: 10px" id="header-sticky"
-            class="header__area header__transparent my-10">
+        <div id="header-sticky" class="header__area header__transparent">
             <div class="header__bottom">
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-xxl-8 col-xl-9 col-lg-10 col-md-6 col-6">
-                            <div class="header__bottom-left my-10 d-flex align-items-center">
-                                <div style="font-family: 'Inter', sans-serif;font-weight: bold;font-size: 24px;color: #258e46;"
-                                    class="logo">
-                                    MaestroIA
+                            <div class="header__bottom-left d-flex align-items-center">
+                                <div class="logo">
+                                    <a href="{{route('/')}}">
+                                        <h1 style="font-size: 24px; color: #258e46; margin: 0 !important;">MaestroIA
+                                        </h1>
+                                    </a>
                                 </div>
+                                <div class="main-menu main-menu-2 main-menu-border ml-30 pl-30">
+                                    <nav id="mobile-menu">
+                                        <ul>
 
+                                            <li>
+                                                <a href="{{route('/')}}">Home</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('pricing')}}">Pricing</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('contactUs')}}">Contact</a>
+                                            </li>
+
+                                        </ul>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
                         <div class="col-xxl-4 col-xl-3 col-lg-2 col-md-6 col-6">
@@ -78,34 +95,13 @@
                                     </ul>
                                 </div>
 
-                                <div class="header__hamburger  ml-50 d-xl-none">
-                                    <ul>
-                                        <li>
-                                            <a style="display: inline-block;
-    width: 44px;
-    height: 44px;
-    line-height: 38px;
-    text-align: center;
-    border: 2px solid rgba(12, 20, 15, 0.08);
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -o-border-radius: 50%;
-    -ms-border-radius: 50%;
-    border-radius: 50%;" href="{{route('login')}}">
-                                                <svg width="15" height="20" viewBox="0 0 15 20" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M7.1466 8.96416C7.05493 8.95499 6.94493 8.95499 6.8441 8.96416C4.66243 8.89083 2.92993 7.10333 2.92993 4.90333C2.92993 2.65749 4.74493 0.833328 6.99993 0.833328C9.24576 0.833328 11.0699 2.65749 11.0699 4.90333C11.0608 7.10333 9.32826 8.89083 7.1466 8.96416Z"
-                                                        stroke="#0C140F" stroke-width="1.5" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                    <path
-                                                        d="M2.56341 12.3467C0.345075 13.8317 0.345075 16.2517 2.56341 17.7275C5.08424 19.4142 9.21841 19.4142 11.7392 17.7275C13.9576 16.2425 13.9576 13.8225 11.7392 12.3467C9.22758 10.6692 5.09341 10.6692 2.56341 12.3467Z"
-                                                        stroke="#0C140F" stroke-width="1.5" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                </svg>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                <div class="header__hamburger ml-50 d-xl-none">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#offcanvasmodal"
+                                        class="hamurger-btn">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </button>
                                 </div>
                             </div>
                         </div>

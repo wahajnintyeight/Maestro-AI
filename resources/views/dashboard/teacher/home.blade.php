@@ -549,7 +549,8 @@
 
                                         </div>
                                     </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">ENVÍA Herramienta de Soporte
+                                    <div class="text-3xl font-medium leading-8 mt-6">Estrategias para Alumnos con
+                                        Dificultades Específicas de Aprendizaje
                                     </div>
                                     <div class="text-base text-slate-500 mt-1">Obtener asesoramiento para necesidades
                                         educativas especiales.

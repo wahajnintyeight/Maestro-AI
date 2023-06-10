@@ -758,8 +758,8 @@ class ToolController extends Controller
                 break;
             case "Comprehension Question Generator":
                 $questions = json_decode($history->content, true);
-                $questions = $history->content;
-                $urlEncodedQuestions = urlencode($questions);
+                // dd($questions);
+                $urlEncodedQuestions = urlencode(json_encode($questions));
                 return redirect()->route('teacher.downloadComprehension', ['questions' => $urlEncodedQuestions]);
             case "Rubric Generator":
                 $data = json_decode($history->content, true);
@@ -778,11 +778,15 @@ class ToolController extends Controller
                 $data = $history->content;
                 $urlEncodedData = urlencode($data);
                 return redirect()->route('teacher.downloadWorksheetDocx', ['worksheet' => $urlEncodedData]);
-            case "Slides":
+            case "Slides Generator":
                 $data = json_decode($history->content, true);
                 $data = $history->content;
                 $urlEncodedData = urlencode($data);
                 return redirect()->route('teacher.downloadSlidesPPTX', ['slides' => $urlEncodedData]);
+            case "Send Support":
+                $data = json_decode($history->content, true);
+                $urlEncodedData = urlencode(json_encode($data));
+                return redirect()->route('teacher.downloadSendSupportDocx', ['send' => $urlEncodedData]);
         }
     }
 

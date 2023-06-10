@@ -140,9 +140,10 @@ class PageController extends Controller
     public function showHistory()
     {
         $user = Auth::user();
-
-        return view('dashboard.teacher.viewHistory', compact('user'));
+        $histories = $user->histories->sortByDesc('created_at');
+        return view('dashboard.teacher.viewHistory', compact('histories', 'user'));
     }
+
 
     public function showTeacherTools()
     {

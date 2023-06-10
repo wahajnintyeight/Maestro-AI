@@ -23,6 +23,8 @@ Route::get('/', function () {
 })->name('/');
 
 Route::get('/contact-us', [GuesController::class, 'contactUs'])->name('contactUs');
+Route::get('/pricing', [GuesController::class, 'pricing'])->name('pricing');
+
 Route::post('/contacto/enviar', [GuesController::class, 'submitContactForm'])->name('guest.contact.submit');
 
 

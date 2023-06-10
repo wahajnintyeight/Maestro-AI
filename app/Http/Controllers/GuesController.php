@@ -21,6 +21,11 @@ class GuesController extends Controller
         return view('contactus');
     }
 
+    public function pricing()
+    {
+        return view('pricing');
+    }
+
     public function submitContactForm(Request $request)
     {
         $validatedData = $request->validate([

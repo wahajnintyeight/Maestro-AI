@@ -34,7 +34,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($user->histories as $key => $history)
+                        @foreach ($histories as $key => $history)
                         <tr>
                             <td>{{ $history->tool_name }}</td>
                             <td>{{ $history->created_at }}</td>
@@ -66,6 +66,6 @@
 
 <script>
     let table = new DataTable('#myTable');
-        table.sort(0,'desc');
+        table.sort(2,'desc');
 </script>
 @endsection
