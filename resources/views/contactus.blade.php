@@ -226,9 +226,7 @@
                             <div class="section__title-wrapper mb-40">
                                 <h2 class="section__title">Póngase en<span class="yellow-bg yellow-bg-big"> contacto<img
                                             src="assets/img/shape/yellow-bg.png" alt=""></span></h2>
-                                <p>¿Tiene alguna pregunta o simplemente quiere decir hola? Nos encantaría escuchar de
-                                    usted.
-                                </p>
+
                             </div>
                             <div class="contact__form">
                                 <form action="{{ route('guest.contact.submit') }}" method="POST">

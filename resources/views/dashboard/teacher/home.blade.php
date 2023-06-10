@@ -530,7 +530,7 @@
                     </div>
 
                     <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
-                        @if ($slidesGenerator->free_status == 1 || $user->is_paid == 1)
+                        @if ($sendSupport->free_status == 1 || $user->is_paid == 1)
                         <a href="{{ route('teacher.showSendSupport') }}">
                             <div style="height: 100% !important;" class="report-box zoom-in">
                                 <div class="box p-5 h-full py-10">
