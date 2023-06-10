@@ -409,7 +409,8 @@
                                 <a href="{{route('login')}}" class="tp-price-btn">Prueba Gratis</a>
                             </div>
                             <div class="price__thumb">
-                                <img style="height: 400px;" src="{{ asset('images/thumb_model.png') }}" alt="">
+                                <img src="https://wphix.com/html/eduker-html/eduker/assets/img/price/price-thumb.png"
+                                    alt="">
                             </div>
                         </div>
                     </div>
