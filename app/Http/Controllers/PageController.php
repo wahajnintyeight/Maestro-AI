@@ -117,7 +117,7 @@ class PageController extends Controller
         $conceptExplainer = Tool::where('name', 'Concept Explainer')->first();
         $slidesGenerator = Tool::where('name', 'Slides Generator')->first();
         $rubricGenerator = Tool::where('name', 'Rubric Generator')->first();
-        $sendSupport = Tool::where('name', 'Send Support')->first();
+        $sendSupport = Tool::where('name', 'Send Support Tool')->first();
 
         return view('dashboard.teacher.home', compact('user', 'lessonPlanner', 'comprehensionGenerator', 'worksheetGenerator', 'conceptExplainer', 'slidesGenerator', 'rubricGenerator', 'sendSupport'));
     }
