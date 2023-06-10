@@ -131,7 +131,7 @@ class ToolController extends Controller
                 'messages' => [
                     [
                         "role" => "system",
-                        "content" => "Eres un experto en Curriculum y experto en Necesidades Específicas de Apoyo Educativo y Dificultades Específicas de Aprendizaje (DEA)."
+                        "content" => "Eres experto en Necesidades Específicas de Apoyo Educativo y Dificultades Específicas de Aprendizaje (DEA) para alumnos de grado $grade."
                     ],
                     [
                         "role" => "user",
