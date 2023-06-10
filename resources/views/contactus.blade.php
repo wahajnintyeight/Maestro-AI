@@ -42,7 +42,7 @@
 
     <!-- header area start -->
     <header>
-        <div id="header-sticky" class="header__area header__transparent">
+        <div style="background-color: #fff;" id="header-sticky" class="header__area header__transparent">
             <div class="header__bottom">
                 <div class="container">
                     <div class="row align-items-center">
@@ -205,11 +205,11 @@
                 <div class="row">
                     <div class="col-xxl-12">
                         <div class="breadcrumb__content text-center p-relative z-index-1">
-                            <h3 class="breadcrumb__title">Contact</h3>
+                            <h3 class="breadcrumb__title">Contacto</h3>
                             <div class="breadcrumb__list">
-                                <span><a href="index.html">Home</a></span>
+                                <span><a href="index.html">Inicio</a></span>
                                 <span class="dvdr"><i class="fa-regular fa-angle-right"></i></span>
-                                <span>Contact</span>
+                                <span>Contacto</span>
                             </div>
                         </div>
                     </div>
@@ -261,7 +261,7 @@
                                         </div>
                                         <div class="col-xxl-12">
                                             <div class="contact__btn">
-                                                <button class="tp-btn" type="submit">Enviar su mensaje</button>
+                                                <button class="tp-btn" type="submit">Enviar</button>
                                             </div>
                                         </div>
                                     </div>

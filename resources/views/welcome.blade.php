@@ -409,8 +409,33 @@
                                 <a href="{{route('login')}}" class="tp-price-btn">Prueba Gratis</a>
                             </div>
                             <div class="price__thumb">
-                                <img src="https://wphix.com/html/eduker-html/eduker/assets/img/price/price-thumb.png"
-                                    alt="">
+                                <img style="height: 400px;" src="{{ asset('images/thumb_model.png') }}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div style="filter: drop-shadow(6px 5px 15px rgba(0, 0, 0, 0.1));"
+                        class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 d-flex">
+                        <div style="display: flex; flex-direction: column;"
+                            class="price__item active white-bg mb-30 transition-3 fix">
+                            <h3 class="price__title">Premium Anual</h3>
+
+                            <div class="price__content">
+                                <div class="price__list mb-35">
+                                    <ul>
+                                        <li>Accesso a la plataforma <span><i class="fa-solid fa-check"></i></span></li>
+                                        <li>Herramientas Gratis <span><i class="fa-solid fa-check"></i></span></li>
+                                        <li>Historial <span><i class="fa-solid fa-check"></i></span></li>
+                                        <li>Herramientas Premium<span><i class="fa-solid fa-check"></i></span></li>
+                                        <li>Solicitar Herramientas <span><i class="fa-solid fa-check"></i></span></li>
+                                    </ul>
+                                </div>
+                                <div style="text-align: center" class="price__amount mb-30">
+                                    <h4>€5.00 <span>/ Mes</span></h4>
+                                    <p style="text-align: center">60€/Año - Un único pago con descuento del 14%</p>
+                                </div>
+                                <div class="price__btn">
+                                    <a href="{{route('login')}}" class="tp-btn-9 tp-btn-12 w-100">Suscribete</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -432,40 +457,16 @@
                                     </ul>
                                 </div>
                                 <div style="text-align: center" class="price__amount mb-30">
-                                    <h4>€5.99 <span> /monthly</span></h4>
+                                    <h4>€5.99 <span> / Mes</span></h4>
                                     <p style="text-align: center">Paga cada mes y cancela cuando quieras</p>
                                 </div>
                                 <div class="price__btn">
-                                    <a href="{{route('login')}}" class="tp-btn-9 tp-btn-12 w-100">Elige un Plan</a>
+                                    <a href="{{route('login')}}" class="tp-btn-9 tp-btn-12 w-100">Suscribete</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 d-flex">
-                        <div style="display: flex; flex-direction: column;"
-                            class="price__item active white-bg mb-30 transition-3 fix">
-                            <h3 class="price__title">Premium Anual</h3>
 
-                            <div class="price__content">
-                                <div class="price__list mb-35">
-                                    <ul>
-                                        <li>Accesso a la plataforma <span><i class="fa-solid fa-check"></i></span></li>
-                                        <li>Herramientas Gratis <span><i class="fa-solid fa-check"></i></span></li>
-                                        <li>Historial <span><i class="fa-solid fa-check"></i></span></li>
-                                        <li>Herramientas Premium<span><i class="fa-solid fa-check"></i></span></li>
-                                        <li>Solicitar Herramientas <span><i class="fa-solid fa-check"></i></span></li>
-                                    </ul>
-                                </div>
-                                <div style="text-align: center" class="price__amount mb-30">
-                                    <h4>€5.00 <span>/ monthly</span></h4>
-                                    <p style="text-align: center">60€/Año - Un único pago con descuento del 14%</p>
-                                </div>
-                                <div class="price__btn">
-                                    <a href="{{route('login')}}" class="tp-btn-9 tp-btn-12 w-100">Elige un Plan</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
