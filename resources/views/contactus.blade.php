@@ -62,10 +62,10 @@
                                                 <a href="{{route('/')}}">Home</a>
                                             </li>
                                             <li>
-                                                <a href="{{route('pricing')}}">Pricing</a>
+                                                <a href="{{route('pricing')}}">Precios</a>
                                             </li>
                                             <li>
-                                                <a href="{{route('contactUs')}}">Contact</a>
+                                                <a href="{{route('contactUs')}}">Contacto</a>
                                             </li>
 
                                         </ul>

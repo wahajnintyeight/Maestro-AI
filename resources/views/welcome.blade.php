@@ -60,10 +60,10 @@
                                                 <a href="{{route('/')}}">Home</a>
                                             </li>
                                             <li>
-                                                <a href="{{route('pricing')}}">Pricing</a>
+                                                <a href="{{route('pricing')}}">Precios</a>
                                             </li>
                                             <li>
-                                                <a href="{{route('contactUs')}}">Contact</a>
+                                                <a href="{{route('contactUs')}}">Contacto</a>
                                             </li>
 
                                         </ul>
@@ -414,7 +414,7 @@
                             </div>
                         </div>
                     </div>
-                    <div style="filter: drop-shadow(6px 5px 15px rgba(0, 0, 0, 0.1));"
+                    <div style="filter: drop-shadow(6px 5px 15px rgba(0, 0, 0, 0.2));"
                         class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 d-flex">
                         <div style="display: flex; flex-direction: column;"
                             class="price__item active white-bg mb-30 transition-3 fix">

@@ -95,7 +95,9 @@
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Planificador de situaciones de
+                                <div class="text-3xl font-medium leading-8 mt-6 mb-2"
+                                    style="font-family: Inter; font-size: 25px; font-weight: 600;">Planificador de
+                                    situaciones de
                                     aprendizaje
                                 </div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
@@ -135,7 +137,9 @@
 
                                         </div>
                                     </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">Comprensión lectora</div>
+                                    <div class="text-3xl font-medium leading-8 mt-6"
+                                        style="font-family: Inter; font-size: 25px; font-weight: 600;">Comprensión
+                                        lectora</div>
                                     <div class="text-base text-slate-500 mt-1">Genera preguntas con precisión y
                                         rapidez,
                                         gracias a la IA.</div>
@@ -165,7 +169,8 @@
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Comprensión lectora
+                                <div class="text-3xl font-medium leading-8 mt-6 mb-2"
+                                    style="font-family: Inter; font-size: 25px; font-weight: 600;">Comprensión lectora
                                 </div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
                                     <div class="text-base text-slate-500 mt-1"><span class="font-bold">¡Hazte
@@ -250,7 +255,9 @@
 
                                         </div>
                                     </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">Explicación de conceptos</div>
+                                    <div class="text-3xl font-medium leading-8 mt-6"
+                                        style="font-family: Inter; font-size: 25px; font-weight: 600;">Explicación de
+                                        conceptos</div>
                                     <div class="text-base text-slate-500 mt-1">Aprende y explora nuevos conceptos
                                         usando
                                         IA</div>
@@ -326,7 +333,10 @@
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Explicación de conceptos
+                                <div class="text-3xl font-medium leading-8 mt-6 mb-2"
+                                    style="font-family: Inter !important; font-size: 25px !important; font-weight: 600 !important;">
+                                    Explicación de
+                                    conceptos
                                 </div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
                                     <div class="text-base text-slate-500 mt-1"><span class="font-bold">¡Hazte
@@ -359,7 +369,9 @@
 
                                         </div>
                                     </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">Generador de actividades</div>
+                                    <div class="text-3xl font-medium leading-8 mt-6"
+                                        style="font-family: Inter; font-size: 25px; font-weight: 600;">Generador de
+                                        actividades</div>
                                     <div class="text-base text-slate-500 mt-1">Crea tareas y ejercicios para tus
                                         clases
                                     </div>
@@ -383,7 +395,9 @@
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Generador de actividades
+                                <div class="text-3xl font-medium leading-8 mt-6 mb-2"
+                                    style="font-family: Inter; font-size: 25px; font-weight: 600;">Generador de
+                                    actividades
                                 </div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
                                     <div class="text-base text-slate-500 mt-1"><span class="font-bold">¡Hazte
@@ -424,7 +438,9 @@
 
                                         </div>
                                     </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">Generador de Rúbricas</div>
+                                    <div class="text-3xl font-medium leading-8 mt-6"
+                                        style="font-family: Inter; font-size: 25px; font-weight: 600;">Generador de
+                                        Rúbricas</div>
                                     <div class="text-base text-slate-500 mt-1">Crea rúbricas para todos tus
                                         proyectos de
                                         clase</div>
@@ -489,7 +505,9 @@
 
                                         </div>
                                     </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">Generador de Presentaciones
+                                    <div class="text-3xl font-medium leading-8 mt-6"
+                                        style="font-family: Inter; font-size: 25px; font-weight: 600;">Generador de
+                                        Presentaciones
                                     </div>
                                     <div class="text-base text-slate-500 mt-1">Crea el contenido para tus
                                         presentaciones
@@ -514,7 +532,9 @@
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Generador de Presentaciones
+                                <div class="text-3xl font-medium leading-8 mt-6 mb-2"
+                                    style="font-family: Inter; font-size: 25px; font-weight: 600;">Generador de
+                                    Presentaciones
                                 </div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
                                     <div class="text-base text-slate-500 mt-1"><span class="font-bold">¡Hazte
@@ -549,7 +569,9 @@
 
                                         </div>
                                     </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">Estrategias para Alumnos con
+                                    <div class="text-3xl font-medium leading-8 mt-6"
+                                        style="font-family: Inter; font-size: 25px; font-weight: 600;">Estrategias para
+                                        Alumnos con
                                         Dificultades Específicas de Aprendizaje
                                     </div>
                                     <div class="text-base text-slate-500 mt-1">Obtener asesoramiento para necesidades
@@ -607,7 +629,10 @@
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Explicalo con una Canción
+                                <div style="font-family: Inter; font-size: 25px; font-weight: 600;"
+                                    class="text-3xl font-medium leading-8 mt-6 mb-2"
+                                    style="font-family: Inter; font-size: 25px; font-weight: 600;">Explicalo con una
+                                    Canción
                                 </div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
                                     <div class="text-base text-slate-500 mt-1"><span
@@ -637,7 +662,8 @@
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Linea de Tiempo
+                                <div class="text-3xl font-medium leading-8 mt-6 mb-2"
+                                    style="font-family: Inter; font-size: 25px; font-weight: 600;">Linea de Tiempo
                                 </div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
                                     <div class="text-base text-slate-500 mt-1"><span
@@ -667,7 +693,9 @@
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Corrector de Gramática
+                                <div class="text-3xl font-medium leading-8 mt-6 mb-2"
+                                    style="font-family: Inter; font-size: 25px; font-weight: 600;">Corrector de
+                                    Gramática
                                 </div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
                                     <div class="text-base text-slate-500 mt-1"><span class="font-bold">¡Próximamente!
@@ -696,7 +724,9 @@
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Consejos de Comportamiento en el
+                                <div class="text-3xl font-medium leading-8 mt-6 mb-2"
+                                    style="font-family: Inter; font-size: 25px; font-weight: 600;">Consejos de
+                                    Comportamiento en el
                                     Aula
                                 </div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
