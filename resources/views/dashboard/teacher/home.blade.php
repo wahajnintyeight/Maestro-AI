@@ -54,11 +54,9 @@
                                         </div>
                                     </div>
                                     <div style="font-family: Inter !important; font-size: 25px !important; font-weight: 600 !important;"
-                                        class="text-3xl font-medium leading-8 mt-6">Planificador de situaciones de
+                                        class="text-3xl font-medium leading-8 mt-6">Planificador</div>
+                                    <div class="text-base text-slate-500 mt-1">Planificador de situaciones de
                                         aprendizaje</div>
-                                    <div class="text-base text-slate-500 mt-1">Con tan solo unos clics, puedes
-                                        generar
-                                        ideas para una clase</div>
                                 </div>
                             </div>
                         </a>
@@ -571,12 +569,12 @@
                                         </div>
                                     </div>
                                     <div class="text-3xl font-medium leading-8 mt-6"
-                                        style="font-family: Inter; font-size: 25px; font-weight: 600;">Estrategias para
+                                        style="font-family: Inter; font-size: 25px; font-weight: 600;">Estrategias Para
+                                        DEA
+                                    </div>
+                                    <div class="text-base text-slate-500 mt-1">Estrategias para
                                         Alumnos con
                                         Dificultades Específicas de Aprendizaje
-                                    </div>
-                                    <div class="text-base text-slate-500 mt-1">Obtener asesoramiento para necesidades
-                                        educativas especiales.
                                     </div>
                                 </div>
                             </div>

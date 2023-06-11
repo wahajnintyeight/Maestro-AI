@@ -507,11 +507,11 @@
                         </span>
                     </div>
                     <div class="course__enroll-content">
-                        <p>Permítenos Ayudar</p>
-                        <h4>Encuentra Tus Cursos Adecuados</h4>
+                        {{-- <p>Permítenos Ayudar</p> --}}
+                        <h4>Simplifica tu enseñanza con IA</h4>
                     </div>
                     <div class="course__enroll-btn pt-5">
-                        <a href="{{route('contactUs')}}" class="tp-btn-5 tp-btn-11">Solicita un Presupuesto</a>
+                        <a href="{{route('contactUs')}}" class="tp-btn-5 tp-btn-11">Prueba Gratis</a>
                     </div>
                 </div>
             </div>

@@ -200,7 +200,7 @@
     <main>
         <!-- breadcrumb area start -->
         <section class="breadcrumb__area include-bg pt-150 pb-150 breadcrumb__overlay"
-            data-background="https://plus.unsplash.com/premium_photo-1661772013027-11b61bf0aafa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80">
+            data-background="https://www.unr.edu/main/images/news/2017/December/SEPAGrant_1180.jpg">
             <div class="container">
                 <div class="row">
                     <div class="col-xxl-12">
