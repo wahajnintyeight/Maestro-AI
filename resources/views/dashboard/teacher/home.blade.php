@@ -53,7 +53,8 @@
 
                                         </div>
                                     </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">Planificador de situaciones de
+                                    <div style="font-family: Inter !important; font-size: 25px !important; font-weight: 600 !important;"
+                                        class="text-3xl font-medium leading-8 mt-6">Planificador de situaciones de
                                         aprendizaje</div>
                                     <div class="text-base text-slate-500 mt-1">Con tan solo unos clics, puedes
                                         generar
