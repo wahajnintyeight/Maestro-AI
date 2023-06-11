@@ -39,6 +39,9 @@ Route::group(
         Route::post('/toggle-status/{user}', [PageController::class, 'toggleStatus'])->name('toggleStatus');
         Route::delete('/delete-user/{user}', [PageController::class, 'deleteUser'])->name('deleteUser');
         Route::post('/tools/{tool}/toggle-status', [PageController::class, 'toggleToolStatus'])->name('toggleToolStatus');
+        Route::get('/contacts',[PageController::class,'viewContacts'])->name('view-contacts');
+        // Route::get('/contacts', [PageController::class, 'viewContacts'])->name('view-contacts');
+        Route::delete('/contacts/{contact}', [PageController::class,'destroy'])->name('deleteContact');
     }
 );
 

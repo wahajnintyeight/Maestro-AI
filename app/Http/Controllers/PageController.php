@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Plan;
@@ -23,6 +24,18 @@ class PageController extends Controller
     {
         $tools = Tool::all();
         return view('dashboard.admin.adminViewTools', compact('tools'));
+    }
+
+    public function viewContacts(){
+        $contacts = Contact::all();
+        return view('dashboard.admin.contacts',compact('contacts'));
+    }
+
+    public function destroy(Contact $contact)
+    {
+        $contact->delete();
+
+        return redirect()->route('view-contacts')->with('status', 'Contact deleted successfully!');
     }
 
     public function toggleToolStatus(Tool $tool)

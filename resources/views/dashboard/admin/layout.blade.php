@@ -93,6 +93,12 @@
                         <div class="side-menu__title"> Tools </div>
                     </a>
                 </li>
+                 <li>
+                    <a href="{{route('admin.view-contacts')}}" class="side-menu">
+                        <div class="side-menu__icon"><i data-lucide="phone-call"></i></div>
+                        <div class="side-menu__title"> Contacts </div>
+                    </a>
+                </li>
 
 
             </ul>
