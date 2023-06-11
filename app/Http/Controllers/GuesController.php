@@ -41,7 +41,11 @@ class GuesController extends Controller
         $contact->email = $validatedData['email'];
         $contact->subject = $validatedData['subject'];
         $contact->message = $validatedData['message'];
-        $contact->terms = $validatedData['terms'];
+        if($validatedData['terms'] == 'on'){
+            $contact->terms = true;
+        } else {
+            $contact->terms = false;
+        }
         $contact->save();
 
         return redirect()->back()->with('success', 'Message sent successfully!');
