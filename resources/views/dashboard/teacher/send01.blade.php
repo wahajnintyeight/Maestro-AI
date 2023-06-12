@@ -313,14 +313,14 @@
                     <li class="ml-4">¿Feliz con los resultados? Haga clic en "Descargar .DOCX" para descargar el
                         documento de Word.
                     </li>
-                    <li class="ml-4">¿No satisfecho? Modifique la descripción de la lección para modificar aún más
-                        los
+                    <li class="ml-4">¿No satisfecho? Modificar la descripción para modificar aún más
+                        el
                         resultados.</li>
                 </ul>
                 <div class="my-10">
                     <?php
                     if (empty($send)) {
-                        echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Generar plan de lección' para comenzar el proceso!";
+                        echo "Los resultados se mostrarán aquí. ¡Haz clic en '✨Genera Asesoramiento' para comenzar el proceso!";
                     } else {
                   
                     echo '<div class="font-medium text-md">' . nl2br($send) . '</div>';
