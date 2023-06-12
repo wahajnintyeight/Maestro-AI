@@ -511,7 +511,7 @@
                         <h4>Simplifica tu enseñanza con IA</h4>
                     </div>
                     <div class="course__enroll-btn pt-5">
-                        <a href="{{route('contactUs')}}" class="tp-btn-5 tp-btn-11">Prueba Gratis</a>
+                        <a href="{{route('login')}}" class="tp-btn-5 tp-btn-11">Prueba Gratis</a>
                     </div>
                 </div>
             </div>
