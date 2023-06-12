@@ -267,7 +267,7 @@
                             Aprendizaje</label>
                         <!-- Textarea for Lesson Description -->
                         <textarea id="lesson-description"
-                            placeholder="Intente algo como esto: Escriba un plan de lección sobre la primera guerra mundial. Incluye una actividad dinámica en grupo."
+                            placeholder="Dislexia, Disgrafía, Discalculia, Trastorno por déficit de atención e hiperactividad —TDHA, etc"
                             name="focus" class="form-control h-40"><?php echo htmlspecialchars($focus); ?></textarea>
                     </div>
                 </div>
