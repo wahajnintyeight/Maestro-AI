@@ -95,9 +95,7 @@
                                     </div>
                                 </div>
                                 <div class="text-3xl font-medium leading-8 mt-6 mb-2"
-                                    style="font-family: Inter; font-size: 25px; font-weight: 600;">Planificador de
-                                    situaciones de
-                                    aprendizaje
+                                    style="font-family: Inter; font-size: 25px; font-weight: 600;">Planificador
                                 </div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
                                     <div class="text-base text-slate-500 mt-1"><span class="font-bold">¡Hazte
@@ -471,7 +469,8 @@
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Generador de Rúbricas</div>
+                                <div style="font-family: Inter; font-size: 25px; font-weight: 600;"
+                                    class="text-3xl font-medium leading-8 mt-6 mb-2">Generador de Rúbricas</div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
                                     <div class="text-base text-slate-500 mt-1"><span class="font-bold">¡Hazte
                                             Premium!</span>
@@ -596,7 +595,8 @@
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Estrategias Para
+                                <div style="font-family: Inter; font-size: 25px; font-weight: 600;"
+                                    class="text-3xl font-medium leading-8 mt-6 mb-2">Estrategias Para
                                     DEA
                                 </div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
