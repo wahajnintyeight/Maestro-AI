@@ -5,7 +5,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <div class="intro-y flex items-center mt-8">
     <h2 class="text-lg font-medium mr-auto">
-        Account Settings
+        Cuenta
     </h2>
 </div>
 <div class="grid grid-cols-12 gap-6">
@@ -17,7 +17,7 @@
         <div class="intro-y box lg:mt-5">
             <div class="flex items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                 <h2 class="font-medium text-base mr-auto">
-                    Display Information
+                    Información de Cuenta
                 </h2>
             </div>
             <div class="p-5">
@@ -26,7 +26,7 @@
                         <div class="grid grid-cols-12 gap-x-5">
                             <div class="col-span-12 2xl:col-span-6">
                                 <div>
-                                    <label for="update-profile-form-1" class="form-label">Full Name</label>
+                                    <label for="update-profile-form-1" class="form-label">Nombre y Apellidos</label>
                                     <input id="update-profile-form-1" type="text" class="form-control"
                                         placeholder="Input text" value="{{ $user->name }}" disabled>
                                 </div>
@@ -55,7 +55,7 @@
                     <h2 class="font-medium text-base mr-auto">
                         Mi suscripción
                     </h2>
-                    <button class="btn btn-sm btn-primary w-24 mr-1">{{ $user->is_paid == 0 ? 'Free Tier' : 'Premium'
+                    <button class="btn btn-sm btn-primary w-24 mr-1">{{ $user->is_paid == 0 ? 'Gratis' : 'Premium'
                         }}</button>
                 </div>
             </div>
@@ -551,7 +551,7 @@
         <div class="container-fluid mt-5">
             <div class="bg-white rounded-lg shadow-lg border border-red-500">
                 <div class="px-6 py-4">
-                    <h2 class="text-xl font-bold text-red-500">Danger Zone</h2>
+                    <h2 class="text-xl font-bold text-red-500">IMPORTANTE</h2>
                     <div class="mt-4 flex flex-row items-center">
                         <div class="w-1/2 pr-2 text-left">
                             <h4 class="font-bold text-lg">Borrar Cuenta</h4>
