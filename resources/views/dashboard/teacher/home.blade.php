@@ -596,7 +596,8 @@
 
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">ENVÍA Herramienta de Soporte
+                                <div class="text-3xl font-medium leading-8 mt-6 mb-2">Estrategias Para
+                                    DEA
                                 </div>
                                 <div class="flex items-baseline align-middle" style="width: 80%; align-items: center;">
                                     <div class="text-base text-slate-500 mt-1"><span class="font-bold">¡Hazte
