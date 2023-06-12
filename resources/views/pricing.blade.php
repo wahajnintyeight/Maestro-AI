@@ -237,7 +237,7 @@
                                 </h3>
                                 <p>Únete ahora y explora sin coste.</p>
 
-                                <a href="{{route('login')}}" class="tp-price-btn">Prueba Gratis</a>
+                                <a href="{{route('register')}}" class="tp-price-btn">Prueba Gratis</a>
                             </div>
                             <div class="price__thumb">
                                 <img src="https://wphix.com/html/eduker-html/eduker/assets/img/price/price-thumb.png"

@@ -283,7 +283,7 @@
                             <h3 class="slider__title-2">Herramientas de Inteligencia Artificial pioneras para educadores
                                 en Español</h3>
                             <p>Aprovecha al máximo la Inteligencia Artificial.</p>
-                            <a href="{{route('login')}}" class="tp-btn-green">Prueba Gratis</a>
+                            <a href="{{route('register')}}" class="tp-btn-green">Prueba Gratis</a>
                         </div>
                     </div>
                     <div class="col-xxl-6 col-lg-6">
@@ -406,7 +406,7 @@
                                 </h3>
                                 <p>Únete ahora y explora sin coste.</p>
 
-                                <a href="{{route('login')}}" class="tp-price-btn">Prueba Gratis</a>
+                                <a href="{{route('register')}}" class="tp-price-btn">Prueba Gratis</a>
                             </div>
                             <div class="price__thumb">
                                 <img src="https://wphix.com/html/eduker-html/eduker/assets/img/price/price-thumb.png"
@@ -511,7 +511,7 @@
                         <h4>Simplifica tu enseñanza con IA</h4>
                     </div>
                     <div class="course__enroll-btn pt-5">
-                        <a href="{{route('login')}}" class="tp-btn-5 tp-btn-11">Prueba Gratis</a>
+                        <a href="{{route('register')}}" class="tp-btn-5 tp-btn-11">Prueba Gratis</a>
                     </div>
                 </div>
             </div>
