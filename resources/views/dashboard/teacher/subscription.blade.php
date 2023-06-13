@@ -48,7 +48,11 @@
                 </span>
                 por el
                 <span class="font-bold">
-                    {{ $plan->name }} Plan
+                    @if($plan->name == "Annual")
+                    Plan Anual
+                    @elseif($plan->name == "Monthly")
+                    Plan Mensual
+                    @endif
                 </span>.
             </p>
 
