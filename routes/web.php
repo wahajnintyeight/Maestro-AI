@@ -39,9 +39,10 @@ Route::group(
         Route::post('/toggle-status/{user}', [PageController::class, 'toggleStatus'])->name('toggleStatus');
         Route::delete('/delete-user/{user}', [PageController::class, 'deleteUser'])->name('deleteUser');
         Route::post('/tools/{tool}/toggle-status', [PageController::class, 'toggleToolStatus'])->name('toggleToolStatus');
-        Route::get('/contacts',[PageController::class,'viewContacts'])->name('view-contacts');
+        Route::get('/contacts', [PageController::class, 'viewContacts'])->name('view-contacts');
         // Route::get('/contacts', [PageController::class, 'viewContacts'])->name('view-contacts');
-        Route::delete('/contacts/{contact}', [PageController::class,'destroy'])->name('deleteContact');
+        Route::delete('/contacts/{contact}', [PageController::class, 'destroy'])->name('deleteContact');
+        Route::get('/export-csv', [PageController::class, 'exportCsv'])->name('exportCsv');
     }
 );
 
@@ -55,6 +56,10 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
     Route::get('/concept-explainer', [ToolController::class, 'showConceptExplainer'])->name('showConceptExplainer');
     Route::get('/worksheet-generator', [ToolController::class, 'showWorksheetGenerator'])->name('showWorksheetGenerator');
     Route::get('/frequently-asked-questions', [PageController::class, 'viewFAQ'])->name('showFAQ');
+
+    Route::get('/ideas-tool', [ToolController::class, 'showIdeasTool'])->name('showIdeasTool');
+    Route::post('/ideas-tool-post', [ToolController::class, 'generateIdeas'])->name('generateIdeas');
+    Route::get('/download-ideas-docx', [ToolController::class, 'downloadIdeasDocx'])->name('downloadIdeasDocx');
 
     Route::get('/send-support', [ToolController::class, 'showSendSupport'])->name('showSendSupport');
     Route::post('/send-support', [ToolController::class, 'generateSendSupport'])->name('generateSendSupport');

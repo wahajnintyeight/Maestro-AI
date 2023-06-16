@@ -3,10 +3,13 @@
 
 <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 <!-- BEGIN: Top Bar -->
-<div class="intro-y flex items-center mt-8">
+<div class="intro-y flex flex-col sm:flex-row items-center mt-8">
     <h2 class="text-lg font-medium mr-auto">
         Registered Users
     </h2>
+    <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
+        <a href="{{ route('admin.exportCsv') }}" class="btn btn-primary shadow-md mr-2">Export to CSV</a>
+    </div>
 </div>
 <!-- END: Top Bar -->
 <div class="grid grid-cols-12 gap-6">

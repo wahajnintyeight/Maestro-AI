@@ -20,15 +20,47 @@ class PageController extends Controller
         return view('partials.register');
     }
 
+    public function exportCsv()
+    {
+        // Get users data
+        $users = User::all();
+
+        // Create a file
+        $fileName = 'users.csv';
+        $file = fopen($fileName, 'w');
+
+        // Define the column names
+        $fields = array('ID', 'Name', 'Email', 'Join Date', 'Payment Status');
+        fputcsv($file, $fields);
+
+        // Add the data
+        foreach ($users as $user) {
+            $row['id'] = $user->id;
+            $row['name'] = $user->name;
+            $row['email'] = $user->email;
+            $row['created_at'] = $user->created_at;
+            $row['is_paid'] = $user->is_paid == 1 ? 'Paid' : 'Unpaid';
+
+            fputcsv($file, array($row['id'], $row['name'], $row['email'], $row['created_at'], $row['is_paid']));
+        }
+
+        fclose($file);
+
+        // Download the file
+        return response()->download($fileName);
+    }
+
+
     public function adminViewTools()
     {
         $tools = Tool::all();
         return view('dashboard.admin.adminViewTools', compact('tools'));
     }
 
-    public function viewContacts(){
+    public function viewContacts()
+    {
         $contacts = Contact::all();
-        return view('dashboard.admin.contacts',compact('contacts'));
+        return view('dashboard.admin.contacts', compact('contacts'));
     }
 
     public function destroy(Contact $contact)
@@ -131,8 +163,9 @@ class PageController extends Controller
         $slidesGenerator = Tool::where('name', 'Slides Generator')->first();
         $rubricGenerator = Tool::where('name', 'Rubric Generator')->first();
         $sendSupport = Tool::where('name', 'Send Support Tool')->first();
+        $ideasTool = Tool::where('name', 'Ideas Competencias')->first();
 
-        return view('dashboard.teacher.home', compact('user', 'lessonPlanner', 'comprehensionGenerator', 'worksheetGenerator', 'conceptExplainer', 'slidesGenerator', 'rubricGenerator', 'sendSupport'));
+        return view('dashboard.teacher.home', compact('user', 'lessonPlanner', 'comprehensionGenerator', 'worksheetGenerator', 'conceptExplainer', 'slidesGenerator', 'rubricGenerator', 'sendSupport', 'ideasTool'));
     }
 
 

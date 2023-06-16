@@ -33,6 +33,19 @@ class ToolController extends Controller
         return view('dashboard.teacher.send01', compact('send', 'grade', 'focus'));
     }
 
+    public function showIdeasTool(Request $request)
+    {
+        $ideas = $request->session()->get('ideas', '');
+        $grade = $request->session()->get('grade', '');
+        $competencies = $request->session()->get('competencies', '');
+
+        // Clear session data
+        $request->session()->forget(['send', 'grade', 'competencies']);
+
+        return view('dashboard.teacher.ideas01', compact('ideas', 'grade', 'competencies'));
+    }
+
+
 
 
     public function showLessonPlanner(Request $request)
@@ -106,6 +119,77 @@ class ToolController extends Controller
         $request->session()->forget(['rubric', 'curriculum', 'grade', 'title', 'area_assessed', 'category_1', 'category_2', 'category_3', 'category_4']);
 
         return view('dashboard.teacher.rubric-generator', compact('rubric', 'curriculum', 'grade', 'title', 'area_assessed', 'category_1', 'category_2', 'category_3', 'category_4'));
+    }
+
+    public function generateIdeas(Request $request)
+    {
+        set_time_limit(180);
+
+        $open_ai_key = getenv('OPENAI_API_KEY');
+        $open_ai = new OpenAi($open_ai_key);
+
+        $user_id = Auth::user()->email;
+
+        $grade = $request->input('grade');
+        $competencies = $request->input('competencies');
+
+        $ideas = '';
+
+        try {
+
+            $prompt = "Generar una descripción e ideas útiles para trabajar las diferentes competencias LOMLOE para alumnos de grado $grade. Rodee cada texto de encabezado con [h] [/h]. La competencia LOMLOE en la que quiero trabajar es $competencies. Por favor, genere un informe de cómo trabajar esa competencia.";
+
+            $complete = $open_ai->chat([
+                'model' => 'gpt-3.5-turbo',
+                'messages' => [
+                    [
+                        "role" => "system",
+                        "content" => "Eres un experto en Educación y específicamente en la educación en España y la LOMLOE para alumnos de grado $grade."
+                    ],
+                    [
+                        "role" => "user",
+                        "content" => $prompt
+                    ],
+                ],
+                'temperature' => 0.9,
+                'max_tokens' => 1200,
+                'frequency_penalty' => 0,
+                'presence_penalty' => 0.6,
+            ]);
+
+
+
+            $completeDecoded = json_decode($complete);
+
+
+            $ideas = $completeDecoded->choices[0]->message->content;
+            $ideas = str_replace('[h]', '<h2>', $ideas);
+            $ideas = str_replace('[/h]', '</h2>', $ideas);
+            $ideas = str_replace('-', '•', $ideas);
+        } catch (Exception $e) {
+            error_log("Error: " . $e->getMessage());
+        }
+
+        // dd($ideas);
+        // Store the lesson data in the session and redirect to the showLessonPlanner method
+        $request->session()->put('ideas', $ideas);
+        $request->session()->put('grade', $grade);
+        $request->session()->put('competencies', $competencies);
+
+        // Store the generated content in the histories table
+        $user_id = auth()->id(); // Get the authenticated user's ID
+        $tool_name = 'Ideas Tool';
+        $content = json_encode($ideas); // Convert the lesson array to a JSON string
+
+        $history = new History([
+            'user_id' => $user_id,
+            'tool_name' => $tool_name,
+            'content' => $content,
+        ]);
+
+        $history->save();
+
+        return redirect()->action([ToolController::class, 'showIdeasTool']);
     }
 
     public function generateSendSupport(Request $request)
@@ -818,6 +902,44 @@ class ToolController extends Controller
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
 
         $fileName = "send_support.docx";
+
+        // Set headers for downloading the file
+        header("Content-Disposition: attachment; filename=$fileName");
+        header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+
+        // Save the file to output buffer and send it to the browser
+        $objWriter->save('php://output');
+        exit;
+    }
+
+    public function downloadIdeasDocx(Request $request)
+    {
+        // dd(json_decode(urldecode($request->send)));
+        $ideas = json_decode(urldecode($request->ideas), true);
+
+        $phpWord = new PhpWord();
+
+        $section = $phpWord->addSection();
+
+        $fontStyleName = 'myOwnStyle';
+        $phpWord->addFontStyle(
+            $fontStyleName,
+            array('name' => 'Tahoma', 'size' => 16, 'color' => '1B2232', 'bold' => true)
+        );
+
+        $lines = explode("\n", $ideas);
+        foreach ($lines as $line) {
+            if (strpos($line, '<h2>') !== false && strpos($line, '</h2>') !== false) {
+                $line = str_replace(['<h2>', '</h2>'], '', $line); // remove the HTML tags
+                $section->addText(trim($line), $fontStyleName); // add the line as heading with special style
+            } else {
+                $section->addText(trim($line)); // add the line as regular text
+            }
+        }
+
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+
+        $fileName = "ideas.docx";
 
         // Set headers for downloading the file
         header("Content-Disposition: attachment; filename=$fileName");
