@@ -332,7 +332,7 @@
                     ?>
                 <div class="my-2 flex">
                     <a target="_blank"
-                        href="{{ route('teacher.downloadSendSupportDocx', ['behavior' => urlencode(json_encode($behavior))]) }}"
+                        href="{{ route('teacher.downloadBehaviorDocx', ['behavior' => urlencode(json_encode($behavior))]) }}"
                         class="btn btn-primary">Descargar.DOCX</a>
                 </div>
                 <?php
