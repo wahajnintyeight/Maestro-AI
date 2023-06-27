@@ -61,6 +61,10 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
     Route::post('/ideas-tool-post', [ToolController::class, 'generateIdeas'])->name('generateIdeas');
     Route::get('/download-ideas-docx', [ToolController::class, 'downloadIdeasDocx'])->name('downloadIdeasDocx');
 
+    Route::get('/behavior-tool', [ToolController::class, 'showBehaviorTool'])->name('showBehaviorTool');
+    Route::post('/behavior-tool-post', [ToolController::class, 'generateBehavior'])->name('generateBehavior');
+    Route::get('/download-behavior-docx', [ToolController::class, 'downloadBehaviorDocx'])->name('downloadBehaviorDocx');
+
     Route::get('/send-support', [ToolController::class, 'showSendSupport'])->name('showSendSupport');
     Route::post('/send-support', [ToolController::class, 'generateSendSupport'])->name('generateSendSupport');
     Route::get('/download-support-docx', [ToolController::class, 'downloadSendSupportDocx'])->name('downloadSendSupportDocx');

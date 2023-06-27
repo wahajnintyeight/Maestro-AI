@@ -45,7 +45,17 @@ class ToolController extends Controller
         return view('dashboard.teacher.ideas01', compact('ideas', 'grade', 'competencies'));
     }
 
+    public function showBehaviorTool(Request $request)
+    {
+        $behavior = $request->session()->get('behavior', '');
+        $grade = $request->session()->get('grade', '');
+        $issues = $request->session()->get('issues', '');
 
+        // Clear session data
+        $request->session()->forget(['behavior', 'grade', 'issues']);
+
+        return view('dashboard.teacher.behavior01', compact('behavior', 'grade', 'issues'));
+    }
 
 
     public function showLessonPlanner(Request $request)
@@ -190,6 +200,83 @@ class ToolController extends Controller
         $history->save();
 
         return redirect()->action([ToolController::class, 'showIdeasTool']);
+    }
+
+    public function generateBehavior(Request $request)
+    {
+        set_time_limit(180);
+
+        $open_ai_key = getenv('OPENAI_API_KEY');
+        $open_ai = new OpenAi($open_ai_key);
+
+        $user_id = Auth::user()->email;
+
+        $grade = $request->input('grade');
+        $issues = $request->input('issues');
+
+        $behavior = '';
+
+        try {
+
+            $prompt = "Genera estrategias para abordar estos problemas $issues en el aula para estudiantes de este nivel educativo $grade, y concluye con un resumen de cómo estas estrategias pueden mejorar efectivamente la situación Rodee cada texto de encabezado con [h] [/h]..
+";
+
+            $complete = $open_ai->chat([
+                'model' => 'gpt-3.5-turbo',
+                'messages' => [
+                    [
+                        "role" => "system",
+                        "content" => "Eres un experto en Educación, y específicamente en educación en España y en la LOMLOE para estudiantes de $grade. Con base en tu conocimiento sobre las directrices de la LOMLOE y las necesidades educativas en España, genera 10 estrategias para abordar estos problemas $issues en el aula para estudiantes de este nivel educativo $grade, y concluye con un resumen de cómo estas estrategias pueden mejorar efectivamente la situación."
+                    ],
+                    [
+                        "role" => "user",
+                        "content" => $prompt
+                    ],
+                ],
+                'temperature' => 0.9,
+                'max_tokens' => 1200,
+                'frequency_penalty' => 0,
+                'presence_penalty' => 0.6,
+            ]);
+
+
+
+            $completeDecoded = json_decode($complete);
+
+
+            $behavior = $completeDecoded->choices[0]->message->content;
+            $behavior = str_replace('[h]', '<h2>', $behavior);
+            $behavior = str_replace('[/h]', '</h2>', $behavior);
+            $behavior = str_replace('-', '•', $behavior);
+            $behavior = preg_replace('/^\d+\./m', '', $behavior);
+            $behavior = preg_replace('/:\s*/', ' ', $behavior);
+
+
+            // dd($behavior);
+        } catch (Exception $e) {
+            error_log("Error: " . $e->getMessage());
+        }
+
+        // dd($ideas);
+        // Store the lesson data in the session and redirect to the showLessonPlanner method
+        $request->session()->put('behavior', $behavior);
+        $request->session()->put('grade', $grade);
+        $request->session()->put('issues', $issues);
+
+        // Store the generated content in the histories table
+        $user_id = auth()->id(); // Get the authenticated user's ID
+        $tool_name = 'Behavior Tool';
+        $content = json_encode($behavior); // Convert the lesson array to a JSON string
+
+        $history = new History([
+            'user_id' => $user_id,
+            'tool_name' => $tool_name,
+            'content' => $content,
+        ]);
+
+        $history->save();
+
+        return redirect()->action([ToolController::class, 'showBehaviorTool']);
     }
 
     public function generateSendSupport(Request $request)
@@ -902,6 +989,44 @@ class ToolController extends Controller
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
 
         $fileName = "send_support.docx";
+
+        // Set headers for downloading the file
+        header("Content-Disposition: attachment; filename=$fileName");
+        header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+
+        // Save the file to output buffer and send it to the browser
+        $objWriter->save('php://output');
+        exit;
+    }
+
+    public function downloadBehaviorDocx(Request $request)
+    {
+        // dd(json_decode(urldecode($request->send)));
+        $behavior = json_decode(urldecode($request->behavior), true);
+
+        $phpWord = new PhpWord();
+
+        $section = $phpWord->addSection();
+
+        $fontStyleName = 'myOwnStyle';
+        $phpWord->addFontStyle(
+            $fontStyleName,
+            array('name' => 'Tahoma', 'size' => 16, 'color' => '1B2232', 'bold' => true)
+        );
+
+        $lines = explode("\n", $behavior);
+        foreach ($lines as $line) {
+            if (strpos($line, '<h2>') !== false && strpos($line, '</h2>') !== false) {
+                $line = str_replace(['<h2>', '</h2>'], '', $line); // remove the HTML tags
+                $section->addText(trim($line), $fontStyleName); // add the line as heading with special style
+            } else {
+                $section->addText(trim($line)); // add the line as regular text
+            }
+        }
+
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+
+        $fileName = "behavior_strategies.docx";
 
         // Set headers for downloading the file
         header("Content-Disposition: attachment; filename=$fileName");

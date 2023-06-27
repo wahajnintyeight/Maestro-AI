@@ -22,7 +22,8 @@ class ToolSeeder extends Seeder
             'Slides Generator',
             'Rubric Generator',
             'Send Support Tool',
-            'Ideas Competencias'
+            'Ideas Competencias',
+            'Behavior Tool'
         ];
 
         \DB::table('tools')->truncate();

@@ -26,7 +26,9 @@ class PageController extends Controller
         $users = User::all();
 
         // Create a file
-        $fileName = 'users.csv';
+        // $fileName = 'users.csv';
+        $fileName = storage_path('app/users.csv');
+
         $file = fopen($fileName, 'w');
 
         // Define the column names
@@ -164,8 +166,9 @@ class PageController extends Controller
         $rubricGenerator = Tool::where('name', 'Rubric Generator')->first();
         $sendSupport = Tool::where('name', 'Send Support Tool')->first();
         $ideasTool = Tool::where('name', 'Ideas Competencias')->first();
+        $behavior = Tool::where('name', 'Behavior Tool')->first();
 
-        return view('dashboard.teacher.home', compact('user', 'lessonPlanner', 'comprehensionGenerator', 'worksheetGenerator', 'conceptExplainer', 'slidesGenerator', 'rubricGenerator', 'sendSupport', 'ideasTool'));
+        return view('dashboard.teacher.home', compact('user', 'lessonPlanner', 'comprehensionGenerator', 'worksheetGenerator', 'conceptExplainer', 'slidesGenerator', 'rubricGenerator', 'sendSupport', 'ideasTool', 'behavior'));
     }
 
 
