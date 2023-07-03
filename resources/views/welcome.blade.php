@@ -336,6 +336,31 @@
             </div>
         </section>
 
+        <section class="certificate__area pb-120 pt-120">
+            <div class="container">
+                <div class="certificate__inner grey-bg-9 p-relative">
+                    <div style="bottom: 50px; border: 2px solid green; border-radius: 20px;" class="certificate__thumb">
+                        <img style="border-radius: 20px;" width="500px" src="{{asset('thumbnail.png')}}" alt="">
+                    </div>
+                    <div class="row">
+                        <div class="col-xxl-7">
+                            <div class="certificate__content">
+                                <div class="section__title-wrapper mb-10">
+                                    <span class="section__title-pre-3">Educación IA con MaestroIA</span>
+                                    <h2 class="section__title section__title-44">Sé tu propio innovador.</h2>
+                                </div>
+                                <p>Nuestra tecnología facilita la enseñanza.</p>
+                                <div class="certificate__links d-sm-flex align-items-center">
+                                    <a href="https://www.youtube.com/watch?v=NMXc2Ih0jhE"
+                                        class="play-video popup-video"><i class="fa-solid fa-play"></i> Play video</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- price area start -->
         <section class="price__area pb-85">
             <div class="container">
